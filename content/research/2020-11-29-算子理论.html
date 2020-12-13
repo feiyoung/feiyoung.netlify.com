@@ -1,0 +1,44 @@
+---
+title: "再生核方法-第零章 算子理论基础"
+author: "刘伟"
+date: '2020-11-15'
+output: pdf_document
+layout: post
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p><strong>再生核方法-第零章 算子理论基础</strong></p>
+<p><strong>闲居</strong></p>
+<p><em>2020年11月于西财明辨园</em></p>
+<div id="基本算子" class="section level1">
+<h1>基本算子</h1>
+<p><em>定义1(迹类算子).若线性算子<span class="math inline">\(A: \mathcal{H} \rightarrow \mathcal{H}\)</span>满足
+<span class="math display">\[\|A\|_1=Tr(|A|)=\sum_k \langle (A^* A)^{1/2} e_k, e_k \rangle_{\mathcal{H}}&lt; \infty,\]</span>
+其中<span class="math inline">\(A^*\)</span>为<span class="math inline">\(A\)</span>的厄米特算子，<span class="math inline">\(|A|=\sqrt{A^*A}\)</span>，<span class="math inline">\(\{e_k\}\)</span>为<span class="math inline">\(\mathcal{H}\)</span>的一组正交基，并有
+<span class="math display">\[Tr(A)=\sum_k \langle A e_k, e_k \rangle_{\mathcal{H}}\]</span>
+绝对收敛且其值独立于正交基的选择，我们称<span class="math inline">\(A\)</span>为迹类算子。
+</em>
+当<span class="math inline">\(A\)</span>为非负自邻接算子时，即使该和发散，我们仍然定义其迹为
+<span class="math display">\[Tr(A)=\sum_k \langle A e_k, e_k \rangle_{\mathcal{H}}.\]</span>
+于是，当<span class="math inline">\(A\)</span>为非负自邻接算子时，<span class="math inline">\(A\)</span>为迹类算子的充要条件为<span class="math inline">\(Tr(A)&lt; \infty\)</span>。迹是迹类算子空间<span class="math inline">\(\mathcal{T}\)</span>上的泛函，即<span class="math inline">\(Tr: \mathcal{T} \rightarrow R\)</span>，并满足线性性质
+<span class="math display">\[Tr(aA+bB)=a Tr(A) + b Tr(B),\]</span>
+也就是说，迹是一个线性泛函；并且
+<span class="math display">\[\langle A, B \rangle_{HS}=Tr(A^* B).\]</span></p>
+<p><em>性质1. 若<span class="math inline">\(A\)</span>为有界算子，<span class="math inline">\(B\)</span>为迹类算子，则<span class="math inline">\(AB\)</span>和<span class="math inline">\(BA\)</span>也是迹类算子，且满足
+<span class="math inline">\(\|AB\|_1=Tr(|AB|) \leq \|A\| \|B\|_1,\|BA\|_1=Tr(|BA|) \leq \|B\| \|A\|_1\)</span>和<span class="math inline">\(Tr(AB)=Tr(BA)\)</span>。
+</em></p>
+<p>若<span class="math inline">\(A\)</span>是迹类算子，则可关于<span class="math inline">\(I+A\)</span>定义Fredholm行列式，
+<span class="math display">\[det(I+A)\hat= \Pi_{n\geq 1}\{1 + \lambda_n(A)\},\]</span>
+其中<span class="math inline">\(\{\lambda_n(A)\}\)</span>是<span class="math inline">\(A\)</span>的谱，<span class="math inline">\(A\)</span>为迹类算子保证无限乘积为有限的且<span class="math inline">\(det(I+A)\leq e^{\|A\|_1}\)</span>，也意味着<span class="math inline">\(det(I+A)\neq 0 \Rightarrow (I+A)\)</span>是可逆的。</p>
+<div id="秩1算子" class="section level3">
+<h3>秩1算子</h3>
+<p><em>定义2. 对任意<span class="math inline">\(f,g, h \in \mathcal{F}\)</span>，秩1算子定义为
+<span class="math inline">\(f \otimes g^*(h)\hat=\langle g, h \rangle_{\mathcal{F}}f.\)</span>
+</em></p>
+<p>容易证明<span class="math inline">\(\|f \otimes g^* \|_{HS(\mathcal{F})}=\|f\|_\mathcal{F} \|g\|_\mathcal{F}\)</span>且<span class="math inline">\(\langle f \otimes g^* , A \rangle_{HS}=\langle A g , f \rangle_{\mathcal{F}}\)</span>，在无混淆的情形下，我们把<span class="math inline">\(HS(\mathcal{F})\)</span>简记为为<span class="math inline">\(HS\)</span>。</p>
+<p><strong>证明:</strong>由<span class="math inline">\(\langle f \otimes g^* , A \rangle_{HS}= \sum_i\langle f \otimes g (e_i) , A e_i\rangle_\mathcal{F}= \sum_i \langle g, e_i\rangle_\mathcal{F} \langle f, A e_i\rangle_\mathcal{F}\)</span> <span class="math inline">\(=\sum_i \alpha_i \langle f, A e_i\rangle_\mathcal{F}= \langle f, A \sum_i \alpha_i e_i\rangle_\mathcal{F}= \langle f, A g\rangle_\mathcal{F}\)</span>，得证。 ♣</p>
+</div>
+</div>

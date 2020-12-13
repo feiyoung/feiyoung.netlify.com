@@ -1,0 +1,110 @@
+---
+title: "统计假设检验"
+author: "刘伟"
+date: '2020-12-13'
+output: pdf_document
+layout: post
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p><strong>假设检验</strong></p>
+<p><strong>闲居</strong></p>
+<p><em>2020年12月于武侯</em></p>
+<div id="简单假设和复合假设" class="section level1">
+<h1>简单假设和复合假设</h1>
+<p>简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概念。
+假如我们感兴趣以下假设检验问题：
+<span class="math display">\[H_0:X \sim p_0(x;\theta_0), \theta_0 \in \Theta_0 \tag{1.1}\]</span>
+<span class="math display">\[H_1:X \sim p_0(x;\theta_1), \theta_1 \in \Theta_1 \tag{1.2}\]</span>
+其中集合<span class="math inline">\(\Theta_0\)</span>和<span class="math inline">\(\Theta_1\)</span>表示参数可能的取值集合。如果其中一个集合是一个单点集，则称该假设为简单假设；否则，则称该集合对应的假设为复合假设。可能存在<span class="math inline">\(\color{#FF3030} {情况1.}\)</span>原假设为简单假设，而备择假设为复合假设；也可能存在<span class="math inline">\(\color{#FF3030} {情况2.}\)</span>原假设为复合假设，而备择假设为简单假设的情况。例如<span class="math inline">\(\Theta_0\)</span>为单点集，而<span class="math inline">\(\Theta_1\)</span>为多点集，则属于情况1.
+如果两个集合都是多点集，则称原假设和备择假设都为复合假设。</p>
+</div>
+<div id="三大统计渐近检验" class="section level1">
+<h1>三大统计渐近检验</h1>
+<p>检验<span class="math inline">\((1.1)\)</span> VS <span class="math inline">\((1.2)\)</span>，考虑如下三大检验方法;Engel证明了这三大检验是渐进等价的。对于似然比检验，既需要估计有约束的模型，也需要估计无约束的模型；对于Wald检验，只需要估计无约束模型；对于LM检验，只需要估计有约束的模型。一般情况下，由于估计有约束模型相对更复杂，因此Wald检验最为常用。对于小样本而言，似然比检验的渐进性最好，LM检验也较好，Wald检验有时会拒绝原假设，其小样本性质不尽如人意。</p>
+<div id="似然比检验" class="section level2">
+<h2>似然比检验</h2>
+<p>似然比检验的思想是：如果参数约束是有效的，那么加上这样的约束不应该引起似然函数最大值的大幅度降低。也就是说似然比检验的实质是在比较有约束条件下的似然函数最大值与无约束条件下似然函数最大值。似然比定义为有约束条件下的似然函数最大值与无约束条件下似然函数最大值之比。以似然比为基础可以构造一个服从卡方分布统计量。
+<span class="math display">\[T_{l,n} = \frac{\sup_{\theta \in \Theta_0} l(X;\theta) }{\sup_{\theta} l(X;\theta)}\]</span></p>
+</div>
+<div id="wald检验" class="section level2">
+<h2>Wald检验</h2>
+<p>wald检验的思想是：如果约束是有效的，那么在没有约束情况下估计出来的估计量应该渐进地满足约束条件，因为MLE是一致的。以无约束估计量为基础可以构造一个Wald统计量，这个统计量也服从卡方分布；
+<span class="math display">\[T_{w,n} = n(\hat \theta-\theta)^T \hat\Sigma^{-1} (\hat \theta-\theta) \sim \chi^2(q)\]</span>
+还有一种方法，就是先求出<span class="math inline">\(\theta\)</span>的联合置信区间，然后看联合置信区间是否包含<span class="math inline">\(\Theta_0\)</span>中的点，若包含，则不能拒绝原假设；否则，拒绝原假设。</p>
+</div>
+<div id="score检验" class="section level2">
+<h2>Score检验</h2>
+<p>这也叫拉格朗日乘子检验。拉格朗日乘数检验的思想是：在约束条件下，可以用拉格朗日方法构造目标函数。如果约束有效，则最大化拉格朗日函数所得估计量应位于最大化无约束所得参数估计值附近。这里也是构造一个LM统计量，该统计量服从卡方分布。
+<span class="math display">\[T_{s,n} = nU(\hat\theta)^T \hat \Sigma_u^{-1} U(\hat\theta)\sim \chi^2(q)\]</span></p>
+</div>
+<div id="具体应用" class="section level2">
+<h2>具体应用</h2>
+<p>检验如下问题，检验统计量就更加清晰了。
+<span class="math display">\[H_0: R(\theta)=0~~~ versus ~~~H_1: \exists r_j(\theta)\neq 0, j\leq q\]</span>
+其中，<span class="math inline">\(T_{w,n}=n(R(\hat\theta))^T \hat\Sigma_R^{-1}(R(\hat\theta))\)</span>，其中<span class="math inline">\(\hat\theta\)</span>是无约束的估计；<span class="math inline">\(T_{s,n}= nU(\hat\theta)^T \hat\Sigma_U^{-1}U(\hat\theta)\)</span>，其中<span class="math inline">\(\hat\theta\)</span>是有约束的估计，<span class="math inline">\(U(\theta)\)</span>是原始对数似然函数的导数，也就是所谓的Score。因为对数似然函数是一种特殊的目标函数，因此Score检验也可推广到一般的目标函数上。首先得到该带约束的目标函数的参数估计，然后把参数估计代入到无约束的目标函数的导数上，这时就叫拉格朗日检验（注意：只有似然为目标的时候叫得分检验）。</p>
+</div>
+</div>
+<div id="一般统计检验" class="section level1">
+<h1>一般统计检验</h1>
+<p>统计检验一般分成这样几步：1）构造检验统计量<span class="math inline">\(T_n\)</span>；2）计算检验统计量的分布；3）计算检验的拒绝域<span class="math inline">\(W_n=\{T_n&gt;c_{1-\alpha}\}\)</span>；4）验证检验统计量的实现值是否落在拒绝域，若在则拒绝。</p>
+<p>其中计算检验统计量<span class="math inline">\(T_n\)</span>的渐近分布，实质指计算<span class="math inline">\(T_n\)</span>从原假设中生成数据下的渐近分布。若iid数据<span class="math inline">\({x_i,i\leq n}\)</span>来自均值为<span class="math inline">\(μ_0\)</span> 的总体，考虑均值检验问题：
+<span class="math display">\[H_0:μ=μ_1\]</span>
+1）构造检验统计量<span class="math inline">\(T_n=\sqrt{n} (\bar x -μ_1 )\)</span>.
+2）计算数据来自原假设的渐近分布，有如下方法：</p>
+<p>（1）此时渐近分布有显式形式<span class="math inline">\(N(0,σ^2)\)</span>.
+注：<span class="math inline">\(T_n\)</span>中数据来自原假设的分布与原数据下<span class="math inline">\(\sqrt{n}(\bar x-μ_0 )\)</span>的分布相等，于是等价于求这个分布。记原数据为<span class="math inline">\(x_i (μ_0)\)</span>，则检验统计量为<span class="math inline">\(T_n (μ_0,μ_1)=\sqrt{n} (\bar x(μ_0)-μ_1 )\)</span>，而我们想计算这个统计量的分布<span class="math inline">\(T_n (μ,μ)\)</span>,也就是说我们可以计算<span class="math inline">\(T_n (μ_1,μ_1)\)</span>，此时需要重新编造来自原假设的数据；也可以计算<span class="math inline">\(T_n (μ_0,μ_0)\)</span>，此时我们计算原假设等于真实参数的分布。</p>
+<pre class="rmd"><code>注意：数据来自原假设的分布和原数据下真实参数时的分布是不同的
+两个东西，尽管它们的分布是一样的，但概念所指是不一样的。</code></pre>
+<p>（2）若该统计量无显式渐近分布，则可以基于bootstrap来计算该渐近分布，则我们需要造数据！造什么数据呢？造来自总体参数等于原假设时的样本，即从原假设中抽样得到的样本。观测数据的随机性来自哪里，于是我们可以利用残差bootstrap：<span class="math inline">\(ϵ_i=x_i-μ_1\)</span>，然后对<span class="math inline">\(ϵ_i\)</span>做中心化的<span class="math inline">\(\tilde \epsilon_i\)</span>，接着从<span class="math inline">\(\tilde \epsilon_i\)</span>中抽样得到<span class="math inline">\(\tilde \epsilon^*_i\)</span>，最后我们得到<span class="math inline">\(x_i^*=μ_1+ϵ^*_i\)</span>,进而得到<span class="math inline">\(\bar x^*\)</span>，进一步得到<span class="math inline">\(T_n^*= \sqrt{n} (\bar x^*-μ_1 )\)</span>。重复残差抽样<span class="math inline">\(B\)</span>次，得到<span class="math inline">\(T_n^{*(b) }\)</span>，于是得到<span class="math inline">\(T_n\)</span>在<span class="math inline">\(H_0\)</span>下的分布；还可以基于乘子bootstrap来抽样,即抽取<span class="math inline">\(ϵ_i^{(b)}∼N(0,1)\)</span>，然后计算
+<span class="math inline">\(T_n^{(b)}= \frac{1}{\sqrt{n}}\sum_i(x_iϵ_i^{(b)})\)</span>,由推导可知：它就是为原假设下的渐近分布。</p>
+<pre class="rmd"><code>注意：Bootstrap只是用于计算一个检验统计量的渐近分布，
+而不是用于构造检验统计量。</code></pre>
+</div>
+<div id="高维假设" class="section level1">
+<h1>高维假设</h1>
+<p>三大统计检验方法是在固定参数维数的条件下提出来的，当检验的参数的维数为高维时，此时就进入高维检验的范畴了。比如考虑两样本均值检验问题，<span class="math inline">\(\mu_1,\mu_2 \in R^p, p/n \rightarrow c &gt;0\)</span>来自不同的总体<span class="math inline">\(X_1,X_2\)</span>，检验
+<span class="math display">\[H_0: \mu_1 = \mu_2 ~~~ vs ~~~ H_1: \mu_1 \neq \mu_2\]</span>
+其中，假设<span class="math inline">\(H_0\)</span>由<span class="math inline">\(p\)</span>个边际检验<span class="math inline">\(H_{0l}: \mu_{1l}=\mu_{2l}, l \leq p\)</span>构成。对<span class="math inline">\(H_0\)</span>的检验也称为联合检验(Simulatenous test)。从多重检验的角度，一个重要的问题是多少个边际检验可以被同时联合检验来做呢？</p>
+</div>
+<div id="多重检验" class="section level1">
+<h1>多重检验</h1>
+<p>多重检验，顾名思义就是同时检验多个假设问题，它可以帮助我们高效地进行大批量的检验问题。考虑<span class="math inline">\(m\)</span>个假设检验问题
+<span class="math display">\[H_{i0}: \mu_i =0 ~~ vs ~~ H_{i1}: \mu_i \neq 0, i=1, \cdots,m.\]</span></p>
+<div id="fdr和fwer" class="section level2">
+<h2>FDR和FWER</h2>
+<p>在统计假设问题中，我们把原假设(<span class="math inline">\(H_{i0}:μ_i=0\)</span>)为假称为阳性，原假设为真称为阴性。错误发现率定义为 <span class="math inline">\(FDR=E(FDP)\)</span>，其中<span class="math inline">\(FDP=|H^0∩ \hat S |/(|\hat S|)\)</span> 称为错误发现比率，其中<span class="math inline">\(H^0\)</span>为真阴性构成的假设集合，<span class="math inline">\(\hat S\)</span> 为检验成阳性的假设集合（随机的，我把它取名为检验的阳性集），它是多重检验原假设集合中被某种检验方法拒绝的个数中真<span class="math inline">\(H_0\)</span>所占的比例。所以<span class="math inline">\(H^0∩ \hat S\)</span> 为假阳性的个数，我们控制假阳性个数的比例（把非癌症检验成癌症代价是很高的，所以要控制这个）。</p>
+<pre class="rmd"><code>错误发现比率是检验阳性集中假阳性所占比例。</code></pre>
+<p>多重检验中常常考虑控制Familywise Error Rate(FWER)，又称为多重检验的第一类错误，定义为
+<span class="math display">\[P(至少出现一个False ~~ positive)\]</span>
+False positive（FP）指拒绝错了，叫假阳性或错误阳性。若对m个原假设做多重检验，假设每个边际检验独立，且每个检验为FP的概率（第一类错误，假阳性错误）控制为<span class="math inline">\(\alpha\)</span>，则
+<span class="math display">\[FWER=P(m个检验中至少出现一个FP)=1-(1-α)^m\]</span>
+当检验个数很多时，FWER会趋向1.所以高维的多重检验必须控制FWER或者FDR，而不是控制每个检验的第一类错误在一个固定水平<span class="math inline">\(\alpha\)</span>.为了控制FWER，常用的方法p值调整方法，比如Bonferroni Correction。它是基于Bonferroni不等式推导得到。定义事件<span class="math inline">\(A_i=\{H_{i0} 为真但检验方法拒绝了H_{i0}\}\)</span>,则<span class="math inline">\(P(A_i)\)</span>为单个检验的第一类错误概率.并且我们有
+<span class="math display">\[FWER=P(∪_i A_i)\]</span>
+即<span class="math inline">\(m\)</span>个检验过程中存在一个FP的概率。由Bonferroni不等式，我们得到
+<span class="math display">\[FWER≤∑_i P(A_i ) ≤m α\]</span>
+我们要使得<span class="math inline">\(FWER≤ α_0\)</span>，则只需对每个检验的第一类错误控制水平为<span class="math inline">\(α=α_0/m\)</span>.这个调整方法非常保守，可能把FWER控制得很低，从而第二类错误会升高，即power会降低。所以这类修正方法是直接在FWER上做文章。还有的方法直接在FDR上做文章。</p>
+<pre class="rmd"><code>基于FWER的p值调整方法，功效不够。</code></pre>
+</div>
+<div id="fdr和fwer的关系" class="section level2">
+<h2>FDR和FWER的关系</h2>
+<p>那么FDR和FWER有什么关系呢？FWER还有一种公式的形式，因为<span class="math inline">\(H^0∩ \hat S\)</span>表示错误阳性的个数，所以有如下等价定义：
+<span class="math display">\[FWER=P(|H^0∩ \hat S |&gt;0)=P(|H^0∩ \hat S |≥ 1)\]</span>
+当m个原假设全部为真时，我们有：<span class="math inline">\(|H^0∩ \hat S|=|\hat S|\)</span>。当<span class="math inline">\(|\hat S|=0\)</span>时，规定<span class="math inline">\(FDP=0\)</span>；当<span class="math inline">\(|\hat S|&gt;0\)</span>时，则<span class="math inline">\(FDP=1\)</span>，所以
+<span class="math display">\[E(FDP)=FDR=P(|\hat S |&gt;0)=P(|H^0∩ \hat S|&gt;0)=FWER.\]</span>
+当<span class="math inline">\(|H^0| &lt; m\)</span>时，我们有<span class="math inline">\(FDR≤FWER\)</span>。因为若<span class="math inline">\(|H^0∩ \hat S |=0\)</span>，则<span class="math inline">\(FDP=0\)</span>；若<span class="math inline">\(|H^0∩\hat S|&gt;0\)</span>，则<span class="math inline">\(FDP≤1\)</span>。于是得到：
+<span class="math display">\[I(|H^0 ∩ \hat S |&gt;0)≥FDP\]</span>
+两边同时取期望得到：<span class="math inline">\(FWER≥FDR\)</span>. 综上可知：只要控制住FWER的方法也控制住了FDR。于是如果我们直接控制FDR，那么对FWER的控制会更松一些，于是可以提高power。若<span class="math inline">\(|H^0 |\)</span>越小，则FDR和FWER的差距越大，基于FDR提升Power的潜力越大。</p>
+<p>原假设为真的情形下，统计量<span class="math inline">\(p\)</span>值服从均匀分布。我们平常所说的<span class="math inline">\(p\)</span>值为多少多少，其实是p值统计量在样本上的实现值。首先定义一个p值函数为：
+<span class="math display">\[p(x)=P(Z&gt;x)=1-F(x)\]</span>
+其中<span class="math inline">\(Z\)</span>为检验统计量<span class="math inline">\(Z_n\)</span>在原假设成立时所服从分布相同的随机变量。那么<span class="math inline">\(p\)</span>值统计量定义为：
+<span class="math display">\[p(Z_n )=P(Z&gt;Z_n│Z_n )=E(I(Z&gt;Z_n)|Z_n)\]</span>
+它是样本的一个函数。
+在<span class="math inline">\(H_0\)</span>为真时,因为<span class="math inline">\(Z_n\)</span>也服从<span class="math inline">\(F\)</span>的分布，
+<span class="math display">\[p(Z_n )=1-F(Z_n )=1-U=U&#39;\]</span>
+其中<span class="math inline">\(U\)</span>和<span class="math inline">\(U&#39;\)</span>都为<span class="math inline">\([0,1]\)</span>均匀分布的随机变量。</p>
+</div>
+</div>

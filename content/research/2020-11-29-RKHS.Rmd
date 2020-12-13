@@ -1,0 +1,73 @@
+---
+title: "再生核方法-第二章 函数逼近及表示定理"
+author: "刘伟"
+date: '2020-11-18'
+output: pdf_document
+layout: post
+---
+**再生核方法-第二章函数逼近及表示定理**
+
+  **闲居**
+  
+  *2020年11月于西财明辨园*
+  
+# 希尔伯特空间
+*
+定义.一个完备的内积空间称为希尔伯特空间。
+*
+定义.存在可数个基向量表示出所有向量的希尔伯特空间称为可分的希尔伯特空间。
+
+任意有限维的希尔伯特空间都是可分的希尔伯特空间。因为有限维空间总是存在有限个基向量将空间中所有向量表示出来。
+
+假设$X$是一个来自概率空间$(\mathcal{A},\Omega, P)$的随机变量，$f: \mathcal{X} \rightarrow R$的一个函数，所有满足
+$$\int |f(x)|^a dP(x) < \infty$$
+的函数$f$构成的空间，称为$L_a(P)$可积空间。并且有$L_a(P)$范数定义为$\|f\|_{L_a(P)}=\{\int |f(x)|^a dP(x)\}^{1/a}$，当$a=+\infty$时，$\|f\|_{L_a(P)}=\sup_x|f(x)|$。特别地，当$P$取勒贝格测度$\nu$时，$\|f\|_{L_a(\nu)}\hat = \|f\|_a$.比如当$a=2$或$a=+\infty$时，我们常用的函数范数$\|f\|_2, \|f\|_\infty$。
+
+# 函数插值
+假设$f^*: \mathcal{X} \rightarrow R$满足
+$$y_i = f^*(x_i),i=1,\cdots,n,$$
+我们选择$$\hat f \in \arg\min_{f\in \mathcal{H}}\|f\|_\mathcal{H} \tag{1.1}$$
+$$s.t. f(x_i) = y_i, i\in [n].$$
+它表示在由$k$生成的RKHS中寻找一个最不复杂的函数来逼近$f^*$。定义$K_n=(k(x_i,x_j))/n,Y=(y_1, \cdots, y_n)'$，则有以下命题成立。
+
+*命题：问题(1.1)可行的充要条件是$Y\in Range(K_n)$，此时最优解有如下形式
+$$\hat f(\cdot)=\frac{1}{\sqrt{n}}\sum_{i=1}^n \hat \alpha_i k(\cdot,x_i),$$
+其中$K_n \hat \alpha = Y/\sqrt{n}$，$Range(K_n)$表示$K_n$的列空间。
+*
+
+**证明.** 对任意$\alpha\in R^n$，定义$f_\alpha(\cdot)=\frac{1}{\sqrt{n}} \sum_i \alpha_i k(\cdot, x_i)$，考虑函数空间$L=\{f_\alpha: \alpha \in R^n\}$。注意对于$f_\alpha \in L$，
+$$f_\alpha(x_j) = \frac{1}{\sqrt{n}} \sum_i \alpha_i k(x_j, x_i)=\sqrt{n}(K_n \alpha)_j.$$
+因此，$f_\alpha$慢组插值条件的充要条件是$K \alpha=Y/\sqrt{n}.$
+于是，$Y\in Range(K_n)$是问题$(1.1)$具有一个解的充分条件。接下来，我们证明它也是一个必要条件。对于$\forall f \in \mathcal{H}$，有
+$$f = f_\alpha + f_\perp, f_\alpha \in L, f_\perp \in L^\perp.$$
+利用该分解式和再生性，我们得
+$$f(x_j) = \langle f, k(\cdot, x_j)\rangle_H=\langle  f_\alpha + f_\perp, k(\cdot, x_j)\rangle_H=f_\alpha(x_j),$$
+第二个等式利用了$k(\cdot, x_j) \in L$。故$y_i=f_\alpha(x_i)=\sqrt{n}(K_n \alpha)_i$，也就是，$Y\in Range(K_n)$。
+
+由三角不等式，可得$\|f\|_H \leq \|f_\alpha\|_H + \|f_\perp\|_H$，于是得到问题$(1.1)$的最优解具有形式:
+$$\hat f(\cdot)=\frac{1}{\sqrt{n}}\sum_{i=1}^n \hat \alpha_i k(\cdot,x_i).$$
+```{Rmd}
+注:找一个函数精确地等于y的值，称为插值或插值估计；
+当无法找到精确相等的函数，而只能找一个最逼近的函数时称为逼近；
+在证明必要性时，我们可以看到再生性的重要性，再生性保证了函数在每个样本点上
+的值，可以在有限维(n维)的L空间中插值得到。
+```
+
+# 函数逼近
+考虑非线性回归模型
+$$y_i = f^*(x_i)+w_i,i=1,\cdots,n,$$
+我们关心$f^*$的估计问题。我们考虑如下判罚最小二乘估计，
+$$\hat f=\arg\min_{f\in H}\{\frac{1}{2n} \sum_i (y_i - f(x_i)\}^2 + \lambda_n \|f\|_H^2 \tag{2.1}$$
+其中$\lambda_n$被称为平滑参数。
+
+*命题：对于任意$\lambda_n>0$，由$(2.1)$得到的估计量满足
+$$\hat f(\cdot)=\frac{1}{\sqrt{n}}\sum_{i=1}^n \hat \alpha_i k(\cdot,x_i),$$
+其中$\hat \alpha = (K_n + \lambda_n I)^{-1}Y/\sqrt{n}$。
+*
+
+**证明:**这里具体证明省略，只是简要说一下证明思路。第一步证明$\hat f$落在$L$空间:只需将$f$的垂直分解代入目标函数中，然后利用再生性，可以证明目标函数第一项与$f_\perp$无关，只需要在满足该垂直分解的情况下，让目标函数第二项的取得最小即是整个目标函数的最小解。利用范数的三角不等式，可得$f_\perp=0$。第二步将解的形式代入目标函数，利用核追踪技术，可以得到$\alpha$的估计。
+
+# 核方法估计的收敛速度
+假设我们对函数$f^*$感兴趣，然后基于再生核的估计方法得到它的一个估计$\hat f$，如何证明$\|\hat f- f^*\|=O_p(a_n)$呢?
+
+当今世界，现常用的有两种证明技术。第一种是基于积分算子的技术；第二种是基于经验过程的技术。

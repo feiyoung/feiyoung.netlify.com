@@ -1,0 +1,44 @@
+---
+title: "再生核方法-第零章 算子理论基础"
+author: "刘伟"
+date: '2020-11-15'
+output: pdf_document
+layout: post
+---
+**再生核方法-第零章 算子理论基础**
+
+  **闲居**
+  
+  *2020年11月于西财明辨园*
+  
+# 基本算子
+*定义1(迹类算子).若线性算子$A: \mathcal{H} \rightarrow \mathcal{H}$满足
+$$\|A\|_1=Tr(|A|)=\sum_k \langle (A^* A)^{1/2} e_k, e_k \rangle_{\mathcal{H}}< \infty,$$
+其中$A^*$为$A$的厄米特算子，$|A|=\sqrt{A^*A}$，$\{e_k\}$为$\mathcal{H}$的一组正交基，并有
+$$Tr(A)=\sum_k \langle A e_k, e_k \rangle_{\mathcal{H}}$$
+绝对收敛且其值独立于正交基的选择，我们称$A$为迹类算子。
+*
+当$A$为非负自邻接算子时，即使该和发散，我们仍然定义其迹为
+$$Tr(A)=\sum_k \langle A e_k, e_k \rangle_{\mathcal{H}}.$$
+于是，当$A$为非负自邻接算子时，$A$为迹类算子的充要条件为$Tr(A)< \infty$。迹是迹类算子空间$\mathcal{T}$上的泛函，即$Tr: \mathcal{T} \rightarrow R$，并满足线性性质
+$$Tr(aA+bB)=a Tr(A) + b Tr(B),$$
+也就是说，迹是一个线性泛函；并且
+$$\langle A, B \rangle_{HS}=Tr(A^* B).$$
+
+*性质1. 若$A$为有界算子，$B$为迹类算子，则$AB$和$BA$也是迹类算子，且满足
+$\|AB\|_1=Tr(|AB|) \leq \|A\| \|B\|_1,\|BA\|_1=Tr(|BA|) \leq \|B\| \|A\|_1$和$Tr(AB)=Tr(BA)$。
+*
+
+若$A$是迹类算子，则可关于$I+A$定义Fredholm行列式，
+$$det(I+A)\hat= \Pi_{n\geq 1}\{1 + \lambda_n(A)\},$$
+其中$\{\lambda_n(A)\}$是$A$的谱，$A$为迹类算子保证无限乘积为有限的且$det(I+A)\leq e^{\|A\|_1}$，也意味着$det(I+A)\neq 0 \Rightarrow (I+A)$是可逆的。
+
+### 秩1算子
+*定义2. 对任意$f,g, h \in \mathcal{F}$，秩1算子定义为
+$f \otimes g^*(h)\hat=\langle g, h \rangle_{\mathcal{F}}f.$
+*
+
+容易证明$\|f \otimes g^* \|_{HS(\mathcal{F})}=\|f\|_\mathcal{F} \|g\|_\mathcal{F}$且$\langle f \otimes g^* , A \rangle_{HS}=\langle A g , f \rangle_{\mathcal{F}}$，在无混淆的情形下，我们把$HS(\mathcal{F})$简记为为$HS$。
+
+**证明:**由$\langle f \otimes g^* , A \rangle_{HS}= \sum_i\langle f \otimes g (e_i) , A e_i\rangle_\mathcal{F}=
+\sum_i \langle g, e_i\rangle_\mathcal{F} \langle f, A e_i\rangle_\mathcal{F}$ $=\sum_i \alpha_i \langle f, A e_i\rangle_\mathcal{F}= \langle f, A \sum_i \alpha_i e_i\rangle_\mathcal{F}= \langle f, A g\rangle_\mathcal{F}$，得证。  &clubs;

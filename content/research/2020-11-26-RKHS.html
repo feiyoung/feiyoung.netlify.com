@@ -1,0 +1,93 @@
+---
+title: "再生核方法-第一章 基本概念"
+author: "刘伟"
+date: '2020-11-17'
+output: pdf_document
+layout: post
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p><strong>再生核方法-第一章基本概念</strong></p>
+<p><strong>闲居</strong></p>
+<p><em>2020年11月于西财宏远楼</em></p>
+<div id="再生核概述" class="section level1">
+<h1>再生核概述</h1>
+<p>在过去的二十年里，核方法相对其他方法（比如神经网络）快速流行起来，因为它具有可靠的理论支持。传统的机器学习和统计理论及算法集中在线性模型，现实世界中复杂的问题往往需要非线性模型才能建立数据中的相依性，和实现感兴趣对象的成功预测。再生核（没有特别说明，后面都简称为核）能帮助我们更好地捕获现实世界，它对应着一个特征空间（往往是高维空间）的内积。在特征空间中，我们的估计方法是线性的，而对原始空间而言却是非线性的估计方法。利用核追踪，我们从不需要在高维特征空间中计算任何东西。核方法具有算法实现简单和理论可靠的优点。</p>
+</div>
+<div id="再生核" class="section level1">
+<h1>再生核</h1>
+<p>给定一组经验数据<span class="math inline">\(\{(x_i, y_i),i=1,\cdots,n\} \subset \mathcal{X} \times \mathcal{Y}\)</span>，其中<span class="math inline">\(x_i\)</span>为预测变量或协变量，<span class="math inline">\(y_i\)</span>为响应变量或目标变量。我们这里对定义域<span class="math inline">\(\mathcal{X}\)</span>无任何要求，只需它是一个非空集合。我们需要一个函数，
+<span class="math display">\[k: \mathcal{X} \times \mathcal{X}\rightarrow R, (x,x&#39;)\rightarrow k(x,x&#39;)\]</span>
+满足对任意<span class="math inline">\(x,x&#39; \in \mathcal{X}\)</span>，都存在一个映射<span class="math inline">\(\Phi: \mathcal{X} \rightarrow \mathcal{H}\)</span>，使得
+<span class="math display">\[K(x,x&#39;) = \langle \Phi(x), \Phi(x&#39;)\rangle_{\mathcal{H}}\tag{2.1}\]</span>
+成立，其中<span class="math inline">\(\mathcal{H}\)</span>为一个内积空间,通常被称为特征空间，<span class="math inline">\(\Phi\)</span>称为特征映射，相似性度量<span class="math inline">\(k\)</span>被称为核。</p>
+<pre class="xelatex"><code>问题1. $\Phi(x)$所在的空间$\mathcal{H}$与$k$生成的Hilbert空间是同一个空间吗？
+答：它们可以是同一个空间，其中$H$称为自然特征空间。</code></pre>
+<pre class="rmd"><code>注.线性空间是指定义了加法和数乘运算的非空集合；
+内积空间是定义了内积的线性空间；
+希尔伯特空间是指完备化的内积空间。</code></pre>
+<p>当<span class="math inline">\(\mathcal{H}\)</span>为自然特征空间时，<span class="math inline">\(\Phi(x)=k(x,\cdot)\)</span>。</p>
+</div>
+<div id="正定核" class="section level1">
+<h1>正定核</h1>
+<p><span class="math inline">\((2.1)\)</span>式中所定义的核其实就是我们下面所要定义的正定核。</p>
+<p><em>定义1（核矩阵）. 由
+<span class="math display">\[\begin{equation} \label{eq:Kmat}
+K = (k(x_i,x_j))
+\end{equation}\]</span>
+生成的矩阵被称为Gram矩阵或核矩阵。
+</em></p>
+<p><em>定义2（正定矩阵）.若<span class="math inline">\(\sum_{i,j}c_ic_jK_{ij}\geq 0\)</span>对所有<span class="math inline">\(c_i\)</span>都成立，则称<span class="math inline">\(K\)</span>为正定的。若等式只在<span class="math inline">\(c_1=\cdots=c_n = 0\)</span>时成立，则称<span class="math inline">\(K\)</span>是严格正定的。
+</em></p>
+<pre class="rmd"><code>注.这里的正定矩阵概念和矩阵分析中有点差异。
+这里的“正定”对应矩阵分析中“半正定”的概念；
+这里的“严格正定”对应于矩阵分析中“正定”的概念。</code></pre>
+<p><em>定义3（正定核）.若<span class="math inline">\(k\)</span>对于任意<span class="math inline">\(n\in N,x_i\in \mathcal{X},i\in [n]\)</span>（N
+自然数集合），对应的核矩阵都是正定的，则<span class="math inline">\(k\)</span>称为正定核；若对应的核矩阵是严格正定的，则<span class="math inline">\(k\)</span>称为严格正定核。
+</em></p>
+<p><strong>证明：</strong> 步骤1： <span class="math inline">\((2.1)\)</span>是正定核。对任意<span class="math inline">\(c_i,i\in [n]\)</span>，有
+<span class="math display">\[\sum_{i,j}c_ic_j\langle \Phi(x_i), \Phi(x_j)\rangle = \langle \sum_i \Phi(x_i), \sum_j c_j\Phi(x_j)\rangle\geq 0.\]</span>
+由正定核定义得证。</p>
+<p>步骤2： 正定核满足<span class="math inline">\((2.1)\)</span>式。令<span class="math inline">\(\Phi(x)=k(x,\cdot)\)</span>，由再生性可得
+<span class="math display">\[K(x,x&#39;) = \langle \Phi(x), \Phi(x&#39;)\rangle_{\mathcal{H}}.\]</span>
+<span class="math inline">\(\mathcal{H}\)</span>为再生核<span class="math inline">\(k\)</span>诱导出的再生核空间。 ♣</p>
+<pre class="rmd"><code>注.这里的再生性是由再生核空间的性质得到的，后面会证明这个性质。</code></pre>
+<div id="再生核空间的构造" class="section level2">
+<h2>再生核空间的构造</h2>
+<p>从核函数出发的构造思路如下：第一步构造一个线性空间；第二步在该线性空间上定义内积，于是得到一个内积空间；第三步对该内积空间作完备化处理，于是得到Hilbert空间；这样得到的空间称为再生核希尔伯特空间，简称为再生核空间。
+令<span class="math inline">\(\Phi(x)=k(x,\cdot)\)</span>将预测变量<span class="math inline">\(x\)</span>映射到一个函数空间，该函数空间的函数<span class="math inline">\(g: \mathcal{X} \rightarrow R\)</span>.</p>
+<p><em>步骤1.</em> 构造线性空间。令
+<span class="math display">\[f(\cdot)=\sum_{i=1}^n \alpha_i \Phi(x_i)=\sum_{i=1}^n \alpha_i k(x_i,\cdot).\]</span>其中，<span class="math inline">\(n \in N,\alpha_i \in R, x_i \in \mathcal{X}\)</span>取遍各自空间所有值。容易证明，它是定义在实数域上的线性空间。</p>
+<p><strong>步骤2.</strong>定义内积。设<span class="math inline">\(g(\cdot)=\sum_{i=1}^{n&#39;}\beta_j k(\cdot, x_j&#39;)\)</span>，定义内积为
+<span class="math display">\[\langle f, g\rangle = \sum_{i=1}^n\sum_{j=1}^{n&#39;} \alpha_i\beta_j k(x_i,x_j).\]</span> 由该内积定义可知：
+<span class="math display">\[\langle \Phi(x), \Phi(x&#39;)\rangle=k(x,x&#39;). \tag{3.1}\]</span>
+实际上，我们只需定义<span class="math inline">\(\Phi(x)\)</span>与<span class="math inline">\(\Phi(x&#39;)\)</span>之间的内积<span class="math inline">\(\langle \Phi(x), \Phi(x&#39;)\rangle=k(x,x&#39;)\)</span>,然后根据内积的线性性质，就可以推出<span class="math inline">\(g\)</span>和<span class="math inline">\(f\)</span>之间的内积值。可以证明，我们这样定义的内积确实是一个内积，满足内积所需的性质。</p>
+<p>非常重要的一点是，根据该内积定义，我们推导出
+<span class="math display">\[\langle k(\cdot, x), f\rangle = f(x), \tag{3.2}\]</span>
+该性质称为核函数的再生性，顾名思义，核函数在某点<span class="math inline">\(x\)</span>的映射和函数<span class="math inline">\(f\)</span>的内积可以生出<span class="math inline">\(f\)</span>在该点<span class="math inline">\(x\)</span>的函数值，这是多么神奇的性质呀！特别地，<span class="math inline">\((3.2)\)</span>可以得
+<span class="math display">\[\langle k(\cdot, x), k(\cdot, x&#39;)\rangle = k(x,x&#39;),\]</span>
+这个和<span class="math inline">\((3.1)\)</span>的内积定义是一致的，也就是说，它可以由再生性推导出来，也可以由内积的定义推导出来。</p>
+<p>接下来，我们利用再生性证明：<span class="math inline">\(\langle f,f\rangle =0 \Rightarrow f=0.\)</span> 根据<span class="math inline">\((3.2)\)</span>式和柯西施瓦茨不等式得，
+<span class="math display">\[|f(x)|^2=|\langle k(\cdot, x),f\rangle|^2\leq k(x,x)*\langle f,f\rangle.\]</span>
+若存在<span class="math inline">\(x_0\)</span>使得<span class="math inline">\(f(x_0)\neq 0\)</span>，则<span class="math inline">\(\langle f,f\rangle&gt;0\)</span>，于是矛盾，故<span class="math inline">\(f=0\)</span>。</p>
+</div>
+<div id="正定核的运算封闭性" class="section level2">
+<h2>正定核的运算封闭性</h2>
+<p>正定核的保运算性使得构造正定核变得更加easy。</p>
+<p><em>命题1.设<span class="math inline">\(k_1, k_2, \cdots\)</span>为任意定义在同一定义域上的正定核，则(i)若<span class="math inline">\(\alpha_1,\alpha_2\geq 0\)</span>，则<span class="math inline">\(\alpha_1 k_1 + \alpha_2 k_2\)</span>也是正定核；若对任意<span class="math inline">\(x,x&#39;\)</span>有<span class="math inline">\(k(x,x&#39;)=\lim_{n\rightarrow \infty} k_n(x,x&#39;)\)</span>存在,则<span class="math inline">\(k\)</span>也是正定核；(ii)逐点乘积<span class="math inline">\(k=k_1k_2\)</span>也是正定的；(iii)张量积<span class="math inline">\(k_1 \otimes k_2\)</span>和直和<span class="math inline">\(k_1 \oplus k_2\)</span>都是定义在<span class="math inline">\((\mathcal{X}_1 \times\mathcal{X}_2) \times(\mathcal{X}_1 \times\mathcal{X}_2)\)</span>上的正定核。
+</em></p>
+<p><em>定义(度量空间的稠密性)：设<span class="math inline">\(X\)</span>是度量空间，<span class="math inline">\(E\subset X\)</span>，若对任意<span class="math inline">\(x\in X\)</span>和<span class="math inline">\(\epsilon &gt;0\)</span>，都存在<span class="math inline">\(y\in E\)</span>使得<span class="math inline">\(x \in B(y,\epsilon)\)</span>，则称<span class="math inline">\(E\)</span>在<span class="math inline">\(X\)</span>中是稠密的，其中<span class="math inline">\(B(y,\epsilon)\)</span>表示中心为<span class="math inline">\(y\)</span>，半径为<span class="math inline">\(\epsilon\)</span>的小球。
+</em></p>
+<p>该定义表明，对于任意<span class="math inline">\(X\)</span>中的点，我们可以找到一个<span class="math inline">\(E\)</span>中的点<span class="math inline">\(y\)</span>，它与<span class="math inline">\(x\)</span>的距离成分小。于是，易知空间稠密是一个相对概念，有理数集在实数集是稠密的。</p>
+<p><em>定义(一致核)：设<span class="math inline">\(C(X)\)</span>是定义于紧子集<span class="math inline">\(\mathcal{S}\subset R^d\)</span>上的连续函数空间，若正定核<span class="math inline">\(k\)</span>生成的再生核希尔伯特空间<span class="math inline">\(\mathcal{H}\)</span>关于<span class="math inline">\(C(X)\)</span>在<span class="math inline">\(\|\cdot\|_\infty\)</span>范数意义上是稠密的，则称<span class="math inline">\(k\)</span>是一致核。
+</em></p>
+<p>该定义表示一致核生成的RKHS几乎和连续函数空间等价，这类核非常重要，它使得该RKHS几乎可以逼近任意连续函数。Steinwart 证明高斯核就是一致核。</p>
+<pre class="rmd"><code>参考文献:
+Hofmann, T. , SchLkopf, B. , &amp; Smola, A. J. . (2008). Kernel methods in machine learning. Annals of Stats, 36(3).
+
+STEINWART, I. (2002). On the influence of the kernel on the consistency of support vector machines. J. Mach. Learn. Res. 2 67–93</code></pre>
+</div>
+</div>
