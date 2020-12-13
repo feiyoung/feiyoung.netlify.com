@@ -1,0 +1,29 @@
+---
+  title: "沉沙落雁式，踩坑建博客"
+  date: "2017-11-28T21:48:51-07:00"
+  disable_mathjax: true
+  disable_highlight: true
+---
+今天心情颇差，为建Blogdown博客，倒腾大半天持续踩坑，这让本不自信的我变得更丧。
+
+## 大水冲了龙王庙——Hugo与Blogdown的相识
+
+栽在了*[Hugo.exe](https://github.com/gohugoio/hugo/releases)*手上的感觉，像极了这月份成都的天气。Hugo.exe在github上的官网版，国内下载速度实在让人咽不下饭，我手贱下载了极客分享在百度网盘上的Hugo_0.34.0版本，该版本就像几十年前的古董，虽是一家人，但它早已将新版Blogdown在岁月中遗忘。报错信息如下：
+```{Rmarkdown}
+ERROR 2019/09/07 07:27:35 Failed to add template "theme/default/list.html" in path "D:\\Google\\Blog\\rongdong\\themes\\hugo-lithium\\layouts\\_default\\list.html": template: theme/default/list.html:18: unexpected "=" in operand
+......
+Error in shell(cmd, mustWork = TRUE, intern = intern) :
+'"C:\Users\Administrator\AppData\Roaming\Hugo\hugo.exe" -b / -D -F -d "public" --themesDir themes -t hugo-lithium' execution failed with error code 1
+```
+于是乎，我反反复复，重装package，重配环境，也无法唤醒Hugo_0.34.0那沉睡的记忆。
+
+皇天不负有心人，只有爱拼才会赢。我拼到下午4点终于在统计之都上看到了同翻一条船的Blogdwon友，茅塞顿开间找好友[英杰](https://yjx.netlify.app)要了一个更新版本的Hugo_0.72.0，瞬间Hugo和Blogdown重新在新冠之年相识相知。我的Rstudio中预览窗正常显示的那一刻，激动的泪花用在心头。
+
+## 非老马，不识途——Blogdown与Image的相识
+成功解决Hugo的问题后，我又来到下一关。Blogdown怎么也识别不了图片路径，即在public/images中的图片我无法加载。[Biying](https://cn.bing.com/)一直是我的好朋友，无论在科研上，还是在外文生活中，我查询到原来是**config.toml**文件需要设置成：
+```{Rmarkdown}
+baseurl = "http://sitename.com"
+```
+并且把**public/images**文件夹移动到**static**文件夹中！
+于是乎惊喜地出现了下面一幕！ 
+#  ![](/images/xiaoxiao.jpg)
