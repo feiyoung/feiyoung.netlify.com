@@ -1,0 +1,74 @@
+---
+title: "张量基础知识"
+author: "刘伟"
+date: '2020-12-24'
+output: pdf_document
+layout: post
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p><strong>张量基础</strong></p>
+<p><strong>闲居</strong></p>
+<p><em>2020年12月于西财</em></p>
+<p>古典多元分解（也叫CP分解）是矩阵奇异值分解向张量的推广，或称为秩-<span class="math inline">\(R\)</span>分解。矩阵SVD分解的另一个推广是Tucker分解，也叫秩-<span class="math inline">\((R_1, \cdots, R_M)\)</span>分解，它计算数据张量每个模块的正交子空间。</p>
+<div id="cp分解" class="section level1">
+<h1>CP分解</h1>
+<p><em>定义. 设数据张量空间<span class="math inline">\(F^{I_1 \times I_2 \times \cdots \times I_M} \stackrel{\sim}= F^{I_1} \otimes \cdots \otimes F^{I_M} \stackrel{\sim}= \mathcal{F}\)</span>，其中<span class="math inline">\(F\)</span>为实数域<span class="math inline">\(R\)</span>，则每个<span class="math inline">\(M\)</span>阶张量<span class="math inline">\(\mathcal{A}\)</span>（在该空间<span class="math inline">\(\mathcal{F}\)</span>）都可以表示为<span class="math inline">\(R\)</span>个秩-1张量：
+<span class="math display">\[ \mathcal{A}=\sum_{r=1}^R\lambda_r a_{1,r}\otimes \cdots \otimes a_{M,r}\]</span>
+其中<span class="math inline">\(\lambda_r \in F, a_{m,r} \in F^{I_m}\)</span>。当上述表达式中<span class="math inline">\(R\)</span>项为最小项数时，<span class="math inline">\(R\)</span>称为张量<span class="math inline">\(\mathcal{A}\)</span>的秩，并且该分解称为秩-<span class="math inline">\(R\)</span>分解或古典多元分解；相反，当<span class="math inline">\(R\)</span>不是最小项时，称为<span class="math inline">\(R\)</span>项分解。
+</em></p>
+<p>显然，若<span class="math inline">\(a_{m,r} \in F^{I_m}\)</span>，张量<span class="math inline">\(a_{1,r}\otimes \cdots \otimes a_{M,r}\)</span>的秩为1。一般而言，计算一般<span class="math inline">\(M\)</span>阶张量的秩是一个NP-hard的问题。</p>
+<p><em>定义. 对称张量：具有轮换不变性的张量称为对称张量，即
+<span class="math display">\[a_{i_1,i_2,\cdots, i_M}=a_{i_{s_1}, \cdots, i_{s_M} }, \mathcal{A} =(a_{i_1,i_2,\cdots, i_M})\in F^{I^M}\]</span>
+</em></p>
+<pre class="rmd"><code>注：对称张量每个维度的维数都相等，比如I.</code></pre>
+<p>二阶对称张量（矩阵）可以被对角化，即存在整数<span class="math inline">\(R\)</span>，非零单位向量<span class="math inline">\(v_1, \cdots, v_R \in V\)</span>和权重<span class="math inline">\(\lambda_1, \cdots, \lambda_R\)</span>使得
+<span class="math display">\[\mathcal{A} = \sum_{i=1}^R \lambda_i v_i \otimes v_i\]</span>
+而对于一般的<span class="math inline">\(M\)</span>阶对称张量，该形式不一定存在。对于存在该形式的张量空间称为Waring空间，满足
+<span class="math display">\[\mathcal{A} = \sum_{i=1}^R \lambda_i v_i^{ \otimes M},\]</span>
+该分解也叫Waring分解，它是秩-<span class="math inline">\(R\)</span>分解的对称形式。在统计研究中，都是假设CP分解存在的空间，因为这个空间已经够大了，所以CP分解的存在性不必担忧。</p>
+<p>与矩阵不同的是，超过二阶的张量的秩没有唯一的定义方式，比如有秩-<span class="math inline">\(R\)</span>，还有秩-<span class="math inline">\((R_1, \cdots, R_M)\)</span>，这也称为Tucker秩，该秩的定义与Tucker分解有密切的关系，而前者与秩-<span class="math inline">\(R\)</span>分解有密切关系。</p>
+</div>
+<div id="tucker分解" class="section level1">
+<h1>Tucker分解</h1>
+<p>考虑三阶张量<span class="math inline">\(\mathcal{X} \in R^{P_1 \times P_2 \times P_3}\)</span>，<span class="math inline">\(\mathcal{X}\)</span>的Tucker秩(multilinear秩)<span class="math inline">\((r_1, r_2, r_3)\)</span>定义为：
+<span class="math display">\[r_1=rank_1(\mathcal{X})\equiv rank(\mathcal{X}_{(1)})=dim(span\{\mathcal{X}_{[:,i_2,i_3]}\in R^{P_1}: i_2 \leq P_2, i_3 \leq P_3\})\]</span>
+为<span class="math inline">\((P_2P_3)\)</span>个<span class="math inline">\(P_1\)</span>维向量所张成的空间的维数，也是张量<span class="math inline">\(\mathcal{X}\)</span>沿着第一个方向矩阵化后的矩阵的秩；同理可得，<span class="math inline">\(r_2\)</span>为<span class="math inline">\(P_2 \times (P_1 P_3)\)</span>矩阵的秩，<span class="math inline">\(r_3\)</span>为<span class="math inline">\(P_3 \times (P_1 P_2)\)</span>矩阵的秩。</p>
+<p>Tucker分解：设张量<span class="math inline">\(\mathcal{X} \in R^{P_1 \times P_2 \times P_3}\)</span>,若<span class="math inline">\(rank_j(\mathcal{X})=r_j,j \leq 3\)</span>，则存在一个Tucker分解(Tucker, 1966; De Lathamer et al., 2000)
+<span class="math display">\[\mathcal{X} = \mathcal{Y} \times_1 Y_1 \times_2 Y_2 \times_3 Y_3\]</span>
+其中<span class="math inline">\(\mathcal{Y} \in R^{r_1 \times r_2 \times r_3}\)</span>为核心张量(core Tensor)，<span class="math inline">\(Y_j \in R^{P_j \times r_j}\)</span>为因子矩阵。把上述分解表示为
+<span class="math display">\[\mathcal{X} = [| \mathcal{Y}; Y_1,Y_2,Y_3 |]\]</span>
+且<span class="math inline">\(\times_1\)</span>表示mode-1乘积：表示一个张量和一个矩阵之间的乘积。令<span class="math inline">\(Y \in R^{S \times P_j}\)</span>，则mode-j乘积为
+<span class="math display">\[\mathcal{X} \times_j Y=(\sum_{k=1}^{P_j} x_{i_1, \cdots,i_k,\cdots,i_M} y_{lk}) \in R^{P_1 \times \cdots \times S \times \cdots \times P_M}\]</span>
+注意到Tucker分解不是唯一的，因为<span class="math inline">\(\mathcal{X} = [| \mathcal{Y}; Y_1,Y_2,Y_3 |] = [| \mathcal{Y} \times_1 O_1 \times_2 O_2 \times_3 O_3; Y_1O_1^{-1},Y_2O_2^{-1},Y_3O_3^{-1} |]\)</span>，对于分宜非奇异矩阵<span class="math inline">\(O_j \in R^{r_j\times r_j}\)</span>。但是，Tucker分解的一种特殊情况：高阶奇异值分解(HOSVD)在一定条件下是唯一的(De Lathauner et al., 2000)。具体而言，令<span class="math inline">\(U_j\)</span>为<span class="math inline">\(\mathcal{X}_{(j)}\)</span>的前<span class="math inline">\(r_j\)</span>个左奇异矩阵(<span class="math inline">\(r_j\)</span>列)，核心张量定义为<span class="math inline">\(\mathcal{Y}=\mathcal{X} \times_1 U_1&#39; \times_2 U_2&#39; \times_3 U_3&#39;\)</span>，则<span class="math inline">\(\mathcal{Y}\)</span>有如下正交性质：对于<span class="math inline">\(1\leq j\leq 3\)</span>，有<span class="math inline">\(\mathcal{Y}_{(j)}\)</span>的行是配对正交的，并且
+<span class="math display">\[\mathcal{X} = \mathcal{Y} \times_1 U_1 \times_2 U_2 \times_3 U_3\]</span>
+若假设对于<span class="math inline">\(1\leq j\leq 3\)</span>，<span class="math inline">\(\mathcal{X}_{(j)}\)</span>的奇异值各不相同，且<span class="math inline">\(U_j\)</span>的每列第一个元素为正的，则HOSVD是唯一的。</p>
+<pre class="rmd"><code>注：如果Y是超对角张量，则它退化为CP分解。</code></pre>
+</div>
+<div id="基本运算性质" class="section level1">
+<h1>基本运算性质</h1>
+<div id="mode-矩阵乘积" class="section level2">
+<h2>Mode-矩阵乘积</h2>
+<p><span class="math display">\[\mathcal{X} \times_j Y = \mathcal{Z} \Leftrightarrow \mathcal{Z}_{(j)}=Y \mathcal{X}_{(j)}\]</span>
+mode乘积的换序性质：
+<span class="math display">\[\mathcal{X} \times_1 A \times_2 B = \mathcal{X}\times_2 B \times_1 A \]</span>
+当<span class="math inline">\(B\)</span>的列和<span class="math inline">\(A\)</span>的行数相等时，有：
+<span class="math display">\[\mathcal{X} \times_j A \times_j B = \mathcal{X}\times_j (B A) \]</span></p>
+</div>
+<div id="mode-向量乘积" class="section level2">
+<h2>Mode-向量乘积</h2>
+<p><span class="math inline">\(\mathcal{X} \in R^{I_1 \times \cdots \times I_N}\)</span>与向量<span class="math inline">\(v \in R^{I_n}\)</span>可以做mode-向量乘积，表示为<span class="math inline">\(\mathcal{X} \times_n v\)</span>，使得<span class="math inline">\(N\)</span>阶张量变成一个<span class="math inline">\(N-1\)</span>阶张量<span class="math inline">\(\in R^{I_1\times \cdots \times I_{n-1}\times I_{n+1} \times \cdots \times I_N}\)</span>，具体元素为
+<span class="math display">\[(\mathcal{X} \times_n v)_{i_1, \cdots, i_{n-1},i_{n+1}, \cdots, i_N}=\sum_{i_n=1}^{I_n} x_{i_1,\cdots, i_N}v_{i_n}\]</span>
+它计算每个mode-n fiber与向量 <span class="math inline">\(v\)</span>的内积。
+若<span class="math inline">\(m &lt;n\)</span>，我们有：
+<span class="math display">\[\mathcal{X} \times_m a \times_n b=(\mathcal{X} \times_m a) \times_{n-1} b=(\mathcal{X} \times_n b) \times_{m} a\]</span></p>
+</div>
+<div id="krorecker乘积" class="section level2">
+<h2>Krorecker乘积</h2>
+<p>记<span class="math inline">\(\otimes\)</span>为Krorecker乘积，则对任意<span class="math inline">\(n \in \{1, \cdots, N\}\)</span>，有
+<span class="math display">\[\mathcal{Y} = \mathcal{X} \times_1 A_1 \times_2 \cdots \times_3 A_N\Leftrightarrow \mathcal{Y}_{(n)}= A_n \mathcal{X}_{(n)} (A_n \otimes \cdots \otimes A_{n+1} \otimes A_{n-1} \otimes \cdots \otimes A_1)\]</span></p>
+</div>
+</div>
