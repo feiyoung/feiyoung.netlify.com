@@ -50,9 +50,10 @@ layout: post
 </div>
 <div id="一般统计检验" class="section level1">
 <h1>一般统计检验</h1>
-<p>统计检验一般分成这样几步：1）构造检验统计量<span class="math inline">\(T_n\)</span>；2）计算检验统计量的分布；3）计算检验的拒绝域<span class="math inline">\(W_n=\{T_n&gt;c_{1-\alpha}\}\)</span>；4）验证检验统计量的实现值是否落在拒绝域，若在则拒绝。</p>
+<p>一般而言，我们先假设数据来自原假设，然后根据该前提假设下来推导检验统计量的（渐近）分布。
+统计检验一般分成这样几步：1）构造检验统计量<span class="math inline">\(T_n\)</span>；2）计算检验统计量的分布；3）计算检验的拒绝域<span class="math inline">\(W_n=\{T_n&gt;c_{1-\alpha}\}\)</span>；4）验证检验统计量的实现值是否落在拒绝域，若在则拒绝。</p>
 <p>其中计算检验统计量<span class="math inline">\(T_n\)</span>的渐近分布，实质指计算<span class="math inline">\(T_n\)</span>从原假设中生成数据下的渐近分布。若iid数据<span class="math inline">\({x_i,i\leq n}\)</span>来自均值为<span class="math inline">\(μ_0\)</span> 的总体，考虑均值检验问题：
-<span class="math display">\[H_0:μ=μ_1\]</span>
+<span class="math display">\[H_0:μ_0=μ_1\]</span>
 1）构造检验统计量<span class="math inline">\(T_n=\sqrt{n} (\bar x -μ_1 )\)</span>.
 2）计算数据来自原假设的渐近分布，有如下方法：</p>
 <p>（1）此时渐近分布有显式形式<span class="math inline">\(N(0,σ^2)\)</span>.
