@@ -1,7 +1,7 @@
 baseurl = "http://feiyoung.netlify.com"
 languageCode = "en-us"
 title = "Wei Liu" 
-theme = "hugo-maupassant"
+theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname="Wei Liu"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
