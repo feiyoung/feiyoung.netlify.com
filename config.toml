@@ -1,6 +1,6 @@
 baseurl = "http://feiyoung.netlify.com"
 languageCode = "en-us"
-title = "Wei Liu"
+title = "Wei Liu" 
 theme = "hugo-maupassant"
 googleAnalytics = ""
 disqusShortname="Wei Liu"
