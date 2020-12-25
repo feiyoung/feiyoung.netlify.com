@@ -1,7 +1,7 @@
 baseurl = "http://feiyoung.netlify.com"
 languageCode = "en-us"
 title = "Wei Liu"
-theme = "hugo-lithium"
+theme = "hugo-maupassant"
 googleAnalytics = ""
 disqusShortname="Wei Liu"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
@@ -37,7 +37,7 @@ rssLimit=100
     weight = 5
     
 [[menu.main]]
-    name = "Blog"
+    name = "EBlog"
     url = "/en/"
     weight = 6
 [[menu.main]]

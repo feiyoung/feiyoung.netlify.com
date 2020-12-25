@@ -1,149 +1,915 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Yingjie</title>
-    <link>/</link>
-    <description>Recent content on Yingjie</description>
+    <title>Wei Liu</title>
+    <link>http://feiyoung.netlify.com/</link>
+    <description>Recent content on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 May 2016 21:48:51 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2020 21:48:51 -0700</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://feiyoung.netlify.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>R并行计算软件包及用法</title>
-      <link>/research/r%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%8F%8A%E7%94%A8%E6%B3%95/</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      <title>张量基础知识</title>
+      <link>http://feiyoung.netlify.com/research/2020-12-24-%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/research/r%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%8F%8A%E7%94%A8%E6%B3%95/</guid>
-      <description>随着数据量的不断增大，实现一次计算需要花费的时间越来越长，等待结果的过程让人着急，尤其是R语言，其运行受内存限制很大，必须将数据完全读入内存</description>
+      <guid>http://feiyoung.netlify.com/research/2020-12-24-%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/</guid>
+      <description>张量基础 闲居 2020年12月于西财 基础知识 在介绍张量之前，我们先来了解一些基础知识，其中包括矩阵的运算和张量的运算操作。 几种矩阵（张量）运算</description>
     </item>
     
     <item>
-      <title>噪声交易与定价效率文献梳理</title>
-      <link>/research/%E5%99%AA%E5%A3%B0%E4%BA%A4%E6%98%93%E4%B8%8E%E5%AE%9A%E4%BB%B7%E6%95%88%E7%8E%87%E6%96%87%E7%8C%AE%E6%A2%B3%E7%90%86/</link>
-      <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
+      <title>高中同学录</title>
+      <link>http://feiyoung.netlify.com/2020/12/14/%E9%AB%98%E4%B8%AD%E5%90%8C%E5%AD%A6%E5%BD%95/</link>
+      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/research/%E5%99%AA%E5%A3%B0%E4%BA%A4%E6%98%93%E4%B8%8E%E5%AE%9A%E4%BB%B7%E6%95%88%E7%8E%87%E6%96%87%E7%8C%AE%E6%A2%B3%E7%90%86/</guid>
-      <description>读Black(1986)噪声这篇文章时，已经发现噪声交易的存在具有两面性。最经典的是，他提到“噪声成就了金融市场，却造就了金融市场的缺陷”，</description>
+      <guid>http://feiyoung.netlify.com/2020/12/14/%E9%AB%98%E4%B8%AD%E5%90%8C%E5%AD%A6%E5%BD%95/</guid>
+      <description>肖杨 花开有声，岁月无痕，三年时光转瞬即逝，但相信，回忆永恒，友谊长存，和你同桌的日子，可谓是最令我享受的，我话不多，但你整天口若悬河，讲一些</description>
     </item>
     
     <item>
-      <title>方差比率检验的实证计算</title>
-      <link>/research/%E6%96%B9%E5%B7%AE%E6%AF%94%E7%8E%87%E6%A3%80%E9%AA%8C%E7%9A%84%E5%AE%9E%E8%AF%81%E8%AE%A1%E7%AE%97/</link>
-      <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
+      <title>统计假设检验</title>
+      <link>http://feiyoung.netlify.com/research/2020-12-13-hypothesistest/</link>
+      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/research/%E6%96%B9%E5%B7%AE%E6%AF%94%E7%8E%87%E6%A3%80%E9%AA%8C%E7%9A%84%E5%AE%9E%E8%AF%81%E8%AE%A1%E7%AE%97/</guid>
-      <description>方差比率检验是金融经济学检验市场有效性的常用方法。Fama在1965到1970年提出了有效市场假说，他认为资产价格会准确及时地反应资产价值相</description>
+      <guid>http://feiyoung.netlify.com/research/2020-12-13-hypothesistest/</guid>
+      <description>假设检验 闲居 2020年12月于武侯 简单假设和复合假设 简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概</description>
     </item>
     
     <item>
-      <title>噪声无处不在</title>
-      <link>/research/%E5%99%AA%E5%A3%B0%E6%97%A0%E5%A4%84%E4%B8%8D%E5%9C%A8/</link>
-      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      <title>再生核方法-第三章 支持向量机</title>
+      <link>http://feiyoung.netlify.com/research/2020-11-29-rkhs%E4%B9%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</link>
+      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/research/%E5%99%AA%E5%A3%B0%E6%97%A0%E5%A4%84%E4%B8%8D%E5%9C%A8/</guid>
-      <description>噪声，无时无刻不出现在我们身边。自然界的声音、金融市场的信息、经济周期的波动都包含了或多或少的“噪声”，它对世界和人们看世界的视角影响深远，</description>
+      <guid>http://feiyoung.netlify.com/research/2020-11-29-rkhs%E4%B9%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</guid>
+      <description>再生核方法-第二章 无所不能的支持向量机 闲居 2020年11月于西财明辨园 线性支持超平面分类器 考虑\(D=(x_i, y_i)_{i=1}^n, x_i \in R^p, y_i \in \{-1, 1\}\)的分</description>
     </item>
     
     <item>
-      <title>谈谈中国市场的ETF</title>
-      <link>/2020/09/11/%E8%B0%88%E8%B0%88%E4%B8%AD%E5%9B%BD%E5%B8%82%E5%9C%BA%E7%9A%84etf/</link>
-      <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
+      <title></title>
+      <link>http://feiyoung.netlify.com/post/2020-11-28-/</link>
+      <pubDate>Sat, 28 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/09/11/%E8%B0%88%E8%B0%88%E4%B8%AD%E5%9B%BD%E5%B8%82%E5%9C%BA%E7%9A%84etf/</guid>
-      <description>ETF是什么玩意？ ETF是什么？ETF是什么，ETF到底是什么？不懂得东西问三遍，要是谁还不了解ETF，索性就来看看，该贴可以为你科普一下，</description>
+      <guid>http://feiyoung.netlify.com/post/2020-11-28-/</guid>
+      <description></description>
     </item>
     
     <item>
-      <title>ETF如何影响股价波动和定价效率？</title>
-      <link>/research/etf%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E8%82%A1%E4%BB%B7%E6%B3%A2%E5%8A%A8%E5%92%8C%E5%AE%9A%E4%BB%B7%E6%95%88%E7%8E%87/</link>
-      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      <title>Use of Rmarkdown: taking GFM package as an example</title>
+      <link>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</link>
+      <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/research/etf%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E8%82%A1%E4%BB%B7%E6%B3%A2%E5%8A%A8%E5%92%8C%E5%AE%9A%E4%BB%B7%E6%95%88%E7%8E%87/</guid>
-      <description>常言道：“祸兮福所倚，福兮祸所伏”。昨天正沉浸在稳健医疗新股中签的喜悦中，突然电脑桌面弹出邮件通知，打开一看，原来是编辑部送来了拒稿通知。仔</description>
+      <guid>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</guid>
+      <description>Introduction of RmarkdownIn this section, we briefly introduce some features of Rmarkdown.The Laguage of Rmarkdown is similar to that of Markdown, which is very easy to learn and write it.
+Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, then choose the format of this file as ‘Rmd’(extension name). If we uncarefully save it as format ‘md’, then we can not run R code in each small chunk.</description>
     </item>
     
     <item>
-      <title>卖空限制与股市波动文献</title>
-      <link>/research/%E5%8D%96%E7%A9%BA%E9%99%90%E5%88%B6%E4%B8%8E%E8%82%A1%E5%B8%82%E6%B3%A2%E5%8A%A8%E6%96%87%E7%8C%AE/</link>
-      <pubDate>Sat, 22 Aug 2020 00:00:00 +0000</pubDate>
+      <title>再生核方法-第二章 函数逼近及表示定理</title>
+      <link>http://feiyoung.netlify.com/research/2020-11-29-rkhs/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/research/%E5%8D%96%E7%A9%BA%E9%99%90%E5%88%B6%E4%B8%8E%E8%82%A1%E5%B8%82%E6%B3%A2%E5%8A%A8%E6%96%87%E7%8C%AE/</guid>
-      <description>卖空交易与股票价格稳定性——来自中国融资融券市场的自然实验 李志生 杜爽 林秉旋 2015年《金融研究》 摘要 基于2009年4月－2013年12月我国</description>
+      <guid>http://feiyoung.netlify.com/research/2020-11-29-rkhs/</guid>
+      <description>再生核方法-第二章函数逼近及表示定理 闲居 2020年11月于西财明辨园 希尔伯特空间 定义.一个完备的内积空间称为希尔伯特空间。 定义.存在可数个基</description>
     </item>
     
     <item>
-      <title>信息与股票市场波动文献阅读</title>
-      <link>/research/%E4%BF%A1%E6%81%AF%E4%B8%8E%E8%82%A1%E7%A5%A8%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/</link>
-      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      <title>再生核方法-第一章 基本概念</title>
+      <link>http://feiyoung.netlify.com/research/2020-11-26-rkhs/</link>
+      <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/research/%E4%BF%A1%E6%81%AF%E4%B8%8E%E8%82%A1%E7%A5%A8%E5%B8%82%E5%9C%BA%E6%B3%A2%E5%8A%A8%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/</guid>
-      <description>Information, trading and volatility Charles M. Jones, Gautam Kaul, Marc L. Lipson Journal of Financial Economics 36(1994) 摘要 通过比较交易和非交易期间股票收益波动行为，我们检验了交易和信息流对短期股票价格的影响。本文将非交易时期</description>
+      <guid>http://feiyoung.netlify.com/research/2020-11-26-rkhs/</guid>
+      <description>再生核方法-第一章基本概念 闲居 2020年11月于西财宏远楼 再生核概述 在过去的二十年里，核方法相对其他方法（比如神经网络）快速流行起来，因为它</description>
     </item>
     
     <item>
-      <title>“朋友”的沉默</title>
-      <link>/2020/07/01/%E6%9C%8B%E5%8F%8B%E7%9A%84%E6%B2%89%E9%BB%98/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      <title>再生核方法-第零章 算子理论基础</title>
+      <link>http://feiyoung.netlify.com/research/2020-11-29-%E7%AE%97%E5%AD%90%E7%90%86%E8%AE%BA/</link>
+      <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/07/01/%E6%9C%8B%E5%8F%8B%E7%9A%84%E6%B2%89%E9%BB%98/</guid>
-      <description>世事变幻，沧海桑田，现在的你，已非当初我所熟知的你，如今的我，不知是否还是你所认识的我？回忆往昔峥嵘岁月，一切历历在目。 相遇是缘，相识是份。</description>
+      <guid>http://feiyoung.netlify.com/research/2020-11-29-%E7%AE%97%E5%AD%90%E7%90%86%E8%AE%BA/</guid>
+      <description>再生核方法-第零章 算子理论基础 闲居 2020年11月于西财明辨园 基本算子 定义1(迹类算子).若线性算子\(A: \mathcal{H} \rightarrow \mathcal{H}\)满</description>
     </item>
     
     <item>
-      <title>为你买LV，我拼了</title>
-      <link>/2020/06/26/%E4%B8%BA%E4%BA%86%E4%BD%A0%E4%B9%B0lv-%E6%88%91%E6%8B%BC%E4%BA%86/</link>
-      <pubDate>Fri, 26 Jun 2020 00:00:00 +0000</pubDate>
+      <title>此情可待</title>
+      <link>http://feiyoung.netlify.com/poem/2020-10-04-%E6%AD%A4%E6%83%85%E5%8F%AF%E5%BE%85/</link>
+      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/26/%E4%B8%BA%E4%BA%86%E4%BD%A0%E4%B9%B0lv-%E6%88%91%E6%8B%BC%E4%BA%86/</guid>
-      <description>海上月是天上月，眼前人是心上人。 ——张爱玲 恋人之间最好的感情，莫过于此。有求必应，秒回信息，是每一位少女心中的期冀，但人生不如意十之八九，并</description>
+      <guid>http://feiyoung.netlify.com/poem/2020-10-04-%E6%AD%A4%E6%83%85%E5%8F%AF%E5%BE%85/</guid>
+      <description>此情可待 闲居 2020.10.04于崇州 笑叹苍天人易老， 深谙情趣意更幽。 实实在在成一事， 雅雅悠悠泛一舟。 朝朝暮暮念此景， 世世生生怀此柔。 心心念</description>
     </item>
     
     <item>
-      <title>欠下的账迟早是要还的</title>
-      <link>/2020/06/25/%E6%AC%A0%E4%B8%8B%E7%9A%84%E8%B4%A6%E8%BF%9F%E6%97%A9%E6%98%AF%E8%A6%81%E8%BF%98%E7%9A%84/</link>
-      <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
+      <title>敬畏爱物</title>
+      <link>http://feiyoung.netlify.com/poem/2020-07-18-%E6%95%AC%E7%95%8F%E7%88%B1%E7%89%A9/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/25/%E6%AC%A0%E4%B8%8B%E7%9A%84%E8%B4%A6%E8%BF%9F%E6%97%A9%E6%98%AF%E8%A6%81%E8%BF%98%E7%9A%84/</guid>
-      <description>Yihui大神开发blogdown包后，各位大佬利用它建立了自己的个人主页，界面简单，美观大方，让人崇拜，叠加羡慕嫉妒恨，于是萌生了创建自己</description>
+      <guid>http://feiyoung.netlify.com/poem/2020-07-18-%E6%95%AC%E7%95%8F%E7%88%B1%E7%89%A9/</guid>
+      <description>敬畏爱物 闲居 2020.07.17于达州 地孕灵性生万物， 不知敬畏地先枯。 火自烈野风来势， 涝已成灾雨未舒。 水火交加何待续？ 病毒肆掠几时除？ 自然敬</description>
     </item>
     
     <item>
-      <title>the first day of my blog</title>
-      <link>/2020/06/20/the-first-day-of-my-blog/</link>
-      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      <title>舞月荷花</title>
+      <link>http://feiyoung.netlify.com/poem/2020-07-17-%E8%88%9E%E6%9C%88%E8%8D%B7%E8%8A%B1/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/20/the-first-day-of-my-blog/</guid>
-      <description>Today, I am very happy to build my blog which will share my academic idea and experience of life. When I feel lonely and meet some trouble in writing paper,I can record my confusion to mediate intense mind. So wish me have a good life.</description>
+      <guid>http://feiyoung.netlify.com/poem/2020-07-17-%E8%88%9E%E6%9C%88%E8%8D%B7%E8%8A%B1/</guid>
+      <description>舞月荷花 闲居 2020年7月于达州麦里垭村 尖山有小塘， 七月溢荷香。 香散祥福苑， 引来人一双。 一只黑衣裳， 一只爱脚光。 塘下藕香水， 伴有某某脚丫香。</description>
     </item>
     
     <item>
-      <title>博客开启的第一天</title>
-      <link>/2020/06/20/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%90%AF%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9/</link>
-      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      <title>父亲节记</title>
+      <link>http://feiyoung.netlify.com/poem/2020-07-17-%E7%88%B6%E4%BA%B2%E8%8A%82%E8%AE%B0/</link>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/20/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%90%AF%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9/</guid>
-      <description>今天, 我通过blogdown建立了属于自己的博客，特别开心，用它可以分享学术圈的新思想和生活感受，尤其是当我感到无聊的时候，可以用它来记录我</description>
+      <guid>http://feiyoung.netlify.com/poem/2020-07-17-%E7%88%B6%E4%BA%B2%E8%8A%82%E8%AE%B0/</guid>
+      <description>父亲节记 闲居 远谈总是言无恙， 近看鬓白银发苍。 夏暑不知减劳时， 秋凉频忘添衣裳。 忧儿读书无明灯， 望女升学无路障。 岁月回流重度过， 带吾再做小儿郎。</description>
     </item>
     
     <item>
-      <title>About</title>
-      <link>/en_about/</link>
-      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      <title>予人歌</title>
+      <link>http://feiyoung.netlify.com/poem/2020-05-13-%E4%BA%88%E4%BA%BA%E6%AD%8C/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/en_about/</guid>
-      <description>The ancestral home is a small county in Jingzhou, Pingliang, Gansu. He is not tall and handsome, one male young man. He is a major in economic statistics market survey and business statistics. He sent a questionnaire to the countryside and went to the village to investigate. Run the model, write a report, and finally learned nothing, but in desperation, can only change careers. It is said that the financial industry has more opportunities to make money, mainly due to the influence of film and television dramas.</description>
+      <guid>http://feiyoung.netlify.com/poem/2020-05-13-%E4%BA%88%E4%BA%BA%E6%AD%8C/</guid>
+      <description>予人歌 闲居 2020.05.13于达州 待人不计回报， 寄人期望勿高。 与人换位思考， 无人能把心扰。</description>
     </item>
     
     <item>
-      <title>关于我</title>
-      <link>/cn_about/</link>
-      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      <title>咏柿花</title>
+      <link>http://feiyoung.netlify.com/poem/2020-04-06-%E5%92%8F%E6%9F%BF%E8%8A%B1/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/cn_about/</guid>
-      <description>祖籍甘肃平凉泾州小县，个子不高、长的不帅，普通男青年一枚，本硕入坑经济统计市场调查与商务统计专业，进城下乡发问卷，走村入户搞调查，跑模型，写</description>
+      <guid>http://feiyoung.netlify.com/poem/2020-04-06-%E5%92%8F%E6%9F%BF%E8%8A%B1/</guid>
+      <description>咏柿花 闲居 2020.04.06于达州 老树倚春繁， 青伞障半天。 顺势生奇蕾， 静开任久喧。</description>
+    </item>
+    
+    <item>
+      <title>无用之用~无形 </title>
+      <link>http://feiyoung.netlify.com/poem/2020-04-25-%E6%97%A0%E7%94%A8%E4%B9%8B%E7%94%A8/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-04-25-%E6%97%A0%E7%94%A8%E4%B9%8B%E7%94%A8/</guid>
+      <description>无用之用~无形 闲居 2020.04.25于达州 人之一生，终其追求，不过立命安心。所谓立命者，乃饥有所食，寒有所衣，身有所居，行有所骑。而安心者</description>
+    </item>
+    
+    <item>
+      <title>登光雾山</title>
+      <link>http://feiyoung.netlify.com/poem/2020-05-03-%E7%99%BB%E5%85%89%E9%9B%BE%E5%B1%B1/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-05-03-%E7%99%BB%E5%85%89%E9%9B%BE%E5%B1%B1/</guid>
+      <description>登光雾山 闲居 2020.05.03于南江 巴国多奇岭， 光雾尤为型。 近日掩青幕， 十月映红城。 山由碎石起， 水从夹缝生。 青冈合抱木， 枫栎沿道成。 四人轻</description>
+    </item>
+    
+    <item>
+      <title>轩居</title>
+      <link>http://feiyoung.netlify.com/poem/2020-05-17-%E8%BD%A9%E5%B1%85/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-05-17-%E8%BD%A9%E5%B1%85/</guid>
+      <description>轩居 闲居 2020.05.17于达州 闻道有花香，树叶自飘扬。 独夜在故里，寄心与月光。 脚下万里路，笔底千百行。 身闲本无事，何处撩肝肠。</description>
+    </item>
+    
+    <item>
+      <title>返校有感（其六）</title>
+      <link>http://feiyoung.netlify.com/poem/2020-06-12-%E8%BF%94%E6%A0%A1%E6%9C%89%E6%84%9F%E5%85%B6%E5%85%AD/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-06-12-%E8%BF%94%E6%A0%A1%E6%9C%89%E6%84%9F%E5%85%B6%E5%85%AD/</guid>
+      <description>返校有感（其六） 闲居 2020.6.12于西财 久居故里轮烦腻， 归至光华自意居。 敢问存于何处好？ 静心之处乃相宜。</description>
+    </item>
+    
+    <item>
+      <title>随风</title>
+      <link>http://feiyoung.netlify.com/poem/2020-07-20-%E9%9A%8F%E9%A3%8E/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-07-20-%E9%9A%8F%E9%A3%8E/</guid>
+      <description>赠宿管阿姨（随风） 闲居 知礼知言又知趣， 明心明性还明期。 初见莞尔笑不语， 渐熟如拂春风怡。 五年频繁点头去， 今日退却随风离。 愿得年年悠闲日， 常记光</description>
+    </item>
+    
+    <item>
+      <title>鹊桥会</title>
+      <link>http://feiyoung.netlify.com/poem/2020-07-16-%E9%B9%8A%E6%A1%A5%E4%BC%9A/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-07-16-%E9%B9%8A%E6%A1%A5%E4%BC%9A/</guid>
+      <description>鹊桥会 闲居 2020.06.16于西财明辨园 天怜风念雨， 地蕴理连枝。 隔河相见时， 遥望更相思。</description>
+    </item>
+    
+    <item>
+      <title>恋江南</title>
+      <link>http://feiyoung.netlify.com/poem/2020-04-06-%E6%81%8B%E6%B1%9F%E5%8D%97/</link>
+      <pubDate>Mon, 06 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-04-06-%E6%81%8B%E6%B1%9F%E5%8D%97/</guid>
+      <description>恋江南 艾轩 2020.04.06于巴中 烟雨江南行舟缓 琴音悠悠自客船 有君伴兮心意暖 小楼画卷尽延绵</description>
+    </item>
+    
+    <item>
+      <title>战瘟小令 </title>
+      <link>http://feiyoung.netlify.com/poem/2020-02-20-%E6%88%98%E7%98%9F%E5%B0%8F%E4%BB%A4/</link>
+      <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-02-20-%E6%88%98%E7%98%9F%E5%B0%8F%E4%BB%A4/</guid>
+      <description>战瘟小令 闲居 2020.02.20于四川达州 乾坤初，天平地和，万物安然循道而出。鸡鸣晨，犬吠午，黄发嬉逐，暮鼓对舞。 闲日间，齐聚一堂言新福。 临</description>
+    </item>
+    
+    <item>
+      <title> 还家（其五）</title>
+      <link>http://feiyoung.netlify.com/poem/2020-01-19-%E8%BF%98%E5%AE%B6%E5%85%B6%E4%BA%94/</link>
+      <pubDate>Sun, 19 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-01-19-%E8%BF%98%E5%AE%B6%E5%85%B6%E4%BA%94/</guid>
+      <description>还家（其五） 闲居 2020.01.19于C5744动车中 疏雨微清随旧落， 北风凛冽侵新铎。 天轻雾重新春至， 苦去甘来奋日多。 宁向苍松学劲态， 不沦月</description>
+    </item>
+    
+    <item>
+      <title> 老伴儿</title>
+      <link>http://feiyoung.netlify.com/poem/2020-01-16-%E8%80%81%E4%BC%B4%E5%84%BF/</link>
+      <pubDate>Thu, 16 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-01-16-%E8%80%81%E4%BC%B4%E5%84%BF/</guid>
+      <description>老伴儿 闲居 2020.01.16于万盛站 一步一轻稳， 濡眸挽手深。 年迈扶持过， 相伴品余生。</description>
+    </item>
+    
+    <item>
+      <title>共勉歌 </title>
+      <link>http://feiyoung.netlify.com/poem/2020-01-14-%E5%85%B1%E5%8B%89%E6%AD%8C/</link>
+      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-01-14-%E5%85%B1%E5%8B%89%E6%AD%8C/</guid>
+      <description>共勉歌 闲居 2020.01.14于五谷堂 半脚踏入统计门， 山下修行在个人。 工作薪酬非要害， 知识掌握是纯真。 学究互勉途中励， 严谨平和自律魂。 破浪乘</description>
+    </item>
+    
+    <item>
+      <title>三记元旦.欲还家</title>
+      <link>http://feiyoung.netlify.com/poem/2020-01-01-%E4%B8%89%E8%AE%B0%E5%85%83%E6%97%A6.%E6%AC%B2%E8%BF%98%E5%AE%B6/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-01-01-%E4%B8%89%E8%AE%B0%E5%85%83%E6%97%A6.%E6%AC%B2%E8%BF%98%E5%AE%B6/</guid>
+      <description>三记元旦.欲还家 闲居 2019.01.01于一粟 疏雨微清随旧落，北风凛冽侵新铎。 天轻雾重光明尽，苦去甘来奋日多。 小妹头疼连加重，双亲心坎日消磨</description>
+    </item>
+    
+    <item>
+      <title> 论教育</title>
+      <link>http://feiyoung.netlify.com/poem/2019-12-28-%E8%AE%BA%E6%95%99%E8%82%B2/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-12-28-%E8%AE%BA%E6%95%99%E8%82%B2/</guid>
+      <description>论教育 闲居 丰富内心世界 不为现实奴役 自由飞想象力 自主爱恋学习 独立思考能力 独立人格精神 自常在好奇心 自主的探索性 技校何其多， 智育有几何？ 只为谋生故</description>
+    </item>
+    
+    <item>
+      <title>翠阁安居之言</title>
+      <link>http://feiyoung.netlify.com/poem/2019-12-28-%E7%BF%A0%E9%98%81%E5%AE%89%E5%B1%85%E4%B9%8B%E8%A8%80/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-12-28-%E7%BF%A0%E9%98%81%E5%AE%89%E5%B1%85%E4%B9%8B%E8%A8%80/</guid>
+      <description>翠阁安居之言 闲居 2019.12.28于明辨 世人肩负焦心多， 实此动心自取活。 悦己当属安易居， 赏心只在听轩阁，</description>
+    </item>
+    
+    <item>
+      <title>西岭与轩对诗</title>
+      <link>http://feiyoung.netlify.com/poem/2019-12-22-%E8%A5%BF%E5%B2%AD%E4%B8%8E%E8%BD%A9%E5%AF%B9%E8%AF%97/</link>
+      <pubDate>Sun, 22 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-12-22-%E8%A5%BF%E5%B2%AD%E4%B8%8E%E8%BD%A9%E5%AF%B9%E8%AF%97/</guid>
+      <description>西岭与轩对诗 轩居 2019.12.22冬至于西岭雪山 东方云海空复空， 群仙出没空明中。 访友论道谈天地， 洞若观火世事通。</description>
+    </item>
+    
+    <item>
+      <title>妹犯头痛夜记</title>
+      <link>http://feiyoung.netlify.com/poem/2019-12-15-%E5%A6%B9%E7%8A%AF%E5%A4%B4%E7%97%9B%E5%A4%9C%E8%AE%B0/</link>
+      <pubDate>Sun, 15 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-12-15-%E5%A6%B9%E7%8A%AF%E5%A4%B4%E7%97%9B%E5%A4%9C%E8%AE%B0/</guid>
+      <description>妹犯头痛夜记 闲居 2019.12.15于明辨 豆蔻梢头正花开， 骤雨狂风催花败。 万物自有复苏日， 芳香何须花中来。</description>
+    </item>
+    
+    <item>
+      <title>与轩春熙看书逢白茶花</title>
+      <link>http://feiyoung.netlify.com/poem/2019-11-23-%E4%B8%8E%E8%BD%A9%E6%98%A5%E7%86%99%E7%9C%8B%E4%B9%A6%E9%80%A2%E7%99%BD%E8%8C%B6%E8%8A%B1/</link>
+      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-11-23-%E4%B8%8E%E8%BD%A9%E6%98%A5%E7%86%99%E7%9C%8B%E4%B9%A6%E9%80%A2%E7%99%BD%E8%8C%B6%E8%8A%B1/</guid>
+      <description>与轩春熙看书逢白茶花 闲居 2019.11.23于成都 灯繁纸醉来客往， 玉盖春熙众计忙。 赠予一方读书室， 写尽世间白茶香。</description>
+    </item>
+    
+    <item>
+      <title>听雾</title>
+      <link>http://feiyoung.netlify.com/poem/2019-11-21-%E5%90%AC%E9%9B%BE/</link>
+      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-11-21-%E5%90%AC%E9%9B%BE/</guid>
+      <description>听雾 闲居 2019.11.21于明辨 轻纱笼魅影， 滴露潜中听。 人间浩浩事， 立命与安心。</description>
+    </item>
+    
+    <item>
+      <title>轩跹曲</title>
+      <link>http://feiyoung.netlify.com/poem/2019-12-05-%E8%BD%A9%E8%B7%B9%E6%9B%B2/</link>
+      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-12-05-%E8%BD%A9%E8%B7%B9%E6%9B%B2/</guid>
+      <description>轩跹曲 闲居 2019.12.05夜于明辨 静若白莲，清开而婉淑。 动如灵兔，飞蹄哒哒引人注。 惹山惹水惹新物， 留影留香留恋处。 欲，山川古筑脚丈量， 曾</description>
+    </item>
+    
+    <item>
+      <title>十六字令~水</title>
+      <link>http://feiyoung.netlify.com/poem/2020-11-23-%E6%B0%B4/</link>
+      <pubDate>Mon, 18 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-11-23-%E6%B0%B4/</guid>
+      <description>十六字令~水 闲居 2019年11月于西财一粟堂 水，毅然东流不复回。 此历间，山阻岩崔嵬。 水，柔时性若柳叶眉。 风乍起，传波唤鸥归。 水，一泻千里何可</description>
+    </item>
+    
+    <item>
+      <title>与轩对诗</title>
+      <link>http://feiyoung.netlify.com/poem/2019-11-11-%E4%B8%8E%E8%BD%A9%E5%AF%B9%E8%AF%97/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-11-11-%E4%B8%8E%E8%BD%A9%E5%AF%B9%E8%AF%97/</guid>
+      <description>与轩对诗 轩居 2019.11.11于成都 山中人兮芳杜若， 饮石泉兮荫松柏。 居茅草兮衣云裳， 食野薇兮驾白驼。</description>
+    </item>
+    
+    <item>
+      <title>三友斗诗论志</title>
+      <link>http://feiyoung.netlify.com/poem/2019-10-31-%E4%B8%89%E5%8F%8B%E6%96%97%E8%AF%97%E8%AE%BA%E5%BF%97/</link>
+      <pubDate>Fri, 08 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-10-31-%E4%B8%89%E5%8F%8B%E6%96%97%E8%AF%97%E8%AE%BA%E5%BF%97/</guid>
+      <description>三友斗诗论志 2019.10.31于成都 少卿：君不闻毛泽东，埋骨何须桑梓地，人生何处不青山。 闲居：君不闻语堂林，心中自有青山在，何必随人看桃花</description>
+    </item>
+    
+    <item>
+      <title>相见欢</title>
+      <link>http://feiyoung.netlify.com/poem/2019-11-08-%E7%9B%B8%E8%A7%81%E6%AC%A2/</link>
+      <pubDate>Fri, 08 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-11-08-%E7%9B%B8%E8%A7%81%E6%AC%A2/</guid>
+      <description>相见欢 闲居 2019.11.08于皮都 豪右相谈学锦句， 距离斩断总相遇。 跨城不畏平原地， 历事何忧道路曲。 性静习言人世苦， 灵动磋思乾坤谜。 一路向上</description>
+    </item>
+    
+    <item>
+      <title>一七令~霞（龙凤对）</title>
+      <link>http://feiyoung.netlify.com/poem/2019-10-28-%E9%9C%9E/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-10-28-%E9%9C%9E/</guid>
+      <description>一七令~霞（龙凤对） 闲居 2019.10.28于一粟 彩，融。 画凤，雕龙。 凤欲翔，龙念冲。 翔舞九天，冲破苍穹。 双羽散晓雾，一角裂云烘。 雾尽凤归相</description>
+    </item>
+    
+    <item>
+      <title>雨夜归</title>
+      <link>http://feiyoung.netlify.com/poem/2019-10-21-%E9%9B%A8%E5%A4%9C%E5%BD%92/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-10-21-%E9%9B%A8%E5%A4%9C%E5%BD%92/</guid>
+      <description>雨夜归 闲居 2019.10.21于明辨 一人一骑心谜， 一啸一吟乐己。 一枝一叶菩提， 一去一归夜雨。</description>
+    </item>
+    
+    <item>
+      <title>动与静</title>
+      <link>http://feiyoung.netlify.com/poem/2019-10-17-%E5%8A%A8%E4%B8%8E%E9%9D%99/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-10-17-%E5%8A%A8%E4%B8%8E%E9%9D%99/</guid>
+      <description>动与静 闲居 2019.10.17于一粟 万事附心中， 安能心不动。 动心即历练， 练就心静空。</description>
+    </item>
+    
+    <item>
+      <title>乐岁二六</title>
+      <link>http://feiyoung.netlify.com/poem/2019-10-15-%E4%B9%90%E5%B2%81%E4%BA%8C%E5%85%AD/</link>
+      <pubDate>Tue, 15 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-10-15-%E4%B9%90%E5%B2%81%E4%BA%8C%E5%85%AD/</guid>
+      <description>乐岁二六 闲居 2019.10.15于明辨 金山旧事弥新味， 岁月虞痕重鼓捶。 明目烛光歌乐曲， 素心挚友饮香醅。 还浮谷壑深渊坠， 感念平凡日间陪。 但愿青</description>
+    </item>
+    
+    <item>
+      <title>大佛偕游</title>
+      <link>http://feiyoung.netlify.com/poem/2019-10-06-%E5%A4%A7%E4%BD%9B%E5%81%95%E6%B8%B8/</link>
+      <pubDate>Sun, 06 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-10-06-%E5%A4%A7%E4%BD%9B%E5%81%95%E6%B8%B8/</guid>
+      <description>大佛偕游 闲居 连字~乐山～露～系～戏~二水~钟 ～暗 2019.10.06于成都 走， 铁轨通北南， 邀仙游乐山。 食， 生活尚艺术， 晌午露为餐。 看！ 一看，</description>
+    </item>
+    
+    <item>
+      <title>大佛偕游1</title>
+      <link>http://feiyoung.netlify.com/poem/2019-10-06-%E5%A4%A7%E4%BD%9B%E5%81%95%E6%B8%B81/</link>
+      <pubDate>Sun, 06 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-10-06-%E5%A4%A7%E4%BD%9B%E5%81%95%E6%B8%B81/</guid>
+      <description>大佛偕游 闲居 2019.10.06于成都 铁轨通北南， 邀仙游乐山。 生活尚艺术， 晌午露为餐。 红灯系树干， 鲤鱼戏池边。 二水断河岸， 钟响游云端。 乾坤浮</description>
+    </item>
+    
+    <item>
+      <title>咏芦苇.五绝</title>
+      <link>http://feiyoung.netlify.com/poem/2019-09-29-%E5%92%8F%E8%8A%A6%E8%8B%87/</link>
+      <pubDate>Sun, 29 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-09-29-%E5%92%8F%E8%8A%A6%E8%8B%87/</guid>
+      <description>咏芦苇.五绝 闲居 2019.09.29于明辨 荷塘垂芦苇， 爱戏暖风吹。 悬体无执拗， 身柔向强为。</description>
+    </item>
+    
+    <item>
+      <title>忆王孙~画扇</title>
+      <link>http://feiyoung.netlify.com/poem/2019-09-28-%E5%BF%86%E7%8E%8B%E5%AD%99/</link>
+      <pubDate>Sat, 28 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-09-28-%E5%BF%86%E7%8E%8B%E5%AD%99/</guid>
+      <description>忆王孙~画扇 闲居 2019.09.28于明辨 离愁斩断未知交，窗冷秋凉雨未消。 画扇一开旧友韶。远程聊，静坐谈心任雨摇。 注： 1.画扇：带有画作题诗</description>
+    </item>
+    
+    <item>
+      <title>中秋午夜</title>
+      <link>http://feiyoung.netlify.com/poem/2019-09-13-%E4%B8%AD%E7%A7%8B%E5%8D%88%E5%A4%9C/</link>
+      <pubDate>Fri, 27 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-09-13-%E4%B8%AD%E7%A7%8B%E5%8D%88%E5%A4%9C/</guid>
+      <description>中秋午夜~雷电惊魂 闲居 2019.09.13于明辨 乍起狂风午夜喧， 中秋皓月何处圆？ 卷帘静锁穿窗水， 卧榻轻留入夜闲。 电钻三击勾地堑， 雷轰九炸震魔</description>
+    </item>
+    
+    <item>
+      <title>国庆颂</title>
+      <link>http://feiyoung.netlify.com/poem/2019-09-27-%E5%9B%BD%E5%BA%86%E9%A2%82/</link>
+      <pubDate>Fri, 27 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-09-27-%E5%9B%BD%E5%BA%86%E9%A2%82/</guid>
+      <description>国庆颂.贺祖国峥嵘七十年 闲居 2019于成都 百万红旗飒飒飘， 高楼许座破灵霄。 繁华易褪前朝事， 瑰丽难托现世骄。 大国之中明傲骨， 远邻内外建邦交。 七</description>
+    </item>
+    
+    <item>
+      <title>又闻桂香</title>
+      <link>http://feiyoung.netlify.com/poem/2019-09-07-%E5%8F%88%E9%97%BB%E6%A1%82%E9%A6%99/</link>
+      <pubDate>Sat, 07 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-09-07-%E5%8F%88%E9%97%BB%E6%A1%82%E9%A6%99/</guid>
+      <description>又闻桂香 闲居 2019.09.07于明辨 清晨漱毕觅食材， 鸟啼悠悠趁兴来。 未至朝晖香浸面， 不觉已是桂花开。</description>
+    </item>
+    
+    <item>
+      <title>返校抒怀（其五）</title>
+      <link>http://feiyoung.netlify.com/poem/2019-09-03-%E8%BF%94%E6%A0%A1%E6%8A%92%E6%80%80%E5%85%B6%E4%BA%94/</link>
+      <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-09-03-%E8%BF%94%E6%A0%A1%E6%8A%92%E6%80%80%E5%85%B6%E4%BA%94/</guid>
+      <description>返校抒怀（其五） 闲居 2019.09.03于达州火车站 摩地乘风雾， 青坡吐日出。 每期慈父送， 恩义笔难书。</description>
+    </item>
+    
+    <item>
+      <title>诗境</title>
+      <link>http://feiyoung.netlify.com/poem/2019-08-28-%E8%AF%97%E5%A2%83/</link>
+      <pubDate>Wed, 28 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-08-28-%E8%AF%97%E5%A2%83/</guid>
+      <description>诗境 闲居 2019.08.28于脉里垭 天马行空咏劲华， 莫为外物限余遐。 笔触道意多年事， 宣纸陈情数万家。 雨打青苔滴落夏， 蛛织密网吐丝花。 生灵万物</description>
+    </item>
+    
+    <item>
+      <title>逍遥鸭</title>
+      <link>http://feiyoung.netlify.com/poem/2019-08-27-%E9%80%8D%E9%81%A5%E9%B8%AD-/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-08-27-%E9%80%8D%E9%81%A5%E9%B8%AD-/</guid>
+      <description>逍遥鸭 闲居 2019.08.25于达州麻柳镇脉里垭村 淡淡鹅黄脚， 绒绒雀褐毛。 腰肢肥细软， 颜貌俏多娇。 嬉戏直深幕， 欢腾在浅朝。 因何丫自在？ 只故尚</description>
+    </item>
+    
+    <item>
+      <title>雨悟</title>
+      <link>http://feiyoung.netlify.com/poem/2019-08-27-%E9%9B%A8%E6%82%9F-/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-08-27-%E9%9B%A8%E6%82%9F-/</guid>
+      <description>雨悟 闲居 2019.08.27于脉里垭 氤氲雾气多缭绕， 梦里神居武陵桃。 神笑人间俗客多， 焉知浮世净暇廖。 一瞥望外穿庭雨， 三酒回肠涌巨涛。 物意无需</description>
+    </item>
+    
+    <item>
+      <title>稻成记趣</title>
+      <link>http://feiyoung.netlify.com/poem/2019-08-24-%E7%A8%BB%E6%88%90%E8%AE%B0%E8%B6%A3-/</link>
+      <pubDate>Sat, 24 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-08-24-%E7%A8%BB%E6%88%90%E8%AE%B0%E8%B6%A3-/</guid>
+      <description>稻成记趣 闲居 2019.08.24于达州 晨曦微露亮， 照月入禾塘。 茎叶一层绿， 伏谷数寸黄。 杆随机器动， 粒绕搅轴香。 最念双亲意， 归耕在故乡。</description>
+    </item>
+    
+    <item>
+      <title>返乡有感（其六）</title>
+      <link>http://feiyoung.netlify.com/poem/2019-08-19-%E8%BF%94%E4%B9%A1%E6%9C%89%E6%84%9F%E5%85%B6%E5%85%AD-/</link>
+      <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-08-19-%E8%BF%94%E4%B9%A1%E6%9C%89%E6%84%9F%E5%85%B6%E5%85%AD-/</guid>
+      <description>返乡有感（其六） 闲居 2019.08.19于成都地铁 暗雨淅淅送予归， 轻风缓缓亦相随。 庭前古柿垂青树， 岁岁丰收待早回。</description>
+    </item>
+    
+    <item>
+      <title>闲逸志</title>
+      <link>http://feiyoung.netlify.com/poem/2019-08-07-%E9%97%B2%E9%80%B8%E5%BF%97-/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-08-07-%E9%97%B2%E9%80%B8%E5%BF%97-/</guid>
+      <description>闲逸志 闲居 2019.08.07于明辨 天光侵雪岭， 北雨入晨兴。 孤卧楠花榭， 独觞净雨亭。 山山皆醉韵， 树树尽深情。 挽留山淙里， 无沾世俗心。</description>
+    </item>
+    
+    <item>
+      <title>旅车稻城</title>
+      <link>http://feiyoung.netlify.com/poem/2019-08-01-%E6%97%85%E8%BD%A6%E7%A8%BB%E5%9F%8E-/</link>
+      <pubDate>Thu, 01 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-08-01-%E6%97%85%E8%BD%A6%E7%A8%BB%E5%9F%8E-/</guid>
+      <description>旅车稻城 闲居 2019.08.01于稻城亚丁 其一 疾风密雨行装重， 大道迎宾待阵容。 破晓疾驰三雅过， 心惊泸定锁连通。 其二 山泉水寒牦牛雄， 折多山秀笑</description>
+    </item>
+    
+    <item>
+      <title>念明于谦</title>
+      <link>http://feiyoung.netlify.com/poem/2019-07-29-%E5%BF%B5%E6%98%8E%E4%BA%8E%E8%B0%A6/</link>
+      <pubDate>Mon, 29 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-07-29-%E5%BF%B5%E6%98%8E%E4%BA%8E%E8%B0%A6/</guid>
+      <description>念明于谦 闲居 ~~读《明朝那些事》后 感 2019.07.04于成都 2019.07.29update 月冷风高铁骑扬， 万军血夜尽伤亡。 国危运乱系一线， 漠险京慌立二皇。 既倒狂澜能相</description>
+    </item>
+    
+    <item>
+      <title>复见</title>
+      <link>http://feiyoung.netlify.com/poem/2019-07-28-%E5%A4%8D%E8%A7%81/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-07-28-%E5%A4%8D%E8%A7%81/</guid>
+      <description>复见 闲居 2019.07.28于杜甫草堂 日近归天府， 聊心聚语殊。 相逢言旧密， 喜笑庆新熟。 雨霁离人散， 风消旧物出。 情丝来又去， 了却有还无。</description>
+    </item>
+    
+    <item>
+      <title>自寻</title>
+      <link>http://feiyoung.netlify.com/poem/2019-07-27-%E8%87%AA%E5%AF%BB/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-07-27-%E8%87%AA%E5%AF%BB/</guid>
+      <description>自寻 闲居 2019.07.27于明辨 醉里桃园风入画， 蝉鸣鸟语绿层花。 人忙错乱何为去？ 世事滔浊自乐家。</description>
+    </item>
+    
+    <item>
+      <title>待雨停记</title>
+      <link>http://feiyoung.netlify.com/poem/2019-06-17-%E5%BE%85%E9%9B%A8%E5%81%9C%E8%AE%B0/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-06-17-%E5%BE%85%E9%9B%A8%E5%81%9C%E8%AE%B0/</guid>
+      <description>待雨停记 闲居 2019.06.17于一粟 密密疏疏雨， 清清冷冷风。 惆惆然然梦， 迷迷隐隐中。</description>
+    </item>
+    
+    <item>
+      <title>当头喝</title>
+      <link>http://feiyoung.netlify.com/poem/2019-06-09-%E5%BD%93%E5%A4%B4%E5%96%9D/</link>
+      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-06-09-%E5%BD%93%E5%A4%B4%E5%96%9D/</guid>
+      <description>当头喝 闲居 2019.06.09于明辨 侥幸过腊月， 夏暑遭寒雪。 无柴可取暖， 殒于明朗夜。</description>
+    </item>
+    
+    <item>
+      <title>端午忆·屈原</title>
+      <link>http://feiyoung.netlify.com/poem/2019-06-07-%E7%AB%AF%E5%8D%88%E5%BF%86%E5%B1%88%E5%8E%9F/</link>
+      <pubDate>Fri, 07 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-06-07-%E7%AB%AF%E5%8D%88%E5%BF%86%E5%B1%88%E5%8E%9F/</guid>
+      <description>端午忆·屈原 闲居 2019.06.07于一粟 罗重千卷望辕门， 回首已成百年身。 轻点微尘黄泉路， 不泯忠义汨罗魂。 死既非死何惧死， 存或不存人心存。 逝</description>
+    </item>
+    
+    <item>
+      <title>中国芯</title>
+      <link>http://feiyoung.netlify.com/poem/2019-05-24-%E4%B8%AD%E5%9B%BD%E8%8A%AF/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-05-24-%E4%B8%AD%E5%9B%BD%E8%8A%AF/</guid>
+      <description>中国芯 闲居 2019.05.24于明辨 特殊时期特殊黑， 朗朗乾坤断粮水。 普天勠力集中华， 合创中芯尚有为。</description>
+    </item>
+    
+    <item>
+      <title>返校有感（其三）</title>
+      <link>http://feiyoung.netlify.com/poem/2019-05-22-%E8%BF%94%E6%A0%A1%E6%9C%89%E6%84%9F%E5%85%B6%E4%B8%89/</link>
+      <pubDate>Wed, 22 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-05-22-%E8%BF%94%E6%A0%A1%E6%9C%89%E6%84%9F%E5%85%B6%E4%B8%89/</guid>
+      <description>返校有感（其三） 闲居 2019.05.22于成都 （Update） 靡靡早起用晨餐， 幕幕黑云掩银蟾。 期期年走冬既老， 岁岁人离夜将阑。</description>
+    </item>
+    
+    <item>
+      <title>夜答友忧</title>
+      <link>http://feiyoung.netlify.com/poem/2019-05-21-%E5%A4%9C%E7%AD%94%E5%8F%8B%E5%BF%A7/</link>
+      <pubDate>Tue, 21 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-05-21-%E5%A4%9C%E7%AD%94%E5%8F%8B%E5%BF%A7/</guid>
+      <description>夜答*友忧 闲居 2019-05-21于明辨 既入官途大江流，方位不辨难免愁。 心怀天下务国事，身融百家解民忧。 韩信俯胯谋大志，勾践尝胆为国仇。 待汝</description>
+    </item>
+    
+    <item>
+      <title>流絮</title>
+      <link>http://feiyoung.netlify.com/poem/2019-05-20-%E6%B5%81%E7%B5%AE/</link>
+      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-05-20-%E6%B5%81%E7%B5%AE/</guid>
+      <description>流絮 闲居 2019.05.20于明辨 白蘼凌空雨， 飞窗入檐家。 浪里不知返， 蓉城万里花。</description>
+    </item>
+    
+    <item>
+      <title>三江游</title>
+      <link>http://feiyoung.netlify.com/poem/2019-05-05-%E4%B8%89%E6%B1%9F%E6%B8%B8/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-05-05-%E4%B8%89%E6%B1%9F%E6%B8%B8/</guid>
+      <description>三江游 闲居 2019.05.05于宜宾三江口 沙船虹桥白塔镶， 三江汇流入胸膛。 古往英雄多少人， 功成名就倚长江。</description>
+    </item>
+    
+    <item>
+      <title>青城留（六）名客</title>
+      <link>http://feiyoung.netlify.com/poem/2019-04-06-%E9%9D%92%E5%9F%8E%E7%95%99%E5%85%AD%E5%90%8D%E5%AE%A2/</link>
+      <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-04-06-%E9%9D%92%E5%9F%8E%E7%95%99%E5%85%AD%E5%90%8D%E5%AE%A2/</guid>
+      <description>青城留（六）名客 闲居 2019.04.06于青城山 清明踏青青城山， 时下节日客正闲。 飞泉路远英杰影， 五龙山横晓明牵。 纵身济济伟弄势， 信步悠悠兵含</description>
+    </item>
+    
+    <item>
+      <title>记打羽毛球</title>
+      <link>http://feiyoung.netlify.com/poem/2019-04-03-%E8%AE%B0%E6%89%93%E7%BE%BD%E6%AF%9B%E7%90%83/</link>
+      <pubDate>Wed, 03 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-04-03-%E8%AE%B0%E6%89%93%E7%BE%BD%E6%AF%9B%E7%90%83/</guid>
+      <description>记打羽毛球 闲居 2019.04.03于明辨 日落飞鸟尽，霞出晚风清。 馆内英姿展，全身汗雨淋。 挑球几高远，开局三连赢。 两时无累意，真有迷恋心。</description>
+    </item>
+    
+    <item>
+      <title>五律.神游西湖念乐天</title>
+      <link>http://feiyoung.netlify.com/poem/2019-04-02-%E4%BA%94%E5%BE%8B.%E7%A5%9E%E6%B8%B8%E8%A5%BF%E6%B9%96%E5%BF%B5%E4%B9%90%E5%A4%A9-/</link>
+      <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-04-02-%E4%BA%94%E5%BE%8B.%E7%A5%9E%E6%B8%B8%E8%A5%BF%E6%B9%96%E5%BF%B5%E4%B9%90%E5%A4%A9-/</guid>
+      <description>五律.神游西湖念乐天 闲居 2019.04.02于明辨 观景西湖里， 淡浓总相宜。 水雁湖中戏， 山鸡野上栖。 朝观密雾起， 暮送清风离。 无念浮华世， 匿于柳</description>
+    </item>
+    
+    <item>
+      <title>ML识花</title>
+      <link>http://feiyoung.netlify.com/poem/2019-03-28-ml%E8%AF%86%E8%8A%B1-/</link>
+      <pubDate>Thu, 28 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-03-28-ml%E8%AF%86%E8%8A%B1-/</guid>
+      <description>ML识花 闲居 樱花大朵旁枝发， 杜鹃含苞指天涯。 山茶残朵输气韵， 冬茄满坛胜流霞。 鹌菜细细自幽雅， 機木丝丝比朱砂。 明媚春朝唤友朋， 绿莎原上一壶茶。</description>
+    </item>
+    
+    <item>
+      <title>不泯</title>
+      <link>http://feiyoung.netlify.com/poem/2019-03-27-%E4%B8%8D%E6%B3%AF-/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-03-27-%E4%B8%8D%E6%B3%AF-/</guid>
+      <description>不泯 闲居 2019.03.27于明辨（update） 浩瀚烟海谱蓝图， 童心泯灭为成熟？ 心怀灵性葆生机， 半里乾坤相自出。</description>
+    </item>
+    
+    <item>
+      <title>春来早</title>
+      <link>http://feiyoung.netlify.com/poem/2019-03-01-%E6%98%A5%E6%9D%A5%E6%97%A9-/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-03-01-%E6%98%A5%E6%9D%A5%E6%97%A9-/</guid>
+      <description>春来早 闲居 2019.03.01于明辨 桃红万朵满枝丫， 嫩柳池畔宿人家。 春朝不念风景好， 心有青山何慕花？</description>
+    </item>
+    
+    <item>
+      <title>又记元旦</title>
+      <link>http://feiyoung.netlify.com/poem/2019-01-01-%E5%8F%88%E8%AE%B0%E5%85%83%E6%97%A6/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2019-01-01-%E5%8F%88%E8%AE%B0%E5%85%83%E6%97%A6/</guid>
+      <description>又记元旦 闲居 2019.01.01于大西北面馆 旭日东升，气象始变迁。云开天清，神送人间一片蓝。 前日踏雪寻梅去，喜乐穷尽生风寒，此乃：物极必反。</description>
+    </item>
+    
+    <item>
+      <title>七律.神游峨眉念东坡</title>
+      <link>http://feiyoung.netlify.com/poem/2018-12-26-%E4%B8%83%E5%BE%8B.%E7%A5%9E%E6%B8%B8%E5%B3%A8%E7%9C%89%E5%BF%B5%E4%B8%9C%E5%9D%A1/</link>
+      <pubDate>Wed, 26 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-12-26-%E4%B8%83%E5%BE%8B.%E7%A5%9E%E6%B8%B8%E5%B3%A8%E7%9C%89%E5%BF%B5%E4%B8%9C%E5%9D%A1/</guid>
+      <description>七律.神游峨眉念东坡 闲居 2018.12.26于明辨（update） 茫茫云海分天地， 笔语罅隙道玄机。 雾锁群林山雨至， 日罩金顶横风袭。 头上艳阳腰</description>
+    </item>
+    
+    <item>
+      <title>陋室闲居</title>
+      <link>http://feiyoung.netlify.com/poem/2018-12-25-%E9%99%8B%E5%AE%A4%E9%97%B2%E5%B1%85/</link>
+      <pubDate>Tue, 25 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-12-25-%E9%99%8B%E5%AE%A4%E9%97%B2%E5%B1%85/</guid>
+      <description>陋室闲居 闲居 2018.12.25于明辨 三平小卧舍， 响彻民谣歌。 笛声缓缓起， 琵琶轻轻和。 刀花作静舞。 剑刃流光泽。 陋室交雅友， 简居纳闲者。 注： 1</description>
+    </item>
+    
+    <item>
+      <title>冬至茶语</title>
+      <link>http://feiyoung.netlify.com/poem/2018-12-22-%E5%86%AC%E8%87%B3%E8%8C%B6%E8%AF%AD/</link>
+      <pubDate>Sat, 22 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-12-22-%E5%86%AC%E8%87%B3%E8%8C%B6%E8%AF%AD/</guid>
+      <description>冬至茶语 闲居 2018.12.22于成都小茶馆 品茶清饮园，友聚艳阳天。 聊心道近况，嘘寒尽挚言。 银杏始凋敝，腊梅香庭前。 觅花须及早，拼搏趁少年。</description>
+    </item>
+    
+    <item>
+      <title>夜说心境</title>
+      <link>http://feiyoung.netlify.com/poem/2018-12-12-%E5%A4%9C%E8%AF%B4%E5%BF%83%E5%A2%83/</link>
+      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-12-12-%E5%A4%9C%E8%AF%B4%E5%BF%83%E5%A2%83/</guid>
+      <description>夜说心境 闲居 2018.12.12 update 扬名在外震山雷， 夜练功夫剑挑眉。 西南名山皆可留， 然是无为亦有为。</description>
+    </item>
+    
+    <item>
+      <title>咏银杏</title>
+      <link>http://feiyoung.netlify.com/poem/2018-12-09-%E5%92%8F%E9%93%B6%E6%9D%8F/</link>
+      <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-12-09-%E5%92%8F%E9%93%B6%E6%9D%8F/</guid>
+      <description>咏银杏 闲居 2018.12.09于西财一粟 徐风卷叶纷飞雨， 影乱心迷醉金花。 独秀一枝肃冬寒， 斗志凌云傲霜华。</description>
+    </item>
+    
+    <item>
+      <title>一七令~雾</title>
+      <link>http://feiyoung.netlify.com/poem/2018-11-30-%E4%B8%80%E4%B8%83%E4%BB%A4~%E9%9B%BE/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-11-30-%E4%B8%80%E4%B8%83%E4%BB%A4~%E9%9B%BE/</guid>
+      <description>一七令~雾 闲居 2018.11.30于西财一粟 静，空。 梦幻，朦胧。 若隐匿，犹虚荣。 观景雾里，趣乐无穷。 闲日入古寺，山间闻晨钟。 清溪曲径密树，细</description>
+    </item>
+    
+    <item>
+      <title>悟价</title>
+      <link>http://feiyoung.netlify.com/poem/2018-05-05-%E6%82%9F%E4%BB%B7/</link>
+      <pubDate>Sat, 05 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-05-05-%E6%82%9F%E4%BB%B7/</guid>
+      <description>$${\Huge 悟价}$$ $${\Large 闲居}$$ $$2018.05.05于明辨 $$ $$名利权色趣， $$ $$ 众生心醉迷。 $$ $$君欲何所取？ $$ $$末者为真理。 $$</description>
+    </item>
+    
+    <item>
+      <title>清风徐来</title>
+      <link>http://feiyoung.netlify.com/poem/2018-04-27-%E6%B8%85%E9%A3%8E%E5%BE%90%E6%9D%A5/</link>
+      <pubDate>Fri, 27 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-04-27-%E6%B8%85%E9%A3%8E%E5%BE%90%E6%9D%A5/</guid>
+      <description>清风徐来 闲居 2018.04.27于明辨 风扣门扉惊， 帘卷砚纸鸣。 午睡悠悠起， 青云簌簌行。 晚春日正暖， 逍遥人忘还。 久居深楼里， 复得归自然。</description>
+    </item>
+    
+    <item>
+      <title>春不与予</title>
+      <link>http://feiyoung.netlify.com/poem/2018-04-09-%E6%98%A5%E4%B8%8D%E4%B8%8E%E4%BA%88/</link>
+      <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-04-09-%E6%98%A5%E4%B8%8D%E4%B8%8E%E4%BA%88/</guid>
+      <description>春不与予 闲居 2018.04.09于校园 草尖白露笑， 枝头鸟鸣急。 万物春意闹， 余竟无心理。</description>
+    </item>
+    
+    <item>
+      <title>都江堰行</title>
+      <link>http://feiyoung.netlify.com/poem/2018-04-06-%E9%83%BD%E6%B1%9F%E5%A0%B0%E8%A1%8C/</link>
+      <pubDate>Fri, 06 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-04-06-%E9%83%BD%E6%B1%9F%E5%A0%B0%E8%A1%8C/</guid>
+      <description>都江堰行 闲居 2018.04.06于都江堰 天初亮，气微凉，乘风踏雨入都江。 蜀守李氏今何在？千秋利民丰功伟绩浩气长。 离堆旁，宝瓶上，飞沙石堰断流</description>
+    </item>
+    
+    <item>
+      <title>如梦令*三春晖</title>
+      <link>http://feiyoung.netlify.com/poem/2018-02-02-%E5%A6%82%E6%A2%A6%E4%BB%A4-%E4%B8%89%E6%98%A5%E6%99%96/</link>
+      <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-02-02-%E5%A6%82%E6%A2%A6%E4%BB%A4-%E4%B8%89%E6%98%A5%E6%99%96/</guid>
+      <description>如梦令*三春晖 闲居 2018年农历2月初2（母亲生日）于明辨 浣裳厨房厅堂，屋外家内贪忙。 生辰在何方，当属对门墚上。无妨，无妨，愿化子女暖阳。</description>
+    </item>
+    
+    <item>
+      <title>有感而发</title>
+      <link>http://feiyoung.netlify.com/poem/2018-01-18-%E6%9C%89%E6%84%9F%E8%80%8C%E5%8F%91/</link>
+      <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-01-18-%E6%9C%89%E6%84%9F%E8%80%8C%E5%8F%91/</guid>
+      <description>有感而发 闲居 2018.01.18于明辨 凡尘俗世多纷扰， 可畏人言钻心凿。 五行之外觅知己， 且无风雨何飘摇？</description>
+    </item>
+    
+    <item>
+      <title>新年颂</title>
+      <link>http://feiyoung.netlify.com/poem/2018-01-15-%E6%96%B0%E5%B9%B4%E9%A2%82/</link>
+      <pubDate>Mon, 15 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-01-15-%E6%96%B0%E5%B9%B4%E9%A2%82/</guid>
+      <description>新年颂 闲居 2018.01.15于达州 爆竹声声传喜庆， 青烟袅袅悼先陵。 万家灯火何明烈， 堂前团圆淀亲情。 儿时喜乐已无音， 节日传承须勤行。 又是一年</description>
+    </item>
+    
+    <item>
+      <title>灰车铭</title>
+      <link>http://feiyoung.netlify.com/poem/2018-01-15-%E7%81%B0%E8%BD%A6%E9%93%AD/</link>
+      <pubDate>Mon, 15 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-01-15-%E7%81%B0%E8%BD%A6%E9%93%AD/</guid>
+      <description>新年颂 闲居 2018.05.17于成都 白衣少年，书生意气。驾长车，一飞八千里。难意料，蹬腿掉地，撞击声惊两旁人，车难停，人已去。可奈何，唏嘘不</description>
+    </item>
+    
+    <item>
+      <title>秋凉词</title>
+      <link>http://feiyoung.netlify.com/poem/2018-01-14-%E7%A7%8B%E5%87%89%E8%AF%8D/</link>
+      <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-01-14-%E7%A7%8B%E5%87%89%E8%AF%8D/</guid>
+      <description>秋凉词 闲居 2018.01.14于明辨 秋意凉，郁满肠，银杏凋敝尽枯黄。 薄纱窗，南门望，高楼林立已成殇。 单车翔，尘土扬，寒风凌冽刮脸庞。 学海忙，</description>
+    </item>
+    
+    <item>
+      <title>记元旦佳节聚会词</title>
+      <link>http://feiyoung.netlify.com/poem/2018-01-01-%E8%AE%B0%E5%85%83%E6%97%A6%E4%BD%B3%E8%8A%82%E8%81%9A%E4%BC%9A%E8%AF%8D/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2018-01-01-%E8%AE%B0%E5%85%83%E6%97%A6%E4%BD%B3%E8%8A%82%E8%81%9A%E4%BC%9A%E8%AF%8D/</guid>
+      <description>记元旦佳节聚会词 闲居 2018.01.01于明辨 雾朦胧，喜气融，蜀皇牛肉聚宾朋。 字句全言前途计，醉翁之意不在杯盏中。 酒微醺，热上涌，暗伤毕业难</description>
+    </item>
+    
+    <item>
+      <title>卜算子.驱霾</title>
+      <link>http://feiyoung.netlify.com/poem/2017-12-29-%E5%8D%9C%E7%AE%97%E5%AD%90.%E9%A9%B1%E9%9C%BE/</link>
+      <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2017-12-29-%E5%8D%9C%E7%AE%97%E5%AD%90.%E9%A9%B1%E9%9C%BE/</guid>
+      <description>卜算子.驱霾 闲居 2017.12.29闲居于统计学院 浓雾漫苍穹，浊气侵人心。 白云蓝天转头空，何不醒而今。 治理揽良策，保全须法令。 待到青山绿水时</description>
+    </item>
+    
+    <item>
+      <title>寄宿学时</title>
+      <link>http://feiyoung.netlify.com/poem/2020-11-28-%E5%AF%84%E5%AE%BF%E5%AD%A6%E6%97%B6/</link>
+      <pubDate>Tue, 28 Nov 2017 21:48:51 -0700</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-11-28-%E5%AF%84%E5%AE%BF%E5%AD%A6%E6%97%B6/</guid>
+      <description>寄宿学时 闲居 2017年11月于达州 晨起梳洗早， 山涧流岚晓。 举步早读去， 慎思明辨少。</description>
+    </item>
+    
+    <item>
+      <title>沉沙落雁式，踩坑建博客</title>
+      <link>http://feiyoung.netlify.com/2017/11/28/%E6%B2%89%E6%B2%99%E8%90%BD%E9%9B%81%E5%BC%8F%E8%B8%A9%E5%9D%91%E5%BB%BA%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Tue, 28 Nov 2017 21:48:51 -0700</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2017/11/28/%E6%B2%89%E6%B2%99%E8%90%BD%E9%9B%81%E5%BC%8F%E8%B8%A9%E5%9D%91%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>今天心情颇差，为建Blogdown博客，倒腾大半天持续踩坑，这让本不自信的我变得更丧。 大水冲了龙王庙——Hugo与Blogdown的相识 栽在</description>
+    </item>
+    
+    <item>
+      <title>浮生叹</title>
+      <link>http://feiyoung.netlify.com/poem/2020-11-28-%E6%B5%AE%E7%94%9F%E5%8F%B9/</link>
+      <pubDate>Tue, 28 Nov 2017 21:48:51 -0700</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2020-11-28-%E6%B5%AE%E7%94%9F%E5%8F%B9/</guid>
+      <description>浮生叹 闲居 2017年11月于达州 贫寒卑微心中怀， 功名权势栋梁才。 今朝晓镜浮云散， 闲游于世随趣来。</description>
+    </item>
+    
+    <item>
+      <title>烦日</title>
+      <link>http://feiyoung.netlify.com/poem/2017-11-18-%E7%83%A6%E6%97%A5/</link>
+      <pubDate>Sat, 18 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2017-11-18-%E7%83%A6%E6%97%A5/</guid>
+      <description>烦日 闲居 2017.11.18于明辨园659上铺 繁复琐事接踵至， 心灵静土无宁日。 刀剑笛乐书中客， 何苦违心三五次。</description>
+    </item>
+    
+    <item>
+      <title>自足歌</title>
+      <link>http://feiyoung.netlify.com/poem/2017-10-22-%E8%87%AA%E8%B6%B3%E6%AD%8C/</link>
+      <pubDate>Sun, 22 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2017-10-22-%E8%87%AA%E8%B6%B3%E6%AD%8C/</guid>
+      <description>自足歌 闲居 2017.10.22 于西南财经大学柳林小炒 身不由己处江湖， 辗转反侧不入俗。 从雅随趣闲游书， 舍名弃利亦餍足。</description>
+    </item>
+    
+    <item>
+      <title>返校抒怀</title>
+      <link>http://feiyoung.netlify.com/poem/2017-09-03-%E8%BF%94%E6%A0%A1%E6%8A%92%E6%80%80/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2017-09-03-%E8%BF%94%E6%A0%A1%E6%8A%92%E6%80%80/</guid>
+      <description>返校抒怀 闲居 2017.09.03于达州火车站 淫雨霏霏雾蒙蒙， 绿水群山轻纱笼。 又是一季离别意， 功成名就论英雄。</description>
+    </item>
+    
+    <item>
+      <title>青春的葬礼诗</title>
+      <link>http://feiyoung.netlify.com/poem/2017-09-03-%E9%9D%92%E6%98%A5%E7%9A%84%E8%91%AC%E7%A4%BC%E8%AF%97/</link>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2017-09-03-%E9%9D%92%E6%98%A5%E7%9A%84%E8%91%AC%E7%A4%BC%E8%AF%97/</guid>
+      <description>青春的葬礼诗 闲居 2017.09.02于达州 我在时间的罅隙中穿梭， 试图阻断光阴无情的流逝。 任凭江河的大浪淘沙， 挽留住父母的青丝黑发。 那时父亲还</description>
+    </item>
+    
+    <item>
+      <title>观雨</title>
+      <link>http://feiyoung.netlify.com/poem/2017-09-01-%E8%A7%82%E9%9B%A8/</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/poem/2017-09-01-%E8%A7%82%E9%9B%A8/</guid>
+      <description>观雨 闲居 2017.09.01于达州 雷鸣滚滚，风声厉厉，雾霭苍穹瓢泼雨。 蝉声稀稀，水流疾疾，稻后良田溢沟渠。 归期将至，夜寝难寐，疑是银河伤别离</description>
     </item>
     
   </channel>

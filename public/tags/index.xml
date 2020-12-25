@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Yingjie</title>
-    <link>/tags/</link>
-    <description>Recent content in Tags on Yingjie</description>
+    <title>Tags on Wei Liu</title>
+    <link>http://feiyoung.netlify.com/tags/</link>
+    <description>Recent content in Tags on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://feiyoung.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>research</title>
-      <link>/tags/research/</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      <title>plot</title>
+      <link>http://feiyoung.netlify.com/tags/plot/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/tags/research/</guid>
+      <guid>http://feiyoung.netlify.com/tags/plot/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>diary</title>
-      <link>/tags/diary/</link>
-      <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
+      <title>R Markdown</title>
+      <link>http://feiyoung.netlify.com/tags/r-markdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/tags/diary/</guid>
+      <guid>http://feiyoung.netlify.com/tags/r-markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>regression</title>
+      <link>http://feiyoung.netlify.com/tags/regression/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/tags/regression/</guid>
       <description></description>
     </item>
     

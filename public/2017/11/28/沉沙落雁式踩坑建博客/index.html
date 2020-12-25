@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <title>沉沙落雁式，踩坑建博客 | Wei Liu</title>
+    <meta property="og:title" content="沉沙落雁式，踩坑建博客 - Wei Liu">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2017-11-28T21:48:51&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2017-11-28T21:48:51&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="沉沙落雁式，踩坑建博客">
+        
+    <meta name="author" content="">
+    <meta property="og:url" content="http://feiyoung.netlify.com/2017/11/28/%E6%B2%89%E6%B2%99%E8%90%BD%E9%9B%81%E5%BC%8F%E8%B8%A9%E5%9D%91%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://feiyoung.netlify.com">
+                        Wei Liu
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://feiyoung.netlify.com">首页</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/" title="主页">主页</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/cn/" title="日志">日志</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/research/" title="研究">研究</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/poem/" title="诗词">诗词</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/cn_about/" title="关于">关于</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/en/" title="EBlog">EBlog</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/en_about/" title="About">About</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">沉沙落雁式，踩坑建博客</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年11月28日
+        </date>
+        
+        
+        
+        <div class="post-content">
+            
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>今天心情颇差，为建Blogdown博客，倒腾大半天持续踩坑，这让本不自信的我变得更丧。</p>
+<div id="大水冲了龙王庙hugo与blogdown的相识" class="section level2">
+<h2>大水冲了龙王庙——Hugo与Blogdown的相识</h2>
+<p>栽在了<em><a href="https://github.com/gohugoio/hugo/releases">Hugo.exe</a></em>手上的感觉，像极了这月份成都的天气。Hugo.exe在github上的官网版，国内下载速度实在让人咽不下饭，我手贱下载了极客分享在百度网盘上的Hugo_0.34.0版本，该版本就像几十年前的古董，虽是一家人，但它早已将新版Blogdown在岁月中遗忘。报错信息如下：</p>
+<pre class="rmarkdown"><code>ERROR 2019/09/07 07:27:35 Failed to add template &quot;theme/default/list.html&quot; in path &quot;D:\\Google\\Blog\\rongdong\\themes\\hugo-lithium\\layouts\\_default\\list.html&quot;: template: theme/default/list.html:18: unexpected &quot;=&quot; in operand
+......
+Error in shell(cmd, mustWork = TRUE, intern = intern) :
+&#39;&quot;C:\Users\Administrator\AppData\Roaming\Hugo\hugo.exe&quot; -b / -D -F -d &quot;public&quot; --themesDir themes -t hugo-lithium&#39; execution failed with error code 1</code></pre>
+<p>于是乎，我反反复复，重装package，重配环境，也无法唤醒Hugo_0.34.0那沉睡的记忆。</p>
+<p>皇天不负有心人，只有爱拼才会赢。我拼到下午4点终于在统计之都上看到了同翻一条船的Blogdwon友，茅塞顿开间找好友<a href="https://yjx.netlify.app">英杰</a>要了一个更新版本的Hugo_0.72.0，瞬间Hugo和Blogdown重新在新冠之年相识相知。我的Rstudio中预览窗正常显示的那一刻，激动的泪花用在心头。</p>
+</div>
+<div id="非老马不识途blogdown与image的相识" class="section level2">
+<h2>非老马，不识途——Blogdown与Image的相识</h2>
+<p>成功解决Hugo的问题后，我又来到下一关。Blogdown怎么也识别不了图片路径，即在public/images中的图片我无法加载。<a href="https://cn.bing.com/">Biying</a>一直是我的好朋友，无论在科研上，还是在外文生活中，我查询到原来是<strong>config.toml</strong>文件需要设置成：</p>
+<pre class="rmarkdown"><code>baseurl = &quot;http://sitename.com&quot;</code></pre>
+<p>并且把<strong>public/images</strong>文件夹移动到<strong>static</strong>文件夹中！
+于是乎惊喜地出现了下面一幕！
+# <img src="/images/xiaoxiao.jpg" /></p>
+</div>
+
+        </div>
+
+        
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Wei Liu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2020 <a href="http://feiyoung.netlify.com">Wei Liu By </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='//www.google.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://feiyoung.netlify.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2020-11-28-/" title=""></a>
+    </li>
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2016-12-30-hello-markdown/" title="A Plain Markdown Post">A Plain Markdown Post</a>
+    </li>
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2015-07-23-r-rmarkdown/" title="Hello R Markdown">Hello R Markdown</a>
+    </li>
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2015-01-01-lorem-ipsum/" title="Lorem Ipsum">Lorem Ipsum</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://feiyoung.netlify.com/categories/r/">R (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://feiyoung.netlify.com/tags/plot/">plot</a>
+    
+    <a href="http://feiyoung.netlify.com/tags/r-markdown/">R Markdown</a>
+    
+    <a href="http://feiyoung.netlify.com/tags/regression/">regression</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://feiyoung.netlify.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

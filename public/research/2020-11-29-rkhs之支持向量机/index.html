@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <title>再生核方法-第三章 支持向量机 | Wei Liu</title>
+    <meta property="og:title" content="再生核方法-第三章 支持向量机 - Wei Liu">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-12-04T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-12-04T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="再生核方法-第三章 支持向量机">
+        <meta name="author" content="刘伟">
+        
+    <meta property="og:url" content="http://feiyoung.netlify.com/research/2020-11-29-rkhs%E4%B9%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://feiyoung.netlify.com">
+                        Wei Liu
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://feiyoung.netlify.com">首页</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/" title="主页">主页</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/cn/" title="日志">日志</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/research/" title="研究">研究</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/poem/" title="诗词">诗词</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/cn_about/" title="关于">关于</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/en/" title="EBlog">EBlog</a>
+                    
+                    <a  href="http://feiyoung.netlify.com/en_about/" title="About">About</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">再生核方法-第三章 支持向量机</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月4日
+        </date>
+        
+        
+        
+        <div class="post-content">
+            
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p><strong>再生核方法-第二章 无所不能的支持向量机</strong></p>
+<p><strong>闲居</strong></p>
+<p><em>2020年11月于西财明辨园</em></p>
+<div id="线性支持超平面分类器" class="section level1">
+<h1>线性支持超平面分类器</h1>
+<p>考虑<span class="math inline">\(D=(x_i, y_i)_{i=1}^n, x_i \in R^p, y_i \in \{-1, 1\}\)</span>的分类问题。我们想找一个超平面<span class="math inline">\(\langle w, x \rangle + b=0\)</span>将两类<span class="math inline">\(x_i\)</span>完全分开。若<span class="math inline">\(D\)</span>是线性可分的，则可以做到。令<span class="math inline">\(f(x)=\langle w, x \rangle + b\)</span>,最小化
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 \tag{1.1}\]</span>
+<span class="math display">\[s.t. y_i f(x_i) \geq 1, i=1,\cdots, n.\]</span>
+因为任意一点<span class="math inline">\(x_i\)</span>到超平面的距离为<span class="math inline">\(f(x_i)/\|w\|\)</span>，因为<span class="math inline">\(d(x, l_0)=\|x\| \cos(&lt;x, l_0^\perp&gt;)=\|x\| \|w\| \cos(&lt;x, l^\perp&gt;)/\|w\|=&lt;x,w&gt;/\|w\|=f(x_i)/\|w\|\)</span>，其中<span class="math inline">\(l_0\)</span>表示超平面，<span class="math inline">\(l_0^\perp\)</span>表示超平面的法向量。
+由于<span class="math inline">\(y_i \in \{1,-1\}\)</span>，所有两类点之间的距离最小为<span class="math inline">\(2\|w\|^{-1}\)</span>。<span class="math inline">\((1.1)\)</span>是很简单的一个带有线性约束的二次规划问题，现有很多二次规划方法可以求解。</p>
+<p>当数据线性不可分时，满足约束条件的可行解无法找到，因为它要求每个样本点都满足条件。此时，我们可以引入一个容忍度参数<span class="math inline">\(\xi_i\)</span>,最小化
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i \xi_i \tag{1.2}\]</span>
+<span class="math display">\[s.t. y_i f(x_i) \geq 1-\xi_i, \xi_i \geq 0, i=1,\cdots, n.\]</span>
+同时尽量让<span class="math inline">\(\xi_i\)</span>接近0，表示违背<span class="math inline">\((1.1)\)</span>约束的样本点尽量少。
+这个带约束的二次规划问题等价于一个不带约束的判罚损失目标函数最小化的问题，如下
+<span class="math display">\[\min_{w,b} \sum_i l(f(x_i),y_i) + \frac{\lambda}{2} \|w\|^2,\tag{1.3} \]</span>
+其中<span class="math inline">\(l(f(x_i), y_i) = \max\{1-y_if(x_i), 0\}\)</span>，这就是著名的Hinge Loss。</p>
+<p><strong>证明:</strong> 最小化的<span class="math inline">\(\xi_i\)</span>其实就是定义的关于<span class="math inline">\((f(x_i),y_i)\)</span>的一个损失度量，<span class="math inline">\(\xi_i\)</span>越小越好。于是，我们可以根据条件约束定义一个损失函数：
+<span class="math display">\[\xi_i = l(y_i, f(x_i))=\left\{
+\begin{aligned}
+0 &amp;, &amp; 1- y_i f(x_i) \leq 0, \\
+1-y_i f(x_i) &amp; , &amp;  1- y_i f(x_i) &gt; 0.
+\end{aligned}
+\right.\]</span>
+因为<span class="math inline">\(\xi_i \geq 1 - y_i f(x_i)\)</span>，当<span class="math inline">\(1- y_i f(x_i) &gt; 0\)</span>,<span class="math inline">\(\xi_i\)</span>最小值为<span class="math inline">\(1-y_i f(x_i)\)</span>。将<span class="math inline">\(\xi_i\)</span>代入<span class="math inline">\((1.2)\)</span>，我们得到：
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i l(f(x_i), y_i) \tag{1.4},\]</span>
+最后目标函数同时除以<span class="math inline">\(C\)</span>，将判罚参数转到第一项上，于是得证。 &amp;club;</p>
+<p><span class="math inline">\((1.3)\)</span>式的好处是帮助我们建立<span class="math inline">\(f\)</span>估计的理论性质，因为它有一个明确的目标函数，方便从统计角度研究它的理论性质，比如估计相合性和收敛速度。</p>
+<p>虽然<span class="math inline">\((1.2)\)</span>式利用二次规划的方法很好求解，但是当变量维度<span class="math inline">\(p&gt;n\)</span>时，计算是无效率的。于是，我们将它转化为对偶问题来求解。为了求它的对偶问题，我们需要用到拉格朗日方法，首先需要不等式约束转化为<span class="math inline">\(\leq\)</span>约束,
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i \xi_i \tag{1.5}\]</span>
+<span class="math display">\[s.t. 1-\xi_i-y_i f(x_i)\leq 0, -\xi_i \leq 0, i=1,\cdots, n.\]</span>
+于是，我们得到拉格朗日函数为
+<span class="math display">\[L(w,b,\xi, \alpha, \eta) = 1/2 \|w\|^2 + C \sum_i \xi_i + \sum_i \alpha_i(1-\xi_i-y_if(x_i)) - \sum_i \eta_i \xi_i,\]</span>
+其中<span class="math inline">\(\forall i, \alpha_i,\eta_i \geq 0\)</span>. 关于原始变量求导，得
+<span class="math display">\[\partial L_w = w - \sum_i \alpha_i y_i x_i = 0,\]</span>
+<span class="math display">\[\partial L_b = -\sum_i \alpha_i y_i = 0,\]</span>
+<span class="math display">\[\partial L_{\xi_i} = C - \alpha_i - \eta_i=0,\]</span>
+把原始变量表示成对偶变量<span class="math inline">\(\alpha_i\)</span>和<span class="math inline">\(\eta_i\)</span>的形式。故得<span class="math inline">\(w = \sum_i \alpha_i y_i x_i\)</span>,代入拉格朗日函数得到对偶问题,
+<span class="math display">\[\min_\alpha 1/2 \alpha^T Q \alpha - \alpha^T 1 \tag{1.6}\]</span>
+<span class="math display">\[s.t. \alpha^Ty=0, \alpha_i \in [0, C],\forall i \in [n].\]</span>
+其中<span class="math inline">\(Q_{ij} = y_i y_j \langle x_i, x_j \rangle\)</span>. 这个二次规划就更加简单，只用解<span class="math inline">\(n\)</span>个参数，而不是像<span class="math inline">\((1.2)\)</span>需要解<span class="math inline">\(p+n\)</span>个参数。KKT条件要求<span class="math inline">\(\alpha_i (y_i f(x_i) - 1) = 0\)</span>，于是对于<span class="math inline">\(y_i f(x_i) -1 \geq 0\)</span>的那些样本<span class="math inline">\(\xi_i = 0\)</span>，且<span class="math inline">\(\alpha_i = 0\)</span>，这样的<span class="math inline">\(x_i\)</span>称为内部点；而对于<span class="math inline">\(y_i f(x_i) -1 =0\)</span>的那些样本<span class="math inline">\(\alpha_i&gt;0\)</span>，这样的<span class="math inline">\(x_i\)</span>被称为支持向量。所以该分类器被称为线性支持超平面分类器。</p>
+<pre class="rmd"><code>问题：为什么KKT条件要求$\alpha_i (y_i f(x_i) - 1) = 0$？</code></pre>
+</div>
+<div id="支持向量机" class="section level1">
+<h1>支持向量机</h1>
+<p>根据<span class="math inline">\((1.6)\)</span>式，我们很容易将它推广到特征映射和再生核。只需<span class="math inline">\(K_{ij}=y_i y_j \langle \Phi(x_i), \Phi(x_j) \rangle\)</span>，这样推广后的支持超平面分类器被称为支持向量机。</p>
+<p>由于<span class="math inline">\(l(y_i, f(x_i)) \leq \xi_i\)</span>，所以<span class="math inline">\(\sum_i \xi_i\)</span>是经验风险的上界。将<span class="math inline">\(y_if(x_i) \geq 1\)</span>变成<span class="math inline">\(y_if(x_i) \geq \rho\)</span>，我们可以推广到所谓的<span class="math inline">\(\nu\)</span>-SV 分类器：
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i \xi_i -n \nu \rho \tag{1.7}\]</span>
+<span class="math display">\[s.t. y_i f(x_i) \geq \rho-\xi_i, \xi_i \geq 0, i=1,\cdots, n.\]</span>
+它的对偶问题为:
+<span class="math display">\[\min_\alpha 1/2 \alpha^T Q \alpha \tag{1.8}\]</span>
+<span class="math display">\[s.t. \alpha^Ty=0, \alpha^T 1= n \nu, \alpha_i \in [0, 1],\forall i \in [n].\]</span>
+<span class="math inline">\(\nu\)</span>是支持向量所占比例的一个下界，即<span class="math inline">\(\nu \leq \frac{\|\alpha\|_0}{n}\)</span>。由于<span class="math inline">\(\alpha_i \leq 0\)</span>，所以<span class="math inline">\(\|\alpha\|_1 = n\nu\)</span>,再加上<span class="math inline">\(\|\alpha\|_1 \leq \|\alpha\|_0\)</span>得证。</p>
+</div>
+<div id="支持向量回归" class="section level1">
+<h1>支持向量回归</h1>
+<p>假设我们要找一个函数<span class="math inline">\(f(x) = \langle w, x \rangle + b\)</span>来拟合一个回归问题，最小化
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 + C \sum_i \xi_i \tag{3.1}\]</span>
+<span class="math display">\[s.t. |y_i - f(x_i)| \leq \epsilon + \xi_i, \xi_i \geq 0.\]</span>
+这个问题，我们也可以转化成判罚损失函数的形式。同样这里<span class="math inline">\(\xi_i\)</span>可以视为<span class="math inline">\(y_i\)</span>与<span class="math inline">\(f(x_i)\)</span>之间的一个损失度量，<span class="math inline">\(\xi_i\)</span>越小越好。于是，我们可以根据条件约束定义一个损失函数：
+<span class="math display">\[\xi_i = l(y_i, f(x_i))=\left\{
+\begin{aligned}
+0 &amp;, &amp;  |y_i - f(x_i)| - \epsilon \leq 0, \\
+ |y_i - f(x_i)| - \epsilon  &amp; , &amp;  |y_i - f(x_i)| - \epsilon  &gt; 0.
+\end{aligned}
+\right.\]</span>
+因为<span class="math inline">\(\xi_i \geq |y_i - f(x_i)| - \epsilon\)</span>，当<span class="math inline">\(|y_i - f(x_i)| - \epsilon &gt; 0\)</span>,<span class="math inline">\(\xi_i\)</span>最小值为<span class="math inline">\(|y_i - f(x_i)| - \epsilon\)</span>。将<span class="math inline">\(\xi_i\)</span>代入<span class="math inline">\((3.1)\)</span>，我们得到：
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i l(f(x_i), y_i) ,\]</span>
+其中<span class="math inline">\(l(f(x_i), y_i) = \max(0, |f(x_i) - y_i|-\epsilon)\)</span>，这个损失函数也有一个著名的名字，它叫<span class="math inline">\(\epsilon\)</span>-不敏感损失函数（只有超过<span class="math inline">\(\epsilon\)</span>后才会产生损失，真实名副其实）。最后目标函数同时除以<span class="math inline">\(C\)</span>，将判罚参数转到第一项上，于是得到
+<span class="math display">\[\min_{w,b} \sum_i l(f(x_i), y_i) + \frac{\lambda}{2} \|w\|^2 \tag{3.2}.\]</span></p>
+<pre class="rmd"><code>到了这里，我应该相信我题目中所说的“无所不能的支持向量机”，它的思想既可
+以处理回归问题，又可以分类问题，后面还会看到它还可处理无监督学习的问题。</code></pre>
+<p>根据<span class="math inline">\((3.2)\)</span>，我们可以把损失换成其他损失函数，就会得到不同的方法。同样<span class="math inline">\((3.1)\)</span>也可以转化为对偶问题求解，优化一个二次规划问题。利用二次规划目标函数，可以直接推广到再生核空间上面。</p>
+</div>
+<div id="多分类支持向量机" class="section level1">
+<h1>多分类支持向量机</h1>
+<p>假设<span class="math inline">\(y_i \in \mathcal{Y}\)</span>，它是一个离散的分类标签空间，元素个数可以超过2。多分类的目标是找一个函数<span class="math inline">\(f(x,y)\)</span>，它是一个分类得分函数，<span class="math inline">\(f(x,y)\)</span>越大表示<span class="math inline">\(x\)</span>属于<span class="math inline">\(y\)</span>的可能性越大。所以
+<span class="math display">\[\hat y(x) = \arg\max_{y \in \mathcal{Y}}
+ f(x,y).\]</span></p>
+<p>我们定义一个损失函数<span class="math inline">\(\Delta(y,y&#39;)\)</span>表示把<span class="math inline">\(y\)</span>错分为<span class="math inline">\(y&#39;\)</span>带来的损失，特别地，它可以是0-1损失函数，也可以是其他更一般的损失函数，只要满足如下性质：
+<span class="math inline">\(\Delta(y,y)=0,\Delta(y,y&#39;)\geq 0\)</span>。下面的引理可以帮助我们构造支持向量思想中的所需要的约束条件。</p>
+<p><em>引理：假设<span class="math inline">\(\xi \geq 0\)</span>满足对<span class="math inline">\(\forall y \in \mathcal{Y}\)</span>有
+<span class="math display">\[f(x,y) - f(x,y&#39;) \geq \Delta(y,y&#39;) - \xi \tag{5.1}\]</span>
+成立，则<span class="math inline">\(\Delta(y, \arg\max_{y&#39;\in Y} f(x, y&#39;)) \leq \xi\)</span>。
+</em></p>
+<p>该引理表示只要满足约束条件<span class="math inline">\((5.1)\)</span>，则错判的损失都可以被<span class="math inline">\(\xi\)</span>给控制住。于是假设<span class="math inline">\(f(x,y) = \langle \Phi(x,y), w \rangle\)</span>，对应的核函数为<span class="math inline">\(k(x,y,x&#39;,y&#39;)=\langle \Phi(x,y), \Phi(x&#39;,y&#39;) \rangle\)</span>。我们最小化如下目标函数
+<span class="math display">\[\min_{w,b} \frac{1}{2} \|w\|^2 + C \sum_i \xi_i \tag{5.2}\]</span>
+<span class="math display">\[s.t. f(x_i,y_i) - f(x_i, y)  \geq \Delta(y_i,y) - \xi_i, \xi_i \geq 0, y \in Y.\]</span>
+对于二分类，令<span class="math inline">\(\Phi(x,y)=y\Phi(x), \Delta(y,y&#39;) = 1- \delta_{yy&#39;}\)</span>，则约束退化成<span class="math inline">\(2y_i\langle \Phi(x_i), w \rangle \leq 1 - \xi_i\)</span>，这就是二分类的支持向量机。
+同样地，目标函数<span class="math inline">\((5.2)\)</span>也可以转化为对偶问题，求解一个二次规划问题。</p>
+</div>
+
+        </div>
+
+        
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Wei Liu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2020 <a href="http://feiyoung.netlify.com">Wei Liu By </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='//www.google.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://feiyoung.netlify.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2020-11-28-/" title=""></a>
+    </li>
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2016-12-30-hello-markdown/" title="A Plain Markdown Post">A Plain Markdown Post</a>
+    </li>
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2015-07-23-r-rmarkdown/" title="Hello R Markdown">Hello R Markdown</a>
+    </li>
+    
+    <li>
+        <a href="http://feiyoung.netlify.com/post/2015-01-01-lorem-ipsum/" title="Lorem Ipsum">Lorem Ipsum</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://feiyoung.netlify.com/categories/r/">R (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://feiyoung.netlify.com/tags/plot/">plot</a>
+    
+    <a href="http://feiyoung.netlify.com/tags/r-markdown/">R Markdown</a>
+    
+    <a href="http://feiyoung.netlify.com/tags/regression/">regression</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://feiyoung.netlify.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ens on Yingjie</title>
-    <link>/en/</link>
-    <description>Recent content in Ens on Yingjie</description>
+    <title>Ens on Wei Liu</title>
+    <link>http://feiyoung.netlify.com/en/</link>
+    <description>Recent content in Ens on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/en/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://feiyoung.netlify.com/en/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>the first day of my blog</title>
-      <link>/2020/06/20/the-first-day-of-my-blog/</link>
-      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      <title>Use of Rmarkdown: taking GFM package as an example</title>
+      <link>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</link>
+      <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/06/20/the-first-day-of-my-blog/</guid>
-      <description>Today, I am very happy to build my blog which will share my academic idea and experience of life. When I feel lonely and meet some trouble in writing paper,I can record my confusion to mediate intense mind. So wish me have a good life.</description>
+      <guid>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</guid>
+      <description>Introduction of RmarkdownIn this section, we briefly introduce some features of Rmarkdown.The Laguage of Rmarkdown is similar to that of Markdown, which is very easy to learn and write it.
+Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, then choose the format of this file as ‘Rmd’(extension name). If we uncarefully save it as format ‘md’, then we can not run R code in each small chunk.</description>
     </item>
     
   </channel>
