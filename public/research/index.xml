@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>文献阅读 on Wei Liu</title>
@@ -7,556 +7,62 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 31 Jan 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://feiyoung.netlify.com/research/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://feiyoung.netlify.com/research/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>张量基础知识</title>
       <link>http://feiyoung.netlify.com/research/2020-12-24-%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
+      
       <guid>http://feiyoung.netlify.com/research/2020-12-24-%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/</guid>
-      <description>
-&lt;link href=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;&lt;strong&gt;张量基础&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;闲居&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;2020年12月于西财&lt;/em&gt;&lt;/p&gt;
-&lt;div id=&#34;预备知识&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;预备知识&lt;/h1&gt;
-&lt;p&gt;在介绍张量之前，我们先来了解一些基础知识，其中包括矩阵的运算和张量的运算操作。&lt;/p&gt;
-&lt;div id=&#34;几种矩阵张量运算符号和规则&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;几种矩阵（张量）运算符号和规则&lt;/h2&gt;
-&lt;p&gt;Kronecker积：设&lt;span class=&#34;math inline&#34;&gt;\(A \in R^{I \times J}, B \in R^{K \times L}\)&lt;/span&gt;，表示为
-&lt;span class=&#34;math display&#34;&gt;\[A \otimes B = (a_{ij} B) = (a_1 \otimes b_1, a_1 \otimes b_2, \cdots, a_J \otimes b_{L-1}, a_J \otimes b_L),\]&lt;/span&gt;
-其中后一个等式是从&lt;span class=&#34;math inline&#34;&gt;\(a_1\)&lt;/span&gt;乘遍&lt;span class=&#34;math inline&#34;&gt;\(B\)&lt;/span&gt;所有列得到，一直到&lt;span class=&#34;math inline&#34;&gt;\(a_J\)&lt;/span&gt;乘遍&lt;span class=&#34;math inline&#34;&gt;\(B\)&lt;/span&gt;所有列。&lt;/p&gt;
-&lt;p&gt;Khatri-Rao积：是“逐列配对”的Kronecker积：&lt;span class=&#34;math inline&#34;&gt;\(A \in R^{I \times K}, B \in R^{J \times K}\)&lt;/span&gt;，则表示为&lt;span class=&#34;math inline&#34;&gt;\(A \odot B \in R^{IJ \times K}\)&lt;/span&gt;:
-&lt;span class=&#34;math display&#34;&gt;\[A \odot B = (a_1 \otimes b_1, a_2 \otimes b_2, \cdots, a_K \otimes b_K)\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Hadamard乘积：指两个相同形状的矩阵的逐元乘积，表示为
-&lt;span class=&#34;math display&#34;&gt;\[A * B = (a_{ij} b_{ij}) \in R^{I \times J}.\]&lt;/span&gt;
-张量积(Tensor product)：记为&lt;span class=&#34;math inline&#34;&gt;\(\bar \otimes\)&lt;/span&gt;
-设&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{A}\in R^{I_1 \times \cdots \times I_N}, \mathcal{B}\in R^{J_1 \times \cdots \times J_M}\)&lt;/span&gt;，则&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{G} = \mathcal{A} \bar \otimes \mathcal{B} \in R^{I_1 \times \cdots \times I_N \times J_1 \times \cdots \times J_M}\)&lt;/span&gt;为一个&lt;span class=&#34;math inline&#34;&gt;\(N+M\)&lt;/span&gt;阶的张量，且
-&lt;span class=&#34;math display&#34;&gt;\[g_{i_1,\cdots,i_N,j_1, \cdots,j_M}=a_{i_1,\cdots,i_N} b_{j_1, \cdots,j_M}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;张量&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{A}\)&lt;/span&gt;的mode-n矩阵化，记为&lt;span class=&#34;math inline&#34;&gt;\(A_{(n)}\)&lt;/span&gt;。对于三阶张量，&lt;span class=&#34;math inline&#34;&gt;\(A_{(1)}=( \mathcal{A}(:,:,1),\mathcal{A}(:,:,2), \cdots,\mathcal{A}(:,:,J_3))\)&lt;/span&gt;,在计算机里面表示特别方便。&lt;/p&gt;
-&lt;p&gt;假设&lt;span class=&#34;math inline&#34;&gt;\(M\)&lt;/span&gt;阶张量&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X}\in R^{I_1 \times \cdots \times I_M}\)&lt;/span&gt;，&lt;span class=&#34;math inline&#34;&gt;\(Y\in R^{n \times I_j}, A \in R^{n \times I_1}, B \in R^{p \times I_2}\)&lt;/span&gt;为矩阵。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;mode-j矩阵乘积&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Mode-j矩阵乘积&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} \times_j Y = \mathcal{Z} \Leftrightarrow \mathcal{Z}_{(j)}=Y \mathcal{X}_{(j)}\]&lt;/span&gt;
-mode乘积的换序性质：
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} \times_1 A \times_2 B = \mathcal{X}\times_2 B \times_1 A \]&lt;/span&gt;
-当&lt;span class=&#34;math inline&#34;&gt;\(B\)&lt;/span&gt;的列和&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;的行数相等时，有：
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} \times_j A \times_j B = \mathcal{X}\times_j (B A) \]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;mode-j向量乘积&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Mode-j向量乘积&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X} \in R^{I_1 \times \cdots \times I_N}\)&lt;/span&gt;与向量&lt;span class=&#34;math inline&#34;&gt;\(v \in R^{I_n}\)&lt;/span&gt;可以做mode-向量乘积，表示为&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X} \times_n v\)&lt;/span&gt;，使得&lt;span class=&#34;math inline&#34;&gt;\(N\)&lt;/span&gt;阶张量变成一个&lt;span class=&#34;math inline&#34;&gt;\(N-1\)&lt;/span&gt;阶张量&lt;span class=&#34;math inline&#34;&gt;\(\in R^{I_1\times \cdots \times I_{n-1}~ \times ~I_{n+1} ~\times \cdots \times I_N}\)&lt;/span&gt;，具体元素为
-&lt;span class=&#34;math display&#34;&gt;\[(\mathcal{X} \times_n v)_{i_1, \cdots, i_{n-1},~ i_{n+1},~ \cdots, i_N}=\sum_{i_n=1}^{I_n} x_{i_1,\cdots, i_N}v_{i_n}\]&lt;/span&gt;
-它计算每个mode-n fiber与向量 &lt;span class=&#34;math inline&#34;&gt;\(v\)&lt;/span&gt;的内积。
-若&lt;span class=&#34;math inline&#34;&gt;\(m &amp;lt;n\)&lt;/span&gt;，我们有：
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} \times_m a \times_n b=(\mathcal{X} \times_m a) \times_{n-1} b=(\mathcal{X} \times_n b) \times_{m} a\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;krorecker乘积&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Krorecker乘积&lt;/h2&gt;
-&lt;p&gt;记&lt;span class=&#34;math inline&#34;&gt;\(\otimes\)&lt;/span&gt;为Krorecker乘积，则对任意&lt;span class=&#34;math inline&#34;&gt;\(n \in \{1, \cdots, N\}\)&lt;/span&gt;，有
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{Y} = \mathcal{X} \times_1 A_1 \times_2 \cdots \times_3 A_N\Leftrightarrow \mathcal{Y}_{(n)}= A_n \mathcal{X}_{(n)} (A_N \otimes \cdots \otimes A_{n+1} \otimes A_{n-1} \otimes \cdots \otimes A_1)^T\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;常用运算公式&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;常用运算公式&lt;/h2&gt;
-&lt;p&gt;以上几种矩阵乘积运算满足一些运算性质。我认为这些性质在矢量计算中具有重要的作用，有空可以再进行研究。&lt;/p&gt;
-&lt;p&gt;假设&lt;span class=&#34;math inline&#34;&gt;\(A \in R^{I \times J}, B \in R^{K \times L}, C \in R^{J \times M}, D \in R^{L \times N}\)&lt;/span&gt;，则
-&lt;span class=&#34;math display&#34;&gt;\[(A \otimes B) (C \otimes D)=(AC) \otimes (BD), \]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[(A \otimes B)^+= A^+ \otimes B ^+, (A \otimes B)^T= A^T \otimes B ^T,\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[A \odot B \odot C = (A \odot B) \odot C = A \odot (B \odot C)\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[(A \odot B)^T (A \odot B) = A^TA * B^TB,A \in R^{I \times J}, B \in R^{K \times J}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[(A \odot B)^+= (A^TA * B^TB)^+ (A \odot B)^T,\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(A^+\)&lt;/span&gt;表示Moore-Penrose伪逆。&lt;/p&gt;
-&lt;p&gt;矩阵乘积向量化换序公式：
-&lt;span class=&#34;math display&#34;&gt;\[vec(AXB) = (B^T \otimes A) vec (X). \tag{A1}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;特例1：令&lt;span class=&#34;math inline&#34;&gt;\(B=b\)&lt;/span&gt;为列向量，则
-&lt;span class=&#34;math display&#34;&gt;\[AXb= (b^T \otimes A)vec(X) \tag{A3}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;特例2：若&lt;span class=&#34;math inline&#34;&gt;\(X \in R^{I \times J}, b\in R^{J\times 1}\)&lt;/span&gt;，则有
-&lt;span class=&#34;math display&#34;&gt;\[Xb = (b^T \otimes I_I) vec(X) \in R^I, \tag{A2}\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(I_I\)&lt;/span&gt;表示&lt;span class=&#34;math inline&#34;&gt;\(I \times I\)&lt;/span&gt;的单位矩阵。由&lt;span class=&#34;math inline&#34;&gt;\((A1)\)&lt;/span&gt;可以直接推导出&lt;span class=&#34;math inline&#34;&gt;\((A2)\)&lt;/span&gt;，因为&lt;span class=&#34;math inline&#34;&gt;\(Xb = I_I Xb\)&lt;/span&gt;，列向量是一种特殊的矩阵。&lt;/p&gt;
-&lt;p&gt;设&lt;span class=&#34;math inline&#34;&gt;\(A\in R^{K\times I}, B \in R^{I \times m}, C \in R^{m \times n}\)&lt;/span&gt;，于是基于&lt;span class=&#34;math inline&#34;&gt;\((A1)\)&lt;/span&gt;，可以推导出常用的矩阵向量化边缘轮换公式：
-&lt;span class=&#34;math display&#34;&gt;\[vec(ABC) = (I_n \otimes AB) vec(C)=(C^T B^T \otimes I_K) vec(A) \tag{A4}\]&lt;/span&gt;
-注意：第一个等式将矩阵&lt;span class=&#34;math inline&#34;&gt;\(C\)&lt;/span&gt;的向量化版本轮换到最右方的边缘；第二个等式将矩阵&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;的向量化版本轮换到最右方的边缘。在统计中这样做的好处是：如果&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;或&lt;span class=&#34;math inline&#34;&gt;\(C\)&lt;/span&gt;是我们感兴趣的参数，则&lt;span class=&#34;math inline&#34;&gt;\((A4)\)&lt;/span&gt;将参数和数据分离，帮助我们推导参数的显示表达式，或者迭代的显式表达。&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\((A4)\)&lt;/span&gt;的特例：
-&lt;span class=&#34;math display&#34;&gt;\[vec(AB) = (I_m \otimes A) vec(B) = (B^T \otimes I_K) vec(A)  \tag{A5}\]&lt;/span&gt;
-利用(A5)，我们可以得到
-&lt;span class=&#34;math display&#34;&gt;\[vec(ABC)= (I_n \otimes A) (C^T \otimes I_I) vec(B)  \tag{A6}\]&lt;/span&gt;
-&lt;span class=&#34;math inline&#34;&gt;\((A6)\)&lt;/span&gt;告诉我们如何将夹在矩阵中间的参数轮换到边上去。&lt;/p&gt;
-&lt;p&gt;其他公式：1）Hardamard乘积：&lt;span class=&#34;math inline&#34;&gt;\(A, B \in R^{n \times m}\)&lt;/span&gt;，
-&lt;span class=&#34;math display&#34;&gt;\[vec(A *B) = vec(A) * vec(B)\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;2)Inner product（内积）：&lt;span class=&#34;math inline&#34;&gt;\(A, B \in R^{n \times m}\)&lt;/span&gt;，
-&lt;span class=&#34;math display&#34;&gt;\[\langle A, B\rangle = tr(A^TB)=vec(A)^T vec(B)=vec(B^T)^T vec(A)\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;张量分解&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;张量分解&lt;/h1&gt;
-&lt;p&gt;古典多元分解（也叫CP分解）是矩阵奇异值分解向张量的推广，或称为秩-&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;分解。矩阵SVD分解的另一个推广是Tucker分解，也叫秩-&lt;span class=&#34;math inline&#34;&gt;\((R_1, \cdots, R_M)\)&lt;/span&gt;分解，它计算数据张量每个模块的正交子空间。这两种分解在统计张量分析中所占的地位举足轻重。&lt;/p&gt;
-&lt;div id=&#34;cp分解&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;CP分解&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;定义. 设数据张量空间&lt;span class=&#34;math inline&#34;&gt;\(F^{I_1 \times I_2 \times \cdots \times I_M} \stackrel{\sim}= F^{I_1} \otimes \cdots \otimes F^{I_M} \stackrel{\sim}= \mathcal{F}\)&lt;/span&gt;，其中&lt;span class=&#34;math inline&#34;&gt;\(F\)&lt;/span&gt;k可以为实数域&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;，则每个&lt;span class=&#34;math inline&#34;&gt;\(M\)&lt;/span&gt;阶张量&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{A}\)&lt;/span&gt;（在该空间&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{F}\)&lt;/span&gt;）都可以表示为&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;个秩-1张量的和：
-&lt;span class=&#34;math display&#34;&gt;\[ \mathcal{A}=\sum_{r=1}^R\lambda_r a_{1,r}\bar\otimes \cdots \bar\otimes a_{M,r}\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(\lambda_r \in F, a_{m,r} \in F^{I_m}, \bar\otimes\)&lt;/span&gt;为张量积。当上述表达式中&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;项为最小项数时，&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;称为张量&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{A}\)&lt;/span&gt;的秩，并且该分解称为秩-&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;分解或古典多元分解；相反，当&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;不是最小项时，称为&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;项分解。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;显然，若&lt;span class=&#34;math inline&#34;&gt;\(a_{m,r} \in F^{I_m}\)&lt;/span&gt;，张量&lt;span class=&#34;math inline&#34;&gt;\(a_{1,r} \bar\otimes \cdots \bar\otimes a_{M,r}\)&lt;/span&gt;的秩为1。一般而言，计算一般&lt;span class=&#34;math inline&#34;&gt;\(M\)&lt;/span&gt;阶张量的秩是一个NP-hard的问题。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;定义. 对称张量：具有轮换不变性的张量称为对称张量，即
-&lt;span class=&#34;math display&#34;&gt;\[a_{i_1,i_2,\cdots, i_M}=a_{i_{s_1}, \cdots, i_{s_M} }, \mathcal{A} =(a_{i_1,i_2,\cdots, i_M})\in F^{I^M}\]&lt;/span&gt;
-&lt;/em&gt;&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注：对称张量每个维度的维数都相等，比如I.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;二阶对称张量（矩阵）可以被对角化，即存在整数&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;，非零单位向量&lt;span class=&#34;math inline&#34;&gt;\(v_1, \cdots, v_R \in V\)&lt;/span&gt;和权重&lt;span class=&#34;math inline&#34;&gt;\(\lambda_1, \cdots, \lambda_R\)&lt;/span&gt;使得
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{A} = \sum_{i=1}^R \lambda_i v_i \bar\otimes v_i\]&lt;/span&gt;
-而对于一般的&lt;span class=&#34;math inline&#34;&gt;\(M\)&lt;/span&gt;阶对称张量，该形式不一定存在。对于存在该形式的张量空间称为Waring空间，满足
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{A} = \sum_{i=1}^R \lambda_i v_i^{ \otimes M},\]&lt;/span&gt;
-该分解也叫Waring分解，它是秩-&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;分解的对称形式。在统计研究中，都是假设CP分解存在的空间，因为这个空间已经够大了，所以CP分解的存在性不必担忧。&lt;/p&gt;
-&lt;p&gt;与矩阵不同的是，超过二阶的张量的秩没有唯一的定义方式，比如有秩-&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;，还有秩-&lt;span class=&#34;math inline&#34;&gt;\((R_1, \cdots, R_M)\)&lt;/span&gt;，这也称为Tucker秩，该秩的定义与Tucker分解有密切的关系，而前者与秩-&lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;分解有密切关系。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;tucker分解&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Tucker分解&lt;/h2&gt;
-&lt;p&gt;考虑三阶张量&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X} \in R^{P_1 \times P_2 \times P_3}\)&lt;/span&gt;，&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X}\)&lt;/span&gt;的Tucker秩(multilinear秩)&lt;span class=&#34;math inline&#34;&gt;\((r_1, r_2, r_3)\)&lt;/span&gt;定义为：
-&lt;span class=&#34;math display&#34;&gt;\[r_1=rank_1(\mathcal{X})\equiv rank(\mathcal{X}_{(1)})=dim(span\{\mathcal{X}_{[:,i_2,i_3]}\in R^{P_1}: i_2 \leq P_2, i_3 \leq P_3\})\]&lt;/span&gt;
-为&lt;span class=&#34;math inline&#34;&gt;\((P_2P_3)\)&lt;/span&gt;个&lt;span class=&#34;math inline&#34;&gt;\(P_1\)&lt;/span&gt;维向量所张成的空间的维数，也是张量&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X}\)&lt;/span&gt;沿着第一个方向矩阵化后的矩阵的秩；同理可得，&lt;span class=&#34;math inline&#34;&gt;\(r_2\)&lt;/span&gt;为&lt;span class=&#34;math inline&#34;&gt;\(P_2 \times (P_1 P_3)\)&lt;/span&gt;矩阵的秩，&lt;span class=&#34;math inline&#34;&gt;\(r_3\)&lt;/span&gt;为&lt;span class=&#34;math inline&#34;&gt;\(P_3 \times (P_1 P_2)\)&lt;/span&gt;矩阵的秩。&lt;/p&gt;
-&lt;p&gt;Tucker分解：设张量&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X} \in R^{P_1 \times P_2 \times P_3}\)&lt;/span&gt;,若&lt;span class=&#34;math inline&#34;&gt;\(rank_j(\mathcal{X})=r_j,j \leq 3\)&lt;/span&gt;，则存在一个Tucker分解(Tucker, 1966; De Lathamer et al., 2000)
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} = \mathcal{Y} \times_1 Y_1 \times_2 Y_2 \times_3 Y_3\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{Y} \in R^{r_1 \times r_2 \times r_3}\)&lt;/span&gt;为核心张量(core Tensor)，&lt;span class=&#34;math inline&#34;&gt;\(Y_j \in R^{P_j \times r_j}\)&lt;/span&gt;为因子矩阵。把上述分解表示为
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} = [| \mathcal{Y}; Y_1,Y_2,Y_3 |]\]&lt;/span&gt;
-且&lt;span class=&#34;math inline&#34;&gt;\(\times_1\)&lt;/span&gt;表示mode-1乘积：表示一个张量和一个矩阵之间的乘积。令&lt;span class=&#34;math inline&#34;&gt;\(Y \in R^{S \times P_j}\)&lt;/span&gt;，则mode-j乘积为
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} \times_j Y=(\sum_{k=1}^{P_j} x_{i_1, \cdots,i_k,\cdots,i_M} y_{lk}) \in R^{P_1 \times \cdots \times S \times \cdots \times P_M}\]&lt;/span&gt;
-注意到Tucker分解不是唯一的，因为&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X} = [| \mathcal{Y}; Y_1,Y_2,Y_3 |] = [| \mathcal{Y} \times_1 O_1 \times_2 O_2 \times_3 O_3; Y_1O_1^{-1},Y_2O_2^{-1},Y_3O_3^{-1} |]\)&lt;/span&gt;，对于分宜非奇异矩阵&lt;span class=&#34;math inline&#34;&gt;\(O_j \in R^{r_j\times r_j}\)&lt;/span&gt;。但是，Tucker分解的一种特殊情况：高阶奇异值分解(HOSVD)在一定条件下是唯一的(De Lathauner et al., 2000)。具体而言，令&lt;span class=&#34;math inline&#34;&gt;\(U_j\)&lt;/span&gt;为&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X}_{(j)}\)&lt;/span&gt;的前&lt;span class=&#34;math inline&#34;&gt;\(r_j\)&lt;/span&gt;个左奇异矩阵(&lt;span class=&#34;math inline&#34;&gt;\(r_j\)&lt;/span&gt;列)，核心张量定义为&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{Y}=\mathcal{X} \times_1 U_1&amp;#39; \times_2 U_2&amp;#39; \times_3 U_3&amp;#39;\)&lt;/span&gt;，则&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{Y}\)&lt;/span&gt;有如下正交性质：对于&lt;span class=&#34;math inline&#34;&gt;\(1\leq j\leq 3\)&lt;/span&gt;，有&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{Y}_{(j)}\)&lt;/span&gt;的行是配对正交的，并且
-&lt;span class=&#34;math display&#34;&gt;\[\mathcal{X} = \mathcal{Y} \times_1 U_1 \times_2 U_2 \times_3 U_3\]&lt;/span&gt;
-若假设对于&lt;span class=&#34;math inline&#34;&gt;\(1\leq j\leq 3\)&lt;/span&gt;，&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X}_{(j)}\)&lt;/span&gt;的奇异值各不相同，且&lt;span class=&#34;math inline&#34;&gt;\(U_j\)&lt;/span&gt;的每列第一个元素为正的，则HOSVD是唯一的。&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注：如果Y是超对角张量，则它退化为CP分解。&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
+      <description>张量基础 闲居 2020年12月于西财 预备知识 在介绍张量之前，我们先来了解一些基础知识，其中包括矩阵的运算和张量的运算操作。 几种矩阵（张量）运算</description>
     </item>
     
     <item>
       <title>统计假设检验</title>
       <link>http://feiyoung.netlify.com/research/2020-12-13-hypothesistest/</link>
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
+      
       <guid>http://feiyoung.netlify.com/research/2020-12-13-hypothesistest/</guid>
-      <description>
-&lt;link href=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;&lt;strong&gt;假设检验&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;闲居&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;2020年12月于武侯&lt;/em&gt;&lt;/p&gt;
-&lt;div id=&#34;简单假设和复合假设&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;简单假设和复合假设&lt;/h1&gt;
-&lt;p&gt;简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概念。
-假如我们感兴趣以下假设检验问题：
-&lt;span class=&#34;math display&#34;&gt;\[H_0:X \sim p_0(x;\theta_0), \theta_0 \in \Theta_0 \tag{1.1}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[H_1:X \sim p_0(x;\theta_1), \theta_1 \in \Theta_1 \tag{1.2}\]&lt;/span&gt;
-其中集合&lt;span class=&#34;math inline&#34;&gt;\(\Theta_0\)&lt;/span&gt;和&lt;span class=&#34;math inline&#34;&gt;\(\Theta_1\)&lt;/span&gt;表示参数可能的取值集合。如果其中一个集合是一个单点集，则称该假设为简单假设；否则，则称该集合对应的假设为复合假设。可能存在&lt;span class=&#34;math inline&#34;&gt;\(\color{#FF3030} {情况1.}\)&lt;/span&gt;原假设为简单假设，而备择假设为复合假设；也可能存在&lt;span class=&#34;math inline&#34;&gt;\(\color{#FF3030} {情况2.}\)&lt;/span&gt;原假设为复合假设，而备择假设为简单假设的情况。例如&lt;span class=&#34;math inline&#34;&gt;\(\Theta_0\)&lt;/span&gt;为单点集，而&lt;span class=&#34;math inline&#34;&gt;\(\Theta_1\)&lt;/span&gt;为多点集，则属于情况1.
-如果两个集合都是多点集，则称原假设和备择假设都为复合假设。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;三大统计渐近检验&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;三大统计渐近检验&lt;/h1&gt;
-&lt;p&gt;检验&lt;span class=&#34;math inline&#34;&gt;\((1.1)\)&lt;/span&gt; VS &lt;span class=&#34;math inline&#34;&gt;\((1.2)\)&lt;/span&gt;，考虑如下三大检验方法;Engel证明了这三大检验是渐进等价的。对于似然比检验，既需要估计有约束的模型，也需要估计无约束的模型；对于Wald检验，只需要估计无约束模型；对于LM检验，只需要估计有约束的模型。一般情况下，由于估计有约束模型相对更复杂，因此Wald检验最为常用。对于小样本而言，似然比检验的渐进性最好，LM检验也较好，Wald检验有时会拒绝原假设，其小样本性质不尽如人意。&lt;/p&gt;
-&lt;div id=&#34;似然比检验&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;似然比检验&lt;/h2&gt;
-&lt;p&gt;似然比检验的思想是：如果参数约束是有效的，那么加上这样的约束不应该引起似然函数最大值的大幅度降低。也就是说似然比检验的实质是在比较有约束条件下的似然函数最大值与无约束条件下似然函数最大值。似然比定义为有约束条件下的似然函数最大值与无约束条件下似然函数最大值之比。以似然比为基础可以构造一个服从卡方分布统计量。
-&lt;span class=&#34;math display&#34;&gt;\[T_{l,n} = \frac{\sup_{\theta \in \Theta_0} l(X;\theta) }{\sup_{\theta} l(X;\theta)}\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;wald检验&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Wald检验&lt;/h2&gt;
-&lt;p&gt;wald检验的思想是：如果约束是有效的，那么在没有约束情况下估计出来的估计量应该渐进地满足约束条件，因为MLE是一致的。以无约束估计量为基础可以构造一个Wald统计量，这个统计量也服从卡方分布；
-&lt;span class=&#34;math display&#34;&gt;\[T_{w,n} = n(\hat \theta-\theta)^T \hat\Sigma^{-1} (\hat \theta-\theta) \sim \chi^2(q)\]&lt;/span&gt;
-还有一种方法，就是先求出&lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt;的联合置信区间，然后看联合置信区间是否包含&lt;span class=&#34;math inline&#34;&gt;\(\Theta_0\)&lt;/span&gt;中的点，若包含，则不能拒绝原假设；否则，拒绝原假设。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;score检验&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Score检验&lt;/h2&gt;
-&lt;p&gt;这也叫拉格朗日乘子检验。拉格朗日乘数检验的思想是：在约束条件下，可以用拉格朗日方法构造目标函数。如果约束有效，则最大化拉格朗日函数所得估计量应位于最大化无约束所得参数估计值附近。这里也是构造一个LM统计量，该统计量服从卡方分布。
-&lt;span class=&#34;math display&#34;&gt;\[T_{s,n} = nU(\hat\theta)^T \hat \Sigma_u^{-1} U(\hat\theta)\sim \chi^2(q)\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;具体应用&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;具体应用&lt;/h2&gt;
-&lt;p&gt;检验如下问题，检验统计量就更加清晰了。
-&lt;span class=&#34;math display&#34;&gt;\[H_0: R(\theta)=0~~~ versus ~~~H_1: \exists r_j(\theta)\neq 0, j\leq q\]&lt;/span&gt;
-其中，&lt;span class=&#34;math inline&#34;&gt;\(T_{w,n}=n(R(\hat\theta))^T \hat\Sigma_R^{-1}(R(\hat\theta))\)&lt;/span&gt;，其中&lt;span class=&#34;math inline&#34;&gt;\(\hat\theta\)&lt;/span&gt;是无约束的估计；&lt;span class=&#34;math inline&#34;&gt;\(T_{s,n}= nU(\hat\theta)^T \hat\Sigma_U^{-1}U(\hat\theta)\)&lt;/span&gt;，其中&lt;span class=&#34;math inline&#34;&gt;\(\hat\theta\)&lt;/span&gt;是有约束的估计，&lt;span class=&#34;math inline&#34;&gt;\(U(\theta)\)&lt;/span&gt;是原始对数似然函数的导数，也就是所谓的Score。因为对数似然函数是一种特殊的目标函数，因此Score检验也可推广到一般的目标函数上。首先得到该带约束的目标函数的参数估计，然后把参数估计代入到无约束的目标函数的导数上，这时就叫拉格朗日检验（注意：只有似然为目标的时候叫得分检验）。&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;一般统计检验&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;一般统计检验&lt;/h1&gt;
-&lt;p&gt;一般而言，我们先假设数据来自原假设，然后根据该前提假设下来推导检验统计量的（渐近）分布。
-统计检验一般分成这样几步：1）构造检验统计量&lt;span class=&#34;math inline&#34;&gt;\(T_n\)&lt;/span&gt;；2）计算检验统计量的分布；3）计算检验的拒绝域&lt;span class=&#34;math inline&#34;&gt;\(W_n=\{T_n&amp;gt;c_{1-\alpha}\}\)&lt;/span&gt;；4）验证检验统计量的实现值是否落在拒绝域，若在则拒绝。&lt;/p&gt;
-&lt;p&gt;其中计算检验统计量&lt;span class=&#34;math inline&#34;&gt;\(T_n\)&lt;/span&gt;的渐近分布，实质指计算&lt;span class=&#34;math inline&#34;&gt;\(T_n\)&lt;/span&gt;从原假设中生成数据下的渐近分布。若iid数据&lt;span class=&#34;math inline&#34;&gt;\({x_i,i\leq n}\)&lt;/span&gt;来自均值为&lt;span class=&#34;math inline&#34;&gt;\(μ_0\)&lt;/span&gt; 的总体，考虑均值检验问题：
-&lt;span class=&#34;math display&#34;&gt;\[H_0:μ_0=μ_1\]&lt;/span&gt;
-1）构造检验统计量&lt;span class=&#34;math inline&#34;&gt;\(T_n=\sqrt{n} (\bar x -μ_1 )\)&lt;/span&gt;.
-2）计算数据来自原假设的渐近分布，有如下方法：&lt;/p&gt;
-&lt;p&gt;（1）此时渐近分布有显式形式&lt;span class=&#34;math inline&#34;&gt;\(N(0,σ^2)\)&lt;/span&gt;.
-注：&lt;span class=&#34;math inline&#34;&gt;\(T_n\)&lt;/span&gt;中数据来自原假设的分布与原数据下&lt;span class=&#34;math inline&#34;&gt;\(\sqrt{n}(\bar x-μ_0 )\)&lt;/span&gt;的分布相等，于是等价于求这个分布。记原数据为&lt;span class=&#34;math inline&#34;&gt;\(x_i (μ_0)\)&lt;/span&gt;，则检验统计量为&lt;span class=&#34;math inline&#34;&gt;\(T_n (μ_0,μ_1)=\sqrt{n} (\bar x(μ_0)-μ_1 )\)&lt;/span&gt;，而我们想计算这个统计量的分布&lt;span class=&#34;math inline&#34;&gt;\(T_n (μ,μ)\)&lt;/span&gt;,也就是说我们可以计算&lt;span class=&#34;math inline&#34;&gt;\(T_n (μ_1,μ_1)\)&lt;/span&gt;，此时需要重新编造来自原假设的数据；也可以计算&lt;span class=&#34;math inline&#34;&gt;\(T_n (μ_0,μ_0)\)&lt;/span&gt;，此时我们计算原假设等于真实参数的分布。&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注意：数据来自原假设的分布和原数据下真实参数时的分布是不同的
-两个东西，尽管它们的分布是一样的，但概念所指是不一样的。&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;（2）若该统计量无显式渐近分布，则可以基于bootstrap来计算该渐近分布，则我们需要造数据！造什么数据呢？造来自总体参数等于原假设时的样本，即从原假设中抽样得到的样本。观测数据的随机性来自哪里，于是我们可以利用残差bootstrap：&lt;span class=&#34;math inline&#34;&gt;\(ϵ_i=x_i-μ_1\)&lt;/span&gt;，然后对&lt;span class=&#34;math inline&#34;&gt;\(ϵ_i\)&lt;/span&gt;做中心化的&lt;span class=&#34;math inline&#34;&gt;\(\tilde \epsilon_i\)&lt;/span&gt;，接着从&lt;span class=&#34;math inline&#34;&gt;\(\tilde \epsilon_i\)&lt;/span&gt;中抽样得到&lt;span class=&#34;math inline&#34;&gt;\(\tilde \epsilon^*_i\)&lt;/span&gt;，最后我们得到&lt;span class=&#34;math inline&#34;&gt;\(x_i^*=μ_1+ϵ^*_i\)&lt;/span&gt;,进而得到&lt;span class=&#34;math inline&#34;&gt;\(\bar x^*\)&lt;/span&gt;，进一步得到&lt;span class=&#34;math inline&#34;&gt;\(T_n^*= \sqrt{n} (\bar x^*-μ_1 )\)&lt;/span&gt;。重复残差抽样&lt;span class=&#34;math inline&#34;&gt;\(B\)&lt;/span&gt;次，得到&lt;span class=&#34;math inline&#34;&gt;\(T_n^{*(b) }\)&lt;/span&gt;，于是得到&lt;span class=&#34;math inline&#34;&gt;\(T_n\)&lt;/span&gt;在&lt;span class=&#34;math inline&#34;&gt;\(H_0\)&lt;/span&gt;下的分布；还可以基于乘子bootstrap来抽样,即抽取&lt;span class=&#34;math inline&#34;&gt;\(ϵ_i^{(b)}∼N(0,1)\)&lt;/span&gt;，然后计算
-&lt;span class=&#34;math inline&#34;&gt;\(T_n^{(b)}= \frac{1}{\sqrt{n}}\sum_i(x_iϵ_i^{(b)})\)&lt;/span&gt;,由推导可知：它就是为原假设下的渐近分布。&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注意：Bootstrap只是用于计算一个检验统计量的渐近分布，
-而不是用于构造检验统计量。&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;高维假设&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;高维假设&lt;/h1&gt;
-&lt;p&gt;三大统计检验方法是在固定参数维数的条件下提出来的，当检验的参数的维数为高维时，此时就进入高维检验的范畴了。比如考虑两样本均值检验问题，&lt;span class=&#34;math inline&#34;&gt;\(\mu_1,\mu_2 \in R^p, p/n \rightarrow c &amp;gt;0\)&lt;/span&gt;来自不同的总体&lt;span class=&#34;math inline&#34;&gt;\(X_1,X_2\)&lt;/span&gt;，检验
-&lt;span class=&#34;math display&#34;&gt;\[H_0: \mu_1 = \mu_2 ~~~ vs ~~~ H_1: \mu_1 \neq \mu_2\]&lt;/span&gt;
-其中，假设&lt;span class=&#34;math inline&#34;&gt;\(H_0\)&lt;/span&gt;由&lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt;个边际检验&lt;span class=&#34;math inline&#34;&gt;\(H_{0l}: \mu_{1l}=\mu_{2l}, l \leq p\)&lt;/span&gt;构成。对&lt;span class=&#34;math inline&#34;&gt;\(H_0\)&lt;/span&gt;的检验也称为联合检验(Simulatenous test)。从多重检验的角度，一个重要的问题是多少个边际检验可以被同时联合检验来做呢？&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;多重检验&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;多重检验&lt;/h1&gt;
-&lt;p&gt;多重检验，顾名思义就是同时检验多个假设问题，它可以帮助我们高效地进行大批量的检验问题。考虑&lt;span class=&#34;math inline&#34;&gt;\(m\)&lt;/span&gt;个假设检验问题
-&lt;span class=&#34;math display&#34;&gt;\[H_{i0}: \mu_i =0 ~~ vs ~~ H_{i1}: \mu_i \neq 0, i=1, \cdots,m.\]&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&#34;fdr和fwer&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;FDR和FWER&lt;/h2&gt;
-&lt;p&gt;在统计假设问题中，我们把原假设(&lt;span class=&#34;math inline&#34;&gt;\(H_{i0}:μ_i=0\)&lt;/span&gt;)为假称为阳性，原假设为真称为阴性。错误发现率定义为 &lt;span class=&#34;math inline&#34;&gt;\(FDR=E(FDP)\)&lt;/span&gt;，其中&lt;span class=&#34;math inline&#34;&gt;\(FDP=|H^0∩ \hat S |/(|\hat S|)\)&lt;/span&gt; 称为错误发现比率，其中&lt;span class=&#34;math inline&#34;&gt;\(H^0\)&lt;/span&gt;为真阴性构成的假设集合，&lt;span class=&#34;math inline&#34;&gt;\(\hat S\)&lt;/span&gt; 为检验成阳性的假设集合（随机的，我把它取名为检验的阳性集），它是多重检验原假设集合中被某种检验方法拒绝的个数中真&lt;span class=&#34;math inline&#34;&gt;\(H_0\)&lt;/span&gt;所占的比例。所以&lt;span class=&#34;math inline&#34;&gt;\(H^0∩ \hat S\)&lt;/span&gt; 为假阳性的个数，我们控制假阳性个数的比例（把非癌症检验成癌症代价是很高的，所以要控制这个）。&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;错误发现比率是检验阳性集中假阳性所占比例。&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;多重检验中常常考虑控制Familywise Error Rate(FWER)，又称为多重检验的第一类错误，定义为
-&lt;span class=&#34;math display&#34;&gt;\[P(至少出现一个False ~~ positive)\]&lt;/span&gt;
-False positive（FP）指拒绝错了，叫假阳性或错误阳性。若对m个原假设做多重检验，假设每个边际检验独立，且每个检验为FP的概率（第一类错误，假阳性错误）控制为&lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt;，则
-&lt;span class=&#34;math display&#34;&gt;\[FWER=P(m个检验中至少出现一个FP)=1-(1-α)^m\]&lt;/span&gt;
-当检验个数很多时，FWER会趋向1.所以高维的多重检验必须控制FWER或者FDR，而不是控制每个检验的第一类错误在一个固定水平&lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt;.为了控制FWER，常用的方法p值调整方法，比如Bonferroni Correction。它是基于Bonferroni不等式推导得到。定义事件&lt;span class=&#34;math inline&#34;&gt;\(A_i=\{H_{i0} 为真但检验方法拒绝了H_{i0}\}\)&lt;/span&gt;,则&lt;span class=&#34;math inline&#34;&gt;\(P(A_i)\)&lt;/span&gt;为单个检验的第一类错误概率.并且我们有
-&lt;span class=&#34;math display&#34;&gt;\[FWER=P(∪_i A_i)\]&lt;/span&gt;
-即&lt;span class=&#34;math inline&#34;&gt;\(m\)&lt;/span&gt;个检验过程中存在一个FP的概率。由Bonferroni不等式，我们得到
-&lt;span class=&#34;math display&#34;&gt;\[FWER≤∑_i P(A_i ) ≤m α\]&lt;/span&gt;
-我们要使得&lt;span class=&#34;math inline&#34;&gt;\(FWER≤ α_0\)&lt;/span&gt;，则只需对每个检验的第一类错误控制水平为&lt;span class=&#34;math inline&#34;&gt;\(α=α_0/m\)&lt;/span&gt;.这个调整方法非常保守，可能把FWER控制得很低，从而第二类错误会升高，即power会降低。所以这类修正方法是直接在FWER上做文章。还有的方法直接在FDR上做文章。&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;基于FWER的p值调整方法，功效不够。&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;fdr和fwer的关系&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;FDR和FWER的关系&lt;/h2&gt;
-&lt;p&gt;那么FDR和FWER有什么关系呢？FWER还有一种公式的形式，因为&lt;span class=&#34;math inline&#34;&gt;\(H^0∩ \hat S\)&lt;/span&gt;表示错误阳性的个数，所以有如下等价定义：
-&lt;span class=&#34;math display&#34;&gt;\[FWER=P(|H^0∩ \hat S |&amp;gt;0)=P(|H^0∩ \hat S |≥ 1)\]&lt;/span&gt;
-当m个原假设全部为真时，我们有：&lt;span class=&#34;math inline&#34;&gt;\(|H^0∩ \hat S|=|\hat S|\)&lt;/span&gt;。当&lt;span class=&#34;math inline&#34;&gt;\(|\hat S|=0\)&lt;/span&gt;时，规定&lt;span class=&#34;math inline&#34;&gt;\(FDP=0\)&lt;/span&gt;；当&lt;span class=&#34;math inline&#34;&gt;\(|\hat S|&amp;gt;0\)&lt;/span&gt;时，则&lt;span class=&#34;math inline&#34;&gt;\(FDP=1\)&lt;/span&gt;，所以
-&lt;span class=&#34;math display&#34;&gt;\[E(FDP)=FDR=P(|\hat S |&amp;gt;0)=P(|H^0∩ \hat S|&amp;gt;0)=FWER.\]&lt;/span&gt;
-当&lt;span class=&#34;math inline&#34;&gt;\(|H^0| &amp;lt; m\)&lt;/span&gt;时，我们有&lt;span class=&#34;math inline&#34;&gt;\(FDR≤FWER\)&lt;/span&gt;。因为若&lt;span class=&#34;math inline&#34;&gt;\(|H^0∩ \hat S |=0\)&lt;/span&gt;，则&lt;span class=&#34;math inline&#34;&gt;\(FDP=0\)&lt;/span&gt;；若&lt;span class=&#34;math inline&#34;&gt;\(|H^0∩\hat S|&amp;gt;0\)&lt;/span&gt;，则&lt;span class=&#34;math inline&#34;&gt;\(FDP≤1\)&lt;/span&gt;。于是得到：
-&lt;span class=&#34;math display&#34;&gt;\[I(|H^0 ∩ \hat S |&amp;gt;0)≥FDP\]&lt;/span&gt;
-两边同时取期望得到：&lt;span class=&#34;math inline&#34;&gt;\(FWER≥FDR\)&lt;/span&gt;. 综上可知：只要控制住FWER的方法也控制住了FDR。于是如果我们直接控制FDR，那么对FWER的控制会更松一些，于是可以提高power。若&lt;span class=&#34;math inline&#34;&gt;\(|H^0 |\)&lt;/span&gt;越小，则FDR和FWER的差距越大，基于FDR提升Power的潜力越大。&lt;/p&gt;
-&lt;p&gt;原假设为真的情形下，统计量&lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt;值服从均匀分布。我们平常所说的&lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt;值为多少多少，其实是p值统计量在样本上的实现值。首先定义一个p值函数为：
-&lt;span class=&#34;math display&#34;&gt;\[p(x)=P(Z&amp;gt;x)=1-F(x)\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(Z\)&lt;/span&gt;为检验统计量&lt;span class=&#34;math inline&#34;&gt;\(Z_n\)&lt;/span&gt;在原假设成立时所服从分布相同的随机变量。那么&lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt;值统计量定义为：
-&lt;span class=&#34;math display&#34;&gt;\[p(Z_n )=P(Z&amp;gt;Z_n│Z_n )=E(I(Z&amp;gt;Z_n)|Z_n)\]&lt;/span&gt;
-它是样本的一个函数。
-在&lt;span class=&#34;math inline&#34;&gt;\(H_0\)&lt;/span&gt;为真时,因为&lt;span class=&#34;math inline&#34;&gt;\(Z_n\)&lt;/span&gt;也服从&lt;span class=&#34;math inline&#34;&gt;\(F\)&lt;/span&gt;的分布，
-&lt;span class=&#34;math display&#34;&gt;\[p(Z_n )=1-F(Z_n )=1-U=U&amp;#39;\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(U\)&lt;/span&gt;和&lt;span class=&#34;math inline&#34;&gt;\(U&amp;#39;\)&lt;/span&gt;都为&lt;span class=&#34;math inline&#34;&gt;\([0,1]\)&lt;/span&gt;均匀分布的随机变量。&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
+      <description>假设检验 闲居 2020年12月于武侯 简单假设和复合假设 简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概</description>
     </item>
     
     <item>
       <title>再生核方法-第三章 支持向量机</title>
       <link>http://feiyoung.netlify.com/research/2020-11-29-rkhs%E4%B9%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</link>
       <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      
       <guid>http://feiyoung.netlify.com/research/2020-11-29-rkhs%E4%B9%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</guid>
-      <description>
-&lt;link href=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;&lt;strong&gt;再生核方法-第二章 无所不能的支持向量机&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;闲居&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;2020年11月于西财明辨园&lt;/em&gt;&lt;/p&gt;
-&lt;div id=&#34;线性支持超平面分类器&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;线性支持超平面分类器&lt;/h1&gt;
-&lt;p&gt;考虑&lt;span class=&#34;math inline&#34;&gt;\(D=(x_i, y_i)_{i=1}^n, x_i \in R^p, y_i \in \{-1, 1\}\)&lt;/span&gt;的分类问题。我们想找一个超平面&lt;span class=&#34;math inline&#34;&gt;\(\langle w, x \rangle + b=0\)&lt;/span&gt;将两类&lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt;完全分开。若&lt;span class=&#34;math inline&#34;&gt;\(D\)&lt;/span&gt;是线性可分的，则可以做到。令&lt;span class=&#34;math inline&#34;&gt;\(f(x)=\langle w, x \rangle + b\)&lt;/span&gt;,最小化
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 \tag{1.1}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. y_i f(x_i) \geq 1, i=1,\cdots, n.\]&lt;/span&gt;
-因为任意一点&lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt;到超平面的距离为&lt;span class=&#34;math inline&#34;&gt;\(f(x_i)/\|w\|\)&lt;/span&gt;，因为&lt;span class=&#34;math inline&#34;&gt;\(d(x, l_0)=\|x\| \cos(&amp;lt;x, l_0^\perp&amp;gt;)=\|x\| \|w\| \cos(&amp;lt;x, l^\perp&amp;gt;)/\|w\|=&amp;lt;x,w&amp;gt;/\|w\|=f(x_i)/\|w\|\)&lt;/span&gt;，其中&lt;span class=&#34;math inline&#34;&gt;\(l_0\)&lt;/span&gt;表示超平面，&lt;span class=&#34;math inline&#34;&gt;\(l_0^\perp\)&lt;/span&gt;表示超平面的法向量。
-由于&lt;span class=&#34;math inline&#34;&gt;\(y_i \in \{1,-1\}\)&lt;/span&gt;，所有两类点之间的距离最小为&lt;span class=&#34;math inline&#34;&gt;\(2\|w\|^{-1}\)&lt;/span&gt;。&lt;span class=&#34;math inline&#34;&gt;\((1.1)\)&lt;/span&gt;是很简单的一个带有线性约束的二次规划问题，现有很多二次规划方法可以求解。&lt;/p&gt;
-&lt;p&gt;当数据线性不可分时，满足约束条件的可行解无法找到，因为它要求每个样本点都满足条件。此时，我们可以引入一个容忍度参数&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;,最小化
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i \xi_i \tag{1.2}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. y_i f(x_i) \geq 1-\xi_i, \xi_i \geq 0, i=1,\cdots, n.\]&lt;/span&gt;
-同时尽量让&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;接近0，表示违背&lt;span class=&#34;math inline&#34;&gt;\((1.1)\)&lt;/span&gt;约束的样本点尽量少。
-这个带约束的二次规划问题等价于一个不带约束的判罚损失目标函数最小化的问题，如下
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \sum_i l(f(x_i),y_i) + \frac{\lambda}{2} \|w\|^2,\tag{1.3} \]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(l(f(x_i), y_i) = \max\{1-y_if(x_i), 0\}\)&lt;/span&gt;，这就是著名的Hinge Loss。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;证明:&lt;/strong&gt; 最小化的&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;其实就是定义的关于&lt;span class=&#34;math inline&#34;&gt;\((f(x_i),y_i)\)&lt;/span&gt;的一个损失度量，&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;越小越好。于是，我们可以根据条件约束定义一个损失函数：
-&lt;span class=&#34;math display&#34;&gt;\[\xi_i = l(y_i, f(x_i))=\left\{
-\begin{aligned}
-0 &amp;amp;, &amp;amp; 1- y_i f(x_i) \leq 0, \\
-1-y_i f(x_i) &amp;amp; , &amp;amp;  1- y_i f(x_i) &amp;gt; 0.
-\end{aligned}
-\right.\]&lt;/span&gt;
-因为&lt;span class=&#34;math inline&#34;&gt;\(\xi_i \geq 1 - y_i f(x_i)\)&lt;/span&gt;，当&lt;span class=&#34;math inline&#34;&gt;\(1- y_i f(x_i) &amp;gt; 0\)&lt;/span&gt;,&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;最小值为&lt;span class=&#34;math inline&#34;&gt;\(1-y_i f(x_i)\)&lt;/span&gt;。将&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;代入&lt;span class=&#34;math inline&#34;&gt;\((1.2)\)&lt;/span&gt;，我们得到：
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i l(f(x_i), y_i) \tag{1.4},\]&lt;/span&gt;
-最后目标函数同时除以&lt;span class=&#34;math inline&#34;&gt;\(C\)&lt;/span&gt;，将判罚参数转到第一项上，于是得证。 &amp;amp;club;&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\((1.3)\)&lt;/span&gt;式的好处是帮助我们建立&lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt;估计的理论性质，因为它有一个明确的目标函数，方便从统计角度研究它的理论性质，比如估计相合性和收敛速度。&lt;/p&gt;
-&lt;p&gt;虽然&lt;span class=&#34;math inline&#34;&gt;\((1.2)\)&lt;/span&gt;式利用二次规划的方法很好求解，但是当变量维度&lt;span class=&#34;math inline&#34;&gt;\(p&amp;gt;n\)&lt;/span&gt;时，计算是无效率的。于是，我们将它转化为对偶问题来求解。为了求它的对偶问题，我们需要用到拉格朗日方法，首先需要不等式约束转化为&lt;span class=&#34;math inline&#34;&gt;\(\leq\)&lt;/span&gt;约束,
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i \xi_i \tag{1.5}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. 1-\xi_i-y_i f(x_i)\leq 0, -\xi_i \leq 0, i=1,\cdots, n.\]&lt;/span&gt;
-于是，我们得到拉格朗日函数为
-&lt;span class=&#34;math display&#34;&gt;\[L(w,b,\xi, \alpha, \eta) = 1/2 \|w\|^2 + C \sum_i \xi_i + \sum_i \alpha_i(1-\xi_i-y_if(x_i)) - \sum_i \eta_i \xi_i,\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(\forall i, \alpha_i,\eta_i \geq 0\)&lt;/span&gt;. 关于原始变量求导，得
-&lt;span class=&#34;math display&#34;&gt;\[\partial L_w = w - \sum_i \alpha_i y_i x_i = 0,\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[\partial L_b = -\sum_i \alpha_i y_i = 0,\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[\partial L_{\xi_i} = C - \alpha_i - \eta_i=0,\]&lt;/span&gt;
-把原始变量表示成对偶变量&lt;span class=&#34;math inline&#34;&gt;\(\alpha_i\)&lt;/span&gt;和&lt;span class=&#34;math inline&#34;&gt;\(\eta_i\)&lt;/span&gt;的形式。故得&lt;span class=&#34;math inline&#34;&gt;\(w = \sum_i \alpha_i y_i x_i\)&lt;/span&gt;,代入拉格朗日函数得到对偶问题,
-&lt;span class=&#34;math display&#34;&gt;\[\min_\alpha 1/2 \alpha^T Q \alpha - \alpha^T 1 \tag{1.6}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. \alpha^Ty=0, \alpha_i \in [0, C],\forall i \in [n].\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(Q_{ij} = y_i y_j \langle x_i, x_j \rangle\)&lt;/span&gt;. 这个二次规划就更加简单，只用解&lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt;个参数，而不是像&lt;span class=&#34;math inline&#34;&gt;\((1.2)\)&lt;/span&gt;需要解&lt;span class=&#34;math inline&#34;&gt;\(p+n\)&lt;/span&gt;个参数。KKT条件要求&lt;span class=&#34;math inline&#34;&gt;\(\alpha_i (y_i f(x_i) - 1) = 0\)&lt;/span&gt;，于是对于&lt;span class=&#34;math inline&#34;&gt;\(y_i f(x_i) -1 \geq 0\)&lt;/span&gt;的那些样本&lt;span class=&#34;math inline&#34;&gt;\(\xi_i = 0\)&lt;/span&gt;，且&lt;span class=&#34;math inline&#34;&gt;\(\alpha_i = 0\)&lt;/span&gt;，这样的&lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt;称为内部点；而对于&lt;span class=&#34;math inline&#34;&gt;\(y_i f(x_i) -1 =0\)&lt;/span&gt;的那些样本&lt;span class=&#34;math inline&#34;&gt;\(\alpha_i&amp;gt;0\)&lt;/span&gt;，这样的&lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt;被称为支持向量。所以该分类器被称为线性支持超平面分类器。&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;问题：为什么KKT条件要求$\alpha_i (y_i f(x_i) - 1) = 0$？&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;支持向量机&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;支持向量机&lt;/h1&gt;
-&lt;p&gt;根据&lt;span class=&#34;math inline&#34;&gt;\((1.6)\)&lt;/span&gt;式，我们很容易将它推广到特征映射和再生核。只需&lt;span class=&#34;math inline&#34;&gt;\(K_{ij}=y_i y_j \langle \Phi(x_i), \Phi(x_j) \rangle\)&lt;/span&gt;，这样推广后的支持超平面分类器被称为支持向量机。&lt;/p&gt;
-&lt;p&gt;由于&lt;span class=&#34;math inline&#34;&gt;\(l(y_i, f(x_i)) \leq \xi_i\)&lt;/span&gt;，所以&lt;span class=&#34;math inline&#34;&gt;\(\sum_i \xi_i\)&lt;/span&gt;是经验风险的上界。将&lt;span class=&#34;math inline&#34;&gt;\(y_if(x_i) \geq 1\)&lt;/span&gt;变成&lt;span class=&#34;math inline&#34;&gt;\(y_if(x_i) \geq \rho\)&lt;/span&gt;，我们可以推广到所谓的&lt;span class=&#34;math inline&#34;&gt;\(\nu\)&lt;/span&gt;-SV 分类器：
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i \xi_i -n \nu \rho \tag{1.7}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. y_i f(x_i) \geq \rho-\xi_i, \xi_i \geq 0, i=1,\cdots, n.\]&lt;/span&gt;
-它的对偶问题为:
-&lt;span class=&#34;math display&#34;&gt;\[\min_\alpha 1/2 \alpha^T Q \alpha \tag{1.8}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. \alpha^Ty=0, \alpha^T 1= n \nu, \alpha_i \in [0, 1],\forall i \in [n].\]&lt;/span&gt;
-&lt;span class=&#34;math inline&#34;&gt;\(\nu\)&lt;/span&gt;是支持向量所占比例的一个下界，即&lt;span class=&#34;math inline&#34;&gt;\(\nu \leq \frac{\|\alpha\|_0}{n}\)&lt;/span&gt;。由于&lt;span class=&#34;math inline&#34;&gt;\(\alpha_i \leq 0\)&lt;/span&gt;，所以&lt;span class=&#34;math inline&#34;&gt;\(\|\alpha\|_1 = n\nu\)&lt;/span&gt;,再加上&lt;span class=&#34;math inline&#34;&gt;\(\|\alpha\|_1 \leq \|\alpha\|_0\)&lt;/span&gt;得证。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;支持向量回归&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;支持向量回归&lt;/h1&gt;
-&lt;p&gt;假设我们要找一个函数&lt;span class=&#34;math inline&#34;&gt;\(f(x) = \langle w, x \rangle + b\)&lt;/span&gt;来拟合一个回归问题，最小化
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 + C \sum_i \xi_i \tag{3.1}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. |y_i - f(x_i)| \leq \epsilon + \xi_i, \xi_i \geq 0.\]&lt;/span&gt;
-这个问题，我们也可以转化成判罚损失函数的形式。同样这里&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;可以视为&lt;span class=&#34;math inline&#34;&gt;\(y_i\)&lt;/span&gt;与&lt;span class=&#34;math inline&#34;&gt;\(f(x_i)\)&lt;/span&gt;之间的一个损失度量，&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;越小越好。于是，我们可以根据条件约束定义一个损失函数：
-&lt;span class=&#34;math display&#34;&gt;\[\xi_i = l(y_i, f(x_i))=\left\{
-\begin{aligned}
-0 &amp;amp;, &amp;amp;  |y_i - f(x_i)| - \epsilon \leq 0, \\
- |y_i - f(x_i)| - \epsilon  &amp;amp; , &amp;amp;  |y_i - f(x_i)| - \epsilon  &amp;gt; 0.
-\end{aligned}
-\right.\]&lt;/span&gt;
-因为&lt;span class=&#34;math inline&#34;&gt;\(\xi_i \geq |y_i - f(x_i)| - \epsilon\)&lt;/span&gt;，当&lt;span class=&#34;math inline&#34;&gt;\(|y_i - f(x_i)| - \epsilon &amp;gt; 0\)&lt;/span&gt;,&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;最小值为&lt;span class=&#34;math inline&#34;&gt;\(|y_i - f(x_i)| - \epsilon\)&lt;/span&gt;。将&lt;span class=&#34;math inline&#34;&gt;\(\xi_i\)&lt;/span&gt;代入&lt;span class=&#34;math inline&#34;&gt;\((3.1)\)&lt;/span&gt;，我们得到：
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 +C \sum_i l(f(x_i), y_i) ,\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(l(f(x_i), y_i) = \max(0, |f(x_i) - y_i|-\epsilon)\)&lt;/span&gt;，这个损失函数也有一个著名的名字，它叫&lt;span class=&#34;math inline&#34;&gt;\(\epsilon\)&lt;/span&gt;-不敏感损失函数（只有超过&lt;span class=&#34;math inline&#34;&gt;\(\epsilon\)&lt;/span&gt;后才会产生损失，真实名副其实）。最后目标函数同时除以&lt;span class=&#34;math inline&#34;&gt;\(C\)&lt;/span&gt;，将判罚参数转到第一项上，于是得到
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \sum_i l(f(x_i), y_i) + \frac{\lambda}{2} \|w\|^2 \tag{3.2}.\]&lt;/span&gt;&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;到了这里，我应该相信我题目中所说的“无所不能的支持向量机”，它的思想既可
-以处理回归问题，又可以分类问题，后面还会看到它还可处理无监督学习的问题。&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;根据&lt;span class=&#34;math inline&#34;&gt;\((3.2)\)&lt;/span&gt;，我们可以把损失换成其他损失函数，就会得到不同的方法。同样&lt;span class=&#34;math inline&#34;&gt;\((3.1)\)&lt;/span&gt;也可以转化为对偶问题求解，优化一个二次规划问题。利用二次规划目标函数，可以直接推广到再生核空间上面。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;多分类支持向量机&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;多分类支持向量机&lt;/h1&gt;
-&lt;p&gt;假设&lt;span class=&#34;math inline&#34;&gt;\(y_i \in \mathcal{Y}\)&lt;/span&gt;，它是一个离散的分类标签空间，元素个数可以超过2。多分类的目标是找一个函数&lt;span class=&#34;math inline&#34;&gt;\(f(x,y)\)&lt;/span&gt;，它是一个分类得分函数，&lt;span class=&#34;math inline&#34;&gt;\(f(x,y)\)&lt;/span&gt;越大表示&lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;属于&lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;的可能性越大。所以
-&lt;span class=&#34;math display&#34;&gt;\[\hat y(x) = \arg\max_{y \in \mathcal{Y}}
- f(x,y).\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;我们定义一个损失函数&lt;span class=&#34;math inline&#34;&gt;\(\Delta(y,y&amp;#39;)\)&lt;/span&gt;表示把&lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;错分为&lt;span class=&#34;math inline&#34;&gt;\(y&amp;#39;\)&lt;/span&gt;带来的损失，特别地，它可以是0-1损失函数，也可以是其他更一般的损失函数，只要满足如下性质：
-&lt;span class=&#34;math inline&#34;&gt;\(\Delta(y,y)=0,\Delta(y,y&amp;#39;)\geq 0\)&lt;/span&gt;。下面的引理可以帮助我们构造支持向量思想中的所需要的约束条件。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;引理：假设&lt;span class=&#34;math inline&#34;&gt;\(\xi \geq 0\)&lt;/span&gt;满足对&lt;span class=&#34;math inline&#34;&gt;\(\forall y \in \mathcal{Y}\)&lt;/span&gt;有
-&lt;span class=&#34;math display&#34;&gt;\[f(x,y) - f(x,y&amp;#39;) \geq \Delta(y,y&amp;#39;) - \xi \tag{5.1}\]&lt;/span&gt;
-成立，则&lt;span class=&#34;math inline&#34;&gt;\(\Delta(y, \arg\max_{y&amp;#39;\in Y} f(x, y&amp;#39;)) \leq \xi\)&lt;/span&gt;。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;该引理表示只要满足约束条件&lt;span class=&#34;math inline&#34;&gt;\((5.1)\)&lt;/span&gt;，则错判的损失都可以被&lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;给控制住。于是假设&lt;span class=&#34;math inline&#34;&gt;\(f(x,y) = \langle \Phi(x,y), w \rangle\)&lt;/span&gt;，对应的核函数为&lt;span class=&#34;math inline&#34;&gt;\(k(x,y,x&amp;#39;,y&amp;#39;)=\langle \Phi(x,y), \Phi(x&amp;#39;,y&amp;#39;) \rangle\)&lt;/span&gt;。我们最小化如下目标函数
-&lt;span class=&#34;math display&#34;&gt;\[\min_{w,b} \frac{1}{2} \|w\|^2 + C \sum_i \xi_i \tag{5.2}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. f(x_i,y_i) - f(x_i, y)  \geq \Delta(y_i,y) - \xi_i, \xi_i \geq 0, y \in Y.\]&lt;/span&gt;
-对于二分类，令&lt;span class=&#34;math inline&#34;&gt;\(\Phi(x,y)=y\Phi(x), \Delta(y,y&amp;#39;) = 1- \delta_{yy&amp;#39;}\)&lt;/span&gt;，则约束退化成&lt;span class=&#34;math inline&#34;&gt;\(2y_i\langle \Phi(x_i), w \rangle \leq 1 - \xi_i\)&lt;/span&gt;，这就是二分类的支持向量机。
-同样地，目标函数&lt;span class=&#34;math inline&#34;&gt;\((5.2)\)&lt;/span&gt;也可以转化为对偶问题，求解一个二次规划问题。&lt;/p&gt;
-&lt;/div&gt;
-</description>
+      <description>再生核方法-第二章 无所不能的支持向量机 闲居 2020年11月于西财明辨园 线性支持超平面分类器 考虑\(D=(x_i, y_i)_{i=1}^n, x_i \in R^p, y_i \in \{-1, 1\}\)的分</description>
     </item>
     
     <item>
       <title>再生核方法-第二章 函数逼近及表示定理</title>
       <link>http://feiyoung.netlify.com/research/2020-11-29-rkhs/</link>
       <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+      
       <guid>http://feiyoung.netlify.com/research/2020-11-29-rkhs/</guid>
-      <description>
-&lt;link href=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;&lt;strong&gt;再生核方法-第二章函数逼近及表示定理&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;闲居&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;2020年11月于西财明辨园&lt;/em&gt;&lt;/p&gt;
-&lt;div id=&#34;希尔伯特空间&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;希尔伯特空间&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;定义.一个完备的内积空间称为希尔伯特空间。&lt;/li&gt;
-&lt;li&gt;定义.存在可数个基向量表示出所有向量的希尔伯特空间称为可分的希尔伯特空间。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;任意有限维的希尔伯特空间都是可分的希尔伯特空间。因为有限维空间总是存在有限个基向量将空间中所有向量表示出来。&lt;/p&gt;
-&lt;p&gt;假设&lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;是一个来自概率空间&lt;span class=&#34;math inline&#34;&gt;\((\mathcal{A},\Omega, P)\)&lt;/span&gt;的随机变量，&lt;span class=&#34;math inline&#34;&gt;\(f: \mathcal{X} \rightarrow R\)&lt;/span&gt;的一个函数，所有满足
-&lt;span class=&#34;math display&#34;&gt;\[\int |f(x)|^a dP(x) &amp;lt; \infty\]&lt;/span&gt;
-的函数&lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt;构成的空间，称为&lt;span class=&#34;math inline&#34;&gt;\(L_a(P)\)&lt;/span&gt;可积空间。并且有&lt;span class=&#34;math inline&#34;&gt;\(L_a(P)\)&lt;/span&gt;范数定义为&lt;span class=&#34;math inline&#34;&gt;\(\|f\|_{L_a(P)}=\{\int |f(x)|^a dP(x)\}^{1/a}\)&lt;/span&gt;，当&lt;span class=&#34;math inline&#34;&gt;\(a=+\infty\)&lt;/span&gt;时，&lt;span class=&#34;math inline&#34;&gt;\(\|f\|_{L_a(P)}=\sup_x|f(x)|\)&lt;/span&gt;。特别地，当&lt;span class=&#34;math inline&#34;&gt;\(P\)&lt;/span&gt;取勒贝格测度&lt;span class=&#34;math inline&#34;&gt;\(\nu\)&lt;/span&gt;时，&lt;span class=&#34;math inline&#34;&gt;\(\|f\|_{L_a(\nu)}\hat = \|f\|_a\)&lt;/span&gt;.比如当&lt;span class=&#34;math inline&#34;&gt;\(a=2\)&lt;/span&gt;或&lt;span class=&#34;math inline&#34;&gt;\(a=+\infty\)&lt;/span&gt;时，我们常用的函数范数&lt;span class=&#34;math inline&#34;&gt;\(\|f\|_2, \|f\|_\infty\)&lt;/span&gt;。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;函数插值&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;函数插值&lt;/h1&gt;
-&lt;p&gt;假设&lt;span class=&#34;math inline&#34;&gt;\(f^*: \mathcal{X} \rightarrow R\)&lt;/span&gt;满足
-&lt;span class=&#34;math display&#34;&gt;\[y_i = f^*(x_i),i=1,\cdots,n,\]&lt;/span&gt;
-我们选择&lt;span class=&#34;math display&#34;&gt;\[\hat f \in \arg\min_{f\in \mathcal{H}}\|f\|_\mathcal{H} \tag{1.1}\]&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[s.t. f(x_i) = y_i, i\in [n].\]&lt;/span&gt;
-它表示在由&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;生成的RKHS中寻找一个最不复杂的函数来逼近&lt;span class=&#34;math inline&#34;&gt;\(f^*\)&lt;/span&gt;。定义&lt;span class=&#34;math inline&#34;&gt;\(K_n=(k(x_i,x_j))/n,Y=(y_1, \cdots, y_n)&amp;#39;\)&lt;/span&gt;，则有以下命题成立。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;命题：问题(1.1)可行的充要条件是&lt;span class=&#34;math inline&#34;&gt;\(Y\in Range(K_n)\)&lt;/span&gt;，此时最优解有如下形式
-&lt;span class=&#34;math display&#34;&gt;\[\hat f(\cdot)=\frac{1}{\sqrt{n}}\sum_{i=1}^n \hat \alpha_i k(\cdot,x_i),\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(K_n \hat \alpha = Y/\sqrt{n}\)&lt;/span&gt;，&lt;span class=&#34;math inline&#34;&gt;\(Range(K_n)\)&lt;/span&gt;表示&lt;span class=&#34;math inline&#34;&gt;\(K_n\)&lt;/span&gt;的列空间。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;证明.&lt;/strong&gt; 对任意&lt;span class=&#34;math inline&#34;&gt;\(\alpha\in R^n\)&lt;/span&gt;，定义&lt;span class=&#34;math inline&#34;&gt;\(f_\alpha(\cdot)=\frac{1}{\sqrt{n}} \sum_i \alpha_i k(\cdot, x_i)\)&lt;/span&gt;，考虑函数空间&lt;span class=&#34;math inline&#34;&gt;\(L=\{f_\alpha: \alpha \in R^n\}\)&lt;/span&gt;。注意对于&lt;span class=&#34;math inline&#34;&gt;\(f_\alpha \in L\)&lt;/span&gt;，
-&lt;span class=&#34;math display&#34;&gt;\[f_\alpha(x_j) = \frac{1}{\sqrt{n}} \sum_i \alpha_i k(x_j, x_i)=\sqrt{n}(K_n \alpha)_j.\]&lt;/span&gt;
-因此，&lt;span class=&#34;math inline&#34;&gt;\(f_\alpha\)&lt;/span&gt;慢组插值条件的充要条件是&lt;span class=&#34;math inline&#34;&gt;\(K \alpha=Y/\sqrt{n}.\)&lt;/span&gt;
-于是，&lt;span class=&#34;math inline&#34;&gt;\(Y\in Range(K_n)\)&lt;/span&gt;是问题&lt;span class=&#34;math inline&#34;&gt;\((1.1)\)&lt;/span&gt;具有一个解的充分条件。接下来，我们证明它也是一个必要条件。对于&lt;span class=&#34;math inline&#34;&gt;\(\forall f \in \mathcal{H}\)&lt;/span&gt;，有
-&lt;span class=&#34;math display&#34;&gt;\[f = f_\alpha + f_\perp, f_\alpha \in L, f_\perp \in L^\perp.\]&lt;/span&gt;
-利用该分解式和再生性，我们得
-&lt;span class=&#34;math display&#34;&gt;\[f(x_j) = \langle f, k(\cdot, x_j)\rangle_H=\langle  f_\alpha + f_\perp, k(\cdot, x_j)\rangle_H=f_\alpha(x_j),\]&lt;/span&gt;
-第二个等式利用了&lt;span class=&#34;math inline&#34;&gt;\(k(\cdot, x_j) \in L\)&lt;/span&gt;。故&lt;span class=&#34;math inline&#34;&gt;\(y_i=f_\alpha(x_i)=\sqrt{n}(K_n \alpha)_i\)&lt;/span&gt;，也就是，&lt;span class=&#34;math inline&#34;&gt;\(Y\in Range(K_n)\)&lt;/span&gt;。&lt;/p&gt;
-&lt;p&gt;由三角不等式，可得&lt;span class=&#34;math inline&#34;&gt;\(\|f\|_H \leq \|f_\alpha\|_H + \|f_\perp\|_H\)&lt;/span&gt;，于是得到问题&lt;span class=&#34;math inline&#34;&gt;\((1.1)\)&lt;/span&gt;的最优解具有形式:
-&lt;span class=&#34;math display&#34;&gt;\[\hat f(\cdot)=\frac{1}{\sqrt{n}}\sum_{i=1}^n \hat \alpha_i k(\cdot,x_i).\]&lt;/span&gt;&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注:找一个函数精确地等于y的值，称为插值或插值估计；
-当无法找到精确相等的函数，而只能找一个最逼近的函数时称为逼近；
-在证明必要性时，我们可以看到再生性的重要性，再生性保证了函数在每个样本点上
-的值，可以在有限维(n维)的L空间中插值得到。&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;函数逼近&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;函数逼近&lt;/h1&gt;
-&lt;p&gt;考虑非线性回归模型
-&lt;span class=&#34;math display&#34;&gt;\[y_i = f^*(x_i)+w_i,i=1,\cdots,n,\]&lt;/span&gt;
-我们关心&lt;span class=&#34;math inline&#34;&gt;\(f^*\)&lt;/span&gt;的估计问题。我们考虑如下判罚最小二乘估计，
-&lt;span class=&#34;math display&#34;&gt;\[\hat f=\arg\min_{f\in H}\{\frac{1}{2n} \sum_i (y_i - f(x_i)\}^2 + \lambda_n \|f\|_H^2 \tag{2.1}\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(\lambda_n\)&lt;/span&gt;被称为平滑参数。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;命题：对于任意&lt;span class=&#34;math inline&#34;&gt;\(\lambda_n&amp;gt;0\)&lt;/span&gt;，由&lt;span class=&#34;math inline&#34;&gt;\((2.1)\)&lt;/span&gt;得到的估计量满足
-&lt;span class=&#34;math display&#34;&gt;\[\hat f(\cdot)=\frac{1}{\sqrt{n}}\sum_{i=1}^n \hat \alpha_i k(\cdot,x_i),\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(\hat \alpha = (K_n + \lambda_n I)^{-1}Y/\sqrt{n}\)&lt;/span&gt;。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;证明:&lt;/strong&gt;这里具体证明省略，只是简要说一下证明思路。第一步证明&lt;span class=&#34;math inline&#34;&gt;\(\hat f\)&lt;/span&gt;落在&lt;span class=&#34;math inline&#34;&gt;\(L\)&lt;/span&gt;空间:只需将&lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt;的垂直分解代入目标函数中，然后利用再生性，可以证明目标函数第一项与&lt;span class=&#34;math inline&#34;&gt;\(f_\perp\)&lt;/span&gt;无关，只需要在满足该垂直分解的情况下，让目标函数第二项的取得最小即是整个目标函数的最小解。利用范数的三角不等式，可得&lt;span class=&#34;math inline&#34;&gt;\(f_\perp=0\)&lt;/span&gt;。第二步将解的形式代入目标函数，利用核追踪技术，可以得到&lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt;的估计。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;核方法估计的收敛速度&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;核方法估计的收敛速度&lt;/h1&gt;
-&lt;p&gt;假设我们对函数&lt;span class=&#34;math inline&#34;&gt;\(f^*\)&lt;/span&gt;感兴趣，然后基于再生核的估计方法得到它的一个估计&lt;span class=&#34;math inline&#34;&gt;\(\hat f\)&lt;/span&gt;，如何证明&lt;span class=&#34;math inline&#34;&gt;\(\|\hat f- f^*\|=O_p(a_n)\)&lt;/span&gt;呢?&lt;/p&gt;
-&lt;p&gt;当今世界，现常用的有两种证明技术。第一种是基于积分算子的技术；第二种是基于经验过程的技术。&lt;/p&gt;
-&lt;/div&gt;
-</description>
+      <description>再生核方法-第二章函数逼近及表示定理 闲居 2020年11月于西财明辨园 希尔伯特空间 定义.一个完备的内积空间称为希尔伯特空间。 定义.存在可数个基</description>
     </item>
     
     <item>
       <title>再生核方法-第一章 基本概念</title>
       <link>http://feiyoung.netlify.com/research/2020-11-26-rkhs/</link>
       <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>
+      
       <guid>http://feiyoung.netlify.com/research/2020-11-26-rkhs/</guid>
-      <description>
-&lt;link href=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;&lt;strong&gt;再生核方法-第一章基本概念&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;闲居&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;2020年11月于西财宏远楼&lt;/em&gt;&lt;/p&gt;
-&lt;div id=&#34;再生核概述&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;再生核概述&lt;/h1&gt;
-&lt;p&gt;在过去的二十年里，核方法相对其他方法（比如神经网络）快速流行起来，因为它具有可靠的理论支持。传统的机器学习和统计理论及算法集中在线性模型，现实世界中复杂的问题往往需要非线性模型才能建立数据中的相依性，和实现感兴趣对象的成功预测。再生核（没有特别说明，后面都简称为核）能帮助我们更好地捕获现实世界，它对应着一个特征空间（往往是高维空间）的内积。在特征空间中，我们的估计方法是线性的，而对原始空间而言却是非线性的估计方法。利用核追踪，我们从不需要在高维特征空间中计算任何东西。核方法具有算法实现简单和理论可靠的优点。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;再生核&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;再生核&lt;/h1&gt;
-&lt;p&gt;给定一组经验数据&lt;span class=&#34;math inline&#34;&gt;\(\{(x_i, y_i),i=1,\cdots,n\} \subset \mathcal{X} \times \mathcal{Y}\)&lt;/span&gt;，其中&lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt;为预测变量或协变量，&lt;span class=&#34;math inline&#34;&gt;\(y_i\)&lt;/span&gt;为响应变量或目标变量。我们这里对定义域&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{X}\)&lt;/span&gt;无任何要求，只需它是一个非空集合。我们需要一个函数，
-&lt;span class=&#34;math display&#34;&gt;\[k: \mathcal{X} \times \mathcal{X}\rightarrow R, (x,x&amp;#39;)\rightarrow k(x,x&amp;#39;)\]&lt;/span&gt;
-满足对任意&lt;span class=&#34;math inline&#34;&gt;\(x,x&amp;#39; \in \mathcal{X}\)&lt;/span&gt;，都存在一个映射&lt;span class=&#34;math inline&#34;&gt;\(\Phi: \mathcal{X} \rightarrow \mathcal{H}\)&lt;/span&gt;，使得
-&lt;span class=&#34;math display&#34;&gt;\[K(x,x&amp;#39;) = \langle \Phi(x), \Phi(x&amp;#39;)\rangle_{\mathcal{H}}\tag{2.1}\]&lt;/span&gt;
-成立，其中&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{H}\)&lt;/span&gt;为一个内积空间,通常被称为特征空间，&lt;span class=&#34;math inline&#34;&gt;\(\Phi\)&lt;/span&gt;称为特征映射，相似性度量&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;被称为核。&lt;/p&gt;
-&lt;pre class=&#34;xelatex&#34;&gt;&lt;code&gt;问题1. $\Phi(x)$所在的空间$\mathcal{H}$与$k$生成的Hilbert空间是同一个空间吗？
-答：它们可以是同一个空间，其中$H$称为自然特征空间。&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注.线性空间是指定义了加法和数乘运算的非空集合；
-内积空间是定义了内积的线性空间；
-希尔伯特空间是指完备化的内积空间。&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;当&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{H}\)&lt;/span&gt;为自然特征空间时，&lt;span class=&#34;math inline&#34;&gt;\(\Phi(x)=k(x,\cdot)\)&lt;/span&gt;。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;正定核&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;正定核&lt;/h1&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\((2.1)\)&lt;/span&gt;式中所定义的核其实就是我们下面所要定义的正定核。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;定义1（核矩阵）. 由
-&lt;span class=&#34;math display&#34;&gt;\[\begin{equation} \label{eq:Kmat}
-K = (k(x_i,x_j))
-\end{equation}\]&lt;/span&gt;
-生成的矩阵被称为Gram矩阵或核矩阵。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;定义2（正定矩阵）.若&lt;span class=&#34;math inline&#34;&gt;\(\sum_{i,j}c_ic_jK_{ij}\geq 0\)&lt;/span&gt;对所有&lt;span class=&#34;math inline&#34;&gt;\(c_i\)&lt;/span&gt;都成立，则称&lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt;为正定的。若等式只在&lt;span class=&#34;math inline&#34;&gt;\(c_1=\cdots=c_n = 0\)&lt;/span&gt;时成立，则称&lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt;是严格正定的。
-&lt;/em&gt;&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注.这里的正定矩阵概念和矩阵分析中有点差异。
-这里的“正定”对应矩阵分析中“半正定”的概念；
-这里的“严格正定”对应于矩阵分析中“正定”的概念。&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;em&gt;定义3（正定核）.若&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;对于任意&lt;span class=&#34;math inline&#34;&gt;\(n\in N,x_i\in \mathcal{X},i\in [n]\)&lt;/span&gt;（N
-自然数集合），对应的核矩阵都是正定的，则&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;称为正定核；若对应的核矩阵是严格正定的，则&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;称为严格正定核。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;证明：&lt;/strong&gt; 步骤1： &lt;span class=&#34;math inline&#34;&gt;\((2.1)\)&lt;/span&gt;是正定核。对任意&lt;span class=&#34;math inline&#34;&gt;\(c_i,i\in [n]\)&lt;/span&gt;，有
-&lt;span class=&#34;math display&#34;&gt;\[\sum_{i,j}c_ic_j\langle \Phi(x_i), \Phi(x_j)\rangle = \langle \sum_i \Phi(x_i), \sum_j c_j\Phi(x_j)\rangle\geq 0.\]&lt;/span&gt;
-由正定核定义得证。&lt;/p&gt;
-&lt;p&gt;步骤2： 正定核满足&lt;span class=&#34;math inline&#34;&gt;\((2.1)\)&lt;/span&gt;式。令&lt;span class=&#34;math inline&#34;&gt;\(\Phi(x)=k(x,\cdot)\)&lt;/span&gt;，由再生性可得
-&lt;span class=&#34;math display&#34;&gt;\[K(x,x&amp;#39;) = \langle \Phi(x), \Phi(x&amp;#39;)\rangle_{\mathcal{H}}.\]&lt;/span&gt;
-&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{H}\)&lt;/span&gt;为再生核&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;诱导出的再生核空间。 ♣&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;注.这里的再生性是由再生核空间的性质得到的，后面会证明这个性质。&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;再生核空间的构造&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;再生核空间的构造&lt;/h2&gt;
-&lt;p&gt;从核函数出发的构造思路如下：第一步构造一个线性空间；第二步在该线性空间上定义内积，于是得到一个内积空间；第三步对该内积空间作完备化处理，于是得到Hilbert空间；这样得到的空间称为再生核希尔伯特空间，简称为再生核空间。
-令&lt;span class=&#34;math inline&#34;&gt;\(\Phi(x)=k(x,\cdot)\)&lt;/span&gt;将预测变量&lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;映射到一个函数空间，该函数空间的函数&lt;span class=&#34;math inline&#34;&gt;\(g: \mathcal{X} \rightarrow R\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;步骤1.&lt;/em&gt; 构造线性空间。令
-&lt;span class=&#34;math display&#34;&gt;\[f(\cdot)=\sum_{i=1}^n \alpha_i \Phi(x_i)=\sum_{i=1}^n \alpha_i k(x_i,\cdot).\]&lt;/span&gt;其中，&lt;span class=&#34;math inline&#34;&gt;\(n \in N,\alpha_i \in R, x_i \in \mathcal{X}\)&lt;/span&gt;取遍各自空间所有值。容易证明，它是定义在实数域上的线性空间。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;步骤2.&lt;/strong&gt;定义内积。设&lt;span class=&#34;math inline&#34;&gt;\(g(\cdot)=\sum_{i=1}^{n&amp;#39;}\beta_j k(\cdot, x_j&amp;#39;)\)&lt;/span&gt;，定义内积为
-&lt;span class=&#34;math display&#34;&gt;\[\langle f, g\rangle = \sum_{i=1}^n\sum_{j=1}^{n&amp;#39;} \alpha_i\beta_j k(x_i,x_j).\]&lt;/span&gt; 由该内积定义可知：
-&lt;span class=&#34;math display&#34;&gt;\[\langle \Phi(x), \Phi(x&amp;#39;)\rangle=k(x,x&amp;#39;). \tag{3.1}\]&lt;/span&gt;
-实际上，我们只需定义&lt;span class=&#34;math inline&#34;&gt;\(\Phi(x)\)&lt;/span&gt;与&lt;span class=&#34;math inline&#34;&gt;\(\Phi(x&amp;#39;)\)&lt;/span&gt;之间的内积&lt;span class=&#34;math inline&#34;&gt;\(\langle \Phi(x), \Phi(x&amp;#39;)\rangle=k(x,x&amp;#39;)\)&lt;/span&gt;,然后根据内积的线性性质，就可以推出&lt;span class=&#34;math inline&#34;&gt;\(g\)&lt;/span&gt;和&lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt;之间的内积值。可以证明，我们这样定义的内积确实是一个内积，满足内积所需的性质。&lt;/p&gt;
-&lt;p&gt;非常重要的一点是，根据该内积定义，我们推导出
-&lt;span class=&#34;math display&#34;&gt;\[\langle k(\cdot, x), f\rangle = f(x), \tag{3.2}\]&lt;/span&gt;
-该性质称为核函数的再生性，顾名思义，核函数在某点&lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;的映射和函数&lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt;的内积可以生出&lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt;在该点&lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;的函数值，这是多么神奇的性质呀！特别地，&lt;span class=&#34;math inline&#34;&gt;\((3.2)\)&lt;/span&gt;可以得
-&lt;span class=&#34;math display&#34;&gt;\[\langle k(\cdot, x), k(\cdot, x&amp;#39;)\rangle = k(x,x&amp;#39;),\]&lt;/span&gt;
-这个和&lt;span class=&#34;math inline&#34;&gt;\((3.1)\)&lt;/span&gt;的内积定义是一致的，也就是说，它可以由再生性推导出来，也可以由内积的定义推导出来。&lt;/p&gt;
-&lt;p&gt;接下来，我们利用再生性证明：&lt;span class=&#34;math inline&#34;&gt;\(\langle f,f\rangle =0 \Rightarrow f=0.\)&lt;/span&gt; 根据&lt;span class=&#34;math inline&#34;&gt;\((3.2)\)&lt;/span&gt;式和柯西施瓦茨不等式得，
-&lt;span class=&#34;math display&#34;&gt;\[|f(x)|^2=|\langle k(\cdot, x),f\rangle|^2\leq k(x,x)*\langle f,f\rangle.\]&lt;/span&gt;
-若存在&lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt;使得&lt;span class=&#34;math inline&#34;&gt;\(f(x_0)\neq 0\)&lt;/span&gt;，则&lt;span class=&#34;math inline&#34;&gt;\(\langle f,f\rangle&amp;gt;0\)&lt;/span&gt;，于是矛盾，故&lt;span class=&#34;math inline&#34;&gt;\(f=0\)&lt;/span&gt;。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;正定核的运算封闭性&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;正定核的运算封闭性&lt;/h2&gt;
-&lt;p&gt;正定核的保运算性使得构造正定核变得更加easy。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;命题1.设&lt;span class=&#34;math inline&#34;&gt;\(k_1, k_2, \cdots\)&lt;/span&gt;为任意定义在同一定义域上的正定核，则(i)若&lt;span class=&#34;math inline&#34;&gt;\(\alpha_1,\alpha_2\geq 0\)&lt;/span&gt;，则&lt;span class=&#34;math inline&#34;&gt;\(\alpha_1 k_1 + \alpha_2 k_2\)&lt;/span&gt;也是正定核；若对任意&lt;span class=&#34;math inline&#34;&gt;\(x,x&amp;#39;\)&lt;/span&gt;有&lt;span class=&#34;math inline&#34;&gt;\(k(x,x&amp;#39;)=\lim_{n\rightarrow \infty} k_n(x,x&amp;#39;)\)&lt;/span&gt;存在,则&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;也是正定核；(ii)逐点乘积&lt;span class=&#34;math inline&#34;&gt;\(k=k_1k_2\)&lt;/span&gt;也是正定的；(iii)张量积&lt;span class=&#34;math inline&#34;&gt;\(k_1 \otimes k_2\)&lt;/span&gt;和直和&lt;span class=&#34;math inline&#34;&gt;\(k_1 \oplus k_2\)&lt;/span&gt;都是定义在&lt;span class=&#34;math inline&#34;&gt;\((\mathcal{X}_1 \times\mathcal{X}_2) \times(\mathcal{X}_1 \times\mathcal{X}_2)\)&lt;/span&gt;上的正定核。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;定义(度量空间的稠密性)：设&lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;是度量空间，&lt;span class=&#34;math inline&#34;&gt;\(E\subset X\)&lt;/span&gt;，若对任意&lt;span class=&#34;math inline&#34;&gt;\(x\in X\)&lt;/span&gt;和&lt;span class=&#34;math inline&#34;&gt;\(\epsilon &amp;gt;0\)&lt;/span&gt;，都存在&lt;span class=&#34;math inline&#34;&gt;\(y\in E\)&lt;/span&gt;使得&lt;span class=&#34;math inline&#34;&gt;\(x \in B(y,\epsilon)\)&lt;/span&gt;，则称&lt;span class=&#34;math inline&#34;&gt;\(E\)&lt;/span&gt;在&lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;中是稠密的，其中&lt;span class=&#34;math inline&#34;&gt;\(B(y,\epsilon)\)&lt;/span&gt;表示中心为&lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;，半径为&lt;span class=&#34;math inline&#34;&gt;\(\epsilon\)&lt;/span&gt;的小球。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;该定义表明，对于任意&lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;中的点，我们可以找到一个&lt;span class=&#34;math inline&#34;&gt;\(E\)&lt;/span&gt;中的点&lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;，它与&lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;的距离成分小。于是，易知空间稠密是一个相对概念，有理数集在实数集是稠密的。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;定义(一致核)：设&lt;span class=&#34;math inline&#34;&gt;\(C(X)\)&lt;/span&gt;是定义于紧子集&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{S}\subset R^d\)&lt;/span&gt;上的连续函数空间，若正定核&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;生成的再生核希尔伯特空间&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{H}\)&lt;/span&gt;关于&lt;span class=&#34;math inline&#34;&gt;\(C(X)\)&lt;/span&gt;在&lt;span class=&#34;math inline&#34;&gt;\(\|\cdot\|_\infty\)&lt;/span&gt;范数意义上是稠密的，则称&lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;是一致核。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;该定义表示一致核生成的RKHS几乎和连续函数空间等价，这类核非常重要，它使得该RKHS几乎可以逼近任意连续函数。Steinwart 证明高斯核就是一致核。&lt;/p&gt;
-&lt;pre class=&#34;rmd&#34;&gt;&lt;code&gt;参考文献:
-Hofmann, T. , SchLkopf, B. , &amp;amp; Smola, A. J. . (2008). Kernel methods in machine learning. Annals of Stats, 36(3).
-
-STEINWART, I. (2002). On the influence of the kernel on the consistency of support vector machines. J. Mach. Learn. Res. 2 67–93&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
+      <description>再生核方法-第一章基本概念 闲居 2020年11月于西财宏远楼 再生核概述 在过去的二十年里，核方法相对其他方法（比如神经网络）快速流行起来，因为它</description>
     </item>
     
     <item>
       <title>再生核方法-第零章 算子理论基础</title>
       <link>http://feiyoung.netlify.com/research/2020-11-29-%E7%AE%97%E5%AD%90%E7%90%86%E8%AE%BA/</link>
       <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
+      
       <guid>http://feiyoung.netlify.com/research/2020-11-29-%E7%AE%97%E5%AD%90%E7%90%86%E8%AE%BA/</guid>
-      <description>
-&lt;link href=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;&lt;strong&gt;再生核方法-第零章 算子理论基础&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;闲居&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;2020年11月于西财明辨园&lt;/em&gt;&lt;/p&gt;
-&lt;div id=&#34;基本算子&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;基本算子&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;定义1(迹类算子).若线性算子&lt;span class=&#34;math inline&#34;&gt;\(A: \mathcal{H} \rightarrow \mathcal{H}\)&lt;/span&gt;满足
-&lt;span class=&#34;math display&#34;&gt;\[\|A\|_1=Tr(|A|)=\sum_k \langle (A^* A)^{1/2} e_k, e_k \rangle_{\mathcal{H}}&amp;lt; \infty,\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(A^*\)&lt;/span&gt;为&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;的厄米特算子，&lt;span class=&#34;math inline&#34;&gt;\(|A|=\sqrt{A^*A}\)&lt;/span&gt;，&lt;span class=&#34;math inline&#34;&gt;\(\{e_k\}\)&lt;/span&gt;为&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{H}\)&lt;/span&gt;的一组正交基，并有
-&lt;span class=&#34;math display&#34;&gt;\[Tr(A)=\sum_k \langle A e_k, e_k \rangle_{\mathcal{H}}\]&lt;/span&gt;
-绝对收敛且其值独立于正交基的选择，我们称&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;为迹类算子。
-&lt;/em&gt;
-当&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;为非负自邻接算子时，即使该和发散，我们仍然定义其迹为
-&lt;span class=&#34;math display&#34;&gt;\[Tr(A)=\sum_k \langle A e_k, e_k \rangle_{\mathcal{H}}.\]&lt;/span&gt;
-于是，当&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;为非负自邻接算子时，&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;为迹类算子的充要条件为&lt;span class=&#34;math inline&#34;&gt;\(Tr(A)&amp;lt; \infty\)&lt;/span&gt;。迹是迹类算子空间&lt;span class=&#34;math inline&#34;&gt;\(\mathcal{T}\)&lt;/span&gt;上的泛函，即&lt;span class=&#34;math inline&#34;&gt;\(Tr: \mathcal{T} \rightarrow R\)&lt;/span&gt;，并满足线性性质
-&lt;span class=&#34;math display&#34;&gt;\[Tr(aA+bB)=a Tr(A) + b Tr(B),\]&lt;/span&gt;
-也就是说，迹是一个线性泛函；并且
-&lt;span class=&#34;math display&#34;&gt;\[\langle A, B \rangle_{HS}=Tr(A^* B).\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;性质1. 若&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;为有界算子，&lt;span class=&#34;math inline&#34;&gt;\(B\)&lt;/span&gt;为迹类算子，则&lt;span class=&#34;math inline&#34;&gt;\(AB\)&lt;/span&gt;和&lt;span class=&#34;math inline&#34;&gt;\(BA\)&lt;/span&gt;也是迹类算子，且满足
-&lt;span class=&#34;math inline&#34;&gt;\(\|AB\|_1=Tr(|AB|) \leq \|A\| \|B\|_1,\|BA\|_1=Tr(|BA|) \leq \|B\| \|A\|_1\)&lt;/span&gt;和&lt;span class=&#34;math inline&#34;&gt;\(Tr(AB)=Tr(BA)\)&lt;/span&gt;。
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;若&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;是迹类算子，则可关于&lt;span class=&#34;math inline&#34;&gt;\(I+A\)&lt;/span&gt;定义Fredholm行列式，
-&lt;span class=&#34;math display&#34;&gt;\[det(I+A)\hat= \Pi_{n\geq 1}\{1 + \lambda_n(A)\},\]&lt;/span&gt;
-其中&lt;span class=&#34;math inline&#34;&gt;\(\{\lambda_n(A)\}\)&lt;/span&gt;是&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;的谱，&lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt;为迹类算子保证无限乘积为有限的且&lt;span class=&#34;math inline&#34;&gt;\(det(I+A)\leq e^{\|A\|_1}\)&lt;/span&gt;，也意味着&lt;span class=&#34;math inline&#34;&gt;\(det(I+A)\neq 0 \Rightarrow (I+A)\)&lt;/span&gt;是可逆的。&lt;/p&gt;
-&lt;div id=&#34;秩1算子&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;秩1算子&lt;/h3&gt;
-&lt;p&gt;&lt;em&gt;定义2. 对任意&lt;span class=&#34;math inline&#34;&gt;\(f,g, h \in \mathcal{F}\)&lt;/span&gt;，秩1算子定义为
-&lt;span class=&#34;math inline&#34;&gt;\(f \otimes g^*(h)\hat=\langle g, h \rangle_{\mathcal{F}}f.\)&lt;/span&gt;
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;容易证明&lt;span class=&#34;math inline&#34;&gt;\(\|f \otimes g^* \|_{HS(\mathcal{F})}=\|f\|_\mathcal{F} \|g\|_\mathcal{F}\)&lt;/span&gt;且&lt;span class=&#34;math inline&#34;&gt;\(\langle f \otimes g^* , A \rangle_{HS}=\langle A g , f \rangle_{\mathcal{F}}\)&lt;/span&gt;，在无混淆的情形下，我们把&lt;span class=&#34;math inline&#34;&gt;\(HS(\mathcal{F})\)&lt;/span&gt;简记为为&lt;span class=&#34;math inline&#34;&gt;\(HS\)&lt;/span&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;证明:&lt;/strong&gt;由&lt;span class=&#34;math inline&#34;&gt;\(\langle f \otimes g^* , A \rangle_{HS}= \sum_i\langle f \otimes g (e_i) , A e_i\rangle_\mathcal{F}= \sum_i \langle g, e_i\rangle_\mathcal{F} \langle f, A e_i\rangle_\mathcal{F}\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(=\sum_i \alpha_i \langle f, A e_i\rangle_\mathcal{F}= \langle f, A \sum_i \alpha_i e_i\rangle_\mathcal{F}= \langle f, A g\rangle_\mathcal{F}\)&lt;/span&gt;，得证。 ♣&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
+      <description>再生核方法-第零章 算子理论基础 闲居 2020年11月于西财明辨园 基本算子 定义1(迹类算子).若线性算子\(A: \mathcal{H} \rightarrow \mathcal{H}\)满</description>
     </item>
     
   </channel>

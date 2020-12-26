@@ -1,0 +1,20 @@
+baseurl = "http://feiyoung.netlify.com"
+title = "console-demo"
+theme = "hugo-theme-console"
+languageCode = "en-us"
+
+[params]
+  # Cutting off the page title to two chars for mobile (console-demo -> co)
+  titleCutting = true
+
+  [[params.navlinks]]
+  name = "关于/"
+  url = "cn_about/"
+
+  [[params.navlinks]]
+  name = "posts/"
+  url = "/cn/"
+  
+  [[params.navlinks]]
+  name = "photos/"
+  url = "photos/"

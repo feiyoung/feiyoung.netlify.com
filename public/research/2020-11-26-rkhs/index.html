@@ -1,94 +1,344 @@
+
+
 <!DOCTYPE html>
-<html class="nojs" lang="en-us" dir="ltr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
-<title>再生核方法-第一章 基本概念 – Wei Liu</title>
-<meta name="description" content="再生核方法-第一章基本概念 闲居 2020年11月于西财宏远楼 再生核概述在过去的二十年里，核方法相对其他方法（比如神经网络）快速流行起来，因为它具有可靠的理论支持。传统的机器学习和统计理论及算法集中在线性模型，现实世界中复杂的问题往往需要非线性模型才能建立数据中的相依性，和实现感兴趣对象的成功预测。再生核（没有特别说明，后面都简称 …">
-<meta name="created" content="2020-11-17T00:00:00+0000">
-<meta name="modified" content="2020-11-17T00:00:00+0000">
-<meta name="author" content="刘伟">
-
-<meta property="og:site_name" content="Wei Liu">
-<meta property="og:title" content="再生核方法-第一章 基本概念">
-<meta property="og:url" content="http://feiyoung.netlify.com/research/2020-11-26-rkhs/">
-<meta property="og:type" content="article">
-
-<meta name="generator" content="Hugo 0.72.0" />
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
+<html>
+  <head>
+    <title>
+	再生核方法-第一章 基本概念 :: Wei Liu
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2020-12-26T10:30:59 CST">
+<meta name="description" content="">
 
 
-<link rel="canonical" href="http://feiyoung.netlify.com/research/2020-11-26-rkhs/">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<link rel="stylesheet" href="/sass/styles.scss">
-<link rel="stylesheet" href="/sass/print.scss" media="print">
+<title>再生核方法-第一章 基本概念 :: Wei Liu</title>
 
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "headline": "再生核方法-第一章 基本概念",
-    "datePublished": "2020-11-17T00:00:00Z",
-    "dateModified": "2020-11-17T00:00:00Z",
-    "url" : "http://feiyoung.netlify.com/research/2020-11-26-rkhs/",
-    "description": "\r\r再生核方法-第一章基本概念 闲居 2020年11月于西财宏远楼 再生核概述\r在过去的二十年里，核方法相对其他方法（比如神经网络）快速流行起来，因为它具有可靠的理论支持。传统的机器学习和统计理论及算法集中在线性模型，现实世界中复杂的问题往往需要非线性模型才能建立数据中的相依性，和实现感兴趣对象的成功预测。再生核（没有特别说明，后面都简称 …",
-    "author": {
-      "@type": "Person",
-      "name": "刘伟"
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "http://feiyoung.netlify.com"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Wei Liu",
-      "url": "http://feiyoung.netlify.com"
-    }
-  }
+<link rel="shortcut icon" href='/images/favicon.png' type="image/x-icon" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+
+<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel="stylesheet">
+
+
+
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/layout.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/main.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/menu.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/shortcodes/notice.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/shortcodes/tabs.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/shortcodes/panel.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/shortcodes/columns.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/shortcodes/children.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/shortcodes/attachments.scss'>
+<link rel="stylesheet" type="text/css" href='http://feiyoung.netlify.com/sass/shortcodes/alert.scss'>
+<link rel="stylesheet" type="text/css" href='/css/docport.css'>
+
+<script src='/js/docport.js'></script>
+<script type="text/javascript">
+      var baseurl = "http:\/\/feiyoung.netlify.com";
 </script>
 
-<script src="/js/script-early.min.a8d899ac88f2a778985767b86ce681945e3fa2069c3c9efd17e5e5b594d3ba1f.js"></script>
-<script defer src="/js/lib/umbrella.min.6e17830ccdded0a13b96d6993865b58202bc2ee750e5892a51858ab048b2bebb.js"></script>
-<script defer src="/js/script.min.f7f56769569fdf7a80d073b6775c6cd9ed8ae528864cd3f2aa1c8c3fe73f87ea.js"></script>
 
 
-</head>
 
-<body class="single-page">
-<div class="page layout__page layout__sidebar-second">
-<header class="header layout__header">
-<a href="/" title="Home" rel="home" class="header__logo"><img src="/images/logo.png" alt="Home" class="header__logo-image"></a>
-<h1 class="header__site-name">
-<a href="/" title="Home" class="header__site-link" rel="home"><span>Wei Liu</span></a>
-</h1>
-<div class="region header__region">
+    
+  </head>
+
+  <body data-url="/research/2020-11-26-rkhs/"
+
+  class="">
+
+<style type="text/css">
+  #debug{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    line-height: 3.5rem;
+    margin-bottom: .35rem;
+    padding: 0 2rem;
+    position: fixed;
+    left: 0;      right: 0;     top: 0;
+   
+    top:0px;
+    
+    min-height: 150px;
+
+    background-color: white;
+    border: 3px solid red;
+    z-index: 10000 ;
+    word-wrap: all;
+    overflow: auto;
+  }
+</style>
+ 
+
+
+    
+    
+    <header style="">
+        <div>
+    
+    <div class="burger post">
+        <a href="javascript:void(0);" style="font-size:15px;" onclick="$('article > aside').toggleClass('responsive')">&#9776;</a>
+    </div>
+    
+
+    <div>
+
+		
+	
+			
+		
+	    	<a class='baselink' href='http://feiyoung.netlify.com'>Wei Liu</a>
+	  	
+	</div>
+
 </div>
-</header>
+    </header>
+    
 
-<nav class="main-menu layout__navigation">
-<h2 class="visually-hidden">Main menu</h2>
-<ul class="navbar">
-<li><a href="/">主页</a></li>
-<li><a href="/cn/">日志</a></li>
-<li><a href="/research/">研究</a></li>
-<li><a href="/poem/">诗词</a></li>
-<li><a href="/cn_about/">关于</a></li>
-<li><a href="/en/">EBlog</a></li>
-<li><a href="/en_about/">About</a></li>
+    <article>
+      
+      <aside class="post">
+        
+<div class="search">
+	<div class="searchbox">
+	  <input data-search-input id="search-by" type="text" placeholder="Type to search...">
+	</div>
+	<script type="text/javascript" src="/vendor/lunr/lunr.min.js"></script>
+	<script type="text/javascript" src="/vendor/auto-complete/auto-complete.js"></script>
+	<link href="/vendor/auto-complete/auto-complete.css" rel="stylesheet">
+	<script type="text/javascript">
+	  
+	      var baseurl = "http:\/\/feiyoung.netlify.com";
+	  
+	</script>
+	<script type="text/javascript" src="/js/search.js"></script>
+</div>
+
+		
+	
+			
+		
+	    	
+	  	
+	<div id="close_menu">
+  <a href="javascript:void(0);" style="font-size:15px;" onclick="$('article > aside').toggleClass('responsive')">
+      <i class="fa fa-lg fa-times"></i>
+  </a>
+</div>
+
+<ul class="menu">
+
+    <li data-nav-id="http://feiyoung.netlify.com/post/" class="dd-item
+        item_level_$level
+        ">
+
+      
+      
+      
+      
+        
+      
+          <a href="/post/">Posts</a>
+      
+    </li>
+    
+
+    <li data-nav-id="http://feiyoung.netlify.com/en/" class="dd-item
+        item_level_$level
+        ">
+
+      
+      
+      
+      
+        
+      
+          <a href="/en/">Ens</a>
+      
+    </li>
+    
+
+    <li data-nav-id="http://feiyoung.netlify.com/poem/" class="dd-item
+        item_level_$level
+        ">
+
+      
+      
+      
+      
+        
+      
+          <a href="/poem/">Poems</a>
+      
+    </li>
+    
+
+    <li data-nav-id="http://feiyoung.netlify.com/cn/" class="dd-item
+        item_level_$level
+        ">
+
+      
+      
+      
+      
+        
+      
+          <a href="/cn/">中文日志</a>
+      
+    </li>
+    
+
+    <li data-nav-id="http://feiyoung.netlify.com/research/" class="dd-item parent active
+        item_level_$level
+        ">
+
+      
+      
+      
+      
+        
+      
+          <a href="/research/">文献阅读</a>
+      
+    </li>
+    
+
+
+
 </ul>
-</nav>
+
+		
+	
+			
+		
+	    	
+	  	
+	
+      </aside>
+      
+
+      <section class="page post">
+      
+	
+    
+    
+    <nav id="ariane" aria-label="breadcrumb">
+      <ol class="ariane">
+        
+  
+  	
+		
+  
+  	
+	<li >
+      <a class="text-link" href="http://feiyoung.netlify.com">
+        Home
+      </a>
+    </li>
+	
+  
+    <li class="">
+      <a class="text-link" href="/research/">
+        文献阅读
+      </a>
+    </li>
+	
+  	
+  
+    <li class="active">
+      
+        再生核方法-第一章 基本概念
+      
+    </li>
+
+      </ol>
+    </nav>
+    
+    
+
+    
+		
+        
+		
+		
+		
+		
+		
+		
+		
+
+		
+			<h1>文献阅读<span>再生核方法-第一章 基本概念</span></h1>
+        
+
+			
+			
+		
+
+		
+				<nav class="subpages">
+	            		
+	        			
+	            	<li >
+	            		<a title="$pagetitle" href="/research/2020-12-24-%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/">张量基础知识</a>
+	            	</li>
+	            		
+	        			
+	            	<li >
+	            		<a title="$pagetitle" href="/research/2020-12-13-hypothesistest/">统计假设检验</a>
+	            	</li>
+	            		
+	        			
+	            	<li >
+	            		<a title="$pagetitle" href="/research/2020-11-29-rkhs%E4%B9%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">再生核方法-第三章 支持向量机</a>
+	            	</li>
+	            		
+	        			
+	            	<li >
+	            		<a title="$pagetitle" href="/research/2020-11-29-rkhs/">再生核方法-第二章 函数逼近及表示定理</a>
+	            	</li>
+	            		
+	        			
+	            	<li class="active">
+	            		<a title="$pagetitle" href="/research/2020-11-26-rkhs/">再生核方法-第一章 基本概念</a>
+	            	</li>
+	            		
+	        			
+	            	<li >
+	            		<a title="$pagetitle" href="/research/2020-11-29-%E7%AE%97%E5%AD%90%E7%90%86%E8%AE%BA/">再生核方法-第零章 算子理论基础</a>
+	            	</li>
+	        	</nav> 
+		
+	
+
+	
+	
+	<div class="jump-to-section">
+		<span onclick="$h = $(this);$h.next('nav').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('nav').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+  			<span class="fas fa-align-right"></span>
+  			Jump to Section
+  			<i style=";" class="fas fa-chevron-right"></i>
+		</span>
+		
+	</div>
+	
+	
 
 
-<main class="main layout__main">
-<article class="section-research single-view">
-<header>
-<h1 class="title ">再生核方法-第一章 基本概念</h1>
-</header>
-<div class="content">
 
+
+
+
+	<div class="content">
+	    
 <link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
@@ -175,18 +425,92 @@ STEINWART, I. (2002). On the influence of the kernel on the consistency of suppo
 </div>
 </div>
 
+		</div>
 
+
+
+
+
+
+	 
+	<div class="chevrons">
+		<a class="next" href="/post/" title="Posts" style="margin-right: 0px;">
+            <div>
+                <p>Next page</p>
+                <label>Posts</label>
+            </div>
+            <i class="fas fa-arrow-right" style="font-size: 1.7em"></i></a>
+	</div>
+	
+
+      </section>
+
+      
+      
+      <section class="right-menu post">
+      
+	
+
+		
+	
+			
+		
+	    	
+	  	
+	<div class="TableOfContents">
+    <label><i class="fas fa-align-right"></i>&nbsp;&nbsp;What&#39;s on this page</label>
+    <nav>
+        <ul >
+            <li><a href="/research/2020-11-26-rkhs/">再生核方法-第一章 基本概念</a></li>
+        </ul>
+    </nav>
+    
 </div>
-</article>
-</main>
 
+		
+	
+			
+		
+	    	
+	  	
+	<div class="Actions">
+	<nav>
+		<ul>
+				
+		    
+		    
+			
+		      <li>
+		          <i class='fas fa-calendar'></i>
+		          Last update on 17 November 2020
+		      </li>
+		    
+		    
 
-<footer class="footer layout__footer">
-<p><span>© Wei Liu</span></p>
-<p>© <a href="https://feiyoung.github.io/">Wei Liu&rsquo;s HomePage</a>2020| <a href="https://github.com/feiyoung">Wei Liu&rsquo;s Github</a></p>
-
-</footer>
-
+    	</ul>
+	</nav>
+    
 </div>
-</body>
+
+      </section>
+      
+    </article>
+    
+    
+    <footer>
+      
+
+		
+	
+			
+		
+	    	Create a content/_layout/footer/_index.md file to customize the footer content !
+	  	
+	
+    </footer>
+    
+
+
+
+  </body>
 </html>

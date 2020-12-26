@@ -6,7 +6,7 @@ output: pdf_document
 layout: post
 ---
 
-# 琳琅满目的主题
+# 琳琅满目的主题 
 
 选择合适自己风格的主题，请参照：
 https://themes.gohugo.io/
@@ -15,3 +15,4 @@ https://themes.gohugo.io/
 
 请参照：
 https://butui.me/post/yet-best-math-formula-support-for-hugo-with-mathjax/
+
