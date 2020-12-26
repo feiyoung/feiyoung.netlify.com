@@ -10,131 +10,132 @@ layout: post
   **闲居**
   
   *2020年12月于西财*
-
+  
+-[预备知识](#预备知识)
+    -[几种运算符号](##几种矩阵（张量）运算符号和规则)
+ 
 # 预备知识
-我们在介绍张量之前，我们先来了解一些基础知识，其中包括矩阵的运算和张量的运算操作。
+  我们在介绍张量之前，我们先来了解一些基础知识，其中包括矩阵的运算和张量的运算操作。
 
 ## 几种矩阵（张量）运算符号和规则
 Kronecker积：设$A \in R^{I \times J}, B \in R^{K \times L}$，表示为
 $$A \otimes B = (a_{ij} B) = (a_1 \otimes b_1, a_1 \otimes b_2, \cdots, a_J \otimes b_{L-1}, a_J \otimes b_L),$$
-其中后一个等式是从$a_1$乘遍$B$所有列得到，一直到$a_J$乘遍$B$所有列。
+  其中后一个等式是从a1乘遍B所有列得到，一直到aJ乘遍B所有列。
 
-Khatri-Rao积：是“逐列配对”的Kronecker积：$A \in R^{I \times K}, B \in R^{J \times K}$，则表示为$A \odot B \in R^{IJ \times K}$:
-$$A \odot B = (a_1 \otimes b_1, a_2 \otimes b_2, \cdots, a_K \otimes b_K)$$
-
-Hadamard乘积：指两个相同形状的矩阵的逐元乘积，表示为
+Khatri-Rao积：是“逐列配对”的Kronecker积：$A \in R^{I \times K}, B \in R^{J \times K}，则表示为A \odot B \in R^{IJ \times K}$:
+  $$A \odot B = (a_1 \otimes b_1, a_2 \otimes b_2, \cdots, a_K \otimes b_K)$$
+  
+  Hadamard乘积：指两个相同形状的矩阵的逐元乘积，表示为
 $$A * B = (a_{ij} b_{ij}) \in R^{I \times J}.$$
-张量积(Tensor product)：记为$\bar \otimes$
-设$\mathcal{A}\in R^{I_1 \times \cdots \times I_N}, \mathcal{B}\in R^{J_1 \times \cdots \times J_M}$，则$\mathcal{G} = \mathcal{A} \bar \otimes \mathcal{B} \in R^{I_1 \times \cdots \times I_N \times J_1 \times \cdots \times J_M}$为一个$N+M$阶的张量，且
+  张量积(Tensor product)：记为$\bar \otimes$
+  设$\mathcal{A}\in R^{I_1 \times \cdots \times I_N}, \mathcal{B}\in R^{J_1 \times \cdots \times J_M}，则\mathcal{G} = \mathcal{A} \bar \otimes \mathcal{B} \in R^{I_1 \times \cdots \times I_N \times J_1 \times \cdots \times J_M}为一个N+M$阶的张量，且
 $$g_{i_1,\cdots,i_N,j_1, \cdots,j_M}=a_{i_1,\cdots,i_N} b_{j_1, \cdots,j_M}$$
+  
+  张量$\mathcal{A}的mode−n矩阵化，记为A_{(n)}。对于三阶张量，A_{(1)}=( \mathcal{A}(:,:,1),\mathcal{A}(:,:,2), \cdots,\mathcal{A}(:,:,J_3))$,在计算机里面表示特别方便。
 
-张量$\mathcal{A}$的mode-n矩阵化，记为$A_{(n)}$。对于三阶张量，$A_{(1)}=( \mathcal{A}(:,:,1),\mathcal{A}(:,:,2), \cdots,\mathcal{A}(:,:,J_3))$,在计算机里面表示特别方便。
 
-
-假设$M$阶张量$\mathcal{X}\in R^{I_1 \times \cdots \times I_M}$，$Y\in R^{n \times I_j}, A \in R^{n \times I_1}, B \in R^{p \times I_2}$为矩阵。
+假设M阶张量$\mathcal{X}\in R^{I_1 \times \cdots \times I_M}，Y\in R^{n \times I_j}, A \in R^{n \times I_1}, B \in R^{p \times I_2}$为矩阵。
 
 ## Mode-j矩阵乘积
 $$\mathcal{X} \times_j Y = \mathcal{Z} \Leftrightarrow \mathcal{Z}_{(j)}=Y \mathcal{X}_{(j)}$$
-mode乘积的换序性质：
+  mode乘积的换序性质：
 $$\mathcal{X} \times_1 A \times_2 B = \mathcal{X}\times_2 B \times_1 A $$
-当$B$的列和$A$的行数相等时，有：
+  当B的列和A的行数相等时，有：
 $$\mathcal{X} \times_j A \times_j B = \mathcal{X}\times_j (B A) $$
-
-## Mode-j向量乘积
-
-$\mathcal{X} \in R^{I_1 \times \cdots \times I_N}$与向量$v \in R^{I_n}$可以做mode-向量乘积，表示为$\mathcal{X} \times_n v$，使得$N$阶张量变成一个$N-1$阶张量$\in R^{I_1\times \cdots \times I_{n-1}~ \times ~I_{n+1} ~\times \cdots \times I_N}$，具体元素为
+  
+  ## Mode-j向量乘积
+  
+  $\mathcal{X} \in R^{I_1 \times \cdots \times I_N}与向量v \in R^{I_n}可以做mode−向量乘积，表示为\mathcal{X} \times_n v，使得N阶张量变成一个N-1阶张量\in R^{I_1\times \cdots \times I_{n-1}~ \times ~I_{n+1} ~\times \cdots \times I_N}$，具体元素为
 $$(\mathcal{X} \times_n v)_{i_1, \cdots, i_{n-1},~ i_{n+1},~ \cdots, i_N}=\sum_{i_n=1}^{I_n} x_{i_1,\cdots, i_N}v_{i_n}$$
-它计算每个mode-n fiber与向量 $v$的内积。
-若$m <n$，我们有：
+  它计算每个mode-n fiber与向量 v的内积。
+若m<n，我们有：
 $$\mathcal{X} \times_m a \times_n b=(\mathcal{X} \times_m a) \times_{n-1} b=(\mathcal{X} \times_n b) \times_{m} a$$
-
-## Krorecker乘积
-记$\otimes$为Krorecker乘积，则对任意$n \in \{1, \cdots, N\}$，有
+  
+  ## Krorecker乘积
+  记$\otimes为Krorecker乘积，则对任意n \in \{1, \cdots, N\}$，有
 $$\mathcal{Y} = \mathcal{X} \times_1 A_1 \times_2 \cdots \times_3 A_N\Leftrightarrow \mathcal{Y}_{(n)}= A_n \mathcal{X}_{(n)} (A_N \otimes \cdots \otimes A_{n+1} \otimes A_{n-1} \otimes \cdots \otimes A_1)^T$$
-
-## 常用运算公式
-以上几种矩阵乘积运算满足一些运算性质。我认为这些性质在矢量计算中具有重要的作用，有空可以再进行研究。
+  
+  ## 常用运算公式
+  以上几种矩阵乘积运算满足一些运算性质。我认为这些性质在矢量计算中具有重要的作用，有空可以再进行研究。
 
 假设$A \in R^{I \times J}, B \in R^{K \times L}, C \in R^{J \times M}, D \in R^{L \times N}$，则
 $$(A \otimes B) (C \otimes D)=(AC) \otimes (BD), $$
-$$(A \otimes B)^+= A^+ \otimes B ^+, (A \otimes B)^T= A^T \otimes B ^T,$$
-$$A \odot B \odot C = (A \odot B) \odot C = A \odot (B \odot C)$$
-$$(A \odot B)^T (A \odot B) = A^TA * B^TB,A \in R^{I \times J}, B \in R^{K \times J}$$
-$$(A \odot B)^+= (A^TA * B^TB)^+ (A \odot B)^T,$$
-其中$A^+$表示Moore-Penrose伪逆。
+  $$(A \otimes B)^+= A^+ \otimes B ^+, (A \otimes B)^T= A^T \otimes B ^T,$$
+  $$A \odot B \odot C = (A \odot B) \odot C = A \odot (B \odot C)$$
+  $$(A \odot B)^T (A \odot B) = A^TA * B^TB,A \in R^{I \times J}, B \in R^{K \times J}$$
+  $$(A \odot B)^+= (A^TA * B^TB)^+ (A \odot B)^T,$$
+  其中A+表示Moore-Penrose伪逆。
 
 
 矩阵乘积向量化换序公式：
 $$vec(AXB) = (B^T \otimes A) vec (X). \tag{A1}$$
-
-特例1：令$B=b$为列向量，则
+  
+  特例1：令B=b为列向量，则
 $$AXb= (b^T \otimes A)vec(X) \tag{A3}$$
-
-特例2：若$X \in R^{I \times J}, b\in R^{J\times 1}$，则有
+  
+  特例2：若$X \in R^{I \times J}, b\in R^{J\times 1}$，则有
 $$Xb = (b^T \otimes I_I) vec(X) \in R^I, \tag{A2}$$
-其中$I_I$表示$I \times I$的单位矩阵。由$(A1)$可以直接推导出$(A2)$，因为$Xb = I_I Xb$，列向量是一种特殊的矩阵。
+  其中II表示$I \times I的单位矩阵。由(A1)可以直接推导出(A2)，因为Xb = I_I Xb$，列向量是一种特殊的矩阵。
 
-设$A\in R^{K\times I}, B \in R^{I \times m}, C \in R^{m \times n}$，于是基于$(A1)$，可以推导出常用的矩阵向量化边缘轮换公式：
+设$A\in R^{K\times I}, B \in R^{I \times m}, C \in R^{m \times n}，于是基于(A1)$，可以推导出常用的矩阵向量化边缘轮换公式：
 $$vec(ABC) = (I_n \otimes AB) vec(C)=(C^T B^T \otimes I_K) vec(A) \tag{A4}$$
-注意：第一个等式将矩阵$C$的向量化版本轮换到最右方的边缘；第二个等式将矩阵$A$的向量化版本轮换到最右方的边缘。在统计中这样做的好处是：如果$A$或$C$是我们感兴趣的参数，则$(A4)$将参数和数据分离，帮助我们推导参数的显示表达式，或者迭代的显式表达。
+  注意：第一个等式将矩阵C的向量化版本轮换到最右方的边缘；第二个等式将矩阵A的向量化版本轮换到最右方的边缘。在统计中这样做的好处是：如果A或C是我们感兴趣的参数，则(A4)将参数和数据分离，帮助我们推导参数的显示表达式，或者迭代的显式表达。
 
-$(A4)$的特例：
+(A4)的特例：
 $$vec(AB) = (I_m \otimes A) vec(B) = (B^T \otimes I_K) vec(A)  \tag{A5}$$
-利用(A5)，我们可以得到
+  利用(A5)，我们可以得到
 $$vec(ABC)= (I_n \otimes A) (C^T \otimes I_I) vec(B)  \tag{A6}$$
-$(A6)$告诉我们如何将夹在矩阵中间的参数轮换到边上去。
+  (A6)告诉我们如何将夹在矩阵中间的参数轮换到边上去。
 
 其他公式：1）Hardamard乘积：$A, B \in R^{n \times m}$，
-$$vec(A *B) = vec(A) * vec(B)$$
+vec(A∗B)=vec(A)∗vec(B)
 
 2)Inner product（内积）：$A, B \in R^{n \times m}$，
 $$\langle A, B\rangle = tr(A^TB)=vec(A)^T vec(B)=vec(B^T)^T vec(A)$$
-
-
-# 张量分解
-
-古典多元分解（也叫CP分解）是矩阵奇异值分解向张量的推广，或称为秩-$R$分解。矩阵SVD分解的另一个推广是Tucker分解，也叫秩-$(R_1, \cdots, R_M)$分解，它计算数据张量每个模块的正交子空间。这两种分解在统计张量分析中所占的地位举足轻重。
+  
+  
+  # 张量分解
+  
+  古典多元分解（也叫CP分解）是矩阵奇异值分解向张量的推广，或称为秩-R分解。矩阵SVD分解的另一个推广是Tucker分解，也叫秩-$(R_1, \cdots, R_M)$分解，它计算数据张量每个模块的正交子空间。这两种分解在统计张量分析中所占的地位举足轻重。
 
 ## CP分解
 
-*定义. 设数据张量空间$F^{I_1 \times I_2 \times \cdots \times I_M} \stackrel{\sim}= F^{I_1} \otimes \cdots \otimes F^{I_M} \stackrel{\sim}= \mathcal{F}$，其中$F$k可以为实数域$R$，则每个$M$阶张量$\mathcal{A}$（在该空间$\mathcal{F}$）都可以表示为$R$个秩-1张量的和：
+*定义. 设数据张量空间$F^{I_1 \times I_2 \times \cdots \times I_M} \stackrel{\sim}= F^{I_1} \otimes \cdots \otimes F^{I_M} \stackrel{\sim}= \mathcal{F}，其中Fk可以为实数域R，则每个M阶张量\mathcal{A}（在该空间\mathcal{F}）都可以表示为R$个秩-1张量的和：
 $$ \mathcal{A}=\sum_{r=1}^R\lambda_r a_{1,r}\bar\otimes \cdots \bar\otimes a_{M,r}$$
-其中$\lambda_r \in F, a_{m,r} \in F^{I_m}, \bar\otimes$为张量积。当上述表达式中$R$项为最小项数时，$R$称为张量$\mathcal{A}$的秩，并且该分解称为秩-$R$分解或古典多元分解；相反，当$R$不是最小项时，称为$R$项分解。
+  其中$\lambda_r \in F, a_{m,r} \in F^{I_m}, \bar\otimes为张量积。当上述表达式中R项为最小项数时，R称为张量\mathcal{A}的秩，并且该分解称为秩−R分解或古典多元分解；相反，当R不是最小项时，称为R$项分解。
 *
-
-显然，若$a_{m,r} \in F^{I_m}$，张量$a_{1,r} \bar\otimes \cdots \bar\otimes a_{M,r}$的秩为1。一般而言，计算一般$M$阶张量的秩是一个NP-hard的问题。
+  
+  显然，若$a_{m,r} \in F^{I_m}，张量a_{1,r} \bar\otimes \cdots \bar\otimes a_{M,r}的秩为1。一般而言，计算一般M$阶张量的秩是一个NP-hard的问题。
 
 *定义. 对称张量：具有轮换不变性的张量称为对称张量，即
 $$a_{i_1,i_2,\cdots, i_M}=a_{i_{s_1}, \cdots, i_{s_M} }, \mathcal{A} =(a_{i_1,i_2,\cdots, i_M})\in F^{I^M}$$
-*
-```{Rmd}
+  *
+  ```{Rmd}
 注：对称张量每个维度的维数都相等，比如I.
 ```
-二阶对称张量（矩阵）可以被对角化，即存在整数$R$，非零单位向量$v_1, \cdots, v_R \in V$和权重$\lambda_1, \cdots, \lambda_R$使得
+二阶对称张量（矩阵）可以被对角化，即存在整数R，非零单位向量$v_1, \cdots, v_R \in V和权重\lambda_1, \cdots, \lambda_R$使得
 $$\mathcal{A} = \sum_{i=1}^R \lambda_i v_i \bar\otimes v_i$$
-而对于一般的$M$阶对称张量，该形式不一定存在。对于存在该形式的张量空间称为Waring空间，满足
+  而对于一般的M阶对称张量，该形式不一定存在。对于存在该形式的张量空间称为Waring空间，满足
 $$\mathcal{A} = \sum_{i=1}^R \lambda_i v_i^{ \otimes M},$$
-该分解也叫Waring分解，它是秩-$R$分解的对称形式。在统计研究中，都是假设CP分解存在的空间，因为这个空间已经够大了，所以CP分解的存在性不必担忧。
+  该分解也叫Waring分解，它是秩-R分解的对称形式。在统计研究中，都是假设CP分解存在的空间，因为这个空间已经够大了，所以CP分解的存在性不必担忧。
 
-与矩阵不同的是，超过二阶的张量的秩没有唯一的定义方式，比如有秩-$R$，还有秩-$(R_1, \cdots, R_M)$，这也称为Tucker秩，该秩的定义与Tucker分解有密切的关系，而前者与秩-$R$分解有密切关系。
+与矩阵不同的是，超过二阶的张量的秩没有唯一的定义方式，比如有秩-R，还有秩-$(R_1, \cdots, R_M)，这也称为Tucker秩，该秩的定义与Tucker分解有密切的关系，而前者与秩−R$分解有密切关系。
 
 ## Tucker分解
 
-考虑三阶张量$\mathcal{X} \in R^{P_1 \times P_2 \times P_3}$，$\mathcal{X}$的Tucker秩(multilinear秩)$(r_1, r_2, r_3)$定义为：
+考虑三阶张量$\mathcal{X} \in R^{P_1 \times P_2 \times P_3}，\mathcal{X}的Tucker秩(multilinear秩)(r_1, r_2, r_3)$定义为：
 $$r_1=rank_1(\mathcal{X})\equiv rank(\mathcal{X}_{(1)})=dim(span\{\mathcal{X}_{[:,i_2,i_3]}\in R^{P_1}: i_2 \leq P_2, i_3 \leq P_3\})$$
-为$(P_2P_3)$个$P_1$维向量所张成的空间的维数，也是张量$\mathcal{X}$沿着第一个方向矩阵化后的矩阵的秩；同理可得，$r_2$为$P_2 \times (P_1 P_3)$矩阵的秩，$r_3$为$P_3 \times (P_1 P_2)$矩阵的秩。
+  为(P2P3)个P1维向量所张成的空间的维数，也是张量$\mathcal{X}沿着第一个方向矩阵化后的矩阵的秩；同理可得，r_2为P_2 \times (P_1 P_3)矩阵的秩，r_3为P_3 \times (P_1 P_2)$矩阵的秩。
 
-Tucker分解：设张量$\mathcal{X} \in R^{P_1 \times P_2 \times P_3}$,若$rank_j(\mathcal{X})=r_j,j \leq 3$，则存在一个Tucker分解(Tucker, 1966; De Lathamer et al., 2000)
+Tucker分解：设张量$\mathcal{X} \in R^{P_1 \times P_2 \times P_3},若rank_j(\mathcal{X})=r_j,j \leq 3$，则存在一个Tucker分解(Tucker, 1966; De Lathamer et al., 2000)
 $$\mathcal{X} = \mathcal{Y} \times_1 Y_1 \times_2 Y_2 \times_3 Y_3$$
-其中$\mathcal{Y} \in R^{r_1 \times r_2 \times r_3}$为核心张量(core Tensor)，$Y_j \in R^{P_j \times r_j}$为因子矩阵。把上述分解表示为
+  其中$\mathcal{Y} \in R^{r_1 \times r_2 \times r_3}为核心张量(coreTensor)，Y_j \in R^{P_j \times r_j}$为因子矩阵。把上述分解表示为
 $$\mathcal{X} = [| \mathcal{Y}; Y_1,Y_2,Y_3 |]$$
-且$\times_1$表示mode-1乘积：表示一个张量和一个矩阵之间的乘积。令$Y \in R^{S \times P_j}$，则mode-j乘积为
+  且$\times_1表示mode−1乘积：表示一个张量和一个矩阵之间的乘积。令Y \in R^{S \times P_j}$，则mode-j乘积为
 $$\mathcal{X} \times_j Y=(\sum_{k=1}^{P_j} x_{i_1, \cdots,i_k,\cdots,i_M} y_{lk}) \in R^{P_1 \times \cdots \times S \times \cdots \times P_M}$$
-注意到Tucker分解不是唯一的，因为$\mathcal{X} = [| \mathcal{Y}; Y_1,Y_2,Y_3 |] = [| \mathcal{Y} \times_1 O_1 \times_2 O_2 \times_3 O_3; Y_1O_1^{-1},Y_2O_2^{-1},Y_3O_3^{-1} |]$，对于分宜非奇异矩阵$O_j \in R^{r_j\times r_j}$。但是，Tucker分解的一种特殊情况：高阶奇异值分解(HOSVD)在一定条件下是唯一的(De Lathauner et al., 2000)。具体而言，令$U_j$为$\mathcal{X}_{(j)}$的前$r_j$个左奇异矩阵($r_j$列)，核心张量定义为$\mathcal{Y}=\mathcal{X} \times_1 U_1' \times_2 U_2' \times_3 U_3'$，则$\mathcal{Y}$有如下正交性质：对于$1\leq j\leq 3$，有$\mathcal{Y}_{(j)}$的行是配对正交的，并且
+  注意到Tucker分解不是唯一的，因为$\mathcal{X} = [| \mathcal{Y}; Y_1,Y_2,Y_3 |] = [| \mathcal{Y} \times_1 O_1 \times_2 O_2 \times_3 O_3; Y_1O_1^{-1},Y_2O_2^{-1},Y_3O_3^{-1} |]，对于分宜非奇异矩阵O_j \in R^{r_j\times r_j}。但是，Tucker分解的一种特殊情况：高阶奇异值分解(HOSVD)在一定条件下是唯一的(DeLathauneretal.,2000)。具体而言，令U_j为\mathcal{X}_{(j)}的前r_j个左奇异矩阵(r_j列)，核心张量定义为\mathcal{Y}=\mathcal{X} \times_1 U_1' \times_2 U_2' \times_3 U_3'，则\mathcal{Y}有如下正交性质：对于1\leq j\leq 3，有\mathcal{Y}_{(j)}$的行是配对正交的，并且
 $$\mathcal{X} = \mathcal{Y} \times_1 U_1 \times_2 U_2 \times_3 U_3$$
-若假设对于$1\leq j\leq 3$，$\mathcal{X}_{(j)}$的奇异值各不相同，且$U_j$的每列第一个元素为正的，则HOSVD是唯一的。
+若假设对于$1\leq j\leq 3，\mathcal{X}_{(j)}的奇异值各不相同，且U_j$的每列第一个元素为正的，则HOSVD是唯一的。
 ```{Rmd}
 注：如果Y是超对角张量，则它退化为CP分解。
 ```
-
-

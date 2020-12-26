@@ -1,6 +1,0 @@
-<footer class="footer">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-	{{- partial "footer_social.html" . }}
-	{{- partial "footer_menu.html" . }}
-	<div class="footer__copyright">© {{ now.Format "2006" }} {{ .Site.Params.copyright | default .Site.Title }}. <span class="footer__copyright-credits">{{ T "footer_credits" | safeHTML }}</span></div>
-</footer>
