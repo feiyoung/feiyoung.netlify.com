@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ens on Wei Liu</title>
@@ -7,18 +7,164 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 23 Nov 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://feiyoung.netlify.com/en/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://feiyoung.netlify.com/en/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Use of Rmarkdown: taking GFM package as an example</title>
       <link>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
-      
       <guid>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</guid>
-      <description>Introduction of RmarkdownIn this section, we briefly introduce some features of Rmarkdown.The Laguage of Rmarkdown is similar to that of Markdown, which is very easy to learn and write it.
-Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, then choose the format of this file as ‘Rmd’(extension name). If we uncarefully save it as format ‘md’, then we can not run R code in each small chunk.</description>
+      <description>
+&lt;link href=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://feiyoung.netlify.com/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;introduction-of-rmarkdown&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Introduction of Rmarkdown&lt;/h1&gt;
+&lt;p&gt;In this section, we briefly introduce some features of Rmarkdown.The Laguage of Rmarkdown is similar to that of Markdown, which is very easy to learn and write it.&lt;/p&gt;
+&lt;div id=&#34;creating-rmarkdown-file-in-rstudio&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Creating Rmarkdown file in Rstudio&lt;/h2&gt;
+&lt;p&gt;Firstly, we create a new file in Rstudio, then choose the format of this file as ‘Rmd’(extension name). If we uncarefully save it as format ‘md’, then we can not run R code in each small chunk. Second, we need to set the header, including ‘title’, ‘author’, ‘date’, ‘output’, where title is the title of this document, ‘author’ and ‘date’ are the author and created date of this document, ‘output’ specifies the information about the output file. As for output file, we can generate three types of files, including ‘html’, ‘word’ and ‘pdf’, whose setting can be done in the setting whidow of ‘Knit’. The following is an example of header of this file.&lt;/p&gt;
+&lt;pre class=&#34;markdown&#34;&gt;&lt;code&gt;title: &amp;quot;Use of Rmarkdown: taking GFM package as an example&amp;quot;
+author: &amp;quot;Wei Liu&amp;quot;
+date: &amp;#39;2020-11-23&amp;#39;
+output:
+  pdf_document: 
+    highlight: kate
+    number_sections: yes
+    toc: yes
+  word_document:
+    toc: yes
+  html_document:
+    fig_caption: yes
+    highlight: pygments
+    theme: cerulean
+    toc: yes&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Aftering finishing the setting, we can arbitrarily write our contents of document. If any problem about the statements, we can turn to Baidu, Biying or Google!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;r-package-gfm&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;R package GFM&lt;/h1&gt;
+&lt;p&gt;In this section, we provide an inroduction to the &lt;strong&gt;&lt;a href=&#34;https://github.com/feiyoung/RGFM&#34;&gt;GFM&lt;/a&gt;&lt;/strong&gt; package, which is available at . R package GFM implements GFM, the generalized factor models for utra-high-dimensional mixed correlated data. It is more powerful than linear factor analysis, since it can handle mixed data, achieve nonlinear feature extraction and have theoretical guarantee. We can install the package from github by using following codes.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(devtools)
+install_github(&amp;quot;feiyoung/GFM&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Load the package using the following command:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(GFM)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;gfm-feature-extraction-using-simulated-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;GFM feature extraction using simulated data&lt;/h2&gt;
+&lt;p&gt;In the following, we give some examples with different variable types.
+### Homogeneous continuous variables
+We first generate data with homogeneous normal variables from the following model
+&lt;span class=&#34;math display&#34;&gt;\[x_{ij}= \mu_j + h_i b_j^T + u_{ij}, \]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(u_{ij} \sim N(0, \sigma^2)\)&lt;/span&gt;, which can be generated by function &lt;em&gt;gendata&lt;/em&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n &amp;lt;- 100
+p &amp;lt;- 100
+q &amp;lt;- 2; rho &amp;lt;- 3
+dat &amp;lt;- gendata(q = q, n=n, p=p, rho=rho)
+str(dat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## List of 4
+##  $ X  : num [1:100, 1:100] -0.5488 1.4796 0.0512 0.2888 -0.831 ...
+##   ..- attr(*, &amp;quot;dimnames&amp;quot;)=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : NULL
+##  $ B0 : num [1:100, 1:2] 0.1991 -0.0584 0.2656 -0.5071 -0.1047 ...
+##  $ H0 : num [1:100, 1:2] -0.148658 -0.000162 -0.098823 1.02493 0.628709 ...
+##  $ mu0: num [1:100] 0.164 0.676 0.635 -0.132 -0.914 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above commands, &lt;em&gt;n&lt;/em&gt; is the sample size, &lt;em&gt;p&lt;/em&gt; is the variable dimension, &lt;em&gt;q&lt;/em&gt; is the number of factors, &lt;span class=&#34;math inline&#34;&gt;\(\rho\)&lt;/span&gt; controls the signal strength. We can refer to the help file using&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;?gendata&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for more details.&lt;/p&gt;
+&lt;p&gt;Then we fit the &lt;strong&gt;GFM&lt;/strong&gt; model by following commands:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;group &amp;lt;- rep(1,ncol(dat$X))
+type &amp;lt;- &amp;#39;gaussian&amp;#39;
+# specify q=2
+gfm1 &amp;lt;- gfm(dat$X, group, type, q=2, output = F)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Starting the alternate minimization algorithm...
+## Finish the iterative algorithm...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(gfm1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## List of 6
+##  $ hH     : num [1:100, 1:2] 0.198 -0.324 0.47 0.653 0.317 ...
+##  $ hB     : num [1:100, 1:2] 0.1963 -0.169 0.1607 -0.4243 -0.0848 ...
+##  $ hmu    : num [1:100] 0.259 0.684 0.638 -0.191 -0.877 ...
+##  $ obj    : num 0.966
+##  $ q      : num 2
+##  $ history:List of 7
+##   ..$ dB         : num [1:3] 1 0.01765 0.00541
+##   ..$ dH         : num [1:3] 0.0558 0.01407 0.00493
+##   ..$ dc         : num [1:3] 1.00 1.13e-04 6.29e-05
+##   ..$ c          : num [1:3] 0.966 0.966 0.966
+##   ..$ realIter   : num 3
+##   ..$ maxIter    : num 50
+##   ..$ elapsedTime: &amp;#39;proc_time&amp;#39; Named num [1:5] 0.09 0.02 1.75 NA NA
+##   .. ..- attr(*, &amp;quot;names&amp;quot;)= chr [1:5] &amp;quot;user.self&amp;quot; &amp;quot;sys.self&amp;quot; &amp;quot;elapsed&amp;quot; &amp;quot;user.child&amp;quot; ...
+##  - attr(*, &amp;quot;class&amp;quot;)= chr &amp;quot;gfm&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# select q automatically
+gfm2 &amp;lt;- gfm(dat$X, group, type, q=NULL, q_set = 1:6, output = F)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The factor number q is estimated as  2 . 
+## Starting the alternate minimization algorithm...
+## Finish the iterative algorithm...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(gfm2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## List of 6
+##  $ hH     : num [1:100, 1:2] 0.198 -0.324 0.47 0.653 0.317 ...
+##  $ hB     : num [1:100, 1:2] 0.1963 -0.169 0.1607 -0.4243 -0.0848 ...
+##  $ hmu    : num [1:100] 0.259 0.684 0.638 -0.191 -0.877 ...
+##  $ obj    : num 0.966
+##  $ q      : int 2
+##  $ history:List of 7
+##   ..$ dB         : num [1:3] 1 0.01765 0.00541
+##   ..$ dH         : num [1:3] 0.0558 0.01407 0.00493
+##   ..$ dc         : num [1:3] 1.00 1.13e-04 6.29e-05
+##   ..$ c          : num [1:3] 0.966 0.966 0.966
+##   ..$ realIter   : num 3
+##   ..$ maxIter    : num 50
+##   ..$ elapsedTime: &amp;#39;proc_time&amp;#39; Named num [1:5] 0.12 0.1 2.14 NA NA
+##   .. ..- attr(*, &amp;quot;names&amp;quot;)= chr [1:5] &amp;quot;user.self&amp;quot; &amp;quot;sys.self&amp;quot; &amp;quot;elapsed&amp;quot; &amp;quot;user.child&amp;quot; ...
+##  - attr(*, &amp;quot;class&amp;quot;)= chr &amp;quot;gfm&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# measure the performance of GFM estimators
+measurefun(gfm2$hH, dat$H0, type=&amp;#39;ccor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8977694&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;measurefun(gfm2$hB, dat$B0, type=&amp;#39;ccor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9185544&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above commands, we require to specify the types of each variables by parameters &lt;em&gt;group&lt;/em&gt; and &lt;em&gt;type&lt;/em&gt;. At the same time, we can speficy the number of factors to be extracted or let it be automatically selected by PC(IC) criteria.
+### Heterogeous continuous variables
+In this exmaple, we generate data with heterogeous normal variables from the following model
+&lt;span class=&#34;math display&#34;&gt;\[x_{ij}= \mu_j + h_i b_j^T + u_{ij},\]&lt;/span&gt;
+,where &lt;span class=&#34;math inline&#34;&gt;\(u_{ij} \sim N(0, \sigma_j^2)\)&lt;/span&gt;, which can be generated by function &lt;em&gt;gendata&lt;/em&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n &amp;lt;- 100
+p &amp;lt;- 100
+q &amp;lt;- 2; rho &amp;lt;- 4
+type &amp;lt;- &amp;#39;heternorm&amp;#39;
+dat &amp;lt;- gendata(seed=1, n=n, p=p, type= type, q=q, rho=rho)
+str(dat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## List of 4
+##  $ X  : num [1:100, 1:100] 0.699 -2.001 1.645 0.152 3.115 ...
+##   ..- attr(*, &amp;quot;dimnames&amp;quot;)=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : NULL
+##  $ B0 : num [1:100, 1:2] 0.2655 -0.0778 0.3542 -0.6761 -0.1397 ...
+##  $ H0 : num [1:100, 1:2] -0.148658 -0.000162 -0.098823 1.02493 0.628709 ...
+##  $ mu0: num [1:100] 0.164 0.676 0.635 -0.132 -0.914 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;group &amp;lt;- rep(1,ncol(dat$X))
+type &amp;lt;- &amp;#39;gaussian&amp;#39;
+gfm3 &amp;lt;- gfm(dat$X, group, type, q=NULL, q_set = 1:4, output = F)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The factor number q is estimated as  2 . 
+## Starting the alternate minimization algorithm...
+## Finish the iterative algorithm...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(gfm3$history$dc, type=&amp;#39;o&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;http://feiyoung.netlify.com/en/2020-11-28-gfm_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;
+We compare the performance with the linear factor model by using functions &lt;em&gt;measurefun&lt;/em&gt; and &lt;em&gt;Factorm&lt;/em&gt;, where the measure of cononical correlation is used. The larger its value, the better.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;measurefun(gfm3$hH, dat$H0, type=&amp;#39;ccor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9560164&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;measurefun(gfm3$hB, dat$B0, type=&amp;#39;ccor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9274218&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fac &amp;lt;- Factorm(dat$X)
+measurefun(Fac$hH, dat$H0, type=&amp;#39;ccor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8904272&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;measurefun(Fac$hB, dat$B0, type=&amp;#39;ccor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8970445&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The above results show that GFM can produce better estimators by using the information of heterogeous variances.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
     </item>
     
   </channel>

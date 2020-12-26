@@ -1,0 +1,17 @@
+---
+title: "更换主题"
+author: "刘伟"
+date: '2020-12-26'
+output: pdf_document
+layout: post
+---
+
+# 琳琅满目的主题
+
+选择合适自己风格的主题，请参照：
+https://themes.gohugo.io/
+
+## 不支持公式
+
+请参照：
+https://butui.me/post/yet-best-math-formula-support-for-hugo-with-mathjax/
