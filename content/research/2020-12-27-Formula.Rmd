@@ -1,0 +1,65 @@
+---
+title: "Common-used Formula"
+author: "Wei Liu"
+date: '2020-12-27'
+output: pdf_document
+layout: post
+---
+
+## Stirling's Formula
+This formula transfers the factorial term into a polynomial term.
+The formula is given by
+$$n! = (\frac{n}{e})^n \sqrt{2\pi n}.$$
+```{Rmd}
+References:
+James Stirling, 1970, Differential Method with a Tract on Summation and Interpolation of Infinite Series.
+```
+
+## Sherman–Morrison–Woodbury Formula
+This formula is commonly used for statistical computing, which transfers a high-dimensional matrix inverse into a low-dimensional matrix inverse.
+
+Assume $A \in R^{p \times p}, U \in R^{p\times n}, B \in R^{n \times n}, V \in R^{p \times n}$, $A$ and $B$ are invertible, then
+$$(A + UBV^T)^{-1}=A^{-1} - A^{-1} U(B^{-1} + V^T A^{-1} U)^{-1} V^T A^{-1}.  \tag{2.1}$$
+See http://fourier.eng.hmc.edu/e176/lectures/algebra/node6.html for the detail of proofs.
+
+Special Case I: In statistics, we care about $R=(\lambda I_p + X^T X)^{-1}$, where $X \in R^{n \times p}$. We know $R = \lambda^{-1} (I_p + X^T \lambda^{-1} I_n X)^{-1}$
+Let $A=I_p, U=V=X^T, B =\lambda^{-1} I_n$. By $(2.1)$, we can easily obtain 
+$$R = \lambda^{-1} \{I_p - X^T(\lambda I_n + X X^T)^{-1} X\}.$$
+
+## Matrix multiplication formula
+Vector calculation plays an important role in statistical computing.
+
+Suppose $A \in R^{I \times J}, B \in R^{K \times L}, C \in R^{J \times M}, D \in R^{L \times N}$，then
+$$(A \otimes B) (C \otimes D)=(AC) \otimes (BD), $$
+  $$(A \otimes B)^+= A^+ \otimes B ^+, (A \otimes B)^T= A^T \otimes B ^T,$$
+  $$A \odot B \odot C = (A \odot B) \odot C = A \odot (B \odot C)$$
+  $$(A \odot B)^T (A \odot B) = A^TA * B^TB,A \in R^{I \times J}, B \in R^{K \times J}$$
+  $$(A \odot B)^+= (A^TA * B^TB)^+ (A \odot B)^T,$$
+  其中A+表示Moore-Penrose伪逆。
+
+
+矩阵乘积向量化换序公式：
+$$vec(AXB) = (B^T \otimes A) vec (X). \tag{A1}$$
+  
+  特例1：令B=b为列向量，则
+$$AXb= (b^T \otimes A)vec(X) \tag{A3}$$
+  
+  特例2：若$X \in R^{I \times J}, b\in R^{J\times 1}$，则有
+$$Xb = (b^T \otimes I_I) vec(X) \in R^I, \tag{A2}$$
+  其中II表示$I \times I的单位矩阵。由(A1)可以直接推导出(A2)，因为Xb = I_I Xb$，列向量是一种特殊的矩阵。
+
+设$A\in R^{K\times I}, B \in R^{I \times m}, C \in R^{m \times n}，于是基于(A1)$，可以推导出常用的矩阵向量化边缘轮换公式：
+$$vec(ABC) = (I_n \otimes AB) vec(C)=(C^T B^T \otimes I_K) vec(A) \tag{A4}$$
+  注意：第一个等式将矩阵C的向量化版本轮换到最右方的边缘；第二个等式将矩阵A的向量化版本轮换到最右方的边缘。在统计中这样做的好处是：如果A或C是我们感兴趣的参数，则(A4)将参数和数据分离，帮助我们推导参数的显示表达式，或者迭代的显式表达。
+
+(A4)的特例：
+$$vec(AB) = (I_m \otimes A) vec(B) = (B^T \otimes I_K) vec(A)  \tag{A5}$$
+  利用(A5)，我们可以得到
+$$vec(ABC)= (I_n \otimes A) (C^T \otimes I_I) vec(B)  \tag{A6}$$
+  (A6)告诉我们如何将夹在矩阵中间的参数轮换到边上去。
+
+其他公式：1）Hardamard乘积：$A, B \in R^{n \times m}$，
+vec(A∗B)=vec(A)∗vec(B)
+
+2)Inner product（内积）：$A, B \in R^{n \times m}$，
+$$\langle A, B\rangle = tr(A^TB)=vec(A)^T vec(B)=vec(B^T)^T vec(A)$$

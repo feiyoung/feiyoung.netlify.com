@@ -1,0 +1,125 @@
+baseurl = "http://feiyoung.netlify.com"
+languageCode = "en-us"
+title = "Wei Liu" 
+name = "Wei Liu"
+theme = "hugo-Binario"
+licenselink = "https://feiyoung.github.io/"
+homepage = "https://feiyoung.github.io/"
+googleAnalytics = ""
+disqusShortname="Wei Liu"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+hasCJKLanguage= true
+math = true
+paginate = "12" # Number of elements per page in pagination
+enableEmoji=true
+footnotereturnlinkcontents= "↩"
+rssLimit=100
+[permalinks]
+    en = "/:year/:month/:day/:slug/"
+    cn = "/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "主页"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "日志"
+    url = "/cn/"
+    weight = 2      
+  
+[[menu.main]]
+    name = "研究"
+    url = "/research/"
+    weight = 3  
+[[menu.main]]
+    name ="诗词"
+    url = "/poem/"
+    weight = 4
+[[menu.main]]
+    name = "关于"
+    url = "/cn_about/"
+    weight = 5
+    
+[[menu.main]]
+    name = "EBlog"
+    url = "/en/"
+    weight = 6
+[[menu.main]]
+    name = "About"
+    url = "/en_about/"
+    weight = 7  
+
+[Author] # Used in authorbox
+  name = "Wei Liu"
+  bio = "He is a doctor."
+  avatar = "/images/me.jpg" 
+    
+[Params]
+    colorTheme = "dark-green" # dark-green, dark-blue, dark-red, dark-violet
+    description = ""
+    copyright = "Wei Liu"
+    footer="&copy; [Wei Liu's HomePage](https://feiyoung.github.io/)2020| [Wei Liu's Github](https://github.com/feiyoung)"
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.11.0"
+    highlightjsCDN = "//weiliu.org"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
+    MathJaxCDN = "//weliu.org"
+    MathJaxVersion = "2.7.1"
+    dateFormat = "01, 02, 2006" # Change the format of dates
+    columns = 3
+    mainMenuAlignment = "left" # Align main menu (desktop version) to the right side
+    authorbox = true # Show authorbox at bottom of single pages if true
+    comments = true # Enable comments for all site pages
+    related = true # Enable Related content for single pages
+    relatedMax = 5 # Set the maximum number of elements that can be displayed in related block. Optional
+    mathjax = true # Enable MathJax for all site pages
+    mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js" # Specify MathJax path. Optional
+    mathjaxConfig = "TeX-AMS-MML_HTMLorMML" # Specify MathJax config. Optional
+    hideNoPostsWarning = false # Don't show no posts empty state warning in main page, if true
+
+    [params.logo]
+    url = "/images/me.jpg"
+    width = 50
+    height = 50
+    alt = "Public"
+
+[Params.Entry]
+  meta = ["date", "categories"] # Enable meta fields in given order
+  toc = false # Enable Table of Contents
+  tocOpen = false # Open Table of Contents block. Optional
+  
+[Params.Featured]
+  previewOnly = true # Show only preview featured image
+
+[Params.Breadcrumb]
+  enable = true # Enable breadcrumb block globally
+  homeText = "Wei Liu" # Home node text
+
+[Params.Social]
+  linkedin = ""
+  github = "feiyoung"
+  
+# Web App Manifest settings
+# https://www.w3.org/TR/appmanifest/
+# https://developers.google.com/web/fundamentals/web-app-manifest/
+[Params.Manifest]
+  name = "Wei Liu"
+  shortName = "Wei Liu"
+  display = "browser"
+  startUrl = "/"
+  backgroundColor = "#000123"
+  themeColor = "#000322"
+  description = "Responsive card-based & code-light Hugo theme"
+  orientation = "portrait"
+  scope = "/"
+
+[outputFormats]
+  [outputFormats.MANIFEST]
+    mediaType = "application/json"
+    baseName = "manifest"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+  home = ["HTML", "RSS", "MANIFEST"]

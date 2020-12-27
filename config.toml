@@ -2,7 +2,7 @@ baseurl = "http://feiyoung.netlify.com"
 languageCode = "en-us"
 title = "Wei Liu" 
 name = "Wei Liu"
-theme = "hugo-console"
+theme = "hugo-Binario"
 licenselink = "https://feiyoung.github.io/"
 homepage = "https://feiyoung.github.io/"
 googleAnalytics = ""
@@ -14,6 +14,16 @@ paginate = "12" # Number of elements per page in pagination
 enableEmoji=true
 footnotereturnlinkcontents= "↩"
 rssLimit=100
+Paginate=15 
+MetaDataFormat = "toml"
+PaginatePath="page"
+pygmentsuseclasses = true
+preserveTaxonomyNames = false
+disablePathToLower =false 
+enableInlineShortcodes = true
+enableRobotsTXT = true
+
+
 [permalinks]
     en = "/:year/:month/:day/:slug/"
     cn = "/:year/:month/:day/:slug/"
@@ -48,78 +58,27 @@ rssLimit=100
     name = "About"
     url = "/en_about/"
     weight = 7  
-
-[Author] # Used in authorbox
-  name = "Wei Liu"
-  bio = "He is a doctor."
-  avatar = "/images/me.jpg" 
-    
-[Params]
-    colorTheme = "dark-green" # dark-green, dark-blue, dark-red, dark-violet
-    description = ""
-    copyright = "Wei Liu"
-    footer="&copy; [Wei Liu's HomePage](https://feiyoung.github.io/)2020| [Wei Liu's Github](https://github.com/feiyoung)"
-    # options for highlight.js (version, additional languages, and theme)
-    highlightjsVersion = "9.11.0"
-    highlightjsCDN = "//weiliu.org"
-    highlightjsLang = ["r", "yaml"]
-    highlightjsTheme = "github"
-    MathJaxCDN = "//weliu.org"
-    MathJaxVersion = "2.7.1"
-    dateFormat = "01, 02, 2006" # Change the format of dates
-    columns = 3
-    mainMenuAlignment = "left" # Align main menu (desktop version) to the right side
-    authorbox = true # Show authorbox at bottom of single pages if true
-    comments = true # Enable comments for all site pages
-    related = true # Enable Related content for single pages
-    relatedMax = 5 # Set the maximum number of elements that can be displayed in related block. Optional
-    mathjax = true # Enable MathJax for all site pages
-    mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js" # Specify MathJax path. Optional
-    mathjaxConfig = "TeX-AMS-MML_HTMLorMML" # Specify MathJax config. Optional
-    hideNoPostsWarning = false # Don't show no posts empty state warning in main page, if true
-
-    [params.logo]
-    url = "/images/me.jpg"
-    width = 50
-    height = 50
-    alt = "Public"
-
-[Params.Entry]
-  meta = ["date", "categories"] # Enable meta fields in given order
-  toc = true # Enable Table of Contents
-  tocOpen = false # Open Table of Contents block. Optional
   
-[Params.Featured]
-  previewOnly = true # Show only preview featured image
 
-[Params.Breadcrumb]
-  enable = true # Enable breadcrumb block globally
-  homeText = "Wei Liu" # Home node text
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  summaryLength = 250 # default 70
+[params]
+  hljsStyle="github" #code highlightjs css style . See [Style List](https://github.com/highlightjs/highlight.js/tree/master/src/styles "CSS Style list")
 
-[Params.Social]
-  linkedin = ""
-  github = "feiyoung"
-  
-# Web App Manifest settings
-# https://www.w3.org/TR/appmanifest/
-# https://developers.google.com/web/fundamentals/web-app-manifest/
-[Params.Manifest]
-  name = "Wei Liu"
-  shortName = "Wei Liu"
-  display = "browser"
-  startUrl = "/"
-  backgroundColor = "#000123"
-  themeColor = "#000322"
-  description = "Responsive card-based & code-light Hugo theme"
-  orientation = "portrait"
-  scope = "/"
-
-[outputFormats]
-  [outputFormats.MANIFEST]
-    mediaType = "application/json"
-    baseName = "manifest"
-    isPlainText = true
-    notAlternative = true
-
-[outputs]
-  home = ["HTML", "RSS", "MANIFEST"]
+  showNextAndPrePost = false #Is Show Next and Previous Post Button
+  description = "site description"
+  keywords = "site keywords use seo"
+  googleSiteVerification = "google site verification key"
+  author = "Wei Liu"
+  github ="github username"
+  email="your email"
+  twitter="your twitter name" 
+  securityPolicy = false #disable https content security policy
+  footerRight="Your tips content" #footer right content
+  mainSections = ['page']
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"

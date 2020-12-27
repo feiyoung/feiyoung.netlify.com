@@ -7,7 +7,10 @@ disable_highlight: true
 
 
 
-#  ![](/images/zhu.jpeg)
+![](/images/zhu.jpeg)
+
+
+
 
 这是刘伟的博客主页。本人目前就读于西南财经大学统计研究中心和统计学院。
 

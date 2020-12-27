@@ -1,0 +1,30 @@
+/* Print */
+  @media print {
+    .entry__content a,
+    .entry__meta a,
+    
+    .logo,
+    .block,
+    .entry__title,
+    .entry__title-link,
+    .meta-categories__link,
+    .entry__meta,
+    .entry__content,
+    
+    .main-nav,
+    .comments,
+    .entry__toc,
+    .related,
+    .footer__copyright-credits {
+      display: none;
+    }
+    
+    .header,
+    .block {
+      border: 0;
+    }
+    
+    
+  }
+  
+

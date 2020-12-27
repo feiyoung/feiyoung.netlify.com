@@ -55,7 +55,7 @@ $$\mathcal{X} \times_m a \times_n b=(\mathcal{X} \times_m a) \times_{n-1} b=(\ma
   记$\otimes为Krorecker乘积，则对任意n \in \{1, \cdots, N\}$，有
 $$\mathcal{Y} = \mathcal{X} \times_1 A_1 \times_2 \cdots \times_3 A_N\Leftrightarrow \mathcal{Y}_{(n)}= A_n \mathcal{X}_{(n)} (A_N \otimes \cdots \otimes A_{n+1} \otimes A_{n-1} \otimes \cdots \otimes A_1)^T$$
   
-  ## 常用运算公式
+## 常用运算公式
   以上几种矩阵乘积运算满足一些运算性质。我认为这些性质在矢量计算中具有重要的作用，有空可以再进行研究。
 
 假设$A \in R^{I \times J}, B \in R^{K \times L}, C \in R^{J \times M}, D \in R^{L \times N}$，则

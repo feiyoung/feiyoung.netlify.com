@@ -26,7 +26,7 @@
       <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>http://feiyoung.netlify.com/research/2020-12-24-%E5%BC%A0%E9%87%8F%E5%9F%BA%E7%A1%80/</guid>
-      <description>张量基础 闲居 2020年12月于西财 预备知识 在介绍张量之前，我们先来了解一些基础知识，其中包括矩阵的运算和张量的运算操作。 几种矩阵（张量）运算</description>
+      <description>张量基础 闲居 2020年12月于西财 -预备知识 -几种运算符号 预备知识 我们在介绍张量之前，我们先来了解一些基础知识，其中包括矩阵的运算和张量的运</description>
     </item>
     
     <item>
@@ -57,20 +57,21 @@
     </item>
     
     <item>
-      <title></title>
-      <link>http://feiyoung.netlify.com/post/2020-11-28-/</link>
-      <pubDate>Sat, 28 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/post/2020-11-28-/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Use of Rmarkdown: taking GFM package as an example</title>
       <link>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</guid>
+      <description>Introduction of RmarkdownIn this section, we briefly introduce some features of Rmarkdown.The Laguage of Rmarkdown is similar to that of Markdown, which is very easy to learn and write it.
+Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, then choose the format of this file as ‘Rmd’(extension name). If we uncarefully save it as format ‘md’, then we can not run R code in each small chunk.</description>
+    </item>
+    
+    <item>
+      <title>Use of Rmarkdown: taking GFM package as an example</title>
+      <link>http://feiyoung.netlify.com/post/2020-11-28-gfm/</link>
+      <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/post/2020-11-28-gfm/</guid>
       <description>Introduction of RmarkdownIn this section, we briefly introduce some features of Rmarkdown.The Laguage of Rmarkdown is similar to that of Markdown, which is very easy to learn and write it.
 Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, then choose the format of this file as ‘Rmd’(extension name). If we uncarefully save it as format ‘md’, then we can not run R code in each small chunk.</description>
     </item>

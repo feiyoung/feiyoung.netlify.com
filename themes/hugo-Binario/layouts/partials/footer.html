@@ -1,0 +1,6 @@
+<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	{{- partial "footer_social.html" . }}
+	{{- partial "footer_menu.html" . }}
+	<div class="footer__copyright">© {{ now.Format "2006" }} {{ .Site.Params.copyright | default .Site.Title }}. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>

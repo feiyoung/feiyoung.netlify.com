@@ -1,0 +1,60 @@
+---
+title: "Common-used Formula"
+author: "Wei Liu"
+date: '2020-12-27'
+output: pdf_document
+layout: post
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="stirlings-formula" class="section level2">
+<h2>Stirling’s Formula</h2>
+<p>This formula transfers the factorial term into a polynomial term.
+The formula is given by
+<span class="math display">\[n! = (\frac{n}{e})^n \sqrt{2\pi n}.\]</span></p>
+<pre class="rmd"><code>References:
+James Stirling, 1970, Differential Method with a Tract on Summation and Interpolation of Infinite Series.</code></pre>
+</div>
+<div id="shermanmorrisonwoodbury-formula" class="section level2">
+<h2>Sherman–Morrison–Woodbury Formula</h2>
+<p>This formula is commonly used for statistical computing, which transfers a high-dimensional matrix inverse into a low-dimensional matrix inverse.</p>
+<p>Assume <span class="math inline">\(A \in R^{p \times p}, U \in R^{p\times n}, B \in R^{n \times n}, V \in R^{p \times n}\)</span>, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are invertible, then
+<span class="math display">\[(A + UBV^T)^{-1}=A^{-1} - A^{-1} U(B^{-1} + V^T A^{-1} U)^{-1} V^T A^{-1}.  \tag{2.1}\]</span>
+See <a href="http://fourier.eng.hmc.edu/e176/lectures/algebra/node6.html" class="uri">http://fourier.eng.hmc.edu/e176/lectures/algebra/node6.html</a> for the detail of proofs.</p>
+<p>Special Case I: In statistics, we care about <span class="math inline">\(R=(\lambda I_p + X^T X)^{-1}\)</span>, where <span class="math inline">\(X \in R^{n \times p}\)</span>. We know <span class="math inline">\(R = \lambda^{-1} (I_p + X^T \lambda^{-1} I_n X)^{-1}\)</span>
+Let <span class="math inline">\(A=I_p, U=V=X^T, B =\lambda^{-1} I_n\)</span>. By <span class="math inline">\((2.1)\)</span>, we can easily obtain
+<span class="math display">\[R = \lambda^{-1} \{I_p - X^T(\lambda I_n + X X^T)^{-1} X\}.\]</span></p>
+</div>
+<div id="matrix-multiplication-formula" class="section level2">
+<h2>Matrix multiplication formula</h2>
+<p>Vector calculation plays an important role in statistical computing.</p>
+<p>Suppose <span class="math inline">\(A \in R^{I \times J}, B \in R^{K \times L}, C \in R^{J \times M}, D \in R^{L \times N}\)</span>，then
+<span class="math display">\[(A \otimes B) (C \otimes D)=(AC) \otimes (BD), \]</span>
+<span class="math display">\[(A \otimes B)^+= A^+ \otimes B ^+, (A \otimes B)^T= A^T \otimes B ^T,\]</span>
+<span class="math display">\[A \odot B \odot C = (A \odot B) \odot C = A \odot (B \odot C)\]</span>
+<span class="math display">\[(A \odot B)^T (A \odot B) = A^TA * B^TB,A \in R^{I \times J}, B \in R^{K \times J}\]</span>
+<span class="math display">\[(A \odot B)^+= (A^TA * B^TB)^+ (A \odot B)^T,\]</span>
+其中A+表示Moore-Penrose伪逆。</p>
+<p>矩阵乘积向量化换序公式：
+<span class="math display">\[vec(AXB) = (B^T \otimes A) vec (X). \tag{A1}\]</span></p>
+<p>特例1：令B=b为列向量，则
+<span class="math display">\[AXb= (b^T \otimes A)vec(X) \tag{A3}\]</span></p>
+<p>特例2：若<span class="math inline">\(X \in R^{I \times J}, b\in R^{J\times 1}\)</span>，则有
+<span class="math display">\[Xb = (b^T \otimes I_I) vec(X) \in R^I, \tag{A2}\]</span>
+其中II表示<span class="math inline">\(I \times I的单位矩阵。由(A1)可以直接推导出(A2)，因为Xb = I_I Xb\)</span>，列向量是一种特殊的矩阵。</p>
+<p>设<span class="math inline">\(A\in R^{K\times I}, B \in R^{I \times m}, C \in R^{m \times n}，于是基于(A1)\)</span>，可以推导出常用的矩阵向量化边缘轮换公式：
+<span class="math display">\[vec(ABC) = (I_n \otimes AB) vec(C)=(C^T B^T \otimes I_K) vec(A) \tag{A4}\]</span>
+注意：第一个等式将矩阵C的向量化版本轮换到最右方的边缘；第二个等式将矩阵A的向量化版本轮换到最右方的边缘。在统计中这样做的好处是：如果A或C是我们感兴趣的参数，则(A4)将参数和数据分离，帮助我们推导参数的显示表达式，或者迭代的显式表达。</p>
+<p>(A4)的特例：
+<span class="math display">\[vec(AB) = (I_m \otimes A) vec(B) = (B^T \otimes I_K) vec(A)  \tag{A5}\]</span>
+利用(A5)，我们可以得到
+<span class="math display">\[vec(ABC)= (I_n \otimes A) (C^T \otimes I_I) vec(B)  \tag{A6}\]</span>
+(A6)告诉我们如何将夹在矩阵中间的参数轮换到边上去。</p>
+<p>其他公式：1）Hardamard乘积：<span class="math inline">\(A, B \in R^{n \times m}\)</span>，
+vec(A∗B)=vec(A)∗vec(B)</p>
+<p>2)Inner product（内积）：<span class="math inline">\(A, B \in R^{n \times m}\)</span>，
+<span class="math display">\[\langle A, B\rangle = tr(A^TB)=vec(A)^T vec(B)=vec(B^T)^T vec(A)\]</span></p>
+</div>
