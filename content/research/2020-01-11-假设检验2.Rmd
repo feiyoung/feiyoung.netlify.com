@@ -1,0 +1,67 @@
+---
+title: "统计假设检验-检验理论"
+author: "刘伟"
+date: '2021-01-11'
+output: pdf_document
+layout: post
+---
+  **假设检验**
+  
+  **闲居**
+  
+考虑一个size水平为$\alpha$的假设检验，其中原假设为$H_0:\theta \in \Theta_0 \subset \Theta~~vs~~ H_1:\theta \in \Theta_1=\Theta/\Theta_0$.
+
+
+# 功效函数
+在参数假设检验中，功效函数$\beta(\theta)$定义为当真实参数等于$\theta$时拒绝原假设$H_0$的概率。因此，功效函数的图像是在保持原假设固定，然后改变真实参数的值来得到的曲线图。用于评估在当前样本下，我们最优的假设$\theta$应该取什么值。假设$W(\Theta_0)$是拒绝域，则$\beta(\theta)=P_{\theta}\{(X_1,\cdots, X_n) \in W(\Theta_0)\}$。
+
+举一个简单的例子，假设我想检验的原假设为假设真实参数等于0，即$H_0:\theta=0$。如果对应功效函数在$\theta=1$处的值为$\beta(1)=0.5$，它表示如果真实参数等于1，那么该检验方法有50%的概率拒绝（错误的）$H_0$。
+
+# 功效
+功效的定义与功效函数有点区别，它是指在$H_0$为假时，拒绝原假设的概率，也就是备择假设空间的功效函数值($\beta(\theta), \theta \in \Theta_1$)。或者叫在备择假设成立时，样本落在拒绝域的概率。
+
+影响功效的三个因素：1)所用的显著性水平$\alpha$；2)对总体中感兴趣的效应强度；3)用于探测该效应的样本容量。
+# 无偏检验
+我们把功效函数$\beta$满足如下条件的检验称为无偏检验，即
+$$\beta(\theta) \leq \alpha, 若\theta \in \Theta_0$$
+$$\beta(\theta) \geq \alpha, 若\theta \in \Theta_1.$$
+直观理解是真实值落在备择假设空间时的功效比size水平更高，真实值落在原假设空间时的功效函数值比size水平更低。
+
+举一个简单的例子，比如我们使用标准的t检验来检验$H_0:\theta \leq 0$和$H_1:\theta >0$.显著性水平$\alpha=0.05$的标准的拒绝规则为$T_n>1.645$。假设我们仍然使用该规则来检验$H_0:\theta=0~~vs~~H_1:\theta\neq0$，则该检验就是一个有偏的检验，当$\theta \in (-\infty,0)$时，我们可以证明$\beta(\theta)<\alpha$。
+
+为了更加具体地解释无偏检验和有偏检验，我们假设$X_i \sim N(\theta,1)$。
+检验$H_0:\theta\leq 0$的t统计量为$T_n=\sqrt{n}\bar X$并且
+$$\sqrt{n}(\bar X - \theta) \sim N(0,1).$$
+因此，$\beta(\theta)=P(T_n>1.645)=P(\sqrt{n}(\bar X - \theta)> 1.654-\sqrt{n}\theta)=1 - \Phi(1.645-\sqrt{n}\theta)$. 
+
+1)当$\theta \in \Theta_1$，即$\theta >0$,则有
+$$\beta(\theta)\geq 1- \Phi(1.645-0)=1-0.95=\alpha.$$
+
+2)当$\theta \in \Theta_0$，即$\theta \leq 0$,则有
+$$\beta(\theta)\leq 1- \Phi(1.645-0)=1-0.95=\alpha.$$
+从而对于这个检验问题，t检验是无偏检验。 
+
+而检验$H_0:\theta=0$的t统计量仍为$T_n=\sqrt{n}\bar X$且$\beta(\theta)=1 - \Phi(1.645-\sqrt{n}\theta).$
+
+可以看出：当$\theta \in \Theta_1$并且趋近于负无穷时，$\beta(\theta)\rightarrow 0$，故对于这个检验问题，该检验方法是有偏的。
+```{Rmd}
+注：证明检验的无偏性，只需证明两点：
+1)备择假设为真时的功效比size水平更高;
+2)原假设为真时的功效函数值比size水平更低。
+```
+
+# 统计检验的理论分析
+检验理论常常考虑如下几个方面：
+
+1)第一类错误可以控制在名义水平（或者以下）：最理想的情况是证明在原假设为真时，检验统计量收敛到一个已知的分布（当然这个分布也可以在bootstrap意义上已知的），即$H_0$为真时，有
+$$\sup_{\alpha \in (0,1)}|P(T_n > t_{1-\alpha}) - \alpha|=o(1).$$
+有时只能得到保守检验方法，我们只能证明：
+$$P(T_n > t_{1-\alpha}|H_0为真)\leq \alpha.$$
+
+2)检验的无偏性：这属于功效分析(Power analysis)的范畴。即证明：
+$$\beta(\theta) \leq \alpha, 若\theta \in \Theta_0$$
+$$\beta(\theta) \geq \alpha, 若\theta \in \Theta_1.$$
+
+3)最小信号强度：这一块也属于功效分析的范畴。这是分析真实参数满足什么信号条件时，功效函数可以趋近于1。假设$H_0:\theta=0$和可分集$G_(c)=\{\theta: |\theta|\geq n^{-1/2} c\}$，我们证明对于任意$\epsilon >0$，有
+$$\inf_{\theta \in G(2+\epsilon)} \beta(\theta) \rightarrow 1.$$
+其中$n^{-1/2}(2+\epsilon)$称为最小信号强度。
