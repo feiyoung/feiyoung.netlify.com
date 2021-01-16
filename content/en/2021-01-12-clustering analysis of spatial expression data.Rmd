@@ -1,7 +1,7 @@
 ---
 title: "Clustering analysis of spatial expression data"
 author: "Wei Liu"
-date: '2020-11-23'
+date: '2021-01-15'
 ---
 # Markov random field
 A Markov random field(MRF) is an undirected graphical model that explicitly expresses the conditional independence relationships between nodes. Two nodes are conditionally independent if all paths between them are blocked by given nodes. Thus, assume $X_i,i\in S$ is a MRF, then $X_i$ is independent of all other $X_j$ given the neighbors $N_i$ of $X_i$. 
