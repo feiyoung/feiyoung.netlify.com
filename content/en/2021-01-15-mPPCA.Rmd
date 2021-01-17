@@ -20,7 +20,7 @@ $$l=\sum_{k=1}^K y_{ik} \{\ln(\pi_k) + \ln f_{ki} + \ln g_i\} \tag{1.2}$$
 # EM algorithm 
 To deduce EM algorithm, we first calculate the posterior distribution of $(y_i, z_i)$ given $x_i$ and parameters by previous iteration. Noting each $y_{ik}$ is seperatable, we consider 
 $$P(y_{ik}=1, z_i | x_i)=P(y_{ik}=1|x_i)P(z_i|y_{ik}=1,x_i)=R_{ik}f_{k}(z_i),$$
-where $f_k(z_i)$ is the posterior distribution of $z_i$ given $x_i$ when $y_{ik}=1$.
+where $f_k(z_i)$ is the posterior distribution of $z_i$ given $x_i$ when $y_{ik}=1$, $R_{ik}=P(y_{ik}=1|x_i)=a_{ki}/(\sum_k a_{ki})$, where $a_{ki}=\pi_k |C_k|^{-1/2} \exp\{-\frac{1}{2} (x_i-\mu_k)^T C_k^{-1} (x_i -\mu_k)\}$ and $C_k= \sigma_k^2 I + W_k W_k^T$.
 By $(8)$ in Bishop (1999), we have 
 $$f_{k}(z_i)=(2\pi)^{-q/2}|\sigma_k^2M_k|^{1/2}\exp\{(z_i-s_k(x_i)^T\sigma_k^{-2}M_k(z_i -s_k(x_i))\},$$
 where $\sigma_k^2M_k^{-1}=\sigma_k^2(\sigma^2_kI_q+W_k^TW_k)^{-1}$ and $s_k(x_i)=M_k^{-1}W_k(x_i-\mu_k)$.
@@ -33,13 +33,13 @@ Omitting the terms independent of parameters, we have
 $$l_k = y_{ik}\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) - \frac{1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2-\frac{1}{2}\|z_i\|^2\}.$$
 Thus 
 $$E_{(y_{ik},z_i)|x_i}(l_k)=\int l_k(y_{ik}, z_i)P(y_{ik}=1,z_i|x_i)d(y_{ik},z_i)=\int l_k(1,z_i)R_{ik}f_{k}(z_i)dz_i.\tag{1.3}$$
-Denote $h_k(z_i)=\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) - \frac{1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2-\frac{1}{2}\|z_i\|^2$$=\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k)-\frac{1}{2}z_i^Tz_i - \frac{1}{2\sigma_k^2}\{z_i^TW^TWz_i-2(x_i-\mu_k)^TW_kz_i+ \|x_i-\mu_k\|^2\}.$
+Denote $h_k(z_i)=\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) - \frac{1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2-\frac{1}{2}\|z_i\|^2$$=\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k)-\frac{1}{2}z_i^Tz_i - \frac{1}{2\sigma_k^2}\{z_i^TW^TWz_i-2(x_i-\mu_k)^TW_kz_i+ \|x_i-\mu_k\|^2\}.$ 
 Furthermore, $(1.3)$ simplifies as
 $$E_{(y_{ik},z_i)|x_i}(l_k)= R_{ik} \int h_k(z_i) f_{k}(z_i)dz_i. \tag{1.4}$$
 $(1.4)$ only involves the posterior first-order moment and second-order moment of $z_i$ that are denoted by 
-$$\langle z_i\rangle=M_i^{-1}W_i^T(x_i-\mu_k)$$
+$$\langle z_i\rangle=M_k^{-1}W_k^T(x_i-\mu_k)$$
 and 
-$$\langle z_iz_i^T\rangle= \sigma^2_kM_i^{-1} +\langle z_i\rangle\langle z_i\rangle^T. $$ 
+$$\langle z_iz_i^T\rangle= \sigma^2_kM_k^{-1} +\langle z_i\rangle\langle z_i\rangle^T. $$ 
 Similar to (54) in Bishop (1999), we obtain
 $$E_{(y_i,z_i)|x_i}l = \sum_{k=1}^K E_{(y_{ik},z_i)|x_i}(l_k)= \sum_{k=1}^K R_{ik}\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) -\frac{1}{2}\langle z_iz_i^T\rangle - \frac{1}{2\sigma_k^2}(tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2)\}.$$
 Finally, we obtain the Q-function,
@@ -47,9 +47,10 @@ $$Q(\theta;\theta^{(t)})=\sum\limits_{i=1}^n\sum\limits_{k=1}^KR_{ik}(\theta^{(t
 where $\langle z_i\rangle$ and  $\langle z_iz_i^T\rangle$ also include  $\theta^{(t)}$.
 
 ## M-step
-This step is to maximize the Q-function. Since the constraint $\sum_{k=1}^K \pi_k=1$ is required, we use Langrange method to obtain a new objective function,
+This step is to maximize the Q-function. Denote $\theta=(\pi_k, \sigma^2_k, \mu_k , W_k, k\leq K)$, all involved parameters. Since the constraint $\sum_{k=1}^K \pi_k=1$ is required, we use Langrange method to obtain a new objective function,
 $$L(\theta, \lambda;\theta^{(t)})=Q(\theta;\theta^{(t)}) + \lambda (1-\sum_{k=1}^K \pi_k).$$
-1)Taking derivative on $\pi_k, \lambda$, and setting it to zero, we obtain 
+
+1) Taking derivative on $\pi_k, \lambda$, and setting it to zero, we obtain 
 $$\frac{\partial L}{\partial \pi_k}=\sum\limits_{i=1}^n R_{ik}(\theta^{(t)}) \pi_k^{-1} - \lambda=0 \tag{2.2.1}$$
 $$\sum_{k=1}^K \pi_k=1 \tag{2.2.2}$$
 Combining $(2.2.1)$ and $(2.2.2)$, we conclude 
@@ -58,36 +59,35 @@ by using the fact that $\sum\limits_{i=1}^n(\sum\limits_{k=1}^KR_{ik}(\theta^{(t
 
 2) Taking derivative on $\mu_k$, we have
 $$\mu_k^{(t+1)}=\frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})\{x_i - W_k^{(t+1)}\langle z_i\rangle^{(t)}\}}{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}$$
-3) Taking derivative on $W_k$, we get
-$$W^{(t+1)}$$
+3) Taking derivative on $W_k$ and using scalar-to-Matrix derivative, we get
+$$\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)}) \{ \langle z_i\rangle (x_i -\mu_k)^T - \langle z_i z_i^T\rangle W_k^T\}]=0$$
+which leads to 
+$$W_k^{(t+1)}=\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})(x_i -\mu_k^{(t+1)})\langle z_i\rangle^T] [\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})\langle z_i z_i^T\rangle]^{-1}. \tag{2.2.3}$$
 
-## Common-used matrix(vector) derivative formula
-It is claimed that a vector is layouted in column vector form as default.
+4) Denote $s_{ik}(W_k, \mu_k)=tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2$. Taking derivative on $\sigma^2_i$, we get 
+$$\sigma_k^{2,(t+1)}= \frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)}) s_{ik}(W_k^{(t+1)}, \mu_k^{(t+1)})}{p\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}. \tag{2.2.4}$$
 
-1)It is worthwhile to note that $y=F(w), y\in R, w\in R^q$, then 
-$$\frac{\partial y}{\partial w}= (\frac{\partial y}{\partial w_1}, \cdots, \frac{\partial y}{\partial w_q}) \in R^{1\times q}.$$
+## Two-stage EM procedure
+Note that M-step equations for $\mu_i$ and $W_i$ are coupled, so further manipulation is required to obtain explicit solutions.
 
-2)A scalar making derivative on a column vector produces a row vector. But a column vector funciton making derivative on a scalar produces a column vector, e.g. 
-$$\frac{\partial w}{\partial y}= (\frac{\partial w_1}{\partial y}, \cdots, \frac{\partial w_q}{\partial y})^T \in R^{q \times 1}.$$
+The likelihood function we wish to maximize is given by 
+$$L(\theta) =\sum\limits_{i=1}^n \ln \big\{\sum\limits_{k=1}^K \pi_k p(x_i|y_{ik}=1)\big\}.$$
+Now, we introduce labels $y_{i}$ as missing data, and ignore the presence of the latent $z_i$. Here, $z_i$ is integrated, so only $y_i$ is missing data. Then the "full" loglikelihood is 
+$$L(\theta; x,y)=\sum\limits_{i=1}^n \sum\limits_{k=1}^K y_{ik}\ln \big\{ \pi_k p(x_i|y_{ik}=1)\big\}.$$
+Based on this full log likelihood, we will construct EM algorithm.
+Thus, the expected complete-data log likelihood is given by 
+$$\hat L= \sum\limits_{i=1}^n \sum\limits_{k=1}^K R_{ik}\ln \big\{ \pi_k p(x_i|y_{ik}=1)\big\}, \tag{2.3.1}$$
+from which we get the updation of $\pi_k^{(t+1)}$ and  $\mu_k^{(t+1)}$:
+$$\pi_k^{(t+1)}=n^{-1}\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})$$
+$$\mu_k^{(t+1)}=\frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})x_i}{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}.$$
+However, we don't solve $\sigma_k^2$ and $W_k$ from $(2.3.1)$, because there is no closed-form in it. Actually, we only need to find $\sigma_k^{2,(t+1)}$ and $W_k^{(t+1)}$ increasing $\hat L(\theta)$. 
+$(2.2.3)$ and $(2.2.4)$ based on $L(\theta, \lambda;\theta^{(t)})$ regarding $z_i$ and $y_i$ as missing data provide the iterative value such that condition.
 
-3) The derivative of a vector function (a vector whose components are functions) $y\in R^p$ with respect to an input vector $x\in R^q$ is written (in numerator layout notation) as
-$$\frac{\partial y}{\partial x}=[\frac{\partial y_1}{\partial x_1}, \cdots, \frac{\partial w_p}{\partial x_1}; \cdots; \frac{\partial y_1}{\partial x_q}, \cdots, \frac{\partial y_q}{\partial x_q}]^T \in R^{p\times q},$$
-whose each column is $\frac{\partial y}{\partial x_j} \in R^{p \times 1}$,where the notation mimics the matrix in Matlab.
+We update $W_k$ by 
+$$W_k^{(t+1)}=\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})(x_i -\mu_k^{(t+1)})\langle z_i\rangle^T] [\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})\langle z_i z_i^T\rangle]^{-1}.$$
+and update $\sigma^2_k$ by 
+$$\sigma_k^{2,(t+1)}= \frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)}) s_{ik}(W_k^{(t+1)}, \mu_k^{(t+1)})}{p\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}.$$
+So far, each parameter has a iterative closed-form solution.
 
-4) The derivative of a scalar function $y\in R$ w.r.t. an matrix $X\in R^{p\times q}$ is written as 
-$$\frac{\partial y}{\partial X}=[\frac{\partial y}{\partial x_{11}}, \cdots, \frac{\partial y}{\partial x_{p1}}; \cdots; \frac{\partial y}{\partial x_{1q}}, \cdots, \frac{\partial y}{\partial x_{pq}}] \in R^{q\times p}$$
-
-5) The derivative of a matrix function $Y\in R^{p\times q}$ w.r.t. an matrix $x\in R$ is known as tangent matrix, and written as 
-$$\frac{\partial Y}{\partial x}=[\frac{\partial y_{11}}{\partial x}, \cdots, \frac{\partial x_{p1}}{\partial x}; \cdots; \frac{\partial x_{1q}}{\partial x}, \cdots, \frac{\partial y_{pq}}{\partial x}] \in R^{q\times p}$$
-
-In a word, the size of a derivative is dimension of dependent variables times that of transpose of independent variables, i.e., dim(dy/dx)=dim(dim(y) \times dim(x^T)). For example, $y\in R, X\in R^{p\times q}$, then $dim(dy/dX)= dim(1\times (q\times p))=q\times p$.
-
-
-1) Scalar-to-Matrix derivative: let $W\in R^{p\times q}$
-
-F(W)=tr(W): $\frac{\partial F}{\partial W}= I_q ~if~ p=q$;
-
-F(W)= a^TWb: $\frac{\partial F}{\partial W}= b a^T$;
-
-F(W)= a^TW^Tb: $\frac{\partial F}{\partial W}= a b^T$;
-
+# Generalized EM algorithm
+https://zhuanlan.zhihu.com/p/150342963

@@ -63,3 +63,66 @@ vec(A∗B)=vec(A)∗vec(B)
 
 2)Inner product（内积）：$A, B \in R^{n \times m}$，
 $$\langle A, B\rangle = tr(A^TB)=vec(A)^T vec(B)=vec(B^T)^T vec(A)$$
+
+## Common-used matrix(vector) derivative formula
+As mentioned above, there are  two common-used laying-out systems of partial derivatives in vectors and matrices, and no standard appears to be emerging yet. In general, the numerator layout convention is often  for the purposes of convenience.
+It is claimed that a vector is layouted in column vector form as default.
+
+
+1) It is worthwhile to note that $y=F(w), y\in R, w\in R^q$, then 
+$$\frac{\partial y}{\partial w}= (\frac{\partial y}{\partial w_1}, \cdots, \frac{\partial y}{\partial w_q}) \in R^{1\times q}.$$
+
+2) A scalar making derivative on a column vector produces a row vector. But a column vector funciton making derivative on a scalar produces a column vector, e.g. 
+$$\frac{\partial w}{\partial y}= (\frac{\partial w_1}{\partial y}, \cdots, \frac{\partial w_q}{\partial y})^T \in R^{q \times 1}.$$
+
+3) The derivative of a vector function (a vector whose components are functions) $y\in R^p$ with respect to an input vector $x\in R^q$ is written (in numerator layout notation) as
+$$\frac{\partial y}{\partial x}=[\frac{\partial y_1}{\partial x_1}, \cdots, \frac{\partial w_p}{\partial x_1}; \cdots; \frac{\partial y_1}{\partial x_q}, \cdots, \frac{\partial y_q}{\partial x_q}]^T \in R^{p\times q},$$
+whose each column is $\frac{\partial y}{\partial x_j} \in R^{p \times 1}$,where the notation mimics the matrix in Matlab.
+
+4) The derivative of a scalar function $y\in R$ w.r.t. an matrix $X\in R^{p\times q}$ is written as 
+$$\frac{\partial y}{\partial X}=[\frac{\partial y}{\partial x_{11}}, \cdots, \frac{\partial y}{\partial x_{p1}}; \cdots; \frac{\partial y}{\partial x_{1q}}, \cdots, \frac{\partial y}{\partial x_{pq}}] \in R^{q\times p}$$
+
+5) The derivative of a matrix function $Y\in R^{p\times q}$ w.r.t. a scalar $x\in R$ is known as tangent matrix, and written as 
+$$\frac{\partial Y}{\partial x}=[\frac{\partial y_{11}}{\partial x}, \cdots, \frac{\partial y_{1q}}{\partial x}; \cdots; \frac{\partial y_{p1}}{\partial x}, \cdots, \frac{\partial y_{pq}}{\partial x}] \in R^{p\times q}$$
+
+In a word, the size of a derivative is dimension of dependent variables times that of transpose of independent variables, i.e., dim(dy/dx)=dim(dim(y) \times dim(x^T)). For example, $y\in R, X\in R^{p\times q}$, then $dim(dy/dX)= dim(1\times (q\times p))=q\times p$.
+
+
+(1)Scalar-to-Matrix derivative: let $W\in R^{p\times q}$
+
+1) $F(W)= a^TWb: \frac{\partial F}{\partial W}= b a^T$;
+
+2) $F(W)= a^TW^Tb: \frac{\partial F}{\partial W}= a b^T$;
+
+3) $F(W)=a(W)b(W):\frac{\partial F}{\partial W}=a(W)\frac{\partial b(W)}{\partial W}+ b(W)\frac{\partial a(W)}{\partial W}$;
+
+4) Trace funtion is only welll-defined for square matrix, so if $p=q$,
+$F(W)=tr(W): \frac{\partial F}{\partial W}= I_q$;
+
+5) $F(W)=tr(U(W)+ V(W)): \frac{\partial F}{\partial W}= \frac{\partial tr(U)}{\partial W}+\frac{\partial tr(V)}{\partial W}$;
+
+6) $F(W)=tr(AW)=tr(WA): \frac{\partial F}{\partial W}= A$;
+
+7) $F(W)=tr(AW^T)=tr(W^TA): \frac{\partial F}{\partial W}= A^T$;
+
+8) $F(W)=tr(W^TAW): \frac{\partial F}{\partial W}= W^T(A+A^T)$;
+I found that we can use the LRD(Left and Right) Derivative method to obtain the result, i.e. $\frac{\partial tr(W^TAW)}{\partial W}= \frac{\partial tr((W^TA)W)}{\partial W}+ \frac{\partial tr(W^T(AW))}{\partial W}=W^TA + W^T A^T$, where $(\cdot)$ is regard as constant.
+
+9) $F(W)=tr(W^{-1}A): \frac{\partial F}{\partial W}= -W^{-1}AW^{-1}$;
+
+10) $F(W)=tr(AWB)=tr(WBA): \frac{\partial F}{\partial W}= BA$;
+
+11) $F(W)=tr(AWBW^TC)=tr(CAWBW^T): \frac{\partial F}{\partial W}= (CAWB)^T+ BW^TCA$; This can be obtained by LRD method.
+
+12) $F(W)=|W|: \frac{\partial F}{\partial W}= |W|W^{-1}$;
+
+13) $F(W)=\ln(a|W|): \frac{\partial F}{\partial W}= W^{-1}$;
+
+14) $F(W)=\|Wa +b\|^2: \frac{\partial F}{\partial W}= 2a (Xa+b)^T$;
+
+15) $F(W)=(Wa)^T C W b: \frac{\partial F}{\partial W}= ab^TX^TC^T + b a^T X^TC$; This can be otained by 1), 2) and LRD method.
+
+
+I conclude 1) the Layout-Match (LM) method: $nrow(\frac{\partial F}{\partial W})=ncol(W)$ to check the correction of dimension of results; 2) LRD method can help to deduce the derivative of multiplication terms.
+
+See https://en.wikipedia.org/wiki/Matrix_calculus#Derivatives_with_vectors for More information.
