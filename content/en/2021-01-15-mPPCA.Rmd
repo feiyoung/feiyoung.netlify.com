@@ -18,6 +18,7 @@ $$f_{ki}=(2\pi \sigma_k^2)^{-p/2}\exp\{\frac{-1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\
 The corresponding loglikelihood is given by 
 $$l=\sum_{k=1}^K y_{ik} \{\ln(\pi_k) + \ln f_{ki} + \ln g_i\} \tag{1.2}$$
 # EM algorithm 
+The essential objective of EM algorithm is to maximize the observation likelihood.
 To deduce EM algorithm, we first calculate the posterior distribution of $(y_i, z_i)$ given $x_i$ and parameters by previous iteration. Noting each $y_{ik}$ is seperatable, we consider 
 $$P(y_{ik}=1, z_i | x_i)=P(y_{ik}=1|x_i)P(z_i|y_{ik}=1,x_i)=R_{ik}f_{k}(z_i),$$
 where $f_k(z_i)$ is the posterior distribution of $z_i$ given $x_i$ when $y_{ik}=1$, $R_{ik}=P(y_{ik}=1|x_i)=a_{ki}/(\sum_k a_{ki})$, where $a_{ki}=\pi_k |C_k|^{-1/2} \exp\{-\frac{1}{2} (x_i-\mu_k)^T C_k^{-1} (x_i -\mu_k)\}$ and $C_k= \sigma_k^2 I + W_k W_k^T$.
@@ -43,7 +44,7 @@ $$\langle z_iz_i^T\rangle= \sigma^2_kM_k^{-1} +\langle z_i\rangle\langle z_i\ran
 Similar to (54) in Bishop (1999), we obtain
 $$E_{(y_i,z_i)|x_i}l = \sum_{k=1}^K E_{(y_{ik},z_i)|x_i}(l_k)= \sum_{k=1}^K R_{ik}\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) -\frac{1}{2}\langle z_iz_i^T\rangle - \frac{1}{2\sigma_k^2}(tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2)\}.$$
 Finally, we obtain the Q-function,
-$$Q(\theta;\theta^{(t)})=\sum\limits_{i=1}^n\sum\limits_{k=1}^KR_{ik}(\theta^{(t)})\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) -\frac{1}{2}\langle z_iz_i^T\rangle - \frac{1}{2\sigma_k^2}(tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2)\},$$
+$$Q(\theta;\theta^{(t)})=\sum\limits_{i=1}^n\sum\limits_{k=1}^KR_{ik}(\theta^{(t)})\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) -\frac{1}{2}tr(\langle z_iz_i^T\rangle) - \frac{1}{2\sigma_k^2}(tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2)\},$$
 where $\langle z_i\rangle$ and  $\langle z_iz_i^T\rangle$ also include  $\theta^{(t)}$.
 
 ## M-step
@@ -89,5 +90,69 @@ and update $\sigma^2_k$ by
 $$\sigma_k^{2,(t+1)}= \frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)}) s_{ik}(W_k^{(t+1)}, \mu_k^{(t+1)})}{p\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}.$$
 So far, each parameter has a iterative closed-form solution.
 
+## Convergence check
+Since  EM algorithm is a subclass of MM algorithm, by the principle of MM algorithm we can check the convergence by the fact that
+$$Q(\theta; \theta^{(t)})\leq L(\theta) ~~ for all~~ \theta$$
+and 
+$$Q(\theta; \theta^{(t)})= L(\theta) ~if~~and ~only~if~ \theta=  \theta^{(t)}.$$
+Thus, we have 
+$$L(\theta^{(t)})=Q(\theta^{(t)}; \theta^{(t)})\leq Q(\theta^{(t+1)}; \theta^{(t)})\leq L(\theta^{(t+1)}). \tag{2.4.1}$$
+Recursively, we have
+$$Q(\theta^{(t+1)}; \theta^{(t)}) \leq Q(\theta^{(t+2)}; \theta^{(t+1)}). \tag{2.4.2}$$
+Thus, there are two methods to check the convergence (correction of programming) of algorithm from the aspect of the objective function.
+ 
+1) By $(2.4.1)$, we can check whether the value of the observed loglikelihood function is nondecreasing. 
+
+2) By $(2.4.2)$, we can check whether the value of the Q-function is nondecreasing. 
+
 # Generalized EM algorithm
-https://zhuanlan.zhihu.com/p/150342963
+
+
+We learn the generalized EM algorithm in this section. Assume $\{y_i,i\leq n\}$ is the observed data, $\{z_i,i\leq n\}$ the latent variable, and we are interested in parameter $\theta$. 
+
+Following the principle of EM algorithm, the complete-data log likelihood is given by 
+$$l(\theta; Y,Z)=\sum_i \ln (P(y_i,z_i; \theta)).$$
+Next, according the posterior distribution of $z_i$ given $y_i$, $P(z_i|y_i;\theta)$, we take conditional expectation on $z_i$ for $l(\theta;Y,Z)$ to obtain Q function. However, it is often difficult to 
+calculate $P(z_i|y_i;\theta)$ in practice, which leads to that EM algorithm fails. In this backgroud, GEM is developed to solve this problem.
+
+First, we inspect the another derivation of EM algorithm,
+$$\ln P(Y;\theta)=\ln P(Y,Z;\theta)-\ln P(Z|Y;\theta)=\ln \frac{P(Y,Z;\theta)}{q(Z)} - \ln \frac{P(Z|Y;\theta)}{q(Z)}, \tag{3.1}$$
+where $q(Z)$ is the density function of $Z$ and is a unknown function to be optimized.
+Taking expectation with respect to $Z$ on both sides of $(3.1)$, we have
+$$\ln P(Y;\theta)=\sum_zq(z)\ln \frac{P(Y,z;\theta)}{q(z)}-\sum_zq(z)\ln \frac{P(z|Y;\theta)}{q(z)},$$
+where the first term is called evidence lower bound (ELBO), and the second term is KL divergence of $P(Z|Y,\theta)$ and $q(Z)$. That is 
+$$ELBO = \sum_zq(z)\ln \frac{P(Y,z;\theta)}{q(z)}$$
+and 
+$$KL(q(Z)\|P(Z|Y,\theta))=\sum_zq(z)\ln \frac{P(z|Y;\theta)}{q(z)}.$$
+Thus, we obtain 
+$$\ln P(Y;\theta) = ELBO + KL(q(Z)\|P(Z|Y,\theta)). \tag{3.2}$$
+Recalling EM algorithm, paramter $\theta$ is fixed at E-step, so $\ln P(Y;\theta)$ is constant here. Thus, the optimized solution of $q(z)$ is equal to $P(z|y;\theta)$ as much as possible. By this way, the E-step of GEM turns to
+$$\arg\max_{q(z)}ELBO$$
+due to
+$$\arg\min_{q(z)}KL(q(z)\|P(z|Y=y,\theta)) \Leftrightarrow \arg\max_{q(z)}ELBO$$
+by the fact that $KL(q(Z)\|P(Z|Y,\theta))=\ln P(Y;\theta) - ELBO$.
+
+And the M-step of GEM is
+$$\theta = \arg\max_\theta ELBO(\theta).$$
+In summary, GEM algorithm is given by 
+$$E-step:~~ q(z)^{(t+1)}=\arg\max_{q(z)} \sum_zq(z)\ln \frac{P(Y,z;\theta^{(t)})}{q(z)}; \tag{3.3}$$
+$$M-step:~~\theta^{(t+1)}=\arg\max_\theta \sum_zq(z)^{(t+1)}\ln \frac{P(Y,z;\theta^{(t)})}{q(z)^{(t+1)}}. \tag{3.4}$$
+Given inital value $\theta^{(0)}$, then repeat $(3.3)$ and $(3.4)$ until convergence. Actually, GEM algorithm belongs to the class of coordinate ascent algortihm, that is, EBLO is a bivariant function on $q(z)$ and $\theta$; first, we optimize $q(z)$ given $\theta$; then we optimize $\theta$ given $q(z)$. 
+
+```{Rmd}
+Remark 1: q(z) is also a parameter joining in iteration.
+Remark 2: GEM does not involve computing P(z|y;\theta).
+Remark 3: In practice, we assume a parametric form for q(z) to approximate P(z|Y;\theta), 
+          then optimize the parameter in iteration, which is called
+          variational Bayesian EM algorithm.
+```
+See https://mbernste.github.io/posts/elbo/ for more details about GEM and ELBO. Why ELBO is called evidence lower bound? Since, given $\theta$, $\ln P(Y;\theta)$ is called evidence, which indicates the evidence of model fitting data by taking $\theta$. By Jensen inequality, we have $\ln P(Y;\theta) \geq ELBO$, a lower bound of envidence, so ELBO is called envidence lower bound.
+
+```{Rmd}
+References:
+  https://mbernste.github.io/posts/elbo/
+  https://zhuanlan.zhihu.com/p/150342963
+  Shi X, Jiao Y, Yang Y, Cheng CY, Yang C, Lin X, Liu J. VIMCO: variational inference for multiple correlated outcomes in genome-wide
+association studies. Bioinformatics. 2019 Oct 1;35(19):3693-3700. doi: 10.1093/bioinformatics/btz167. PMID: 30851102.
+  Tipping, M. E., & Bishop, C. M. (1999). Mixtures of probabilistic principal component analyzers. Neural computation , 11 (2), 443-482.
+```
