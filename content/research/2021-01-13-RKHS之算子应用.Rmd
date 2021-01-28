@@ -10,7 +10,7 @@ layout: post
 # 一般非线性回归的变量选择
 考虑模型
 $$y_i = f^*(x_i) + \varepsilon_i,$$
-其中$x_i \in R^d$，中$f^*$来自于一个对称正定核$k$诱导出的再生核希尔伯特空间$\mathcal{H}$。。 定义偏导函数的$L_2(P)$范数
+其中$x_i \in R^d$，中$f^*$来自于一个对称正定核$k$诱导出的再生核希尔伯特空间$\mathcal{H}$。定义偏导函数的$L_2(P)$范数
 $$\|\frac{\partial f}{\partial x^a}\|_P= \sqrt{\int (\frac{\partial f(x)}{\partial x^a})^2 dP(x)}. \tag{1.1}$$
 在一定条件下，有$\|\frac{\partial f}{\partial x^a}\|_P=0 \Rightarrow ~~ f$关于$x_a$是常数。 
 $(1.1)$的样本版本为
@@ -41,7 +41,15 @@ $$\hat D_a: \mathcal{H} \rightarrow R^n,~~~~(\hat D_a f)_i=\langle f, (\partial_
 $$F(f) =\frac{1}{n}\|Y- \hat S f\|^2 + \tau\nu \|f\|^2_{\mathcal{H}}, \tag{1.3}$$
 其中$Y=(y_1,\cdots, y_n)^T$。于是，泛函$F$关于$f$的导数为
 $$\nabla F(f)=\frac{2}{n} \hat S^* (\hat S f -Y) + 2\tau \nu f,$$
-其中$\hat S^*$为$\hat S$的伴随算子。 
+其中$\hat S^*$为$\hat S$的伴随算子。  
+
+对于任意算子$A: W \rightarrow V$,定义它的值空间（也叫Range空间）为：
+$$Range(A) = \{Aw: \forall w \in W\} \subset V.$$定义它的零空间（也叫kernel空间）为：
+$$Ker(A)=\{w: Aw = 0, w \in W\}.$$
+
+新表示定理的证明：因为$Range(\hat S^*)+Range(\hat V^*)$（此处加号指两个集合的并）是$\mathcal{H}$的一个闭子空间，于是对任意函数$f \in \mathcal{H}$存在存在正交分解：$f = f^{//} + f^{\perp}$，其中$f^{//} \in Range(\hat S^*)+Range(\hat V^*)$，而$f^\perp \perp \{Range(\hat S^*)+Range(\hat V^*)\}$. 将该分解代入$(1.2)$，分别考察目标函数中每一项与$f$分解的依赖关系。第一项只通过$f(x_i)$与$f$产生关系，有$f(x_i) = \langle k_{x_i}， f \rangle = \langle k_{x_i}， f^{//} \rangle + \langle k_{x_i}， f^{\perp} \rangle$
+
+
 ```{Rmd}
 本内容参考文献：
 Rosasco, et al., Nonparameteric Sparsity and Regularization, 2013, JMLR.

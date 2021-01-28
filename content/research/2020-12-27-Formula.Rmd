@@ -6,6 +6,19 @@ output: pdf_document
 layout: post
 ---
 
+## Computational Complexity of Matrix
+We list the common-used complexity.
+
+1) The complexity of computing $|A|$ is $O(n^3)$ if $A \in R^{n\times n}$.
+
+2) The complexity of computing $A^{-1}$ is $O(n^3)$ if $A \in R^{n\times n}$.
+
+3) The complexity of $AB$ is $O(nmp)$ if $A \in R^{n\times m}, B \in R^{m \times p}$.
+
+4) The complexity of Singular value decomposition of $A$ is $O(mn^2)$ if $A \in R^{m\times n}$, where $n\geq m$.
+
+5) The complexity of QR decomposition of  $A$ is $O(\min(mn^2,nm^2))$ if $A \in R^{m\times n}$.
+
 ## Stirling's Formula
 This formula transfers the factorial term into a polynomial term.
 The formula is given by
@@ -90,37 +103,37 @@ In a word, the size of a derivative is dimension of dependent variables times th
 
 (1)Scalar-to-Matrix derivative: let $W\in R^{p\times q}$
 
-1) $F(W)= a^TWb: \frac{\partial F}{\partial W}= b a^T$;
+1) $F(W)= a^TWb: \frac{\partial F}{\partial W}= b a^T;$
 
-2) $F(W)= a^TW^Tb: \frac{\partial F}{\partial W}= a b^T$;
+2) $F(W)= a^TW^Tb: \frac{\partial F}{\partial W}= a b^T;$
 
-3) $F(W)=a(W)b(W):\frac{\partial F}{\partial W}=a(W)\frac{\partial b(W)}{\partial W}+ b(W)\frac{\partial a(W)}{\partial W}$;
+3) $F(W)=a(W)b(W):\frac{\partial F}{\partial W}=a(W)\frac{\partial b(W)}{\partial W}+ b(W)\frac{\partial a(W)}{\partial W};$;
 
 4) Trace funtion is only welll-defined for square matrix, so if $p=q$,
-$F(W)=tr(W): \frac{\partial F}{\partial W}= I_q$;
+$F(W)=tr(W): \frac{\partial F}{\partial W}= I_q;$
 
-5) $F(W)=tr(U(W)+ V(W)): \frac{\partial F}{\partial W}= \frac{\partial tr(U)}{\partial W}+\frac{\partial tr(V)}{\partial W}$;
+5) $F(W)=tr(U(W)+ V(W)): \frac{\partial F}{\partial W}= \frac{\partial tr(U)}{\partial W}+\frac{\partial tr(V)}{\partial W};$
 
-6) $F(W)=tr(AW)=tr(WA): \frac{\partial F}{\partial W}= A$;
+6) $F(W)=tr(AW)=tr(WA): \frac{\partial F}{\partial W}= A;$
 
-7) $F(W)=tr(AW^T)=tr(W^TA): \frac{\partial F}{\partial W}= A^T$;
+7) $F(W)=tr(AW^T)=tr(W^TA): \frac{\partial F}{\partial W}= A^T;$
 
-8) $F(W)=tr(W^TAW): \frac{\partial F}{\partial W}= W^T(A+A^T)$;
+8) $F(W)=tr(W^TAW): \frac{\partial F}{\partial W}= W^T(A+A^T);$
 I found that we can use the LRD(Left and Right) Derivative method to obtain the result, i.e. $\frac{\partial tr(W^TAW)}{\partial W}= \frac{\partial tr((W^TA)W)}{\partial W}+ \frac{\partial tr(W^T(AW))}{\partial W}=W^TA + W^T A^T$, where $(\cdot)$ is regard as constant.
 
-9) $F(W)=tr(W^{-1}A): \frac{\partial F}{\partial W}= -W^{-1}AW^{-1}$;
+9) $F(W)=tr(W^{-1}A): \frac{\partial F}{\partial W}= -W^{-1}AW^{-1};$
 
-10) $F(W)=tr(AWB)=tr(WBA): \frac{\partial F}{\partial W}= BA$;
+10) $F(W)=tr(AWB)=tr(WBA): \frac{\partial F}{\partial W}= BA;$
 
-11) $F(W)=tr(AWBW^TC)=tr(CAWBW^T): \frac{\partial F}{\partial W}= (CAWB)^T+ BW^TCA$; This can be obtained by LRD method.
+11) $F(W)=tr(AWBW^TC)=tr(CAWBW^T): \frac{\partial F}{\partial W}= (CAWB)^T+ BW^TCA;$ This can be obtained by LRD method.
 
-12) $F(W)=|W|: \frac{\partial F}{\partial W}= |W|W^{-1}$;
+12) $F(W)=|W|: \frac{\partial F}{\partial W}= |W|W^{-1};$
 
-13) $F(W)=\ln(a|W|): \frac{\partial F}{\partial W}= W^{-1}$;
+13) $F(W)=\ln(a|W|): \frac{\partial F}{\partial W}= W^{-1};$
 
-14) $F(W)=\|Wa +b\|^2: \frac{\partial F}{\partial W}= 2a (Xa+b)^T$;
+14) $F(W)=\|Wa +b\|^2: \frac{\partial F}{\partial W}= 2a (Wa+b)^T;$
 
-15) $F(W)=(Wa)^T C W b: \frac{\partial F}{\partial W}= ab^TX^TC^T + b a^T X^TC$; This can be otained by 1), 2) and LRD method.
+15) $F(W)=(Wa)^T C W b: \frac{\partial F}{\partial W}= ab^TW^TC^T + b a^T W^TC;$ This can be otained by 1), 2) and LRD method.
 
 
 I conclude 1) the Layout-Match (LM) method: $nrow(\frac{\partial F}{\partial W})=ncol(W)$ to check the correction of dimension of results; 2) LRD method can help to deduce the derivative of multiplication terms.

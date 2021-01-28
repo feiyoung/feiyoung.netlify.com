@@ -15,7 +15,7 @@ layout: post
 <h1>一般非线性回归的变量选择</h1>
 <p>考虑模型
 <span class="math display">\[y_i = f^*(x_i) + \varepsilon_i,\]</span>
-其中<span class="math inline">\(x_i \in R^d\)</span>，中<span class="math inline">\(f^*\)</span>来自于一个对称正定核<span class="math inline">\(k\)</span>诱导出的再生核希尔伯特空间<span class="math inline">\(\mathcal{H}\)</span>。。 定义偏导函数的<span class="math inline">\(L_2(P)\)</span>范数
+其中<span class="math inline">\(x_i \in R^d\)</span>，中<span class="math inline">\(f^*\)</span>来自于一个对称正定核<span class="math inline">\(k\)</span>诱导出的再生核希尔伯特空间<span class="math inline">\(\mathcal{H}\)</span>。定义偏导函数的<span class="math inline">\(L_2(P)\)</span>范数
 <span class="math display">\[\|\frac{\partial f}{\partial x^a}\|_P= \sqrt{\int (\frac{\partial f(x)}{\partial x^a})^2 dP(x)}. \tag{1.1}\]</span>
 在一定条件下，有<span class="math inline">\(\|\frac{\partial f}{\partial x^a}\|_P=0 \Rightarrow ~~ f\)</span>关于<span class="math inline">\(x_a\)</span>是常数。
 <span class="math inline">\((1.1)\)</span>的样本版本为
@@ -44,6 +44,10 @@ layout: post
 其中<span class="math inline">\(Y=(y_1,\cdots, y_n)^T\)</span>。于是，泛函<span class="math inline">\(F\)</span>关于<span class="math inline">\(f\)</span>的导数为
 <span class="math display">\[\nabla F(f)=\frac{2}{n} \hat S^* (\hat S f -Y) + 2\tau \nu f,\]</span>
 其中<span class="math inline">\(\hat S^*\)</span>为<span class="math inline">\(\hat S\)</span>的伴随算子。</p>
+<p>对于任意算子<span class="math inline">\(A: W \rightarrow V\)</span>,定义它的值空间（也叫Range空间）为：
+<span class="math display">\[Range(A) = \{Aw: \forall w \in W\} \subset V.\]</span>定义它的零空间（也叫kernel空间）为：
+<span class="math display">\[Ker(A)=\{w: Aw = 0, w \in W\}.\]</span></p>
+<p>新表示定理的证明：因为<span class="math inline">\(Range(\hat S^*)+Range(\hat V^*)\)</span>（此处加号指两个集合的并）是<span class="math inline">\(\mathcal{H}\)</span>的一个闭子空间，于是对任意函数<span class="math inline">\(f \in \mathcal{H}\)</span>存在存在正交分解：<span class="math inline">\(f = f^{//} + f^{\perp}\)</span>，其中<span class="math inline">\(f^{//} \in Range(\hat S^*)+Range(\hat V^*)\)</span>，而<span class="math inline">\(f^\perp \perp \{Range(\hat S^*)+Range(\hat V^*)\}\)</span>. 将该分解代入<span class="math inline">\((1.2)\)</span>，分别考察目标函数中每一项与<span class="math inline">\(f\)</span>分解的依赖关系。第一项只通过<span class="math inline">\(f(x_i)\)</span>与<span class="math inline">\(f\)</span>产生关系，有<span class="math inline">\(f(x_i) = \langle k_{x_i}， f \rangle = \langle k_{x_i}， f^{//} \rangle + \langle k_{x_i}， f^{\perp} \rangle\)</span></p>
 <pre class="rmd"><code>本内容参考文献：
 Rosasco, et al., Nonparameteric Sparsity and Regularization, 2013, JMLR.</code></pre>
 </div>

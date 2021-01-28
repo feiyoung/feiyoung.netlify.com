@@ -6,6 +6,11 @@ output: pdf_document
 layout: post
 ---
 
+## 常用VPN
+网驰VPN： http://wch.bkwlk.cn/?c=3038
+
+佛跳墙VPN： https://www.haoxixin.com/ncn/?a=fr
+
 ## 琳琅满目的主题 
 
 选择合适自己风格的主题，请参照：

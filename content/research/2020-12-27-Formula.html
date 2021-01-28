@@ -10,6 +10,17 @@ layout: post
 <script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
+<div id="computational-complexity-of-matrix" class="section level2">
+<h2>Computational Complexity of Matrix</h2>
+<p>We list the common-used complexity.</p>
+<ol style="list-style-type: decimal">
+<li><p>The complexity of computing <span class="math inline">\(|A|\)</span> is <span class="math inline">\(O(n^3)\)</span> if <span class="math inline">\(A \in R^{n\times n}\)</span>.</p></li>
+<li><p>The complexity of computing <span class="math inline">\(A^{-1}\)</span> is <span class="math inline">\(O(n^3)\)</span> if <span class="math inline">\(A \in R^{n\times n}\)</span>.</p></li>
+<li><p>The complexity of <span class="math inline">\(AB\)</span> is <span class="math inline">\(O(nmp)\)</span> if <span class="math inline">\(A \in R^{n\times m}, B \in R^{m \times p}\)</span>.</p></li>
+<li><p>The complexity of Singular value decomposition of <span class="math inline">\(A\)</span> is <span class="math inline">\(O(mn^2)\)</span> if <span class="math inline">\(A \in R^{m\times n}\)</span>, where <span class="math inline">\(n\geq m\)</span>.</p></li>
+<li><p>The complexity of QR decomposition of <span class="math inline">\(A\)</span> is <span class="math inline">\(O(\min(mn^2,nm^2))\)</span> if <span class="math inline">\(A \in R^{m\times n}\)</span>.</p></li>
+</ol>
+</div>
 <div id="stirlings-formula" class="section level2">
 <h2>Stirling’s Formula</h2>
 <p>This formula transfers the factorial term into a polynomial term.
@@ -78,23 +89,23 @@ whose each column is <span class="math inline">\(\frac{\partial y}{\partial x_j}
 <p>In a word, the size of a derivative is dimension of dependent variables times that of transpose of independent variables, i.e., dim(dy/dx)=dim(dim(y) dim(x^T)). For example, <span class="math inline">\(y\in R, X\in R^{p\times q}\)</span>, then <span class="math inline">\(dim(dy/dX)= dim(1\times (q\times p))=q\times p\)</span>.</p>
 <p>(1)Scalar-to-Matrix derivative: let <span class="math inline">\(W\in R^{p\times q}\)</span></p>
 <ol style="list-style-type: decimal">
-<li><p><span class="math inline">\(F(W)= a^TWb: \frac{\partial F}{\partial W}= b a^T\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)= a^TW^Tb: \frac{\partial F}{\partial W}= a b^T\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=a(W)b(W):\frac{\partial F}{\partial W}=a(W)\frac{\partial b(W)}{\partial W}+ b(W)\frac{\partial a(W)}{\partial W}\)</span>;</p></li>
+<li><p><span class="math inline">\(F(W)= a^TWb: \frac{\partial F}{\partial W}= b a^T;\)</span></p></li>
+<li><p><span class="math inline">\(F(W)= a^TW^Tb: \frac{\partial F}{\partial W}= a b^T;\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=a(W)b(W):\frac{\partial F}{\partial W}=a(W)\frac{\partial b(W)}{\partial W}+ b(W)\frac{\partial a(W)}{\partial W};\)</span>;</p></li>
 <li><p>Trace funtion is only welll-defined for square matrix, so if <span class="math inline">\(p=q\)</span>,
-<span class="math inline">\(F(W)=tr(W): \frac{\partial F}{\partial W}= I_q\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=tr(U(W)+ V(W)): \frac{\partial F}{\partial W}= \frac{\partial tr(U)}{\partial W}+\frac{\partial tr(V)}{\partial W}\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=tr(AW)=tr(WA): \frac{\partial F}{\partial W}= A\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=tr(AW^T)=tr(W^TA): \frac{\partial F}{\partial W}= A^T\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=tr(W^TAW): \frac{\partial F}{\partial W}= W^T(A+A^T)\)</span>;
+<span class="math inline">\(F(W)=tr(W): \frac{\partial F}{\partial W}= I_q;\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=tr(U(W)+ V(W)): \frac{\partial F}{\partial W}= \frac{\partial tr(U)}{\partial W}+\frac{\partial tr(V)}{\partial W};\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=tr(AW)=tr(WA): \frac{\partial F}{\partial W}= A;\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=tr(AW^T)=tr(W^TA): \frac{\partial F}{\partial W}= A^T;\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=tr(W^TAW): \frac{\partial F}{\partial W}= W^T(A+A^T);\)</span>
 I found that we can use the LRD(Left and Right) Derivative method to obtain the result, i.e. <span class="math inline">\(\frac{\partial tr(W^TAW)}{\partial W}= \frac{\partial tr((W^TA)W)}{\partial W}+ \frac{\partial tr(W^T(AW))}{\partial W}=W^TA + W^T A^T\)</span>, where <span class="math inline">\((\cdot)\)</span> is regard as constant.</p></li>
-<li><p><span class="math inline">\(F(W)=tr(W^{-1}A): \frac{\partial F}{\partial W}= -W^{-1}AW^{-1}\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=tr(AWB)=tr(WBA): \frac{\partial F}{\partial W}= BA\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=tr(AWBW^TC)=tr(CAWBW^T): \frac{\partial F}{\partial W}= (CAWB)^T+ BW^TCA\)</span>; This can be obtained by LRD method.</p></li>
-<li><p><span class="math inline">\(F(W)=|W|: \frac{\partial F}{\partial W}= |W|W^{-1}\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=\ln(a|W|): \frac{\partial F}{\partial W}= W^{-1}\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=\|Wa +b\|^2: \frac{\partial F}{\partial W}= 2a (Xa+b)^T\)</span>;</p></li>
-<li><p><span class="math inline">\(F(W)=(Wa)^T C W b: \frac{\partial F}{\partial W}= ab^TX^TC^T + b a^T X^TC\)</span>; This can be otained by 1), 2) and LRD method.</p></li>
+<li><p><span class="math inline">\(F(W)=tr(W^{-1}A): \frac{\partial F}{\partial W}= -W^{-1}AW^{-1};\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=tr(AWB)=tr(WBA): \frac{\partial F}{\partial W}= BA;\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=tr(AWBW^TC)=tr(CAWBW^T): \frac{\partial F}{\partial W}= (CAWB)^T+ BW^TCA;\)</span> This can be obtained by LRD method.</p></li>
+<li><p><span class="math inline">\(F(W)=|W|: \frac{\partial F}{\partial W}= |W|W^{-1};\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=\ln(a|W|): \frac{\partial F}{\partial W}= W^{-1};\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=\|Wa +b\|^2: \frac{\partial F}{\partial W}= 2a (Wa+b)^T;\)</span></p></li>
+<li><p><span class="math inline">\(F(W)=(Wa)^T C W b: \frac{\partial F}{\partial W}= ab^TW^TC^T + b a^T W^TC;\)</span> This can be otained by 1), 2) and LRD method.</p></li>
 </ol>
 <p>I conclude 1) the Layout-Match (LM) method: <span class="math inline">\(nrow(\frac{\partial F}{\partial W})=ncol(W)\)</span> to check the correction of dimension of results; 2) LRD method can help to deduce the derivative of multiplication terms.</p>
 <p>See <a href="https://en.wikipedia.org/wiki/Matrix_calculus#Derivatives_with_vectors" class="uri">https://en.wikipedia.org/wiki/Matrix_calculus#Derivatives_with_vectors</a> for More information.</p>
