@@ -1,0 +1,22 @@
+---
+title: 'Summary of problems in discussion'
+author: "Wei Liu"
+date: '2021-01-15'
+output: pdf_document
+---
+# Summary,  2021-01-29
+The aims or problmes are as follows:
+
+1) Write a R package to implement the algorithm about the estimation of the current model;
+
+2) Compare the performance of three methods: 1)the Proposed, 2) conducting GMM after PCA dimension reduction, and 3) conducting GMM on the latent variable, where GMM denotes Gaussian mixture model.
+
+3) Write the model settings and simulation results into a document, and viualization is preferred. Model settings include that $p$ is set as $1000, 2000$, $n$ is set as $2000, 4000$, $K$ is set as $2, 4, 6$.
+
+4) Plot the estimates of latent variables $z$.
+
+5) Learn the method of data preprocessing and Yang Yi Shixiong can provide somde demo codes and real data.
+
+6) Read some papers about the area of Single-cell.
+
+7) Think about adding the Hidden Gaussian Markov fields into model, then use ICM algorithm to implement it.

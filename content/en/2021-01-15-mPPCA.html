@@ -1,7 +1,8 @@
 ---
-title: "EM algorithm for mixture probabilistic PCA"
+title: 'EM algorithm: an exmaple with mixture probabilistic PCA'
 author: "Wei Liu"
 date: '2021-01-15'
+output: pdf_document
 ---
 
 <link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
@@ -13,16 +14,26 @@ date: '2021-01-15'
 <p>Consider a model
 <span class="math display">\[x_i = \mu_k + W_k z_i + \varepsilon_k, ~~ if~y_{ik}=1,y_{ij}=0,i\neq j.\tag{1.1}\]</span>
 where <span class="math inline">\(x_i \in R^p, z_i \in R^q, \varepsilon_k\sim N(0, \sigma^2_kI_p)\)</span>,<span class="math inline">\(z_i \sim N(0, I_q), W_k \in R^{p\times q}, y_i \sim Multinormial(1,\pi),\pi \in R^K\)</span>.
-First, it performs clustering, then conducts PCA.</p>
+First, it performs clustering, then conducts PCA. The following contents are divided into three parts:</p>
+<ol style="list-style-type: decimal">
+<li><p>evaluate full-data loglikelihood <span class="math inline">\(l(\theta)\)</span>;</p></li>
+<li><p>take posterior expectation of latent variables on <span class="math inline">\(l(\theta)\)</span>, and obtain Q-function;</p></li>
+<li><p>Maximize the Q-function.</p></li>
+</ol>
+<div id="full-data-loglikelihood" class="section level2">
+<h2>Full-data loglikelihood</h2>
 <p>By <span class="math inline">\((1.1)\)</span>, we can obtain the complete-data likelihood for individual <span class="math inline">\(i\)</span>,
 <span class="math inline">\(P(x_i,z_i, y_i)=p(x_i|z_i,y_i)p(z_i|y_i)p(y_i)\)</span>, whose specific form is
 <span class="math display">\[\Pi_{k=1}^K\{\pi_k f_{ki} g_i\}^{y_{ik}},\]</span>
 where
 <span class="math display">\[f_{ki}=(2\pi \sigma_k^2)^{-p/2}\exp\{\frac{-1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2\}, g_i=(2\pi)^{-q/2}\exp(-\frac{1}{2}\|z_i\|^2).\]</span>
 The corresponding loglikelihood is given by
-<span class="math display">\[l=\sum_{k=1}^K y_{ik} \{\ln(\pi_k) + \ln f_{ki} + \ln g_i\} \tag{1.2}\]</span>
-# EM algorithm
-The essential objective of EM algorithm is to maximize the observation likelihood.
+<span class="math display">\[l=\sum_{k=1}^K y_{ik} \{\ln(\pi_k) + \ln f_{ki} + \ln g_i\} \tag{1.2}\]</span></p>
+</div>
+</div>
+<div id="em-algorithm" class="section level1">
+<h1>EM algorithm</h1>
+<p>The essential objective of EM algorithm is to maximize the observation likelihood.
 To deduce EM algorithm, we first calculate the posterior distribution of <span class="math inline">\((y_i, z_i)\)</span> given <span class="math inline">\(x_i\)</span> and parameters by previous iteration. Noting each <span class="math inline">\(y_{ik}\)</span> is seperatable, we consider
 <span class="math display">\[P(y_{ik}=1, z_i | x_i)=P(y_{ik}=1|x_i)P(z_i|y_{ik}=1,x_i)=R_{ik}f_{k}(z_i),\]</span>
 where <span class="math inline">\(f_k(z_i)\)</span> is the posterior distribution of <span class="math inline">\(z_i\)</span> given <span class="math inline">\(x_i\)</span> when <span class="math inline">\(y_{ik}=1\)</span>, <span class="math inline">\(R_{ik}=P(y_{ik}=1|x_i)=a_{ki}/(\sum_k a_{ki})\)</span>, where <span class="math inline">\(a_{ki}=\pi_k |C_k|^{-1/2} \exp\{-\frac{1}{2} (x_i-\mu_k)^T C_k^{-1} (x_i -\mu_k)\}\)</span> and <span class="math inline">\(C_k= \sigma_k^2 I + W_k W_k^T\)</span>.
@@ -111,7 +122,10 @@ Thus, there are two methods to check the convergence (correction of programming)
 </div>
 <div id="generalized-em-algorithm" class="section level1">
 <h1>Generalized EM algorithm</h1>
-<p>We learn the generalized EM algorithm in this section. Assume <span class="math inline">\(\{y_i,i\leq n\}\)</span> is the observed data, <span class="math inline">\(\{z_i,i\leq n\}\)</span> the latent variable, and we are interested in parameter <span class="math inline">\(\theta\)</span>.</p>
+<p>We learn the generalized EM algorithm in this section, whose definition is referred to Dempster (1977, JRSSB, EM and GEM). An iterative algorithm <span class="math inline">\(\theta^{(t+1)}= M(\theta^{(t)})\)</span> is a generalized EM if
+<span class="math display">\[Q(M(\theta); \theta) \geq Q(\theta; \theta).\]</span>
+So, we only need that <span class="math inline">\(\theta\)</span> iterates one step towards the nondecreasing direction of <span class="math inline">\(Q(\theta; \theta^{(t)})\)</span>. MM algorithm is an extension of GEM in the sense that Q-function is changed to 1)Minorization function, i.e. <span class="math inline">\(L(\theta) \geq Q(\theta; \theta^{(t)})\)</span> and 2)equality holds iif <span class="math inline">\(\theta=\theta^{(t)}\)</span>.</p>
+<p>Assume <span class="math inline">\(\{y_i,i\leq n\}\)</span> is the observed data, <span class="math inline">\(\{z_i,i\leq n\}\)</span> the latent variable, and we are interested in parameter <span class="math inline">\(\theta\)</span>.</p>
 <p>Following the principle of EM algorithm, the complete-data log likelihood is given by
 <span class="math display">\[l(\theta; Y,Z)=\sum_i \ln (P(y_i,z_i; \theta)).\]</span>
 Next, according the posterior distribution of <span class="math inline">\(z_i\)</span> given <span class="math inline">\(y_i\)</span>, <span class="math inline">\(P(z_i|y_i;\theta)\)</span>, we take conditional expectation on <span class="math inline">\(z_i\)</span> for <span class="math inline">\(l(\theta;Y,Z)\)</span> to obtain Q function. However, it is often difficult to
@@ -144,6 +158,26 @@ Remark 3: In practice, we assume a parametric form for q(z) to approximate P(z|Y
           then optimize the parameter in iteration, which is called
           variational Bayesian EM algorithm.</code></pre>
 <p>See <a href="https://mbernste.github.io/posts/elbo/" class="uri">https://mbernste.github.io/posts/elbo/</a> for more details about GEM and ELBO. Why ELBO is called evidence lower bound? Since, given <span class="math inline">\(\theta\)</span>, <span class="math inline">\(\ln P(Y;\theta)\)</span> is called evidence, which indicates the evidence of model fitting data by taking <span class="math inline">\(\theta\)</span>. By Jensen inequality, we have <span class="math inline">\(\ln P(Y;\theta) \geq ELBO\)</span>, a lower bound of envidence, so ELBO is called envidence lower bound.</p>
+</div>
+<div id="mm-algorithm-em-as-a-special-case" class="section level1">
+<h1>MM algorithm: EM as a special case</h1>
+<p>Assume <span class="math inline">\(f(x; \theta)\)</span> is observerd density function, then
+<span class="math display">\[\ln f(x;\theta)- \ln f(x;\theta^{(t)}) = \ln \frac{\int f(x,z;\theta)dz}{ f(x;\theta^{(t)})}\hat = I_1,\]</span>
+where <span class="math inline">\(z\)</span> is a latent variable or missing data.
+Furthermore, we obtain
+<span class="math display">\[I_1 = \ln \int\frac{ f(x,z;\theta)}{ f(x,z;\theta^{(t)})} f(z|x;\theta^{(t)})dz = \ln E_{z|x;\theta^{(t)}} \left(\frac{ f(x,z;\theta)}{ f(x,z;\theta^{(t)})} \right).\]</span>
+By Jesen inequality, we have
+<span class="math display">\[I_1 \geq E_{z|x;\theta^{(t)}}  \ln \left(\frac{ f(x,z;\theta)}{ f(x,z;\theta^{(t)})} \right),\]</span>
+where the equality holds iif <span class="math inline">\(\theta=\theta^{(t)}\)</span>.
+Thus, we get
+<span class="math display">\[\ln f(x;\theta) \geq   E_{z|x;\theta^{(t)}}\ln f(x,z;\theta) - E_{z|x;\theta^{(t)}}\ln f(x,z;\theta^{(t)}) + \ln f(x;\theta^{(t)}).\]</span>
+The minorization function
+<span class="math display">\[g(\theta; \theta^{(t)})= E_{z|x;\theta^{(t)}}\ln f(x,z;\theta) + C(\theta^{(t)}),\]</span>
+where <span class="math inline">\(C(\theta^{(t)})\)</span> is a constant independent of <span class="math inline">\(\theta\)</span>. Thus, we only require to maximize the posterior expectation of <span class="math inline">\(z\)</span> on full-data loglikelihood, and EM algorithm is a special case of MM algorithm.</p>
+</div>
+<div id="ecm-algorithm" class="section level1">
+<h1>ECM algorithm</h1>
+<p>ECM algorithm is also an extension of EM algorithm, which solves the computation problem in M-step and has good convergence properties.</p>
 <pre class="rmd"><code>References:
   https://mbernste.github.io/posts/elbo/
   https://zhuanlan.zhihu.com/p/150342963
