@@ -1,0 +1,281 @@
+---
+title: "R与Cpp混合编程"
+author: "刘伟"
+date: '2021-01-29'
+output: pdf_document
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="r配置" class="section level1">
+<h1>R配置</h1>
+<p>要正确编译cpp文件，R的安装路径不能有空格，否则会报错如下：</p>
+<pre class="rmd"><code>Error in system(cmd, intern = !showOutput) : &#39;C:/Program&#39; not found</code></pre>
+</div>
+<div id="头文件的意义" class="section level1">
+<h1>头文件的意义</h1>
+<p>Cpp中有两类文件，一个是cpp源文件.cpp为扩展名，用于写源代码，包括变量和函数定义；一个是头文件.h为扩展名，用于申明变量和函数，不能包含变量和函数的定义。 只能在头文件中写形如：extern int a;和void f();的句子。这些才是声明。如果写上int a;或者void f() {}这样的句子，那么一旦这个头文件被两个或两个以上的.cpp文件包含的话，编译器会立马报错。 “extern int a;”表示申明一个已定义的变量；“void f();”表示申明一个已定义的无返回值的函数f。
+但是，有三种情况除外，头文件中可以写const和static对象的定义；头文件中可 以写内联函数（inline）的定义；头文件中可以写类 （class）的定义。</p>
+<div id="申明函数" class="section level2">
+<h2>申明函数</h2>
+<p>头文件中申明函数的语法：</p>
+<pre class="rmd"><code>int Dhv2Feature(unsigned char* p_ucData, int iWidth, int iHeight, unsigned short* p_usBlock);
+float Dhv2Dhv(unsigned short* sF1, unsigned short* sF2, int iWidth, int iHeight);</code></pre>
+<p>另外省略参数名也是可以的：</p>
+<pre class="rmd"><code>int Dhv2Feature(unsigned char* , int , int , unsigned short* );
+float Dhv2Dhv(unsigned short* , unsigned short* , int , int );</code></pre>
+</div>
+<div id="申明变量" class="section level2">
+<h2>申明变量</h2>
+<p>头文件中申明函数的语法：</p>
+<pre class="rmd"><code>extern int a;</code></pre>
+</div>
+<div id="类对象的申明" class="section level2">
+<h2>类对象的申明</h2>
+<pre class="rmd"><code>car.h:
+#ifndef __Car_H__
+#define __Car_H__
+class Wheel;
+class Car
+{
+public:
+    Car(int num);
+    ~Car();
+    void show();
+private:
+    Wheel* mWheel;
+    int mWheelNum;
+};
+#endif
+
+wheel.h：
+#ifndef __Wheel_H__
+#define __Wheel_H__
+#include &lt;iostream&gt;
+using namespace std;
+class Wheel
+{
+public:
+    Wheel();
+    ~Wheel();
+    void show();
+};
+#endif</code></pre>
+<p>定义wheel.cpp</p>
+<pre class="rmd"><code>#include &quot;Wheel.h&quot;
+Wheel::Wheel()
+{
+    cout &lt;&lt; &quot;Wheel is created&quot; &lt;&lt; endl;
+}
+Wheel::~Wheel()
+{
+    cout &lt;&lt; &quot;Wheel is destroyed&quot; &lt;&lt; endl;
+}
+void Wheel::show()
+{
+}</code></pre>
+<p>如果加入了命名空间，怎么写类声明呢？
+1.如果类都在同一命名空间，那直接写在同一namespace里面就可以了</p>
+<pre class="rmd"><code>#ifndef __Wheel_H__
+#define __Wheel_H__
+#include &lt;iostream&gt;
+using namespace std;
+namespace Gnuser
+{
+    class Wheel
+    {
+    public:
+        Wheel();
+        ~Wheel();
+        void show();
+    };
+}
+#endif
+
+#ifndef __Car_H__
+#define __Car_H__
+namespace Gnuser
+{
+    class Wheel;
+    class Car
+    {
+    public:
+        Car(int num);
+        ~Car();
+        void show();
+    private:
+        Wheel* mWheel;
+        int mWheelNum;
+    };
+}
+#endif</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>现在如果再加一个命名空间，那么可以这样定义</li>
+</ol>
+<pre class="rmd"><code>#ifndef __Road_H__
+#define __Road_H__
+#include &lt;vector&gt;
+using namespace std;
+namespace Gnuser
+{
+    class Car;
+}
+namespace Dxn
+{
+    class Road
+    {
+    public:
+        Road(int num);
+        ~Road();
+        void addCar();
+    private:
+        vector&lt;Gnuser::Car*&gt; mCars;
+    };
+}
+#endif</code></pre>
+</div>
+<div id="预防头文件的反复调用" class="section level2">
+<h2>预防头文件的反复调用</h2>
+<p>在C++语言编程中，我们经常会接触到头文件，比如说声明类，或者声明命名空间等，而每次在编写xxx.h的头文件时，编程书上都会让我们在代码的前后加上如下的三句代码：</p>
+<pre class="rmd"><code>#ifndef XXX_H_
+#define XXX_H_
+……
+#endif</code></pre>
+<p>比如“#ifndef Rcpp__sugar__sets_h”表示判断Rcpp文件夹的子文件sugar中的sets.h头文件是否已经被包含，若已经包含进去，则不执行“……”中的申明语句。</p>
+<p>更多详情见： <a href="https://blog.csdn.net/u012617944/article/details/78405686" class="uri">https://blog.csdn.net/u012617944/article/details/78405686</a>;
+<a href="https://blog.csdn.net/leowinbow/article/details/82884518" class="uri">https://blog.csdn.net/leowinbow/article/details/82884518</a>;</p>
+</div>
+<div id="头文件与同名源文件的关系" class="section level2">
+<h2>头文件与同名源文件的关系</h2>
+<p>头文件和源文件不必同名，只是约定俗成的，为了好记而已。
+见 <a href="https://blog.csdn.net/lee244868149/article/details/39341751" class="uri">https://blog.csdn.net/lee244868149/article/details/39341751</a></p>
+</div>
+<div id="hpp头文件与h头文件的区别-c中的.hpp文件" class="section level2">
+<h2>hpp头文件与h头文件的区别 C++中的.hpp文件</h2>
+<p>见 <a href="https://blog.csdn.net/acoolgiser/article/details/102832675" class="uri">https://blog.csdn.net/acoolgiser/article/details/102832675</a></p>
+</div>
+<div id="头文件中的功能函数" class="section level2">
+<h2>头文件中的功能函数</h2>
+<p>Cpp头文件的功能函数可以去网站查询其具体用法：
+<a href="http://www.cplusplus.com/reference/cmath/exp/" class="uri">http://www.cplusplus.com/reference/cmath/exp/</a></p>
+<p>C++之Algorithm头文件下的常用函数：
+<a href="https://blog.csdn.net/SSibyl/article/details/108929127?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control" class="uri">https://blog.csdn.net/SSibyl/article/details/108929127?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control</a></p>
+</div>
+</div>
+<div id="命名空间详解" class="section level1">
+<h1>命名空间详解</h1>
+<p>见： <a href="https://zhuanlan.zhihu.com/p/126481010" class="uri">https://zhuanlan.zhihu.com/p/126481010</a>
+C++中加const与不加const的区别：<a href="https://www.cnblogs.com/code-fisher/p/5329026.html" class="uri">https://www.cnblogs.com/code-fisher/p/5329026.html</a></p>
+</div>
+<div id="编程注意" class="section level1">
+<h1>编程注意</h1>
+<ol style="list-style-type: decimal">
+<li>可变虚参定义无返回值函数：这里可变虚参指函数的输入虚参数，通过 “type&amp; object”形式使得传入该函数的变量具有可变性质。于是使得无返回值函数具有了返回值函数的能力。例如：</li>
+</ol>
+<pre class="rmd"><code>void changeValue(int x){ //若不加取地址符号
+  x = x + 1;
+}
+int y = 1;
+changeValue(y); // 只能改变虚参的值，实参变量的值不变。
+cout&gt;&gt; y;
+// 1
+void changeValue(int&amp; x){ 
+  x = x + 1;
+}
+int y = 1;
+changeValue(y); //加上取地址符号后，就可以改变实参变量的值了。
+cout&gt;&gt; y;   //arma::svd函数就是一个典型的例子。
+// 2</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>函数返回值为列表时，另一种方法：</li>
+</ol>
+<pre class="rmd"><code>List output = List::create(Rcpp::Named(&quot;alpha&quot;) = alpha,
+                               Rcpp::Named(&quot;alpha0&quot;) = alpha0,
+                               Rcpp::Named(&quot;beta0&quot;) = beta0,
+                               Rcpp::Named(&quot;sigma2y&quot;) = sigma2y,
+                               Rcpp::Named(&quot;sigma2z&quot;) = sigma2z,
+                               Rcpp::Named(&quot;sigma2beta&quot;) = sigma2beta,
+                               Rcpp::Named(&quot;gam&quot;) = gam,
+                               Rcpp::Named(&quot;loglik_seq&quot;) = loglik_out,
+                               Rcpp::Named(&quot;loglik&quot;) = loglik_max,
+                               Rcpp::Named(&quot;iteration&quot;) = Iteration-1);</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>字符串划分函数的使用
+利用boost.h头文件中的split()函数来划分字符串，它是一个可变实参变量的无返回值函数。</li>
+</ol>
+<pre class="rmd"><code>Example:
+
+Input : boost::split(result, input, boost::is_any_of(&quot;\t&quot;))
+       input = &quot;geeks\tfor\tgeeks&quot;
+Output : geeks
+        for
+        geeks
+Explanation: Here in input string we have &quot;geeks\tfor\tgeeks&quot;
+and result is a container in which we want to store our result
+here separator is &quot;\t&quot;.</code></pre>
+<p>具体代码：</p>
+<pre class="rmd"><code>/ C++ program to split 
+// string into substrings 
+// which are separated by 
+// separater using boost::split 
+  
+// this header file contains boost::split function 
+#include &lt;bits/stdc++.h&gt; 
+#include &lt;boost/algorithm/string.hpp&gt; 
+using namespace std; 
+  
+int main() 
+{ 
+    string input(&quot;geeks\tfor\tgeeks&quot;); 
+    vector&lt;string&gt; result; 
+    boost::split(result, input, boost::is_any_of(&quot;\t&quot;)); 
+  
+    for (int i = 0; i &lt; result.size(); i++) 
+        cout &lt;&lt; result[i] &lt;&lt; endl; 
+    return 0; 
+} </code></pre>
+<p>更多见： <a href="https://www.geeksforgeeks.org/boostsplit-c-library/" class="uri">https://www.geeksforgeeks.org/boostsplit-c-library/</a></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>字符串转化为数值型atof
+atof是iostream.h头文件中命名空间std中的函数，它是ascII to float的缩写，它将ascII字符串转换为相应的单精度浮点数，比如传入“1.234”，经过处理后就返回float类型的数1.234 。类似的还有atoi 、atol、itoa、ftoa等等。</p></li>
+<li><p>指针和指针变量</p></li>
+</ol>
+<pre class="rmd"><code>  int a ;  //定义int类型变量
+
+ int *p = &amp;a;   //变量 p 是一个 int* 类型的一级指针变量，&amp;是取地址符，p保存了a 的地址
+
+  cout &lt;&lt; *p &lt;&lt;endl; //输出 p 指向变量的值，即输出a的值
+
+  cout &lt;&lt;  p &lt;&lt; endl; //输出 p 的值，即输出变量a在内存中的地址
+
+  int **q;  //定义二级指针变量
+
+  q = &amp;p; // 二级指针变量q保存了一级指针变量p的地址
+
+  cout &lt;&lt; q &lt;&lt;endl; //输出指针变量p在内存中的地址
+
+cout &lt;&lt;  *q &lt;&lt; endl; //输出q指向变量的值，即变量p的值，即a的地址
+
+   cout &lt;&lt;  **q &lt;&lt; endl; //可以这样理解  cout&lt;&lt;*(*q), 等价于 cout &lt;&lt;*p， 即输出a的值</code></pre>
+<p><a href="https://blog.csdn.net/woainilixuhao/article/details/81784124" class="uri">https://blog.csdn.net/woainilixuhao/article/details/81784124</a></p>
+<ol start="6" style="list-style-type: decimal">
+<li><p>时间变量
+std命名空间中还有时间类型.
+std::clock_t a = clock();</p></li>
+<li><p>快速调用R中现有函数
+以glmnet包中的函数为例：</p></li>
+</ol>
+<pre class="rmd"><code>List cv_glmnet(mat x, vec y, double alpha){
+  
+  // calling cv.glmnet()
+  Function f(&quot;cv.glmnet&quot;);
+  return f(Named(&quot;x&quot;) = x, Named(&quot;y&quot;) = y, Named(&quot;alpha&quot;) = alpha);
+  
+}</code></pre>
+<p>具体代码：</p>
+<pre class="rmd"><code>library(glmnet)
+res &lt;- cv_glmnet(cbind(1:10,1), 1:10, 0.1)
+res$lambda.min</code></pre>
+</div>

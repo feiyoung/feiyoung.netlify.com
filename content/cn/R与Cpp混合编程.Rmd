@@ -1,0 +1,296 @@
+---
+title: "R与Cpp混合编程"
+author: "刘伟"
+date: '2021-01-29'
+output: pdf_document
+---
+# R配置
+
+要正确编译cpp文件，R的安装路径不能有空格，否则会报错如下：
+```{Rmd}
+Error in system(cmd, intern = !showOutput) : 'C:/Program' not found
+```
+
+# 头文件的意义
+Cpp中有两类文件，一个是cpp源文件.cpp为扩展名，用于写源代码，包括变量和函数定义；一个是头文件.h为扩展名，用于申明变量和函数，不能包含变量和函数的定义。 只能在头文件中写形如：extern int a;和void f();的句子。这些才是声明。如果写上int a;或者void f() {}这样的句子，那么一旦这个头文件被两个或两个以上的.cpp文件包含的话，编译器会立马报错。 "extern  int a;"表示申明一个已定义的变量；"void f();"表示申明一个已定义的无返回值的函数f。
+但是，有三种情况除外，头文件中可以写const和static对象的定义；头文件中可 以写内联函数（inline）的定义；头文件中可以写类 （class）的定义。
+
+## 申明函数
+头文件中申明函数的语法：
+```{Rmd}
+int Dhv2Feature(unsigned char* p_ucData, int iWidth, int iHeight, unsigned short* p_usBlock);
+float Dhv2Dhv(unsigned short* sF1, unsigned short* sF2, int iWidth, int iHeight);
+```
+另外省略参数名也是可以的：
+```{Rmd}
+int Dhv2Feature(unsigned char* , int , int , unsigned short* );
+float Dhv2Dhv(unsigned short* , unsigned short* , int , int );
+```
+
+## 申明变量
+头文件中申明函数的语法：
+```{Rmd}
+extern int a;
+```
+
+## 类对象的申明
+```{Rmd}
+car.h:
+#ifndef __Car_H__
+#define __Car_H__
+class Wheel;
+class Car
+{
+public:
+	Car(int num);
+	~Car();
+	void show();
+private:
+	Wheel* mWheel;
+	int mWheelNum;
+};
+#endif
+
+wheel.h：
+#ifndef __Wheel_H__
+#define __Wheel_H__
+#include <iostream>
+using namespace std;
+class Wheel
+{
+public:
+	Wheel();
+	~Wheel();
+	void show();
+};
+#endif
+```
+定义wheel.cpp
+```{Rmd}
+#include "Wheel.h"
+Wheel::Wheel()
+{
+	cout << "Wheel is created" << endl;
+}
+Wheel::~Wheel()
+{
+	cout << "Wheel is destroyed" << endl;
+}
+void Wheel::show()
+{
+}
+```
+如果加入了命名空间，怎么写类声明呢？
+1.如果类都在同一命名空间，那直接写在同一namespace里面就可以了
+```{Rmd}
+#ifndef __Wheel_H__
+#define __Wheel_H__
+#include <iostream>
+using namespace std;
+namespace Gnuser
+{
+	class Wheel
+	{
+	public:
+		Wheel();
+		~Wheel();
+		void show();
+	};
+}
+#endif
+
+#ifndef __Car_H__
+#define __Car_H__
+namespace Gnuser
+{
+	class Wheel;
+	class Car
+	{
+	public:
+		Car(int num);
+		~Car();
+		void show();
+	private:
+		Wheel* mWheel;
+		int mWheelNum;
+	};
+}
+#endif
+```
+2. 现在如果再加一个命名空间，那么可以这样定义
+```{Rmd}
+#ifndef __Road_H__
+#define __Road_H__
+#include <vector>
+using namespace std;
+namespace Gnuser
+{
+	class Car;
+}
+namespace Dxn
+{
+	class Road
+	{
+	public:
+		Road(int num);
+		~Road();
+		void addCar();
+	private:
+		vector<Gnuser::Car*> mCars;
+	};
+}
+#endif
+```
+
+## 预防头文件的反复调用
+
+在C++语言编程中，我们经常会接触到头文件，比如说声明类，或者声明命名空间等，而每次在编写xxx.h的头文件时，编程书上都会让我们在代码的前后加上如下的三句代码：
+```{Rmd}
+#ifndef XXX_H_
+#define XXX_H_
+……
+#endif
+```
+比如“#ifndef Rcpp__sugar__sets_h”表示判断Rcpp文件夹的子文件sugar中的sets.h头文件是否已经被包含，若已经包含进去，则不执行“……”中的申明语句。
+
+更多详情见： https://blog.csdn.net/u012617944/article/details/78405686;
+https://blog.csdn.net/leowinbow/article/details/82884518;
+
+## 头文件与同名源文件的关系
+头文件和源文件不必同名，只是约定俗成的，为了好记而已。
+见 https://blog.csdn.net/lee244868149/article/details/39341751
+
+## hpp头文件与h头文件的区别 C++中的.hpp文件
+见 https://blog.csdn.net/acoolgiser/article/details/102832675
+
+## 头文件中的功能函数
+
+Cpp头文件的功能函数可以去网站查询其具体用法：
+http://www.cplusplus.com/reference/cmath/exp/
+
+C++之Algorithm头文件下的常用函数：
+https://blog.csdn.net/SSibyl/article/details/108929127?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control
+
+# 命名空间详解
+
+见： https://zhuanlan.zhihu.com/p/126481010
+C++中加const与不加const的区别：https://www.cnblogs.com/code-fisher/p/5329026.html
+
+# 编程注意
+1) 可变虚参定义无返回值函数：这里可变虚参指函数的输入虚参数，通过 "type& object"形式使得传入该函数的变量具有可变性质。于是使得无返回值函数具有了返回值函数的能力。例如：
+```{Rmd}
+void changeValue(int x){ //若不加取地址符号
+  x = x + 1;
+}
+int y = 1;
+changeValue(y); // 只能改变虚参的值，实参变量的值不变。
+cout>> y;
+// 1
+void changeValue(int& x){ 
+  x = x + 1;
+}
+int y = 1;
+changeValue(y); //加上取地址符号后，就可以改变实参变量的值了。
+cout>> y;   //arma::svd函数就是一个典型的例子。
+// 2
+```
+
+2) 函数返回值为列表时，另一种方法：
+```{Rmd}
+List output = List::create(Rcpp::Named("alpha") = alpha,
+                               Rcpp::Named("alpha0") = alpha0,
+                               Rcpp::Named("beta0") = beta0,
+                               Rcpp::Named("sigma2y") = sigma2y,
+                               Rcpp::Named("sigma2z") = sigma2z,
+                               Rcpp::Named("sigma2beta") = sigma2beta,
+                               Rcpp::Named("gam") = gam,
+                               Rcpp::Named("loglik_seq") = loglik_out,
+                               Rcpp::Named("loglik") = loglik_max,
+                               Rcpp::Named("iteration") = Iteration-1);
+```
+
+3) 字符串划分函数的使用
+利用boost.h头文件中的split()函数来划分字符串，它是一个可变实参变量的无返回值函数。
+```{Rmd}
+Example:
+
+Input : boost::split(result, input, boost::is_any_of("\t"))
+       input = "geeks\tfor\tgeeks"
+Output : geeks
+        for
+        geeks
+Explanation: Here in input string we have "geeks\tfor\tgeeks"
+and result is a container in which we want to store our result
+here separator is "\t".
+```
+具体代码：
+```{Rmd}
+/ C++ program to split 
+// string into substrings 
+// which are separated by 
+// separater using boost::split 
+  
+// this header file contains boost::split function 
+#include <bits/stdc++.h> 
+#include <boost/algorithm/string.hpp> 
+using namespace std; 
+  
+int main() 
+{ 
+    string input("geeks\tfor\tgeeks"); 
+    vector<string> result; 
+    boost::split(result, input, boost::is_any_of("\t")); 
+  
+    for (int i = 0; i < result.size(); i++) 
+        cout << result[i] << endl; 
+    return 0; 
+} 
+```
+更多见： https://www.geeksforgeeks.org/boostsplit-c-library/
+
+4) 字符串转化为数值型atof
+atof是iostream.h头文件中命名空间std中的函数，它是ascII to float的缩写，它将ascII字符串转换为相应的单精度浮点数，比如传入"1.234"，经过处理后就返回float类型的数1.234 。类似的还有atoi 、atol、itoa、ftoa等等。
+
+5) 指针和指针变量
+```{Rmd}
+  int a ;  //定义int类型变量
+
+ int *p = &a;   //变量 p 是一个 int* 类型的一级指针变量，&是取地址符，p保存了a 的地址
+
+  cout << *p <<endl; //输出 p 指向变量的值，即输出a的值
+
+  cout <<  p << endl; //输出 p 的值，即输出变量a在内存中的地址
+
+  int **q;  //定义二级指针变量
+
+  q = &p; // 二级指针变量q保存了一级指针变量p的地址
+
+  cout << q <<endl; //输出指针变量p在内存中的地址
+
+cout <<  *q << endl; //输出q指向变量的值，即变量p的值，即a的地址
+
+   cout <<  **q << endl; //可以这样理解  cout<<*(*q), 等价于 cout <<*p， 即输出a的值
+```
+https://blog.csdn.net/woainilixuhao/article/details/81784124
+
+6) 时间变量
+std命名空间中还有时间类型.
+std::clock_t a = clock();
+
+7) 快速调用R中现有函数
+以glmnet包中的函数为例：
+```{Rmd}
+List cv_glmnet(mat x, vec y, double alpha){
+  
+  // calling cv.glmnet()
+  Function f("cv.glmnet");
+  return f(Named("x") = x, Named("y") = y, Named("alpha") = alpha);
+  
+}
+```
+具体代码：
+```{Rmd}
+library(glmnet)
+res <- cv_glmnet(cbind(1:10,1), 1:10, 0.1)
+res$lambda.min
+```
