@@ -19,4 +19,15 @@ The aims or problmes are as follows:
 
 6) Read some papers about the area of Single-cell.
 
-7) Think about adding the Hidden Gaussian Markov fields into model, then use ICM algorithm to implement it.
+7) Think about adding the Hidden Gaussian Markov fields into model, then use ICM algorithm to implement it.s
+
+8) Read the book about Gaussian Process.
+
+# Summary,  2021-02-05
+The aims or problmes are as follows:
+
+1) Check the computation complexity, i.e. the relationship between computing time and $n,p,K$ and $q$.
+
+2) Increase $n$ and $p$, such as $n=4000,5000$ and $p=2000$.
+
+3) Look up to the settting of signal-noise ratio.
