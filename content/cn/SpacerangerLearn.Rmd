@@ -1,0 +1,19 @@
+---
+title: "Spaceranger操作手册"
+author: "刘伟"
+date: '2021-03-02'
+---
+  
+### Linux上安装spaceranger
+spaceranger是一个生物信息学的数据处理和分析软件，它的安装链接见：
+https://support.10xgenomics.com/spatial-gene-expression/software/downloads/latest
+
+安装完成后，同时下载参照数据：GRCh38 Reference。spaceranger在对其他数据做处理时，都需要参照数据做参照，才能顺利处理。
+
+### 将数据处理成count文件的命令
+需要指定几个路径：转录组参照数据文件"transcriptome", fastqs数据文件"fastqs", 图像数据文件"image"。
+```{linux}
+spaceranger count --id=CRC3  \--transcriptome=/nas/yangyi2/CRC/refdata-gex-GRCh38-2020-A \--fastqs=/nas/yangyi2/CRC/HN00134842_10X_RawData_Outs/CRC3/HF37NCCX2 \--sample=CRC3  \--image=/nas/yangyi2/CRC/image/CRC3.tif \--slide=V10M02-072 \--area=C1
+```
+
+

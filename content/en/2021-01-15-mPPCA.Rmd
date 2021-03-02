@@ -2,10 +2,9 @@
 title: 'EM algorithm: an exmaple with mixture probabilistic PCA'
 author: "Wei Liu"
 date: '2021-01-15'
-output: pdf_document
 ---
   
-# mixture probabilistic PCA  
+# mixture probabilistic PCA       
 Consider a model
 $$x_i = \mu_k + W_k z_i + \varepsilon_k, ~~ if~y_{ik}=1,y_{ij}=0,i\neq j.\tag{1.1}$$
 where $x_i \in R^p, z_i \in R^q, \varepsilon_k\sim N(0, \sigma^2_kI_p)$,$z_i \sim N(0, I_q), W_k \in R^{p\times q}, y_i \sim Multinormial(1,\pi),\pi \in R^K$.
