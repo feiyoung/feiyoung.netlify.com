@@ -1,0 +1,114 @@
+---
+title: "Linux操作手册"
+author: "刘伟"
+date: '2021-03-02'
+output: pdf_document
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="基本命令" class="section level2">
+<h2>基本命令</h2>
+<pre class="linux"><code>可用命令： 
+cd 路径                        更改远程目录到“路径” 
+lcd 路径                       更改本地目录到“路径” 
+chgrp group path               将文件“path”的组更改为“group” 
+chmod mode path                将文件“path”的权限更改为“mode” 
+chown owner path               将文件“path”的属主更改为“owner” 
+exit                           退出 sftp 
+help                           显示这个帮助文本 
+get 远程路径                   下载文件 
+ln existingpath linkpath       符号链接远程文件 
+ls [选项] [路径]               显示远程目录列表 
+lls [选项] [路径]              显示本地目录列表 
+mkdir 路径                     创建远程目录 
+lmkdir 路径                    创建本地目录 
+mv oldpath newpath             移动远程文件 
+open [用户@]主机[:端口]        连接到远程主机 
+put 本地路径                   上传文件 
+pwd                            显示远程工作目录 
+lpwd                           打印本地工作目录 
+quit                           退出 sftp 
+rmdir 路径                     移除远程目录 
+lrmdir 路径                    移除本地目录 
+rm 路径                        删除远程文件 
+lrm 路径                       删除本地文件 
+symlink existingpath linkpath  符号链接远程文件 
+version                        显示协议版本 
+exit/logout                   退出linux连接
+cd /home/csr3/ #进入到指定路径
+cd .. # 返回上一级命令
+</code></pre>
+</div>
+<div id="文件操作命令" class="section level2">
+<h2>文件操作命令</h2>
+<pre class="linux"><code>cp -options A B    将文件（夹）A复制为文件（夹）B。
+tar -xzvf  XX.tar.gz      解压压缩文件
+从指定网址下载文件：
+wget -O spaceranger-1.2.2.tar.gz &quot;https://cf.10xgenomics.com/releases/spatial-exp/spaceranger-1.2.2.tar.gz&quot; 
+设置环境变量：
+export PATH=/opt/spaceranger-1.2.2:$PATH
+如：export PATH=/home/hangweiqiang/spaceranger/spaceranger-1.2.2:$PATH
+pwd 获取当前绝对路径
+man bash 查看某个命令（比如bash)的介绍。
+head -2 XX.csv 查看文件的前两行
+cat xx.txt  打印出文件内容</code></pre>
+</div>
+<div id="远程linux服务器提交计算任务" class="section level2">
+<h2>远程linux服务器提交计算任务</h2>
+<p>新建一个xx.sh文件</p>
+<pre class="linux"><code>#!/bin/bash
+#PBS -N SCLMM_IS_power_rho0.8_lam0.8_h20.001
+#PBS -l select=1:ncpus=1:mem=90GB
+#PBS -l walltime=24:00:00
+#PBS -l place=pack
+#PBS -j oe
+#PBS -o /home/users/nus/gmsyan/SCLMM/simulation/submit_code/SCLMM_IS_power_rho0.8_lam0.8_h20.001.log
+module load R
+module load gcc/5.1.0
+cd /home/users/nus/gmsyan/SCLMM/simulation/submit_code
+R CMD BATCH /home/users/nus/gmsyan/SCLMM/simulation/submit_code/SCLMM_IS_power_rho0.8_lam0.8_h20.001.R</code></pre>
+</div>
+<div id="module环境变量管理工具" class="section level2">
+<h2>Module环境变量管理工具</h2>
+<p>使用module环境变量管理工具可以很方便管理linux中的环境变量，用户不需要修改.bashrc，从而避免误操作。</p>
+<ol style="list-style-type: decimal">
+<li>module load | add 加载环境变量
+module unload | rm 移除环境变量</li>
+</ol>
+<pre class="linux"><code>module load R  #加载R,或者使用module add R
+which R   # （查看是否加载成功）
+# 结果：/app/R/R-3.5.3/bin/R
+module unload R #从环境变量中移除R，或者使用module rm R
+module load gcc/5.1.0 #加载gcc的5.1.0版本
+module swap R R/3.6.0 # 将当前环境变量中的R替换成R3.6.0版本作为环境变量</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>module avail – 显示系统可用的编译器及库</p></li>
+<li><p>module list 显示用户加载的编译器及库</p></li>
+<li><p>module help 帮助命令</p></li>
+</ol>
+</div>
+<div id="以管理员权限运行命令" class="section level2">
+<h2>以管理员权限运行命令</h2>
+<p>账户若具有管理员权限，则可以利用sudo命令来以管理员权限运行命令。</p>
+<pre class="linux"><code>sudo R # 以管理员权限运行R
+sudo wget https://cf.10xgenomics.com/supp/spatial-exp/refdata-gex-GRCh38-2020-A.tar.gz # 以管理员下载文件</code></pre>
+</div>
+<div id="开辟新的空间" class="section level2">
+<h2>开辟新的空间</h2>
+<pre class="linux"><code>screen -S 001 #开辟一个名为001的运行空间
+screen -S 007
+Ctrl + A + D  # 从开辟的空间中退出到主界面。
+screen -ls # 查看开辟的空间的ID
+screen -r ID # 再次进入开辟的空间，查看代码运行情况
+kill ID # 删除该运行空间
+pkill -u csr3 # 删除该用户的所有运行的空间。
+kill 46747</code></pre>
+</div>
+<div id="sed命令示例" class="section level2">
+<h2>sed命令示例</h2>
+<p>见网址：
+<a href="https://www.cnblogs.com/feixiangmanon/p/12043757.html" class="uri">https://www.cnblogs.com/feixiangmanon/p/12043757.html</a></p>
+</div>
