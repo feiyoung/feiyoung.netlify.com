@@ -9,6 +9,19 @@ output: pdf_document
 <script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
+<div id="linux与r相关操作" class="section level1">
+<h1>Linux与R相关操作</h1>
+<p>R CMD INSTALL安装R本地压缩包</p>
+<pre class="linux"><code>R CMD INSTALL MixPPCA_1.0.tar.gz</code></pre>
+<p>linux上安装miniandoconda，见网址：
+<a href="https://docs.conda.io/en/latest/miniconda.html#linux-installers" class="uri">https://docs.conda.io/en/latest/miniconda.html#linux-installers</a></p>
+<pre class="linux"><code>wget -O miniconda.sh &quot;https://docs.conda.io/en/latest/miniconda.html#linux-installers&quot; #下载软件安装包
+bash miniconda.sh # 安装软件
+export PATH=/home/hangweiqiang/miniconda3/bin:$PATH #设置环境变量</code></pre>
+<p>设置R的工作路径</p>
+<pre class="rmd"><code>setwd(&quot;/home/hangweiqiang/LiuWei/Rfile/ProMix&quot;) </code></pre>
+<p>保存R运行后的数据文件</p>
+<pre class="rmd"><code>save(RI, file=&#39;data/RI_n600p300q8K3.Rdata&#39;)</code></pre>
 <div id="账户" class="section level2">
 <h2>账户</h2>
 <p>账户信息</p>
@@ -57,13 +70,22 @@ cp -options A B    将文件（夹）A复制为文件（夹）B。
 tar -xzvf  XX.tar.gz      解压压缩文件
 从指定网址下载文件：
 wget -O spaceranger-1.2.2.tar.gz &quot;https://cf.10xgenomics.com/releases/spatial-exp/spaceranger-1.2.2.tar.gz&quot; 
-设置环境变量：
-export PATH=/opt/spaceranger-1.2.2:$PATH
-如：export PATH=/home/hangweiqiang/spaceranger/spaceranger-1.2.2:$PATH
 pwd 获取当前绝对路径
 man bash 查看某个命令（比如bash)的介绍。
 head -2 XX.csv 查看文件的前两行
 cat xx.txt  打印出文件内容</code></pre>
+</div>
+<div id="安装软件" class="section level2">
+<h2>安装软件</h2>
+<p>有一些linux的安装包是.sh后缀的安装包，可以通过如下命令进行安装：</p>
+<pre class="linux"><code>bash xxx.sh</code></pre>
+</div>
+<div id="设置环境变量" class="section level2">
+<h2>设置环境变量：</h2>
+<pre class="linux"><code>export PATH=/opt/spaceranger-1.2.2:$PATH
+export PATH=/home/hangweiqiang/spaceranger/spaceranger-1.2.2:$PATH
+vim ~/.bashrc  # 修改环境配置文件
+export PATH=/home/hangweiqiang/miniconda3/bin:$PATH # 添加环境变量语句到.bashrc文件中，这样就不需要每次都设置环境变量了</code></pre>
 </div>
 <div id="远程linux服务器提交计算任务" class="section level2">
 <h2>远程linux服务器提交计算任务</h2>
@@ -163,4 +185,51 @@ U      //撤销对当前行的所有操作
 ?vpser     //向光标上搜索vpser字符串
 n           //向下搜索前一个搜素动作
 N         //向上搜索前一个搜索动作</code></pre>
+</div>
+</div>
+<div id="linux与anoconda操作" class="section level1">
+<h1>Linux与Anoconda操作</h1>
+<p>下载和安装miniconda3
+下载、安装地址：<a href="https://docs.conda.io/en/latest/miniconda.html#linux-installers" class="uri">https://docs.conda.io/en/latest/miniconda.html#linux-installers</a></p>
+<pre class="linux"><code>wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
+<p>conda 安装R语言及其R包：</p>
+<p>1 添加channel：清华镜像 free conda-forge bioconda</p>
+<pre class="linux"><code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
+conda config --set show_channel_urls yes
+conda config --show  # 查看新增channels</code></pre>
+<p>2 创建conda环境r403，并安装R4.0.3</p>
+<pre class="linux"><code>conda create -n r403
+conda activate r403
+conda install r-base=4.0.3
+conda install r-vegan  # 安装vegan包</code></pre>
+<p>3 包管理</p>
+<pre class="linux"><code>conda list                      #查看已安装包
+conda  search search_term      #搜索包信息
+conda install &lt;package_name&gt;  #安装包
+conda remove &lt;package_name&gt;  #卸载包
+conda update &lt;package_name&gt; #更新包</code></pre>
+<p>4 环境管理</p>
+<pre class="linux"><code>conda env list #查看已有环境
+conda create -n &lt;env_name&gt; (&lt;packages&gt;) #创建环境
+source activate &lt;env_name&gt;              #激活环境
+source deactivate                       #退出环境
+conda env remove -n &lt;env_name&gt; #删除环境
+conda env export &gt; env.yaml
+conda env create -f env.yaml</code></pre>
+<p>5 conda笔记</p>
+<pre class="linux"><code>conda list  # 查看conda中已经安装的软件
+conda install diamond  # conda安装软件，默认最新版
+conda install hmmer2 hmmer diamond
+conda install diamond=0.8.22  # conda安装指定版本的软件
+conda install py-bio  # conda安装python模块
+conda create -n antismash
+conda create -n python3.6 python=3.6  # 创建python3.6 conda环境
+conda info --envs  # 查看环境列表
+conda activate ENV  # 激活conda环境
+conda deactivate ENV  # 退出conda环境
+conda remove -n ENV --all  # 删除conda环境
+conda config --show  # 查看channel</code></pre>
 </div>

@@ -19,6 +19,18 @@ output: pdf_document
 <ol style="list-style-type: decimal">
 <li>最大值最小值溢出，C++中最小值。非常接近0的溢出为0。比如<span class="math inline">\(4^{-200}*A %( 2* 4^{-200}*B)\)</span>，对于这种就需要先把<span class="math inline">\(4^{-200}\)</span>约掉后再计算两个矩阵的逐元除法。</li>
 </ol>
+<p>2)整除错误：C++中整数除整数等于相除之后再向下取整。如下示例代码：</p>
+<pre class="rmd"><code> U0 = (bx - 1/n *A * tA * a) / as_scalar(1- 1/n * a.t()*tA * a);
+## 这里1/n=0 而不等于真正的小数。应该修改成：
+ U0 = (bx - 1.0/n *A * tA * a) / as_scalar(1- 1.0/n * a.t()*tA * a);</code></pre>
+<p>这是我找了大半天的错误才找到错误的原因！气死我了，好多的坑。我知道这样C++有这个语法规则，但是写代码的时候还是容易疏忽，而且还找不到错误的点在哪里。</p>
+<ol start="3" style="list-style-type: decimal">
+<li>公式中的加号运算错误的写成减法运算，导致出错。这是我容易出错的地方。
+例如：</li>
+</ol>
+<pre class="rmd"><code>X_tk = X - repmat(U0.t()  + Mu0.row(k)* W0.t(), n, 1);
+#错误写成：
+X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);</code></pre>
 </div>
 <div id="头文件的意义" class="section level1">
 <h1>头文件的意义</h1>

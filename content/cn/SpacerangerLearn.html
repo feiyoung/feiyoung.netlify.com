@@ -17,5 +17,11 @@ date: '2021-03-02'
 <div id="将数据处理成count文件的命令" class="section level3">
 <h3>将数据处理成count文件的命令</h3>
 <p>需要指定几个路径：转录组参照数据文件“transcriptome”, fastqs数据文件“fastqs”, 图像数据文件“image”。</p>
-<pre class="linux"><code>spaceranger count --id=CRC3  \--transcriptome=/nas/yangyi2/CRC/refdata-gex-GRCh38-2020-A \--fastqs=/nas/yangyi2/CRC/HN00134842_10X_RawData_Outs/CRC3/HF37NCCX2 \--sample=CRC3  \--image=/nas/yangyi2/CRC/image/CRC3.tif \--slide=V10M02-072 \--area=C1</code></pre>
+<pre class="linux"><code>spaceranger count --id=CRC33  \--transcriptome=/nas/yangyi2/CRC/refdata-gex-GRCh38-2020-A \--fastqs=/nas/yangyi2/CRC/HN00134842_10X_RawData_Outs/CRC3/HF37NCCX2 \--sample=CRC3  \--image=/nas/yangyi2/CRC/image/CRC3.tif \--slide=V10M02-072 \--area=C1
+#其中id是结果输出文件夹，如果在当前目录下该文件夹不存在，则新建该文件夹
+# transcriptome是参照数据文件夹路径，即FASTQ文件的路径
+# slide是载玻片的ID号
+# area是指不获区域
+# image是指高分辨率图像文件
+# sample是指根据FASTQ文件名所得到的样本名称</code></pre>
 </div>
