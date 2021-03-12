@@ -4,6 +4,33 @@ author: "刘伟"
 date: '2021-03-02'
 output: pdf_document
 ---
+# NSCC linux常见问题及操作
+## 账户
+GPU账户信息
+```{linux}
+ssh weiliudeng@172.25.136.22
+Ldw-258174718
+
+```
+ NSCC账户：
+```{linux}
+ssh weiliu@nus.nscc.sg
+ssh nscc03-ib0 # 联网的节点，用于安装R包等
+MM: Ldw@258369
+```
+
+
+```{Rmd}
+R安装本地的package报错？
+```
+服务器的默认安装路径是超级用户的R包安装路径，所以普通用户是没有权限的。需要先创建一个用户文件夹下的R安装包路径
+
+常用操作
+```{linux}
+module load R/3.6.3 # 载入R3.6.3版本环境变量
+module avail # 显示所有可用的环境变量，查看R有哪些版本 
+```
+
 
 
 # Linux与R相关操作
@@ -27,14 +54,6 @@ setwd("/home/hangweiqiang/LiuWei/Rfile/ProMix")
 save(RI, file='data/RI_n600p300q8K3.Rdata')
 ```
 
-## 账户
-账户信息
-```{linux}
-GPU:
-ssh weiliudeng@172.25.136.22
-Ldw-258174718
-
-```
 
 ## 基本命令
 ```{linux}

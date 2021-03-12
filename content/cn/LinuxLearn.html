@@ -9,6 +9,25 @@ output: pdf_document
 <script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
+<div id="nscc-linux常见问题及操作" class="section level1">
+<h1>NSCC linux常见问题及操作</h1>
+<div id="账户" class="section level2">
+<h2>账户</h2>
+<p>GPU账户信息</p>
+<pre class="linux"><code>ssh weiliudeng@172.25.136.22
+Ldw-258174718
+</code></pre>
+<p>NSCC账户：</p>
+<pre class="linux"><code>ssh weiliu@nus.nscc.sg
+ssh nscc03-ib0 # 联网的节点，用于安装R包等
+MM: Ldw@258369</code></pre>
+<pre class="rmd"><code>R安装本地的package报错？</code></pre>
+<p>服务器的默认安装路径是超级用户的R包安装路径，所以普通用户是没有权限的。需要先创建一个用户文件夹下的R安装包路径</p>
+<p>常用操作</p>
+<pre class="linux"><code>module load R/3.6.3 # 载入R3.6.3版本环境变量
+module avail # 显示所有可用的环境变量，查看R有哪些版本 </code></pre>
+</div>
+</div>
 <div id="linux与r相关操作" class="section level1">
 <h1>Linux与R相关操作</h1>
 <p>R CMD INSTALL安装R本地压缩包</p>
@@ -22,14 +41,6 @@ export PATH=/home/hangweiqiang/miniconda3/bin:$PATH #设置环境变量</code></
 <pre class="rmd"><code>setwd(&quot;/home/hangweiqiang/LiuWei/Rfile/ProMix&quot;) </code></pre>
 <p>保存R运行后的数据文件</p>
 <pre class="rmd"><code>save(RI, file=&#39;data/RI_n600p300q8K3.Rdata&#39;)</code></pre>
-<div id="账户" class="section level2">
-<h2>账户</h2>
-<p>账户信息</p>
-<pre class="linux"><code>GPU:
-ssh weiliudeng@172.25.136.22
-Ldw-258174718
-</code></pre>
-</div>
 <div id="基本命令" class="section level2">
 <h2>基本命令</h2>
 <pre class="linux"><code>可用命令： 
