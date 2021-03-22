@@ -247,3 +247,7 @@ Thus, we use the equivalent form $\ln a_{ik} - \max_k \ln a_{ik} = b_{ik} - c_i$
 $$a_{ik}= \exp(b_{ik} - c_i) \exp(c_i).$$
 Furthermore,
 $$l(\theta) = \sum_i [(\ln \sum_k \pi_k \exp(b_{ik}-c_i)) + \ln c_i].$$
+
+## Reproducible results
+
+There are many traps that need to know in real data analysis: one of the important things is to set a random seed. When we use the existing algorithm to get the initial values  for our proposed algorithm, there may be randomness problems, such as Mclust or Kmeans selecting the initial cluster. If we don't set a random seed, the results may not be reproduced.
