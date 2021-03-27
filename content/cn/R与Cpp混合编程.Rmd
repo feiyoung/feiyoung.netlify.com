@@ -4,6 +4,11 @@ author: "刘伟"
 date: '2021-01-29'
 output: pdf_document
 ---
+# armadillo官网
+http://arma.sourceforge.net/
+
+定义函数时加vec& x是引用时定义了一个local variable，然后不是传输整个数据到另一个函数中，这样能加快计算速度。
+
 # R配置
 
 要正确编译cpp文件，R的安装路径不能有空格，否则会报错如下：
@@ -301,9 +306,11 @@ std::clock_t a = clock();
 以glmnet包中的函数为例：
 ```{Rmd}
 List cv_glmnet(mat x, vec y, double alpha){
-  
+  Rcpp::Environment stats("package:stats");
+  Rcpp::Function optim = stats["optim"];
   // calling cv.glmnet()
-  Function f("cv.glmnet");
+  Environment glmnet("package:glmnet");
+  Function f = glmnet["cv.glmnet"];
   return f(Named("x") = x, Named("y") = y, Named("alpha") = alpha);
   
 }
@@ -313,4 +320,34 @@ List cv_glmnet(mat x, vec y, double alpha){
 library(glmnet)
 res <- cv_glmnet(cbind(1:10,1), 1:10, 0.1)
 res$lambda.min
+```
+
+8) 输出精度
+```{Rmd}
+// Program 2.8 Experimenting with floating point output
+#include <iostream> // fixed scientific
+#include <iomanip> // setprecision()
+
+using std::setprecision;
+using std::fixed;
+using std::scientific;
+using std::cout;
+using std::endl;
+
+int main() {
+  float value1 = 0.1f;
+  float value2 = 2.1f;
+  value1 -= 0.09f;                        // Should be 0.01
+  value2 -= 2.09f;                        // Should be 0.01
+
+  cout << value1 - value2 << endl; 
+  
+  cout << setprecision(14) << fixed;      // Change to fixed notation
+  cout << value1 - value2 << endl;        // Should output zero
+
+  cout << setprecision(2) << scientific;  // Set scientific notation
+  cout << value1 - value2 << endl;        // Should output zero
+
+  return 0;
+}
 ```

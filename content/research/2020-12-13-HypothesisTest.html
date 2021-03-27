@@ -6,13 +6,21 @@ output: pdf_document
 layout: post
 ---
 
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
 <p><strong>假设检验</strong></p>
 <p><strong>闲居</strong></p>
 <p><em>2020年12月于武侯</em></p>
+<div id="置信集confidence-set" class="section level1">
+<h1>置信集(Confidence set)</h1>
+<p>关于参数<span class="math inline">\(\phi(\theta)\)</span>的水平为<span class="math inline">\(\beta\)</span>的置信集<span class="math inline">\(C\)</span>是一个<span class="math inline">\(\phi(\theta)\)</span>取值集合的随机子集，且满足对每个<span class="math inline">\(\theta\)</span>
+<span class="math display">\[P(\phi(\theta) \in C) \geq \beta.\]</span>
+置信集和假设检验的关系很近，若取<span class="math inline">\(\beta=1-\alpha\)</span>，则<span class="math inline">\(C\)</span>是<span class="math inline">\(\phi(\theta)\)</span>的显著性水平为<span class="math inline">\(\alpha\)</span>的置信区间。</p>
+<div id="根据枢轴量pivot来计算置信集" class="section level2">
+<h2>根据枢轴量(Pivot)来计算置信集</h2>
+<p>一个枢轴量为一个函数<span class="math inline">\(g(X,\theta)\)</span>，并且它的分布对所有<span class="math inline">\(\theta\)</span>都是一样的。注意枢轴量中的<span class="math inline">\(\theta\)</span>与<span class="math inline">\(X\)</span>分布中的<span class="math inline">\(\theta\)</span>相同。令<span class="math inline">\(\beta= P(g(X,\theta) \in A)\)</span>，则由<span class="math inline">\(g(X,\theta) \in A\)</span>可以推出<span class="math inline">\(\theta \in C(X, A)\)</span>。则<span class="math inline">\(C\)</span>是<span class="math inline">\(\theta\)</span>水平为<span class="math inline">\(\beta\)</span>的置信集。</p>
+</div>
+</div>
 <div id="简单假设和复合假设" class="section level1">
 <h1>简单假设和复合假设</h1>
 <p>简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概念。

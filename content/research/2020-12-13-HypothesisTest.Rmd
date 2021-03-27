@@ -11,6 +11,15 @@ layout: post
   
   *2020年12月于武侯*
   
+# 置信集(Confidence set)
+
+关于参数$\phi(\theta)$的水平为$\beta$的置信集$C$是一个$\phi(\theta)$取值集合的随机子集，且满足对每个$\theta$
+$$P(\phi(\theta) \in C) \geq \beta.$$
+置信集和假设检验的关系很近，若取$\beta=1-\alpha$，则$C$是$\phi(\theta)$的显著性水平为$\alpha$的置信区间。
+
+## 根据枢轴量(Pivot)来计算置信集
+一个枢轴量为一个函数$g(X,\theta)$，并且它的分布对所有$\theta$都是一样的。注意枢轴量中的$\theta$与$X$分布中的$\theta$相同。令$\beta= P(g(X,\theta) \in A)$，则由$g(X,\theta) \in A$可以推出$\theta \in C(X, A)$。则$C$是$\theta$水平为$\beta$的置信集。
+  
 # 简单假设和复合假设
 简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概念。
 假如我们感兴趣以下假设检验问题：

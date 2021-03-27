@@ -5,10 +5,13 @@ date: '2021-01-29'
 output: pdf_document
 ---
 
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
+<div id="armadillo官网" class="section level1">
+<h1>armadillo官网</h1>
+<p><a href="http://arma.sourceforge.net/" class="uri">http://arma.sourceforge.net/</a></p>
+<p>定义函数时加vec&amp; x是引用时定义了一个local variable，然后不是传输整个数据到另一个函数中，这样能加快计算速度。</p>
+</div>
 <div id="r配置" class="section level1">
 <h1>R配置</h1>
 <p>要正确编译cpp文件，R的安装路径不能有空格，否则会报错如下：</p>
@@ -286,9 +289,11 @@ std::clock_t a = clock();</p></li>
 以glmnet包中的函数为例：</p></li>
 </ol>
 <pre class="rmd"><code>List cv_glmnet(mat x, vec y, double alpha){
-  
+  Rcpp::Environment stats(&quot;package:stats&quot;);
+  Rcpp::Function optim = stats[&quot;optim&quot;];
   // calling cv.glmnet()
-  Function f(&quot;cv.glmnet&quot;);
+  Environment glmnet(&quot;package:glmnet&quot;);
+  Function f = glmnet[&quot;cv.glmnet&quot;];
   return f(Named(&quot;x&quot;) = x, Named(&quot;y&quot;) = y, Named(&quot;alpha&quot;) = alpha);
   
 }</code></pre>
@@ -296,4 +301,33 @@ std::clock_t a = clock();</p></li>
 <pre class="rmd"><code>library(glmnet)
 res &lt;- cv_glmnet(cbind(1:10,1), 1:10, 0.1)
 res$lambda.min</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>输出精度</li>
+</ol>
+<pre class="rmd"><code>// Program 2.8 Experimenting with floating point output
+#include &lt;iostream&gt; // fixed scientific
+#include &lt;iomanip&gt; // setprecision()
+
+using std::setprecision;
+using std::fixed;
+using std::scientific;
+using std::cout;
+using std::endl;
+
+int main() {
+  float value1 = 0.1f;
+  float value2 = 2.1f;
+  value1 -= 0.09f;                        // Should be 0.01
+  value2 -= 2.09f;                        // Should be 0.01
+
+  cout &lt;&lt; value1 - value2 &lt;&lt; endl; 
+  
+  cout &lt;&lt; setprecision(14) &lt;&lt; fixed;      // Change to fixed notation
+  cout &lt;&lt; value1 - value2 &lt;&lt; endl;        // Should output zero
+
+  cout &lt;&lt; setprecision(2) &lt;&lt; scientific;  // Set scientific notation
+  cout &lt;&lt; value1 - value2 &lt;&lt; endl;        // Should output zero
+
+  return 0;
+}</code></pre>
 </div>
