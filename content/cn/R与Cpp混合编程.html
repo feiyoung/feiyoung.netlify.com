@@ -34,6 +34,69 @@ output: pdf_document
 <pre class="rmd"><code>X_tk = X - repmat(U0.t()  + Mu0.row(k)* W0.t(), n, 1);
 #错误写成：
 X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>避免log(a)当a=0报错的情况，可以使用</li>
+</ol>
+<pre class="rmd"><code>log(a + (a==0)) # a=0时,值会等于0</code></pre>
+<p>#引用传递和值传递的区别</p>
+<p>引用专递就是传递对象本身，值传递是传递对象的复制品。
+打个比方：比如你有一张相片要修改，把相片编辑工具看作函数，把被处理的相片看作参数，那么直接操作相片原件就相当于引用传递，把相片复制一份然后操作这个复制品就叫值传递。</p>
+<p>很明显引用传递会影响当作参数的对象，而值传递不会影响当作参数的对象
+C++语言中，函数的参数和返回值的传递方式有三种：
+值传递、指针传递和引用传递。</p>
+<p>以下是“值传递”的示例程序。</p>
+<p>由于Func1函数体内的x是外部变量n的一份拷贝，改变x的值不会影响n, 所以n的值仍然是0。</p>
+<pre class="rmd"><code>void Func1(int x)
+{
+x = x + 10;
+}
+...
+int n = 0;
+Func1(n);
+
+cout &lt;&lt; &quot;n = &quot; &lt;&lt; n &lt;&lt; endl; // n = 0</code></pre>
+<p>以下是“指针传递”的示例程序。
+由于Func2函数体内的x是指向外部变量n的指针，改变该指针的内容将导致n的值改变，所以n的值成为10。</p>
+<pre class="rmd"><code>void Func2(int *x)
+{
+(* x) = (* x) + 10;
+}
+...
+int n = 0;
+Func2(&amp;n);
+
+cout &lt;&lt; &quot;n = &quot; &lt;&lt; n &lt;&lt; endl; // n = 10</code></pre>
+<p>以下是“引用传递”的示例程序。
+由于Func3函数体内的x是外部变量n的引用，x和n是同一个东西，改变x等于改变n，所以n的值成为10。</p>
+<pre class="rmd"><code>void Func3(int &amp;x)
+{
+x = x + 10;
+}
+...
+int n = 0;
+Func3(n);
+cout &lt;&lt; &quot;n = &quot; &lt;&lt; n &lt;&lt; endl; // n = 10</code></pre>
+<p>对比上述三个示例程序，会发现“引用传递”的性质象“指针传递”，而书写方式象“值传递”。
+实际上“引用”可以做的任何事情“指针”也都能够做，为什么还要“引用”这东西？
+答案是“用适当的工具做恰如其分的工作”。
+指针能够毫无约束地操作内存中的任何东西，尽管指针功能强大，但是非常危险。
+如果的确只需要借用一下某个对象的“别名”，那么就用“引用”，而不要用“指针”，以免发生意外</p>
+<div id="c中使用引用传递来提高效率" class="section level2">
+<h2>c++中使用引用传递来提高效率</h2>
+<p>我们写一个函数，比如 objclass fun(objclass obj); objclass是类名，obj是对象，fun是函数名。</p>
+<p>然后调用此函数，编译器分两个步骤：</p>
+<p>1.每次通过值传递的方式给函数传递一个对象时，都会建立一个该对象的拷贝。</p>
+<p>2.每次通过值从函数返回一个对象时，也会建立另一个拷贝。</p>
+<p>也就是说调用一次此函数，系统会自动建立两次的对象拷贝，然后再调用两次析构函数释放对象的拷贝。</p>
+<p>我们知道当调用函数的时候，这些对象被复制到栈中，这样做会费时且占用内存，当使用用户定义的大对象时，这种拷贝带来的内存开销是非常显著的。当时用用户建立的类时，每次生成这种临时的拷贝都要调用一个特殊的构造函数：复制构造函数。当函数返回时，对象的临时拷贝被删除，此时需要调用对象的析构函数。如果返回对象时通过值传递的方式，那么必须建立对象的拷贝，然后再删除。对于很大的对象，调用构造函数和析构函数在速度和内存方面都会造成很大的开销。</p>
+<p>改善C++效率的方法：
+<a href="https://blog.csdn.net/u011808673/article/details/80307358?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&amp;spm=1001.2101.3001.4242" class="uri">https://blog.csdn.net/u011808673/article/details/80307358?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&amp;spm=1001.2101.3001.4242</a></p>
+<p>1 尽量减少值传递，多用引用来传递参数。</p>
+<p>5 ++i和i++引申出的效率问题</p>
+<p>8 减少除法运算的使用</p>
+<p>9 将小粒度函数声明为内联函数（inline）</p>
+<p>10 与直接初始化对应的是复制初始化，什么是直接初始化？什么又是复制初始化？</p>
+</div>
 </div>
 <div id="头文件的意义" class="section level1">
 <h1>头文件的意义</h1>
