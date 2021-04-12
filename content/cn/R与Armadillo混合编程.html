@@ -1,0 +1,23 @@
+---
+title: "R与Cpp混合编程"
+author: "刘伟"
+date: '2021-01-29'
+output: pdf_document
+---
+
+
+
+<div id="armadillo官网" class="section level1">
+<h1>armadillo官网</h1>
+<p><a href="http://arma.sourceforge.net/" class="uri">http://arma.sourceforge.net/</a>
+可以使用ctrl+F在该网站上搜索需要查阅的函数。</p>
+</div>
+<div id="注意事项" class="section level1">
+<h1>注意事项</h1>
+<ol style="list-style-type: decimal">
+<li><p>若A是一个矩阵，则A.col(k)可以直接支持diagmat(),repmat()函数中使用，表示它返回一个列向量。</p></li>
+<li><p>若C是一个cube，则C.slice(k)是一个矩阵，支持矩阵的所有运算，比如.t(),.i()以及A + b*C.slice(k);而
+C.col(k)不是一个矩阵而是一个subcube，不支持直接的矩阵运算，只能通过赋值给一个矩阵tmpMat后转化为一个矩阵后，再进行相应的矩阵运算。为了更加高效的使用cube，请注意cube的存储格式，将需要参与矩阵乘法的subcube储存到第三个维度上。</p></li>
+<li></li>
+</ol>
+</div>
