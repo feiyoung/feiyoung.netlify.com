@@ -7,7 +7,11 @@ output: pdf_document
 # armadillo官网
   http://arma.sourceforge.net/
   可以使用ctrl+F在该网站上搜索需要查阅的函数。
-  
+
+# 待解决问题
+
+1) 为什么cpp中定义的函数返回List后，List的成分为矩阵时，无法做index_max()计算和返回该矩阵到另一个List的成分中？？
+
 # 注意事项
 
 1) 若A是一个矩阵，则A.col(k)可以直接支持diagmat(),repmat()函数中使用，表示它返回一个列向量。
