@@ -1,0 +1,158 @@
+---
+title: "R绘制漂亮的图"
+author: "刘伟"
+date: '2021-04-12'
+output: pdf_document
+---
+# 普通plot绘图
+
+## 绘制折线图
+
+绘制折线图，并设置合适的坐标字体
+```{Rmd}
+par(mar=c(4.8,4.8,2,2))
+plot(1:(n_egv-1), egrat, type='o', xlab='q', ylab='eigv. ratio', lwd=3, cex.axis = 1.6, cex.lab=1.8)
+grid(col=1, lwd=2, lty=2)
+```
+
+## 坐标轴标签旋转绘图
+```{Rmd}
+par(mar=c(6,6,2,2))
+plot(1:nrow(dat_Tr_sort_inter), axes=F,
+     dat_Tr_sort_inter$total_trainhours[order_Tr], 
+     type='o', xlab='', ylab='Total_hours', lwd=3, cex.axis = 1.6, cex.lab=1.8)
+grid(col=1, lwd=2, lty=2)
+axis(1, 1:nrow(dat_Tr_sort_inter),labels=dat_Tr_sort_inter$Enames[order_Tr],
+     las  = 2)
+axis(2)
+```
+
+## 3. 批量保存图片
+```{Rmd}
+# filepath <- 'IncreasedModellingFiles/Model6_HuBei_Guaipoints/'
+for(k in 1:n.HuBei){
+  
+  # jpeg(file = paste0(filepath, '/', row.names(Zkt.HuBei)[k], '.jpg')) # 保存为jpg
+  pdf(file = paste0(filepath, '/', row.names(Zkt.HuBei)[k], '.pdf')) #保存为pdf
+  plot(cum_quezhen_pred[k, ], axes = F ,type='l', main=row.names(Zkt.HuBei)[k],
+       ylab='cum. identified illness', xlab='Date',col=2, lty=2)
+  lines(cum_quezhen[k,], col=1)
+  points(cum_quezhen[k,], col=1)
+  v1_tmp <- which(colnames(Zkt_pred) == guaipoint_vec[k])
+  abline(v=v1_tmp, col = 'blue')
+  text(x=v1_tmp, y=cum_quezhen_pred[k, round(TT.HuBei/2)],
+       guaipoint_vec[k])
+  axis(1, 1:ncol(Zkt_pred),labels= colnames(Zkt_pred))
+  axis(2)
+  grid()
+  dev.off()
+} 
+```
+
+## 4 怎么添加图像的形状参数，有的曲线有形状，有的曲线没有形状，没有形状的曲线用-1表示
+```{Rmd}
+legend('topleft', c('真实曲线', '预测曲线', '拐点时间'), col=c(1,2,4), lty=1, pch=c(1,-1,-1))
+```
+
+## 5. R绘制长度不同的向量的箱线图
+```{Rmd}
+Rt_list <- list(Rt_Pro, Rt_Hubei, Rt_Wuhan, Rt_Japan, Rt_Skorea, Rt_Sing, Rt_Italy)
+boxplot(Rt_list, ylim=c(0,5.2), names = c('China', 'Hubei', 'Wuhan', 'Japan', 'SKorea', 'Singapore',
+                                          'Italy'))
+abline(h=1, lty=3,col='green4')
+```
+
+## 6. 添加没有边框的图例：利用bty='n'
+```{Rmd}
+plot(1: (nr-id_vec[1]+ 1-time), ratio7(dat[(id_vec[1]): nr,1], time), 
+       xlim=xlim, ylim=ylim, col=1,
+       type='o', xlab='Day', ylab='ratio')
+  for(k in 2: nc){
+    lines(1: (nr-id_vec[k]+ 1-time), ratio7(dat[(id_vec[k]): nr,k], time), col=k)
+    points(1: (nr-id_vec[k]+ 1-time), ratio7(dat[(id_vec[k]): nr,k], time), col=k, pch=k)
+  }
+  abline(h =1 ,col=1, lty=2)
+  legend('topright', names(dat), col=1:nc, pch=1:nc,lty=1, bty='n')
+
+```
+
+
+# 2 漂亮美观强大的ggplot2绘图技术
+
+## 1 绘制箱线图
+```{r}
+datafun <- function(mat1, mat2, xname, methodname){
+  n1 <- dim(mat1)[1];
+  n2 <- dim(mat2)[1];
+  p <- dim(mat1)[2];
+  suml <- (n1 + n2)*p
+  data = as.data.frame(matrix(0, suml, 1))
+  for(i in 1:p){
+    data[((i - 1)*n1 + 1):(n1*i), 1] <- mat1[, i]
+  }
+  for(j in 1:p){
+    data[(n1*p + (j - 1)*n2 + 1):(n1*p + n2*j), 1] <- mat2[, j]
+  }
+  colnames(data) = "Value"; 
+  data$method = c(rep(methodname[1],  n1*p), rep(methodname[2], n2*p))
+  data$snp_sparse =  c(rep(xname, each = n1), rep(xname, each = n2))
+  return(data)
+}
+library("mvtnorm")
+library("ggplot2")
+n1 <- 50;
+n2 <- 100;
+p <- 4;
+mat1 <- rmvnorm(n1, mean = rep(0, p), sigma = diag(p), method = "chol");
+mat2 <- rmvnorm(n1, mean = rep(0, p), sigma = diag(p), method = "chol");
+xname = c("0.2", "0.3", "0.4", "0.5");
+methodname = c("method1","method2");
+dat <- datafun(mat1, mat2, xname, methodname)
+# 按照x的值分组画箱线图，并设置坐标字体大小
+ggplot(dat, aes(x=snp_sparse, y=Value, fill=method)) + geom_boxplot(aes(fill=method)) +
+  theme(axis.text.x = element_text(size = 12, angle=70, vjust=0.6)
+,axis.text.y = element_text(size = 18),plot.title = element_text(hjust = 30,vjust=-40,size=14) 
+,legend.position="none") +ylim(c(0,2))
+```
+
+
+## 利用ggplot2画折线图
+
+```{r}
+elboPlot <- function(elbo_seq){
+  library(ggplot2)
+  p1 <- ggplot(data=data.frame(ELBO= elbo_seq, iter=1:length(elbo_seq)),
+               aes(x=iter, y=ELBO))
+  
+  p1 + geom_line(size=2) + ggtitle("VB algorithm") +
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.text.x=element_text(size=14,color="red"),
+          axis.text.y=element_text(size=14, color="green"),
+          axis.title.x = element_text(size=18, color='black'),
+          axis.title.y = element_text(size=18, color='black'),
+          title= element_text(size=20, color='blue')
+    ) 
+}
+elboPlot(elbo_seq = 1:100)
+
+single_line_Plot <- function(y, x=NULL, x.name="iter", y.name="logLik",
+                             title.name="Title",title.col="black", title.size=20, x.axis.col='black', x.axis.size=14, y.axis.col='black', y.axis.size=14, xlab.size=18, ylab.size=18, line.size=2){
+  library(ggplot2)
+  if(is.null(x)) x <- 1:length(y)
+  if(length(x) != length(y)) stop("x and y must have same length!")
+  p1 <- ggplot(data=NULL,
+               aes(x=x, y=y))
+  
+  p1 + geom_line(size=line.size) + ggtitle(title.name) + xlab(x.name) + ylab(y.name) +
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.text.x=element_text(size=x.axis.size,color=x.axis.col),
+          axis.text.y=element_text(size=y.axis.size, color=y.axis.col),
+          axis.title.x = element_text(size=xlab.size, color='black'),
+          axis.title.y = element_text(size=ylab.size, color='black'),
+          title= element_text(size=title.size, color=title.col)
+    ) 
+}
+single_line_Plot(1:10)
+
+
+```

@@ -1,0 +1,154 @@
+---
+title: "R绘制漂亮的图"
+author: "刘伟"
+date: '2021-04-12'
+output: pdf_document
+---
+
+
+
+<div id="普通plot绘图" class="section level1">
+<h1>普通plot绘图</h1>
+<div id="绘制折线图" class="section level2">
+<h2>绘制折线图</h2>
+<p>绘制折线图，并设置合适的坐标字体</p>
+<pre class="rmd"><code>par(mar=c(4.8,4.8,2,2))
+plot(1:(n_egv-1), egrat, type=&#39;o&#39;, xlab=&#39;q&#39;, ylab=&#39;eigv. ratio&#39;, lwd=3, cex.axis = 1.6, cex.lab=1.8)
+grid(col=1, lwd=2, lty=2)</code></pre>
+</div>
+<div id="坐标轴标签旋转绘图" class="section level2">
+<h2>坐标轴标签旋转绘图</h2>
+<pre class="rmd"><code>par(mar=c(6,6,2,2))
+plot(1:nrow(dat_Tr_sort_inter), axes=F,
+     dat_Tr_sort_inter$total_trainhours[order_Tr], 
+     type=&#39;o&#39;, xlab=&#39;&#39;, ylab=&#39;Total_hours&#39;, lwd=3, cex.axis = 1.6, cex.lab=1.8)
+grid(col=1, lwd=2, lty=2)
+axis(1, 1:nrow(dat_Tr_sort_inter),labels=dat_Tr_sort_inter$Enames[order_Tr],
+     las  = 2)
+axis(2)</code></pre>
+</div>
+<div id="批量保存图片" class="section level2">
+<h2>3. 批量保存图片</h2>
+<pre class="rmd"><code># filepath &lt;- &#39;IncreasedModellingFiles/Model6_HuBei_Guaipoints/&#39;
+for(k in 1:n.HuBei){
+  
+  # jpeg(file = paste0(filepath, &#39;/&#39;, row.names(Zkt.HuBei)[k], &#39;.jpg&#39;)) # 保存为jpg
+  pdf(file = paste0(filepath, &#39;/&#39;, row.names(Zkt.HuBei)[k], &#39;.pdf&#39;)) #保存为pdf
+  plot(cum_quezhen_pred[k, ], axes = F ,type=&#39;l&#39;, main=row.names(Zkt.HuBei)[k],
+       ylab=&#39;cum. identified illness&#39;, xlab=&#39;Date&#39;,col=2, lty=2)
+  lines(cum_quezhen[k,], col=1)
+  points(cum_quezhen[k,], col=1)
+  v1_tmp &lt;- which(colnames(Zkt_pred) == guaipoint_vec[k])
+  abline(v=v1_tmp, col = &#39;blue&#39;)
+  text(x=v1_tmp, y=cum_quezhen_pred[k, round(TT.HuBei/2)],
+       guaipoint_vec[k])
+  axis(1, 1:ncol(Zkt_pred),labels= colnames(Zkt_pred))
+  axis(2)
+  grid()
+  dev.off()
+} </code></pre>
+</div>
+<div id="怎么添加图像的形状参数有的曲线有形状有的曲线没有形状没有形状的曲线用-1表示" class="section level2">
+<h2>4 怎么添加图像的形状参数，有的曲线有形状，有的曲线没有形状，没有形状的曲线用-1表示</h2>
+<pre class="rmd"><code>legend(&#39;topleft&#39;, c(&#39;真实曲线&#39;, &#39;预测曲线&#39;, &#39;拐点时间&#39;), col=c(1,2,4), lty=1, pch=c(1,-1,-1))</code></pre>
+</div>
+<div id="r绘制长度不同的向量的箱线图" class="section level2">
+<h2>5. R绘制长度不同的向量的箱线图</h2>
+<pre class="rmd"><code>Rt_list &lt;- list(Rt_Pro, Rt_Hubei, Rt_Wuhan, Rt_Japan, Rt_Skorea, Rt_Sing, Rt_Italy)
+boxplot(Rt_list, ylim=c(0,5.2), names = c(&#39;China&#39;, &#39;Hubei&#39;, &#39;Wuhan&#39;, &#39;Japan&#39;, &#39;SKorea&#39;, &#39;Singapore&#39;,
+                                          &#39;Italy&#39;))
+abline(h=1, lty=3,col=&#39;green4&#39;)</code></pre>
+</div>
+<div id="添加没有边框的图例利用btyn" class="section level2">
+<h2>6. 添加没有边框的图例：利用bty=‘n’</h2>
+<pre class="rmd"><code>plot(1: (nr-id_vec[1]+ 1-time), ratio7(dat[(id_vec[1]): nr,1], time), 
+       xlim=xlim, ylim=ylim, col=1,
+       type=&#39;o&#39;, xlab=&#39;Day&#39;, ylab=&#39;ratio&#39;)
+  for(k in 2: nc){
+    lines(1: (nr-id_vec[k]+ 1-time), ratio7(dat[(id_vec[k]): nr,k], time), col=k)
+    points(1: (nr-id_vec[k]+ 1-time), ratio7(dat[(id_vec[k]): nr,k], time), col=k, pch=k)
+  }
+  abline(h =1 ,col=1, lty=2)
+  legend(&#39;topright&#39;, names(dat), col=1:nc, pch=1:nc,lty=1, bty=&#39;n&#39;)
+</code></pre>
+</div>
+</div>
+<div id="漂亮美观强大的ggplot2绘图技术" class="section level1">
+<h1>2 漂亮美观强大的ggplot2绘图技术</h1>
+<div id="绘制箱线图" class="section level2">
+<h2>1 绘制箱线图</h2>
+<pre class="r"><code>datafun &lt;- function(mat1, mat2, xname, methodname){
+  n1 &lt;- dim(mat1)[1];
+  n2 &lt;- dim(mat2)[1];
+  p &lt;- dim(mat1)[2];
+  suml &lt;- (n1 + n2)*p
+  data = as.data.frame(matrix(0, suml, 1))
+  for(i in 1:p){
+    data[((i - 1)*n1 + 1):(n1*i), 1] &lt;- mat1[, i]
+  }
+  for(j in 1:p){
+    data[(n1*p + (j - 1)*n2 + 1):(n1*p + n2*j), 1] &lt;- mat2[, j]
+  }
+  colnames(data) = &quot;Value&quot;; 
+  data$method = c(rep(methodname[1],  n1*p), rep(methodname[2], n2*p))
+  data$snp_sparse =  c(rep(xname, each = n1), rep(xname, each = n2))
+  return(data)
+}
+library(&quot;mvtnorm&quot;)
+library(&quot;ggplot2&quot;)</code></pre>
+<pre><code>## Warning: 程辑包&#39;ggplot2&#39;是用R版本4.0.4 来建造的</code></pre>
+<pre class="r"><code>n1 &lt;- 50;
+n2 &lt;- 100;
+p &lt;- 4;
+mat1 &lt;- rmvnorm(n1, mean = rep(0, p), sigma = diag(p), method = &quot;chol&quot;);
+mat2 &lt;- rmvnorm(n1, mean = rep(0, p), sigma = diag(p), method = &quot;chol&quot;);
+xname = c(&quot;0.2&quot;, &quot;0.3&quot;, &quot;0.4&quot;, &quot;0.5&quot;);
+methodname = c(&quot;method1&quot;,&quot;method2&quot;);
+dat &lt;- datafun(mat1, mat2, xname, methodname)
+# 按照x的值分组画箱线图，并设置坐标字体大小
+ggplot(dat, aes(x=snp_sparse, y=Value, fill=method)) + geom_boxplot(aes(fill=method)) +
+  theme(axis.text.x = element_text(size = 12, angle=70, vjust=0.6)
+,axis.text.y = element_text(size = 18),plot.title = element_text(hjust = 30,vjust=-40,size=14) 
+,legend.position=&quot;none&quot;) +ylim(c(0,2))</code></pre>
+<pre><code>## Warning: Removed 211 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="/cn/RplotLearn_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="利用ggplot2画折线图" class="section level2">
+<h2>利用ggplot2画折线图</h2>
+<pre class="r"><code>elboPlot &lt;- function(elbo_seq){
+  library(ggplot2)
+  p1 &lt;- ggplot(data=data.frame(ELBO= elbo_seq, iter=1:length(elbo_seq)),
+               aes(x=iter, y=ELBO))
+  
+  p1 + geom_line(size=2) + ggtitle(&quot;VB algorithm&quot;) +
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.text.x=element_text(size=14,color=&quot;red&quot;),
+          axis.text.y=element_text(size=14, color=&quot;green&quot;),
+          axis.title.x = element_text(size=18, color=&#39;black&#39;),
+          axis.title.y = element_text(size=18, color=&#39;black&#39;),
+          title= element_text(size=20, color=&#39;blue&#39;)
+    ) 
+}
+elboPlot(elbo_seq = 1:100)</code></pre>
+<p><img src="/cn/RplotLearn_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>single_line_Plot &lt;- function(y, x=NULL, x.name=&quot;iter&quot;, y.name=&quot;logLik&quot;,
+                             title.name=&quot;Title&quot;,title.col=&quot;black&quot;, title.size=20, x.axis.col=&#39;black&#39;, x.axis.size=14, y.axis.col=&#39;black&#39;, y.axis.size=14, xlab.size=18, ylab.size=18, line.size=2){
+  library(ggplot2)
+  if(is.null(x)) x &lt;- 1:length(y)
+  if(length(x) != length(y)) stop(&quot;x and y must have same length!&quot;)
+  p1 &lt;- ggplot(data=NULL,
+               aes(x=x, y=y))
+  
+  p1 + geom_line(size=line.size) + ggtitle(title.name) + xlab(x.name) + ylab(y.name) +
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.text.x=element_text(size=x.axis.size,color=x.axis.col),
+          axis.text.y=element_text(size=y.axis.size, color=y.axis.col),
+          axis.title.x = element_text(size=xlab.size, color=&#39;black&#39;),
+          axis.title.y = element_text(size=ylab.size, color=&#39;black&#39;),
+          title= element_text(size=title.size, color=title.col)
+    ) 
+}
+single_line_Plot(1:10)</code></pre>
+<p><img src="/cn/RplotLearn_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+</div>
+</div>
