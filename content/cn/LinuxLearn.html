@@ -5,8 +5,6 @@ date: '2021-03-02'
 output: pdf_document
 ---
 
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
 <div id="nscc-linux常见问题及操作" class="section level1">
@@ -44,6 +42,8 @@ export PATH=/home/hangweiqiang/miniconda3/bin:$PATH #设置环境变量</code></
 <div id="基本命令" class="section level2">
 <h2>基本命令</h2>
 <pre class="linux"><code>可用命令： 
+whereis xx 查看有哪些xx程序的版本，比如
+whereis python   查看有哪些python版本
 cd 路径                        更改远程目录到“路径” 
 lcd 路径                       更改本地目录到“路径” 
 chgrp group path               将文件“path”的组更改为“group” 
@@ -73,6 +73,55 @@ exit/logout                   退出linux连接
 cd /home/csr3/ #进入到指定路径
 cd .. # 返回上一级命令
 </code></pre>
+</div>
+</div>
+<div id="linux与anoconda操作" class="section level1">
+<h1>Linux与Anoconda操作</h1>
+<p>下载和安装miniconda3
+下载、安装地址：<a href="https://docs.conda.io/en/latest/miniconda.html#linux-installers" class="uri">https://docs.conda.io/en/latest/miniconda.html#linux-installers</a></p>
+<pre class="linux"><code>wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
+<div id="conda-安装r语言及其r包" class="section level2">
+<h2>conda 安装R语言及其R包：</h2>
+<p>1 添加channel：清华镜像 free conda-forge bioconda</p>
+<pre class="linux"><code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
+conda config --set show_channel_urls yes
+conda config --show  # 查看新增channels</code></pre>
+<p>2 创建conda环境r403，并安装R4.0.3</p>
+<pre class="linux"><code>conda create -n r403
+conda activate r403
+conda install r-base=4.0.3
+conda install r-vegan  # 安装vegan包</code></pre>
+<p>3 包管理</p>
+<pre class="linux"><code>conda list                      #查看已安装包
+conda  search search_term      #搜索包信息
+conda install &lt;package_name&gt;  #安装包
+conda remove &lt;package_name&gt;  #卸载包
+conda update &lt;package_name&gt; #更新包</code></pre>
+<p>4 环境管理</p>
+<pre class="linux"><code>conda env list #查看已有环境
+conda create -n &lt;env_name&gt; (&lt;packages&gt;) #创建环境
+source activate &lt;env_name&gt;              #激活环境
+source deactivate                       #退出环境
+conda env remove -n &lt;env_name&gt; #删除环境
+conda env export &gt; env.yaml
+conda env create -f env.yaml</code></pre>
+<p>5 conda笔记</p>
+<pre class="linux"><code>conda list  # 查看conda中已经安装的软件
+conda install diamond  # conda安装软件，默认最新版
+conda install hmmer2 hmmer diamond
+conda install diamond=0.8.22  # conda安装指定版本的软件
+conda install py-bio  # conda安装python模块
+conda create -n antismash
+conda create -n python3.6 python=3.6  # 创建python3.6 conda环境
+conda info --envs  # 查看环境列表
+conda activate ENV  # 激活conda环境
+conda deactivate ENV  # 退出conda环境
+conda remove -n ENV --all  # 删除conda环境
+conda config --show  # 查看channel
+conda create -n r4py5 python=3.6 R=4.0.1 # 创建虚拟环境，并指定R和Python的版本</code></pre>
 </div>
 <div id="文件操作命令" class="section level2">
 <h2>文件操作命令</h2>
@@ -197,50 +246,4 @@ U      //撤销对当前行的所有操作
 n           //向下搜索前一个搜素动作
 N         //向上搜索前一个搜索动作</code></pre>
 </div>
-</div>
-<div id="linux与anoconda操作" class="section level1">
-<h1>Linux与Anoconda操作</h1>
-<p>下载和安装miniconda3
-下载、安装地址：<a href="https://docs.conda.io/en/latest/miniconda.html#linux-installers" class="uri">https://docs.conda.io/en/latest/miniconda.html#linux-installers</a></p>
-<pre class="linux"><code>wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
-<p>conda 安装R语言及其R包：</p>
-<p>1 添加channel：清华镜像 free conda-forge bioconda</p>
-<pre class="linux"><code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
-conda config --set show_channel_urls yes
-conda config --show  # 查看新增channels</code></pre>
-<p>2 创建conda环境r403，并安装R4.0.3</p>
-<pre class="linux"><code>conda create -n r403
-conda activate r403
-conda install r-base=4.0.3
-conda install r-vegan  # 安装vegan包</code></pre>
-<p>3 包管理</p>
-<pre class="linux"><code>conda list                      #查看已安装包
-conda  search search_term      #搜索包信息
-conda install &lt;package_name&gt;  #安装包
-conda remove &lt;package_name&gt;  #卸载包
-conda update &lt;package_name&gt; #更新包</code></pre>
-<p>4 环境管理</p>
-<pre class="linux"><code>conda env list #查看已有环境
-conda create -n &lt;env_name&gt; (&lt;packages&gt;) #创建环境
-source activate &lt;env_name&gt;              #激活环境
-source deactivate                       #退出环境
-conda env remove -n &lt;env_name&gt; #删除环境
-conda env export &gt; env.yaml
-conda env create -f env.yaml</code></pre>
-<p>5 conda笔记</p>
-<pre class="linux"><code>conda list  # 查看conda中已经安装的软件
-conda install diamond  # conda安装软件，默认最新版
-conda install hmmer2 hmmer diamond
-conda install diamond=0.8.22  # conda安装指定版本的软件
-conda install py-bio  # conda安装python模块
-conda create -n antismash
-conda create -n python3.6 python=3.6  # 创建python3.6 conda环境
-conda info --envs  # 查看环境列表
-conda activate ENV  # 激活conda环境
-conda deactivate ENV  # 退出conda环境
-conda remove -n ENV --all  # 删除conda环境
-conda config --show  # 查看channel</code></pre>
 </div>

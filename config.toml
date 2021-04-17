@@ -46,8 +46,8 @@ enableRobotsTXT = true
     url = "/poem/"
     weight = 4
 [[menu.main]]
-    name = "关于"
-    url = "/cn_about/"
+    name = "笔记"
+    url = "/cn_note/"
     weight = 5
     
 [[menu.main]]
@@ -55,8 +55,8 @@ enableRobotsTXT = true
     url = "/en/"
     weight = 6
 [[menu.main]]
-    name = "About"
-    url = "/en_about/"
+    name = "Note"
+    url = "/en_note/"
     weight = 7  
   
 
