@@ -99,6 +99,41 @@ res_vc <- foreach(k = 1:nK,.packages="MixPPCA" ,.options.snow=opts,
 
 ```
 
+
+## 内部变量赋值保存
+
+用一个外部矩阵或数组变量将并行的每次返回结果都保存下来，以防某次并行报错后，无结果返回。
+```{Rmd}
+pfun <- function(i){
+  abc <- list(tau=i^2, sl = i)
+  mydata[i,1] <<- abc$tau##change global variables
+  mydata[i,2] <<- abc$sl
+  cat("i=",i,"\n")
+  return(data.frame(tau=abc$tau, sl=abc$sl))
+}
+# pfun(1)
+library(doSNOW)
+paral.size <- 1000
+mydata <- matrix(NA,paral.size,2)
+cores <- parallel::detectCores()##number of cores of system
+cor.num <- makeSOCKcluster(cores)##set the number of parallel cores
+registerDoSNOW(cor.num)##register cores
+library(tcltk)
+pb <- tkProgressBar(title="进度",label="已完成 %", min=0, max=100, initial = 0, width = 300)  
+res1 <- foreach(i=1:paral.size,.combine='rbind') %do% {
+  info<- sprintf("已完成 %d%%", round(i*100/paral.size))  
+  setTkProgressBar(pb, value = i*100/paral.size, title = sprintf("进度 (%s)",info),label = info)  
+  pfun(i)
+}
+close(pb)  
+stopCluster(cor.num)##close cores
+
+head(res1)
+head(mydata)
+## 来自李贵珍师妹的版本
+```
+
+
 为一般循环添加进度条
 ```{r}
 testit <- function(x = sort(runif(20)), ...)

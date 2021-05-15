@@ -1,5 +1,5 @@
 ---
-title: "R与Cpp混合编程"
+title: "R与Armadillo混合编程"
 author: "刘伟"
 date: '2021-01-29'
 output: pdf_document
@@ -7,6 +7,7 @@ output: pdf_document
 # armadillo官网
   http://arma.sourceforge.net/
   可以使用ctrl+F在该网站上搜索需要查阅的函数。
+
 
 # 待解决问题
 
