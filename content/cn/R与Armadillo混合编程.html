@@ -17,6 +17,10 @@ output: pdf_document
 <ol style="list-style-type: decimal">
 <li>为什么cpp中定义的函数返回List后，List的成分为矩阵时，无法做index_max()计算和返回该矩阵到另一个List的成分中？？</li>
 </ol>
+<p>返回的List的成分为矩阵时，需要重新申明其为矩阵。</p>
+<pre class="rmd"><code>List aList = getList(xx);
+mat mat1 = aList[&quot;mat&quot;]; // 注意这里的申明mat不能省略，否则无法强制转换。
+</code></pre>
 </div>
 <div id="注意事项" class="section level1">
 <h1>注意事项</h1>

@@ -4,6 +4,7 @@ author: "刘伟"
 date: '2021-01-29'
 output: pdf_document
 ---
+
 # armadillo官网
   http://arma.sourceforge.net/
   可以使用ctrl+F在该网站上搜索需要查阅的函数。
@@ -12,6 +13,13 @@ output: pdf_document
 # 待解决问题
 
 1) 为什么cpp中定义的函数返回List后，List的成分为矩阵时，无法做index_max()计算和返回该矩阵到另一个List的成分中？？
+
+返回的List的成分为矩阵时，需要重新申明其为矩阵。
+```{Rmd}
+List aList = getList(xx);
+mat mat1 = aList["mat"]; // 注意这里的申明mat不能省略，否则无法强制转换。
+
+```
 
 # 注意事项
 
