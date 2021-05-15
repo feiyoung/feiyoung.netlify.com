@@ -4,6 +4,11 @@
   disable_mathjax: true
   disable_highlight: true
 ---
+
+## 如何用Rstudio访问github？
+现在Rstudio访问github需要使用 Personal Access Token，Rstudio的设置教程见：
+https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/
+
 今天心情颇差，为建Blogdown博客，倒腾大半天持续踩坑，这让本不自信的我变得更丧。
 
 ## 大水冲了龙王庙——Hugo与Blogdown的相识
