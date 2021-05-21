@@ -110,7 +110,7 @@ ggplot(dat, aes(x=snp_sparse, y=Value, fill=method)) + geom_boxplot(aes(fill=met
   theme(axis.text.x = element_text(size = 12, angle=70, vjust=0.6)
 ,axis.text.y = element_text(size = 18),plot.title = element_text(hjust = 30,vjust=-40,size=14) 
 ,legend.position=&quot;none&quot;) +ylim(c(0,2))</code></pre>
-<pre><code>## Warning: Removed 211 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>## Warning: Removed 215 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="/cn/RplotLearn_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="利用ggplot2画折线图" class="section level2">
@@ -150,5 +150,63 @@ elboPlot(elbo_seq = 1:100)</code></pre>
 }
 single_line_Plot(1:10)</code></pre>
 <p><img src="/cn/RplotLearn_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+</div>
+<div id="如何画y轴坐标不均匀的图" class="section level2">
+<h2>如何画y轴坐标不均匀的图</h2>
+<pre class="rmd"><code>simutool::boxPlot(y=timeMat, title.name = &quot; &quot;,y.name = &#39;Time(sec.)&#39;) +  scale_y_log10()</code></pre>
+</div>
+<div id="如何批量画图和保持ggplot图片" class="section level2">
+<h2>如何批量画图和保持ggplot图片</h2>
+<p>如何用patchwork并排画多张图片</p>
+<pre class="rmd"><code>filepath &lt;- &quot;D:\\LearnFiles\\Research paper\\ProPCA\\RealData&quot;
+n_ID &lt;- length(name_ID12)
+for(j in 1: n_ID){
+  
+  cat(&#39;brain &#39;, j, &#39;\n&#39;)
+  library(patchwork)
+  clusters &lt;- list()
+  clusters[[1]] &lt;- clusterList12[[j]]$SSDRcluster
+  clusters[[2]] &lt;- clusterList12[[j]][[paste0(&#39;BayesSpace&#39;, clustNumMat[j,3])]]
+  clusters[[3]] &lt;- clusterList12[[j]]$GMRF
+  
+  dlpfc &lt;- readRDS(paste0(&quot;humanbrain\\&quot;, name_ID12[j],&quot;.rds&quot;) ) 
+  clusters[[4]] &lt;- dlpfc@colData$layer_guess_reordered
+  na_id &lt;- which(is.na(clusters[[4]]))
+  names(clusters) &lt;- c(&quot;SSDRcluster&quot;, &#39;BayesSpace&#39;, &quot;GMRF&quot;, &quot;Groundtruth&quot;)
+  library(BayesSpace)
+  library(ggplot2)
+  
+  
+  dlpfc2 &lt;- dlpfc[,-na_id] # dropout the missing values
+  p1 &lt;- clusterPlot(dlpfc2, label=clusters[[4]][-na_id], palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = &quot;A&quot;, labels = 1:clustNumMat[j,1]) +
+    labs(title=&quot;groundtruth&quot;)
+  
+  p2 &lt;- clusterPlot(dlpfc2, label= as.factor(clusters[[&quot;SSDRcluster&quot;]][-na_id]), palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = &quot;A&quot;, labels = 1:clustNumMat[j,2]) +
+    labs(title=paste0(&quot;SSDRcluster: ARI=&quot;, round(AriMat[j,1],2)))
+  
+  
+  p3 &lt;- clusterPlot(dlpfc2, label= as.factor(clusters[[&quot;BayesSpace&quot;]][-na_id]), palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = &quot;A&quot;, labels = 1:clustNumMat[j,3]) +
+    labs(title=paste0(&quot;BayesSpace&quot;,clustNumMat[j,3],&quot;: ARI=&quot;, round(AriMat[j,2],2)))
+  
+  p4 &lt;- clusterPlot(dlpfc2, label= as.factor(clusters[[&quot;GMRF&quot;]][-na_id]), palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = &quot;A&quot;, labels = 1:clustNumMat[j,4]) +
+    labs(title=paste0(&quot;GMRF: ARI=&quot;, round(AriMat[j,3],2)))
+  # pdf(file =) #保存为pdf
+  p &lt;- p1+p2+p3+p4
+  # dev.off()
+  ggsave(filename= paste0(filepath, &#39;\\Figures\\brain&#39;, name_ID12[j], &#39;method3.pdf&#39;),
+         plot = p)
+}</code></pre>
+<p>类似par(mfrow=c(2,2))的用法包：</p>
+<pre class="rmd"><code>library(grid)
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2,2)))
+print(p1, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
+print(p2, vp = viewport(layout.pos.row = 1, layout.pos.col = 2))
+print(p3, vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
+print(p4, vp = viewport(layout.pos.row = 2, layout.pos.col = 2))</code></pre>
 </div>
 </div>

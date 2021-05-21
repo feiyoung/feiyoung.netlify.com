@@ -28,4 +28,36 @@ mat mat1 = aList["mat"]; // 注意这里的申明mat不能省略，否则无法�
 2) 若C是一个cube，则C.slice(k)是一个矩阵，支持矩阵的所有运算，比如.t(),.i()以及A + b*C.slice(k);而
 C.col(k)不是一个矩阵而是一个subcube，不支持直接的矩阵运算，只能通过赋值给一个矩阵tmpMat后转化为一个矩阵后，再进行相应的矩阵运算。为了更加高效的使用cube，请注意cube的存储格式，将需要参与矩阵乘法的subcube储存到第三个维度上。
 
-3) 
+# 如何传递非结构化数据 
+
+下面这段使用List的代码非常经典，值得学习。
+```{Rmd}
+#include "RcppArmadillo.h"
+// [[Rcpp::depends(RcppArmadillo)]]
+#include<ctime>
+
+
+#define INT_MIN (-INT_MAX - 1)
+
+using namespace Rcpp;
+using namespace arma;
+using namespace std;
+
+//[[Rcpp::export]] 
+List calList(const Rcpp::List& alist, const Rcpp::List blist){
+  int r,  L1 = alist.length();
+  cout<<"L1="<<L1<<endl;
+  field<mat> Xf(1,2), Wf(1,2);
+  for(r=0; r < L1; ++r){
+    mat Xtmp = alist[r];
+    Xf(0,r) = Xtmp;
+    mat Wtmp = blist[r];
+    Wf(0,r) = Wtmp;
+  }
+  List resList = List::create(
+    Rcpp::Named("Xf") = Xf,
+    Rcpp::Named("Wf") = Wf
+  );
+  return resList;
+}
+```

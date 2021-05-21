@@ -156,3 +156,67 @@ single_line_Plot(1:10)
 
 
 ```
+
+## 如何画y轴坐标不均匀的图
+
+```{Rmd}
+simutool::boxPlot(y=timeMat, title.name = " ",y.name = 'Time(sec.)') +  scale_y_log10()
+```
+
+## 如何批量画图和保持ggplot图片
+如何用patchwork并排画多张图片
+```{Rmd}
+filepath <- "D:\\LearnFiles\\Research paper\\ProPCA\\RealData"
+n_ID <- length(name_ID12)
+for(j in 1: n_ID){
+  
+  cat('brain ', j, '\n')
+  library(patchwork)
+  clusters <- list()
+  clusters[[1]] <- clusterList12[[j]]$SSDRcluster
+  clusters[[2]] <- clusterList12[[j]][[paste0('BayesSpace', clustNumMat[j,3])]]
+  clusters[[3]] <- clusterList12[[j]]$GMRF
+  
+  dlpfc <- readRDS(paste0("humanbrain\\", name_ID12[j],".rds") ) 
+  clusters[[4]] <- dlpfc@colData$layer_guess_reordered
+  na_id <- which(is.na(clusters[[4]]))
+  names(clusters) <- c("SSDRcluster", 'BayesSpace', "GMRF", "Groundtruth")
+  library(BayesSpace)
+  library(ggplot2)
+  
+  
+  dlpfc2 <- dlpfc[,-na_id] # dropout the missing values
+  p1 <- clusterPlot(dlpfc2, label=clusters[[4]][-na_id], palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = "A", labels = 1:clustNumMat[j,1]) +
+    labs(title="groundtruth")
+  
+  p2 <- clusterPlot(dlpfc2, label= as.factor(clusters[["SSDRcluster"]][-na_id]), palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = "A", labels = 1:clustNumMat[j,2]) +
+    labs(title=paste0("SSDRcluster: ARI=", round(AriMat[j,1],2)))
+  
+  
+  p3 <- clusterPlot(dlpfc2, label= as.factor(clusters[["BayesSpace"]][-na_id]), palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = "A", labels = 1:clustNumMat[j,3]) +
+    labs(title=paste0("BayesSpace",clustNumMat[j,3],": ARI=", round(AriMat[j,2],2)))
+  
+  p4 <- clusterPlot(dlpfc2, label= as.factor(clusters[["GMRF"]][-na_id]), palette=NULL, size=0.05) +
+    scale_fill_viridis_d(option = "A", labels = 1:clustNumMat[j,4]) +
+    labs(title=paste0("GMRF: ARI=", round(AriMat[j,3],2)))
+  # pdf(file =) #保存为pdf
+  p <- p1+p2+p3+p4
+  # dev.off()
+  ggsave(filename= paste0(filepath, '\\Figures\\brain', name_ID12[j], 'method3.pdf'),
+         plot = p)
+}
+```
+
+类似par(mfrow=c(2,2))的用法包：
+```{Rmd}
+library(grid)
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2,2)))
+print(p1, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
+print(p2, vp = viewport(layout.pos.row = 1, layout.pos.col = 2))
+print(p3, vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
+print(p4, vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
+```
