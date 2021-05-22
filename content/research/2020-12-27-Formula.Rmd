@@ -6,8 +6,18 @@ output: pdf_document
 layout: post
 ---
 
+## Decomposition of Matrix
+Cholskey decomposition, QR decomposition, LU decomposition, SVD decomposition and Jordan decomposition:
+see https://blog.csdn.net/mucai1/article/details/85242098
+
+Matrix inverse trick: Assume $A \in R^{p\times p}$ is invertible, we can speed up the computation by Cholskey decomposition,
+$$A = L L^T.$$
+Then we have
+$$A^{-1} = L^{-1} (L^{-1})^T.$$
+
 ## Computational Complexity of Matrix
-We list the common-used complexity.
+We list the common-used complexity, see https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations#Transforms
+for more details. 
 
 1) The complexity of computing $|A|$ is $O(n^3)$ if $A \in R^{n\times n}$.
 

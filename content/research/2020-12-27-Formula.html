@@ -6,13 +6,21 @@ output: pdf_document
 layout: post
 ---
 
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
+<div id="decomposition-of-matrix" class="section level2">
+<h2>Decomposition of Matrix</h2>
+<p>Cholskey decomposition, QR decomposition, LU decomposition, SVD decomposition and Jordan decomposition:
+see <a href="https://blog.csdn.net/mucai1/article/details/85242098" class="uri">https://blog.csdn.net/mucai1/article/details/85242098</a></p>
+<p>Matrix inverse trick: Assume <span class="math inline">\(A \in R^{p\times p}\)</span> is invertible, we can speed up the computation by Cholskey decomposition,
+<span class="math display">\[A = L L^T.\]</span>
+Then we have
+<span class="math display">\[A^{-1} = L^{-1} (L^{-1})^T.\]</span></p>
+</div>
 <div id="computational-complexity-of-matrix" class="section level2">
 <h2>Computational Complexity of Matrix</h2>
-<p>We list the common-used complexity.</p>
+<p>We list the common-used complexity, see <a href="https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations#Transforms" class="uri">https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations#Transforms</a>
+for more details.</p>
 <ol style="list-style-type: decimal">
 <li><p>The complexity of computing <span class="math inline">\(|A|\)</span> is <span class="math inline">\(O(n^3)\)</span> if <span class="math inline">\(A \in R^{n\times n}\)</span>.</p></li>
 <li><p>The complexity of computing <span class="math inline">\(A^{-1}\)</span> is <span class="math inline">\(O(n^3)\)</span> if <span class="math inline">\(A \in R^{n\times n}\)</span>.</p></li>
