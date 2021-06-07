@@ -206,32 +206,3 @@ Let <span class="math inline">\(g(\theta; \theta^{(t)})=\log P(Y;\theta^{(t)}) +
 association studies. Bioinformatics. 2019 Oct 1;35(19):3693-3700. doi: 10.1093/bioinformatics/btz167. PMID: 30851102.
   Tipping, M. E., &amp; Bishop, C. M. (1999). Mixtures of probabilistic principal component analyzers. Neural computation , 11 (2), 443-482.</code></pre>
 </div>
-<div id="trap-of-compuation" class="section level1">
-<h1>Trap of Compuation</h1>
-<div id="iterated-closed-form-of-covariance-matrix" class="section level2">
-<h2>Iterated closed form of covariance matrix</h2>
-<p>It is noted that we solve the iterative closed form of covariance matrix, we require to devide the interactive term into two terms.
-For example, we have an objective function
-<span class="math display">\[l(\Sigma)=-\frac{1}{2} \ln |\Sigma| - \frac{1}{2} tr\{\Sigma^{-1}
-(\sigma^2 I_p + zz^T)\} + \mu^T \Sigma^{-1}z - \frac{1}{2} \mu^T \Sigma{-1} \mu.\]</span>
-We are used to writing <span class="math inline">\(\frac{1}{2}\mu^T\Sigma^{-1} z+ \frac{1}{2}z^T\Sigma^{-1} \mu\)</span> as <span class="math inline">\(\mu^T \Sigma^{-1}z\)</span> since the transpose of <span class="math inline">\(1\times 1\)</span> matrix is itself. However, it will lead to some problems when we solve <span class="math inline">\(\Sigma\)</span> and we will obtain a unsymmetric matrix estimae. Taking derivative on <span class="math inline">\(\Sigma^{-1}\)</span>, we have
-<span class="math display">\[\frac{1}{2} \Sigma - \frac{1}{2}(\sigma^2 + zz^T) +\mu z^T - \frac{1}{2} \mu\mu^T,\]</span>
-which implies
-<span class="math display">\[\Sigma = \sigma^2I_p + zz^T + \mu\mu^T - 2\mu z^T \notin S^{p\times p},\]</span>
-where <span class="math inline">\(S^{p\times p}\)</span> is the symmetric matrix space. Note
-<span class="math inline">\(2\mu z^T \neq \mu z^T + z\mu^T\)</span>.</p>
-<p>Thus, we rewrite <span class="math inline">\(\mu^T \Sigma^{-1}z\)</span> as <span class="math inline">\(\frac{1}{2}\mu^T\Sigma^{-1} z+ \frac{1}{2}z^T\Sigma^{-1} \mu\)</span>, then we obtain
-<span class="math display">\[\Sigma = \sigma^2I_p + zz^T + \mu\mu^T - \mu z^T - z\mu^T \in S^{p\times p}.\]</span>
-Therefore, we get the results we want.</p>
-</div>
-<div id="high-dimensional-mixture-normal-observational-log-likelihood" class="section level2">
-<h2>High-dimensional mixture normal observational log likelihood</h2>
-<p>Usually, the observational log likelihood has a following form:
-<span class="math display">\[l(\theta)= \sum_i \ln \sum_k \pi_k P(x_i|y_i = 1_k, \mu_k, \Sigma_k)=\sum_i \ln \sum_k \pi_k a_{ik}.\]</span>
-When <span class="math inline">\(x_i\)</span> is high dimensional, we often encounter that the computer will recognize <span class="math inline">\(a_{ik}\)</span> as zero before log is took.</p>
-<p>Thus, we use the equivalent form <span class="math inline">\(\ln a_{ik} - \max_k \ln a_{ik} = b_{ik} - c_i\)</span>, which leads to
-<span class="math display">\[a_{ik}= \exp(b_{ik} - c_i) \exp(c_i).\]</span>
-Furthermore,
-<span class="math display">\[l(\theta) = \sum_i [(\ln \sum_k \pi_k \exp(b_{ik}-c_i)) + \ln c_i].\]</span></p>
-</div>
-</div>
