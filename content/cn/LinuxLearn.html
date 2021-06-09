@@ -73,7 +73,32 @@ version                        显示协议版本
 exit/logout                   退出linux连接
 cd /home/csr3/ #进入到指定路径
 cd .. # 返回上一级命令
-</code></pre>
+dos2unix ./*.sh #将当前文件夹中所有以.sh结尾的文件从文本格式转换为二进制格式
+du -h * #查看当前目录下文件的大小</code></pre>
+</div>
+<div id="linux之间的文件传输" class="section level2">
+<h2>Linux之间的文件传输</h2>
+<pre class="linux"><code>scp  -r yangyi@gmsjl:/nas/yangyi2/jicheng3 ./ # -r 传输文件夹，从远程机器传输到当前机器
+scp   -r jicheng3 gmsyan@nus.nscc.sg:/home/projects/11000368/Work/YangYi/Jicheng3/fastqData 
+#从当前机器推送文件夹到远程机器
+
+scp   bam2count.sh gmsyan@nus.nscc.sg:/home/projects/11000368/Work/YangYi/Jicheng3/submit_code/shFile #传递文件到远程机器</code></pre>
+</div>
+<div id="linux编程语言" class="section level2">
+<h2>Linux编程语言</h2>
+<pre class="linux"><code># 批量转化:Linux语法比较特别：等号之间不能有空格，Linux的下标也是从0开始计算
+sample=(AVEN_2 AVEN_3 AVEN_4 DIS3L_2 DIS3L_3 DIS3L_4 FOCAD_2 FOCAD_3 FOCAD_4 NT_2 NT_3 NT_4 SKIV2L_2 SKIV2L_3 SKIV2L_4 TTC37_2 TTC37_3 TTC37_4);
+for ((intt=1;intt&lt;18;intt++));
+do
+samtools index ./${sample[intt]}_Aligned.sortedByCoord.out.bam 
+done
+
+cd /home/projects/11000368/Work/YangYi/Jicheng3
+sample=(AVEN_2 AVEN_3 AVEN_4 DIS3L_2 DIS3L_3 DIS3L_4 FOCAD_2 FOCAD_3 FOCAD_4 NT_2 NT_3 NT_4 SKIV2L_2 SKIV2L_3 SKIV2L_4 TTC37_2 TTC37_3 TTC37_4);
+for ((intt=0;intt&lt;18;intt++));
+do
+htseq-count -f bam -r pos -s no -a 10 -t exon -i gene_id -m union ./STAR_out/HSTAR_out/${sample[intt]}_Aligned.sortedByCoord.out.bam ./fastqData/humanRefData/gencode.v30.chr_patch_hapl_scaff.basic.annotation2.gtf &gt; ./coutFiles/${sample[intt]}_counts_out.txt
+done</code></pre>
 </div>
 </div>
 <div id="linux与anoconda操作" class="section level1">
