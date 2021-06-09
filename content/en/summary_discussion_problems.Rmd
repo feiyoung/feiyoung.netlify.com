@@ -31,3 +31,8 @@ The aims or problmes are as follows:
 2) Increase $n$ and $p$, such as $n=4000,5000$ and $p=2000$.
 
 3) Look up to the settting of signal-noise ratio.
+
+# Summary, 2021-03-11
+The aims are as follows:
+
+1) Think about adding the Hidden Gaussian Markov fields into model, then use ICM algorithm to implement it.s

@@ -1,0 +1,34 @@
+---
+title: "Note1 "
+author: "Wei Liu"
+date: '\today'
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    dev: 'svg'
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="次高斯随机变量及其性质" class="section level1">
+<h1>次高斯随机变量及其性质</h1>
+<p>1)次高斯随机变量是根据其中心化的矩母函数来定义的，即
+<span class="math display">\[E(e^{\lambda (X - \mu)})\leq e^{\lambda^2 \sigma^2 /2}\]</span>
+对任意<span class="math inline">\(\lambda \in R\)</span>成立。其中<span class="math inline">\(\sigma&gt;0\)</span>称为次高斯参数。由该定义可知：</p>
+<ol style="list-style-type: decimal">
+<li><p>它关于<span class="math inline">\(X\)</span>具有对称性，即若<span class="math inline">\(X\)</span>是关于参数<span class="math inline">\(\sigma\)</span>的次高斯，则<span class="math inline">\(-X\)</span>也是关于<span class="math inline">\(\sigma\)</span>的次高斯。</p></li>
+<li><p>和高斯变量类似，满足线性性质，即独立次高斯变量<span class="math inline">\(X_1\)</span>(关于<span class="math inline">\(\sigma_1\)</span>)和<span class="math inline">\(X_2\)</span>（关于<span class="math inline">\(\sigma_2\)</span>）的和仍然是次高斯(关于<span class="math inline">\(\sqrt{\sigma^2_1+\sigma^2_2}\)</span>)。如果<span class="math inline">\(X_1\)</span>和<span class="math inline">\(X_2\)</span>相关，结论是否成立呢？</p></li>
+<li><p>Radmacher随机变量是关于<span class="math inline">\(1\)</span>的次高斯变量；</p></li>
+<li><p>有界随机变量<span class="math inline">\(X \in [a, b]\)</span>是关于<span class="math inline">\(b-a\)</span>的次高斯变量；也是关于<span class="math inline">\((b-a)/2\)</span>的次高斯随机变量，这个界更金一些。</p></li>
+</ol>
+<p>2)根据Chernoff方法可以证明上偏差不等式和下偏差不等式为
+<span class="math display">\[P(X - \mu \geq t) \leq e^{-\frac{t^2}{2\sigma^2}}, P(X - \mu \leq t) \leq e^{-\frac{t^2}{2\sigma^2}}.\]</span>
+从而由union bound可以得到Concentration inequality：
+<span class="math display">\[P(|X - \mu| \geq t) \leq P(X - \mu \geq t) + P(X - \mu \leq t) \leq 2e^{-\frac{t^2}{2\sigma^2}}. \]</span></p>
+<p>3)次高斯随机变量序列的极大值的期望不等式:假设<span class="math inline">\(X_i\)</span>是一个均值为0的以<span class="math inline">\(\sigma\)</span>为参数的次高斯序列（不要求独立），则对任意<span class="math inline">\(n\geq 1\)</span>有<span class="math inline">\(E(\max_i X_i) \leq \sqrt{2\sigma^2\log(n) }\)</span>。</p>
+<p>证明： <span class="math inline">\(\exp(E\max_i X_i) \leq E \exp(\max_i X_i)=E \max_i e^{X_i} \leq \sum_i E e^{X_i}\)</span>,于是有<span class="math inline">\(\exp(E\max_i X_i) \leq n \exp(\sigma^2/2)\)</span>,两边同时取对数，得到
+<span class="math display">\[E\max_i X_i \leq \log(n) + \sigma^2/2.\]</span></p>
+</div>

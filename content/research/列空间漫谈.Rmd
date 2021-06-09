@@ -1,0 +1,19 @@
+---
+title: "寻常问题集"
+author: "Wei Liu"
+date: '2021-02-01'
+output: pdf_document
+---
+
+# 矩阵列空间
+列空间、列空间，我们常常谈论矩阵列空间。顾名思义，它就是由矩阵的所有列张成的一个向量空间，数学定义如下：
+
+假设$A \in R^{n\times p}$，则
+$$column(A) =\{y: y=x_1 a_1 + \cdots + x_p a_p, x \in R^p\} = \{y: y=Ax, x \in R^{p}\},$$
+这里$column(A)$表示$A$的列空间(column space)，有的记作$span_c(A)$，该空间的维数不超过$p$。当且仅当它为列满秩时，它是一个$p$-维向量空间。
+
+同理，可以定义$A$的行空间，也就是$A$转置的列空间。有以下重要性质：
+
+1) 若$A$为对称矩阵，则行列空间相等；
+
+2) $column(\Sigma^{-1} A) \subset \mathcal{S}$ $\Rightarrow column(A) \subset \Sigma \mathcal{S}$，其中$\Sigma \mathcal{S}= \{y: y=\Sigma x, x \in \mathcal{S}\}$。 

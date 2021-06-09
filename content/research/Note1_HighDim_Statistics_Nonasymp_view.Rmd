@@ -1,0 +1,35 @@
+---
+title: "Note1 "
+author: "Wei Liu"
+date: '\today'
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    dev: 'svg'
+---
+
+# 次高斯随机变量及其性质
+
+1)次高斯随机变量是根据其中心化的矩母函数来定义的，即
+$$E(e^{\lambda (X - \mu)})\leq e^{\lambda^2 \sigma^2 /2}$$
+对任意$\lambda \in R$成立。其中$\sigma>0$称为次高斯参数。由该定义可知：
+
+1) 它关于$X$具有对称性，即若$X$是关于参数$\sigma$的次高斯，则$-X$也是关于$\sigma$的次高斯。
+
+2) 和高斯变量类似，满足线性性质，即独立次高斯变量$X_1$(关于$\sigma_1$)和$X_2$（关于$\sigma_2$）的和仍然是次高斯(关于$\sqrt{\sigma^2_1+\sigma^2_2}$)。如果$X_1$和$X_2$相关，结论是否成立呢？
+
+3) Radmacher随机变量是关于$1$的次高斯变量；
+
+4) 有界随机变量$X \in [a, b]$是关于$b-a$的次高斯变量；也是关于$(b-a)/2$的次高斯随机变量，这个界更金一些。
+
+
+2)根据Chernoff方法可以证明上偏差不等式和下偏差不等式为
+$$P(X - \mu \geq t) \leq e^{-\frac{t^2}{2\sigma^2}}, P(X - \mu \leq t) \leq e^{-\frac{t^2}{2\sigma^2}}.$$
+从而由union bound可以得到Concentration inequality：
+$$P(|X - \mu| \geq t) \leq P(X - \mu \geq t) + P(X - \mu \leq t) \leq 2e^{-\frac{t^2}{2\sigma^2}}. $$
+
+3)次高斯随机变量序列的极大值的期望不等式:假设$X_i$是一个均值为0的以$\sigma$为参数的次高斯序列（不要求独立），则对任意$n\geq 1$有$E(\max_i X_i) \leq \sqrt{2\sigma^2\log(n) }$。
+
+证明： $\exp(E\max_i X_i) \leq E \exp(\max_i X_i)=E \max_i e^{X_i} \leq \sum_i E e^{X_i}$,于是有$\exp(E\max_i X_i) \leq n \exp(\sigma^2/2)$,两边同时取对数，得到
+$$E\max_i X_i \leq \log(n) + \sigma^2/2.$$
