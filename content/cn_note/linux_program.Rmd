@@ -1,0 +1,14 @@
+---
+title: "Linux编程手册"
+author: "刘伟"
+date: '2021-06-09'
+output: pdf_document
+---
+  # NSCC linux常见问题及操作
+  ## 账户
+  GPU账户信息
+```{linux}
+ssh weiliudeng@172.25.136.22
+Ldw-258174718
+
+```

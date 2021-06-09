@@ -1,0 +1,13 @@
+---
+title: "Linux Programming"
+author: "Wei Liu"
+date: '2021-06-09'
+output: pdf_document
+---
+# NSCC linux
+## 
+ 
+```{linux}
+smp=(a b c);
+
+```
