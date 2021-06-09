@@ -1,0 +1,87 @@
+---
+title: "Spaceranger操作手册"
+author: "刘伟"
+date: '2021-03-02'
+---
+
+### spaceranger
+对于10X空间转录组数据而言，可以使用官方软件space ranger对原始数据进行处理。
+主要的三个功能：
+```{linux}
+spaceranger mkfastq ##将bcl数据转换成fastq数据
+spaceranger count  ##将fastq数据转换成空间特征矩阵
+spaceranger aggr ##可以将同分组，同流程的样本进行合并
+```
+
+
+学习网址：https://www.yuque.com/u468438/is241w/hlerco
+
+知乎网址：https://zhuanlan.zhihu.com/p/335673562
+
+最详细的10x空间转录组summary网页报告解读：
+http://www.qishunwang.net/news_show_2086.aspx
+空间转录组四讲：
+https://zhuanlan.zhihu.com/p/335651836
+
+
+### Linux上安装spaceranger
+spaceranger是一个生物信息学的数据处理和分析软件，它的安装链接见：
+https://support.10xgenomics.com/spatial-gene-expression/software/downloads/latest
+
+安装完成后，同时下载参照数据：GRCh38 Reference。spaceranger在对其他数据做处理时，都需要参照数据做参照，才能顺利处理。
+
+
+
+### 将数据处理成count文件的命令
+需要指定几个路径：转录组参照数据文件"transcriptome", fastqs数据文件"fastqs", 图像数据文件"image"。
+```{linux}
+spaceranger count --id=CRC33  \--transcriptome=/nas/yangyi2/CRC/refdata-gex-GRCh38-2020-A \--fastqs=/nas/yangyi2/CRC/HN00134842_10X_RawData_Outs/CRC3/HF37NCCX2 \--sample=CRC3  \--image=/nas/yangyi2/CRC/image/CRC3.tif \--slide=V10M02-072 \--area=C1
+#其中id是结果输出文件夹，如果在当前目录下该文件夹不存在，则新建该文件夹
+# transcriptome是参照数据文件夹路径，即FASTQ文件的路径
+# slide是载玻片的ID号
+# area是指不获区域
+# image是指高分辨率图像文件
+# sample是指根据FASTQ文件名所得到的样本名称
+```
+
+
+### Seraut包
+学习网址见：
+https://satijalab.org/seurat/articles/pbmc3k_tutorial.html
+
+### 理解空间转录组数据
+每个spot(位置)包含1-200个cells（细胞），每个spot就是一个observation，以spot为单位，而不是以单个细胞为单位。 每个细胞里面都有一整套的基因（或DNA），我们可以想象成每个spot就是一个细胞，那么它就有所有的基因($G_1, G_2, \cdots, G_p$)。但是每个基因在不同的spot中的表达量是不一样的，而count data就是基因在不同位置上表达量的计数，count越高表达越强。count矩阵一般是稀疏的，因为在spot中表达的基因只有少数，大多数是不在该spot上表达，所以该spot对应的很多基因表达为0.
+
+转录组（transcriptome）指特定生物体在某种状态下，细胞内所有基因转录产物的总和，包括信使RNA(mRNA, message RNA)、转运RNA (tRNA, transfer RNA)及非编码RNA，狭义上指所有的mRNA的集合。从RNA层次研究基因表达情况，即为转录组学（transcriptomics），是研究细胞表型和功能的一个重要手段。
+
+转录组是连接基因组遗传信息和生物功能的蛋白质组的纽带，转录水平的调控是最重要也是目前研究最广泛的生物体调控方式。转录组的研究比基因组的研究能给出更高效的有用信息。与基因组不同，转录组更有时间空间性。除了异常的mRNA降解现象以外，转录组反映的是特定条件下活跃表达的基因。
+
+转录组的研究可以提供什么条件下什么基因表达什么信息，从而推断相应未知基因的功能，揭示特定调节基因的作用机制。对转录本的定量可以了解特定基因的活性和表达量，用于疾病的诊断和治疗。通过对转录组的研究，也让个性化医疗的目标，从共性转移到个性成为可能。
+
+转录组研究的技术主要包括三种：1基于杂交技术的微阵列技术；2基于Sanger测序法的SAGE和MPSS；3基于新一代高通量测序技术的转录组测序。
+
+转录组高通量测序有很大的优势。高通量、更精确的数字信号、无需已知序列、能够在单核苷酸水平对任意物种的整体转录活动进行检测，在分析转录本的结构和表达水平的同时，还能发现未知转录本和稀有转录本，精确地识别可变剪切位点和cSNP，提供最全面的转录组信息。
+
+高通量测序技术（High-troughput sequencing）又称“第二代”测序技术（“Next-generation” sequencing），高通量测序是的对一个物种的转录组和基因组进行细致全貌的分析称为可能，所以又叫深度测序（deep sequencing）。第二代测序技术包括Illumina Genome Analyzer IIx，叫边合成边测序法，读书长为2*150bp,数据产出为85-95Gb，时长需要14天。测序数据格式一般为.fastq格式。RNA-seq是目前基因表达分析最常用的技术，分为以下几步：1分离所有的mRNA；2逆转录mRNA成cDNA，其中cDNA就是complementary DNA，是mRNA互补的DNA，逆转录过程的产物。；3对cDNA测序；4比对参考基因组。
+
+基因差异表达分析包括考虑同一物种不同组织下研究基因在不同部分的表达情况。
+
+富集分析方法通常是分析一组基因在某个功能节点上是否过出现（over-presentation）。
+基因富集分析：根据挑选的差异基因，计算这些差异基因同Pathway的超几何分布关系，pathway分析会对每个有差异基因存在的pathway返回一个p-value，小的p值表示差异基因在该pathway中出现了富集。N表示经过KEGG注释的全部基因数，n表示KEGG分类中某个分支的基因数，m表示经过KEGG注释的差异基因数，x表示KEGG分类中某个分支的差异基因数，一般n大于3，校正的p值小于0.05作为显著性的结果。
+目前较为全面的通路数据库包括KEGG（Kyoto encyclopedia of genes and genomes）是日本京都大学生物信息中心维护的开放的生物通路数据库，以新陈代谢通路为主。
+
+有参考基因组的转录组分析（Transcriptome analysis with reference genome):
+1测序：对mRNA（或 total RNA）进行样品检测，测序文库制备，上机测序；2基本数据处理：图像识别，碱基识别，测序接头序列过滤，样品污染可能性检测（QC）；3生物信息分析：测序数据产量统计，与参考基因组比对后的注释信息；Reads在基因组上的分布；测序深度分布，测序随机性评估，基因差异表达分析；新基因预测等。
+### 细胞
+动物细胞结构：动物细胞有细胞膜、细胞质、细胞核。动物细胞的细胞质包括细胞质基质和细胞器。动物细胞的细胞器包括内质网、线粒体、高尔基体、核糖体、溶酶体、中心体，动物细胞与植物细胞相比较，具有很多相似的地方，如动物细胞也具有细胞膜、细胞质、细胞核等结构。但是动物细胞与植物细胞又有一些重要的区别，如动物细胞的最外面是细胞膜，没有细胞壁;动物细胞的细胞质中不含叶绿体，也不形成中央液泡。而高等植物细胞没有中心体
+
+细胞核是细胞内遗传信息的储存、复制和转录的主要场所。大多呈球形或椭圆形。通常一个,也有两个或多个的。借双层多孔的核膜与细胞质分隔。核内含有核液、染色质(或染色体)和核仁
+
+
+### R中创建S4对象
+要创建S4对象，我们可以使用setClass函数，在该函数中我们将传递对象名称，列名称以及将存储在列中的数据类型。例如，如果我们要创建一个具有名称数据和两个由x和y调用的数字列的S4，则可以使用setClass（“ data”，representation（x1 =“ numeric”，x2 =“ numeric”））。
+```{Rmd}
+setClass("data1",representation(x1="numeric",x2="numeric"))
+data1<-new("data1",x1=rnorm(20),x2=rexp(20,1.12))
+data1
+```

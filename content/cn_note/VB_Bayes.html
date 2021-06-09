@@ -1,0 +1,35 @@
+---
+title: "变分贝叶斯"
+author: "刘伟"
+date: '2021-03-17'
+output: pdf_document
+---
+
+
+
+<div id="共轭分布" class="section level2">
+<h2>共轭分布</h2>
+<p>共轭分布是一种极大简化贝叶斯分析的方法。其作用是，在贝叶斯公式包含多种概率分布的情况下，使这些分布的未知参数在试验前被赋予的物理意义，延续到试验后，便于分析。</p>
+<p>在贝叶斯统计中，如果后验分布与先验分布属于同类（分布形式相同），则先验分布与后验分布被称为共轭分布，而先验分布被称为似然函数的共轭先验。</p>
+<p>3.1 Beta分布与二项分布共轭；
+Dirichlet分布与多项分布共轭；高斯分布与高斯分布共轭。</p>
+<div id="共轭分布的意义" class="section level3">
+<h3>共轭分布的意义</h3>
+<p>因为后验分布和先验分布形式相近，只是参数有所不同，这意味着当我们获得新的观察数据时，我们就能直接通过参数更新，获得新的后验分布，此后验分布将会在下次新数据到来的时候成为新的先验分布。如此一来，我们更新后验分布就不需要通过大量的计算，十分方便</p>
+</div>
+</div>
+<div id="常用变分逼近分布" class="section level2">
+<h2>常用变分逼近分布</h2>
+<p>下面介绍狄利克雷分布、大概。</p>
+<div id="狄利克雷分布" class="section level3">
+<h3>狄利克雷分布</h3>
+<p>描述一个多元随机变量<span class="math inline">\(\pi=(\pi_1, \cdots, \pi_K)\)</span>且满足<span class="math inline">\(\pi_k \in (0,1), \sum_k \pi_k=1\)</span>的分布:
+<span class="math display">\[Dir(\pi; \alpha)=\frac{1}{B(\alpha)} \Pi_k \pi_k^{\alpha_k - 1},\]</span>
+其中<span class="math inline">\(B(\alpha)\)</span>等含义见： <a href="https://baike.baidu.com/item/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E5%88%86%E5%B8%83/12728892?fr=aladdin" class="uri">https://baike.baidu.com/item/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E5%88%86%E5%B8%83/12728892?fr=aladdin</a></p>
+</div>
+<div id="威沙特分布" class="section level3">
+<h3>威沙特分布</h3>
+<p>它用于描述对称正定随机变量的
+见：<a href="https://baike.baidu.com/item/%E5%A8%81%E6%B2%99%E7%89%B9%E5%88%86%E5%B8%83/22787273?fr=aladdin" class="uri">https://baike.baidu.com/item/%E5%A8%81%E6%B2%99%E7%89%B9%E5%88%86%E5%B8%83/22787273?fr=aladdin</a></p>
+</div>
+</div>

@@ -1,0 +1,63 @@
+---
+title: "R与Armadillo混合编程"
+author: "刘伟"
+date: '2021-01-29'
+output: pdf_document
+---
+
+# armadillo官网
+  http://arma.sourceforge.net/
+  可以使用ctrl+F在该网站上搜索需要查阅的函数。
+
+
+# 待解决问题
+
+1) 为什么cpp中定义的函数返回List后，List的成分为矩阵时，无法做index_max()计算和返回该矩阵到另一个List的成分中？？
+
+返回的List的成分为矩阵时，需要重新申明其为矩阵。
+```{Rmd}
+List aList = getList(xx);
+mat mat1 = aList["mat"]; // 注意这里的申明mat不能省略，否则无法强制转换。
+
+```
+
+# 注意事项
+
+1) 若A是一个矩阵，则A.col(k)可以直接支持diagmat(),repmat()函数中使用，表示它返回一个列向量。
+
+2) 若C是一个cube，则C.slice(k)是一个矩阵，支持矩阵的所有运算，比如.t(),.i()以及A + b*C.slice(k);而
+C.col(k)不是一个矩阵而是一个subcube，不支持直接的矩阵运算，只能通过赋值给一个矩阵tmpMat后转化为一个矩阵后，再进行相应的矩阵运算。为了更加高效的使用cube，请注意cube的存储格式，将需要参与矩阵乘法的subcube储存到第三个维度上。
+
+# 如何传递非结构化数据 
+
+下面这段使用List的代码非常经典，值得学习。
+```{Rmd}
+#include "RcppArmadillo.h"
+// [[Rcpp::depends(RcppArmadillo)]]
+#include<ctime>
+
+
+#define INT_MIN (-INT_MAX - 1)
+
+using namespace Rcpp;
+using namespace arma;
+using namespace std;
+
+//[[Rcpp::export]] 
+List calList(const Rcpp::List& alist, const Rcpp::List blist){
+  int r,  L1 = alist.length();
+  cout<<"L1="<<L1<<endl;
+  field<mat> Xf(1,2), Wf(1,2);
+  for(r=0; r < L1; ++r){
+    mat Xtmp = alist[r];
+    Xf(0,r) = Xtmp;
+    mat Wtmp = blist[r];
+    Wf(0,r) = Wtmp;
+  }
+  List resList = List::create(
+    Rcpp::Named("Xf") = Xf,
+    Rcpp::Named("Wf") = Wf
+  );
+  return resList;
+}
+```
