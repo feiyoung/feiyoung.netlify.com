@@ -2,15 +2,29 @@
 title: "R与Armadillo混合编程"
 author: "刘伟"
 date: '2021-01-29'
-output: pdf_document
+layout: post
+showtoc: true
+tags: ["R", "Rcpp", "Armadillo", "BH"]
+editor_options:
+  chunk_output_type: console
 ---
+*Last update: 2021-06-09*
 
-# armadillo官网
-  http://arma.sourceforge.net/
-  可以使用ctrl+F在该网站上搜索需要查阅的函数。
+## 内容目录 {#toc}
+
+* [armadillo官网](#arma)
+* [强大的引用传递](#cite)
+* [头文件的意义](#hpp)
+* [编程Trick](#trick)
 
 
-# 待解决问题
+## armadillo官网{#arma}
+http://arma.sourceforge.net/
+
+可以使用ctrl+F在该网站上搜索需要查阅的函数，方便快捷。
+
+
+## List返回值的类型的重复申明
 
 1) 为什么cpp中定义的函数返回List后，List的成分为矩阵时，无法做index_max()计算和返回该矩阵到另一个List的成分中？？
 
@@ -21,15 +35,43 @@ mat mat1 = aList["mat"]; // 注意这里的申明mat不能省略，否则无法�
 
 ```
 
-# 注意事项
+## 注意事项
 
 1) 若A是一个矩阵，则A.col(k)可以直接支持diagmat(),repmat()函数中使用，表示它返回一个列向量。
 
 2) 若C是一个cube，则C.slice(k)是一个矩阵，支持矩阵的所有运算，比如.t(),.i()以及A + b*C.slice(k);而
 C.col(k)不是一个矩阵而是一个subcube，不支持直接的矩阵运算，只能通过赋值给一个矩阵tmpMat后转化为一个矩阵后，再进行相应的矩阵运算。为了更加高效的使用cube，请注意cube的存储格式，将需要参与矩阵乘法的subcube储存到第三个维度上。
+3) 下面展示field<mat>和cube运算的例子，其中C是一个q*q*K的cube，B是一个K元的field<mat>，它的每一个成分都是一个矩阵。
+```{Rmd}
+C.slice(k).i() * B(r).col(j) +  B(r).col(l)
+```
+1) 最大值最小值溢出，C++中最小值。非常接近0的溢出为0。比如$4^{-200}*A %( 2* 4^{-200}*B)$，对于这种就需要先把$4^{-200}$约掉后再计算两个矩阵的逐元除法。
 
-# 如何传递非结构化数据 
+2)整除错误：C++中整数除整数等于相除之后再向下取整。如下示例代码：
+```{Rmd}
+ U0 = (bx - 1/n *A * tA * a) / as_scalar(1- 1/n * a.t()*tA * a);
+## 这里1/n=0 而不等于真正的小数。应该修改成：
+ U0 = (bx - 1.0/n *A * tA * a) / as_scalar(1- 1.0/n * a.t()*tA * a);
+```
+我知道这样C++有这个语法规则，但是写代码的时候还是容易疏忽，而且还找不到错误的点在哪里。 
 
+3) 公式中的加号运算错误的写成减法运算，导致出错。这是我容易出错的地方。
+例如：
+```{Rmd}
+X_tk = X - repmat(U0.t()  + Mu0.row(k)* W0.t(), n, 1);
+#错误写成：
+X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);
+```
+
+4) 避免log(a)当a=0报错的情况，可以使用
+```{Rmd}
+log(a + (a==0)) # a=0时,值会等于0
+```
+
+
+
+## 如何传递非结构化数据 
+R中list类型常常用于存储非结构化数据，如何将非结构化数据传入到C++中进行计算，这是一个非常重要的问题。
 下面这段使用List的代码非常经典，值得学习。
 ```{Rmd}
 #include "RcppArmadillo.h"

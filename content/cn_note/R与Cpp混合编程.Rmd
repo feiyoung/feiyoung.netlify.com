@@ -2,47 +2,47 @@
 title: "R与Cpp混合编程"
 author: "刘伟"
 date: '2021-01-29'
-output: pdf_document
+layout: post
+showtoc: true
+tags: ["R", "Rcpp", "Armadillo", "BH"]
+editor_options:
+  chunk_output_type: console
 ---
-# armadillo官网
+*Last update: 2021-06-09*
+
+## 内容目录 {#toc}
+
+* [Rcpp基本简介](#Rcpp)
+* [强大的引用传递](#cite)
+* [头文件的意义](#hpp)
+* [编程Trick](#trick)
+
+
+
+## Rcpp基本简介{#Rcpp}
 http://arma.sourceforge.net/
 
-定义函数时加vec& x是引用时定义了一个local variable，然后不是传输整个数据到另一个函数中，这样能加快计算速度。
 
-# R配置
+
+### R配置
 
 要正确编译cpp文件，R的安装路径不能有空格，否则会报错如下：
 ```{Rmd}
 Error in system(cmd, intern = !showOutput) : 'C:/Program' not found
 ```
 
-# 易犯错误
 
-1) 最大值最小值溢出，C++中最小值。非常接近0的溢出为0。比如$4^{-200}*A %( 2* 4^{-200}*B)$，对于这种就需要先把$4^{-200}$约掉后再计算两个矩阵的逐元除法。
+### 基本介绍
 
-2)整除错误：C++中整数除整数等于相除之后再向下取整。如下示例代码：
-```{Rmd}
- U0 = (bx - 1/n *A * tA * a) / as_scalar(1- 1/n * a.t()*tA * a);
-## 这里1/n=0 而不等于真正的小数。应该修改成：
- U0 = (bx - 1.0/n *A * tA * a) / as_scalar(1- 1.0/n * a.t()*tA * a);
-```
-这是我找了大半天的错误才找到错误的原因！气死我了，好多的坑。我知道这样C++有这个语法规则，但是写代码的时候还是容易疏忽，而且还找不到错误的点在哪里。 
+Rcpp是R与C++混合编程的基础接口包，高效计算的R包中大部分代码都不是用R写的，其中C++混合就是实现高效计算的一个好办法。Armadillo当之无愧地是线性代数计算中R与C++混合编程优秀的接口包，为广大科研工作者所常用。
 
-3) 公式中的加号运算错误的写成减法运算，导致出错。这是我容易出错的地方。
-例如：
-```{Rmd}
-X_tk = X - repmat(U0.t()  + Mu0.row(k)* W0.t(), n, 1);
-#错误写成：
-X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);
-```
+定义C++函数时加vec& x是引用时定义了一个local variable，然后不是传输整个数据到另一个函数中，这样能加快计算速度。这一种思想就是传说中的引用传递，它比指针传递简单，比值传递高效。
 
-4) 避免log(a)当a=0报错的情况，可以使用
-```{Rmd}
-log(a + (a==0)) # a=0时,值会等于0
-```
+h文件和hpp文件常在cpp的脚本开头出现，它是实现调用现有的C++库函数库函数的方法。我们在写R包时常常把多个Cpp文件用到的公共C++函数定义放到单独的一个文件中，然后再用一个hpp头文件去申明这些函数，最后需要调用它们的Cpp脚本中inlude进去便可以使用。
 
+R与Cpp混合编程有许多trick需要格外注意，初学者常常会遭遇许多的坑。在此，我将我遇到的坑都总结下来，希望减少后来者走弯路的可能性。
 
-#引用传递和值传递的区别
+## 强大的引用传递{#cite}
 
 引用专递就是传递对象本身，值传递是传递对象的复制品。
 打个比方：比如你有一张相片要修改，把相片编辑工具看作函数，把被处理的相片看作参数，那么直接操作相片原件就相当于引用传递，把相片复制一份然后操作这个复制品就叫值传递。
@@ -99,7 +99,7 @@ cout << "n = " << n << endl; // n = 10
 指针能够毫无约束地操作内存中的任何东西，尽管指针功能强大，但是非常危险。
 如果的确只需要借用一下某个对象的"别名"，那么就用"引用"，而不要用"指针"，以免发生意外
 
-## c++中使用引用传递来提高效率
+### c++中使用引用传递来提高效率
 
 我们写一个函数，比如 objclass fun(objclass obj); objclass是类名，obj是对象，fun是函数名。
 
@@ -127,11 +127,11 @@ https://blog.csdn.net/u011808673/article/details/80307358?utm_medium=distribute.
 
 10 与直接初始化对应的是复制初始化，什么是直接初始化？什么又是复制初始化？
 
-# 头文件的意义
+## 头文件的意义{#hpp}
 Cpp中有两类文件，一个是cpp源文件.cpp为扩展名，用于写源代码，包括变量和函数定义；一个是头文件.h为扩展名，用于申明变量和函数，不能包含变量和函数的定义。 只能在头文件中写形如：extern int a;和void f();的句子。这些才是声明。如果写上int a;或者void f() {}这样的句子，那么一旦这个头文件被两个或两个以上的.cpp文件包含的话，编译器会立马报错。 "extern  int a;"表示申明一个已定义的变量；"void f();"表示申明一个已定义的无返回值的函数f。
 但是，有三种情况除外，头文件中可以写const和static对象的定义；头文件中可 以写内联函数（inline）的定义；头文件中可以写类 （class）的定义。
 
-## 申明函数
+### 申明函数
 头文件中申明函数的语法：
 ```{Rmd}
 int Dhv2Feature(unsigned char* p_ucData, int iWidth, int iHeight, unsigned short* p_usBlock);
@@ -143,13 +143,13 @@ int Dhv2Feature(unsigned char* , int , int , unsigned short* );
 float Dhv2Dhv(unsigned short* , unsigned short* , int , int );
 ```
 
-## 申明变量
+### 申明变量
 头文件中申明函数的语法：
 ```{Rmd}
 extern int a;
 ```
 
-## 类对象的申明
+### 类对象的申明
 ```{Rmd}
 car.h:
 #ifndef __Car_H__
@@ -258,7 +258,7 @@ namespace Dxn
 #endif
 ```
 
-## 预防头文件的反复调用
+### 预防头文件的反复调用
 
 在C++语言编程中，我们经常会接触到头文件，比如说声明类，或者声明命名空间等，而每次在编写xxx.h的头文件时，编程书上都会让我们在代码的前后加上如下的三句代码：
 ```{Rmd}
@@ -272,14 +272,14 @@ namespace Dxn
 更多详情见： https://blog.csdn.net/u012617944/article/details/78405686;
 https://blog.csdn.net/leowinbow/article/details/82884518;
 
-## 头文件与同名源文件的关系
+### 头文件与同名源文件的关系
 头文件和源文件不必同名，只是约定俗成的，为了好记而已。
 见 https://blog.csdn.net/lee244868149/article/details/39341751
 
-## hpp头文件与h头文件的区别 C++中的.hpp文件
+### hpp头文件与h头文件的区别 C++中的.hpp文件
 见 https://blog.csdn.net/acoolgiser/article/details/102832675
 
-## 头文件中的功能函数
+### 头文件中的功能函数
 
 Cpp头文件的功能函数可以去网站查询其具体用法：
 http://www.cplusplus.com/reference/cmath/exp/
@@ -287,12 +287,39 @@ http://www.cplusplus.com/reference/cmath/exp/
 C++之Algorithm头文件下的常用函数：
 https://blog.csdn.net/SSibyl/article/details/108929127?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control
 
-# 命名空间详解
+### 命名空间详解
 
 见： https://zhuanlan.zhihu.com/p/126481010
 C++中加const与不加const的区别：https://www.cnblogs.com/code-fisher/p/5329026.html
 
-# 编程注意
+## 编程注意{#trick}
+
+### 易犯错误
+
+1) 最大值最小值溢出，C++中最小值。非常接近0的溢出为0。比如$4^{-200}*A %( 2* 4^{-200}*B)$，对于这种就需要先把$4^{-200}$约掉后再计算两个矩阵的逐元除法。
+
+2)整除错误：C++中整数除整数等于相除之后再向下取整。如下示例代码：
+```{Rmd}
+ U0 = (bx - 1/n *A * tA * a) / as_scalar(1- 1/n * a.t()*tA * a);
+## 这里1/n=0 而不等于真正的小数。应该修改成：
+ U0 = (bx - 1.0/n *A * tA * a) / as_scalar(1- 1.0/n * a.t()*tA * a);
+```
+这是我找了大半天的错误才找到错误的原因！气死我了，好多的坑。我知道这样C++有这个语法规则，但是写代码的时候还是容易疏忽，而且还找不到错误的点在哪里。 
+
+3) 公式中的加号运算错误的写成减法运算，导致出错。这是我容易出错的地方。
+例如：
+```{Rmd}
+X_tk = X - repmat(U0.t()  + Mu0.row(k)* W0.t(), n, 1);
+#错误写成：
+X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);
+```
+
+4) 避免log(a)当a=0报错的情况，可以使用
+```{Rmd}
+log(a + (a==0)) # a=0时,值会等于0
+```
+
+### 函数定义
 1) 可变虚参定义无返回值函数：这里可变虚参指函数的输入虚参数，通过 "type& object"形式使得传入该函数的变量具有可变性质。于是使得无返回值函数具有了返回值函数的能力。例如：
 ```{Rmd}
 void changeValue(int x){ //若不加取地址符号
@@ -311,8 +338,13 @@ cout>> y;   //arma::svd函数就是一个典型的例子。
 // 2
 ```
 
-2) 函数返回值为列表时，另一种方法：
+2) 函数返回值为列表的方法：
 ```{Rmd}
+# 1.
+List output;
+output["alpha"] = alpha;
+output["beta0"] = beta0;
+# 2.
 List output = List::create(Rcpp::Named("alpha") = alpha,
                                Rcpp::Named("alpha0") = alpha0,
                                Rcpp::Named("beta0") = beta0,
@@ -393,7 +425,7 @@ https://blog.csdn.net/woainilixuhao/article/details/81784124
 std命名空间中还有时间类型.
 std::clock_t a = clock();
 
-7) 快速调用R中现有函数
+###  快速调用R中现有函数
 以glmnet包中的函数为例：
 ```{Rmd}
 List cv_glmnet(mat x, vec y, double alpha){
@@ -413,7 +445,7 @@ res <- cv_glmnet(cbind(1:10,1), 1:10, 0.1)
 res$lambda.min
 ```
 
-8) 输出精度
+### 控制输出精度
 ```{Rmd}
 // Program 2.8 Experimenting with floating point output
 #include <iostream> // fixed scientific
@@ -442,3 +474,4 @@ int main() {
   return 0;
 }
 ```
+[↑ 返回目录页](#toc)<br><br>

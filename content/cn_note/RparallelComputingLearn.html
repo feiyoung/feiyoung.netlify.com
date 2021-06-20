@@ -7,8 +7,23 @@ output: pdf_document
 
 
 
-<div id="常用函数" class="section level1">
-<h1>常用函数</h1>
+<div id="toc" class="section level2">
+<h2>内容目录</h2>
+<ul>
+<li><a href="#parallel">parallel包并行</a></li>
+<li><a href="#doSnow">doSNOW包并行</a></li>
+<li><a href="#both">两者结合</a></li>
+</ul>
+<div id="r中创建s4对象" class="section level3">
+<h3>R中创建S4对象</h3>
+<p>要创建S4对象，我们可以使用setClass函数，在该函数中我们将传递对象名称，列名称以及将存储在列中的数据类型。例如，如果我们要创建一个具有名称数据和两个由x和y调用的数字列的S4，则可以使用setClass（“ data”，representation（x1 =“ numeric”，x2 =“ numeric”））。</p>
+<pre class="rmd"><code>setClass(&quot;data1&quot;,representation(x1=&quot;numeric&quot;,x2=&quot;numeric&quot;))
+data1&lt;-new(&quot;data1&quot;,x1=rnorm(20),x2=rexp(20,1.12))
+data1</code></pre>
+</div>
+</div>
+<div id="parallel" class="section level2">
+<h2>parallel包并行</h2>
 <pre class="rmd"><code>single_parallel &lt;- function(func,num_core,iterable,varlist=NULL,...){
   &quot;
   :param func: function to be parallel computing
@@ -58,9 +73,9 @@ selectClustNumber &lt;- function(X,Adj_sp, q, K_set= 3:10, cov=&#39;heter&#39;, 
   return(icMat)
 }</code></pre>
 </div>
-<div id="强大方便的dosnow" class="section level1">
-<h1>强大方便的doSNOW</h1>
-<p>doSNOW是我现在最喜欢的并行包，因为它可以显示进度条</p>
+<div id="doSnow" class="section level2">
+<h2>doSNOW包并行</h2>
+<p>doSNOW的一个优势是它可以显示进度条</p>
 <pre class="rmd"><code>require(doSNOW) # 加载并行包
 cores &lt;- parallel::detectCores() # 探测有多少核
 cl &lt;- makeSOCKcluster(cores) # 设定并行核
@@ -91,6 +106,72 @@ res_vc &lt;- foreach(k = 1:nK,.packages=&quot;MixPPCA&quot; ,.options.snow=opts,
     c(reslist$bic, reslist$aic)
 }
 </code></pre>
+</div>
+<div id="both" class="section level2">
+<h2>两种并行版本的结合体</h2>
+<pre class="rmd"><code>function(X,Adj_sp, q, K_set= 3:10, cov=&#39;heter&#39;, parallel=&quot;parallel&quot;, num_core = 1,...){
+  
+  
+  nK &lt;- length(K_set)
+  if(!is.null(parallel)){
+    if (num_core &gt; 1) {
+      if (num_core &gt; detectCores()) {
+        warning(&quot;selectClustNumber:: the number of cores you&#39;re setting is larger than detected cores!&quot;)
+        num_core = detectCores()
+      }
+    }
+    if(parallel==&#39;doSNOW&#39;){
+      require(doSNOW)
+      cl &lt;- makeSOCKcluster(num_core)
+      registerDoSNOW(cl)
+      
+      ## set Prgogress Bar
+      pb &lt;- txtProgressBar(min=1, max=nK, style=3)
+      progress &lt;- function(n) setTxtProgressBar(pb, n)
+      opts &lt;- list(progress=progress)
+      k &lt;- 1
+      icMat &lt;- foreach(k = 1:nK,.packages=&quot;MixPPCA&quot; ,.options.snow=opts,
+                       .combine=&#39;rbind&#39;) %dopar% {
+                         reslist &lt;- simulDRcluster(X,Adj_sp = Adj_sp, q=q, K=K_set[k],  ...) 
+                         
+                         c(reslist$bic, reslist$aic)
+                       }
+      close(pb)
+      stopCluster(cl)
+    }else if(parallel==&#39;parallel&#39;){
+      library(parallel)
+      
+      cl &lt;- makeCluster(num_core)
+      clusterExport(cl, list(&quot;EMmPCpp&quot;, 
+                             &quot;EMmPCpp_heter&quot;, &quot;icmem_heterCpp&quot;, &quot;simulDRcluster&quot;))
+      cat(&quot;Starting parallel computing...&quot;)
+      # clusterCall(cl, function() library(MixPPCA))
+      # Run
+      icMat &lt;- parSapply(cl, X=K_set, parafun1, XX=X, Adj_sp=Adj_sp, q=q, ...)
+      stopCluster(cl)
+      icMat &lt;- t(icMat)
+    }
+      
+  }else{
+    icMat &lt;- matrix(NA, nK, 2)
+    pb &lt;- txtProgressBar()
+    for(k in 1:nK){
+      reslist &lt;- simulDRcluster(X,Adj_sp = Adj_sp, q=q, K=K_set[k],  ...) 
+      setTxtProgressBar(pb, k)
+      icMat[k, ] &lt;- c(reslist$bic, reslist$aic)
+    }
+    close(pb)
+  }
+  
+  
+  
+  
+  icMat &lt;- cbind(K_set, icMat)
+  colnames(icMat) &lt;- c(&quot;K&quot;, &#39;bic&#39;, &#39;aic&#39;)
+  row.names(icMat) &lt;- as.character(K_set)
+  return(icMat)
+}</code></pre>
+</div>
 <div id="内部变量赋值保存" class="section level2">
 <h2>内部变量赋值保存</h2>
 <p>用一个外部矩阵或数组变量将并行的每次返回结果都保存下来，以防某次并行报错后，无结果返回。</p>
@@ -122,76 +203,14 @@ head(res1)
 head(mydata)
 ## 来自李贵珍师妹的版本</code></pre>
 <p>为一般循环添加进度条</p>
-<pre class="r"><code>testit &lt;- function(x = sort(runif(20)), ...)
+<pre class="rmd"><code>testit &lt;- function(x = sort(runif(20)), ...)
 {
     pb &lt;- txtProgressBar(...)
     for(i in c(0, x, 1)) {Sys.sleep(0.5); setTxtProgressBar(pb, i)}
     Sys.sleep(1)
     close(pb)
 }
-testit(style=3)</code></pre>
-<pre><code>## 
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |=                                                                     |   1%
-  |                                                                            
-  |===                                                                   |   4%
-  |                                                                            
-  |====                                                                  |   6%
-  |                                                                            
-  |====================                                                  |  29%
-  |                                                                            
-  |=====================                                                 |  30%
-  |                                                                            
-  |============================                                          |  40%
-  |                                                                            
-  |================================                                      |  45%
-  |                                                                            
-  |================================                                      |  46%
-  |                                                                            
-  |==================================                                    |  49%
-  |                                                                            
-  |======================================                                |  54%
-  |                                                                            
-  |==========================================                            |  61%
-  |                                                                            
-  |=============================================                         |  65%
-  |                                                                            
-  |================================================                      |  68%
-  |                                                                            
-  |============================================================          |  86%
-  |                                                                            
-  |==============================================================        |  88%
-  |                                                                            
-  |================================================================      |  92%
-  |                                                                            
-  |=================================================================     |  92%
-  |                                                                            
-  |====================================================================  |  97%
-  |                                                                            
-  |===================================================================== |  99%
-  |                                                                            
-  |======================================================================| 100%</code></pre>
-<pre class="r"><code>testit(runif(10), style=2)</code></pre>
-<pre><code>## 
-
-
-================
-                
-====
-===========================
-========================================
-=====================================================
-============================================================================
-                                                                            
-===============
-==============================================
-===========================================================================
-                                                                           
-=======
-================================================================================</code></pre>
-<pre class="r"><code>testit(style = 4)</code></pre>
-<pre><code>## ================================================================================</code></pre>
-</div>
+testit(style=3)
+testit(runif(10), style=2)
+testit(style = 4)</code></pre>
 </div>

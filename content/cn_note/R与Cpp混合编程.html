@@ -2,43 +2,43 @@
 title: "R与Cpp混合编程"
 author: "刘伟"
 date: '2021-01-29'
-output: pdf_document
+layout: post
+showtoc: true
+tags: ["R", "Rcpp", "Armadillo", "BH"]
+editor_options:
+  chunk_output_type: console
 ---
 
 
 
-<div id="armadillo官网" class="section level1">
-<h1>armadillo官网</h1>
-<p><a href="http://arma.sourceforge.net/" class="uri">http://arma.sourceforge.net/</a></p>
-<p>定义函数时加vec&amp; x是引用时定义了一个local variable，然后不是传输整个数据到另一个函数中，这样能加快计算速度。</p>
+<p><em>Last update: 2021-06-09</em></p>
+<div id="toc" class="section level2">
+<h2>内容目录</h2>
+<ul>
+<li><a href="#Rcpp">Rcpp基本简介</a></li>
+<li><a href="#cite">强大的引用传递</a></li>
+<li><a href="#hpp">头文件的意义</a></li>
+<li><a href="#trick">编程Trick</a></li>
+</ul>
 </div>
-<div id="r配置" class="section level1">
-<h1>R配置</h1>
+<div id="Rcpp" class="section level2">
+<h2>Rcpp基本简介</h2>
+<p><a href="http://arma.sourceforge.net/" class="uri">http://arma.sourceforge.net/</a></p>
+<div id="r配置" class="section level3">
+<h3>R配置</h3>
 <p>要正确编译cpp文件，R的安装路径不能有空格，否则会报错如下：</p>
 <pre class="rmd"><code>Error in system(cmd, intern = !showOutput) : &#39;C:/Program&#39; not found</code></pre>
 </div>
-<div id="易犯错误" class="section level1">
-<h1>易犯错误</h1>
-<ol style="list-style-type: decimal">
-<li>最大值最小值溢出，C++中最小值。非常接近0的溢出为0。比如<span class="math inline">\(4^{-200}*A %( 2* 4^{-200}*B)\)</span>，对于这种就需要先把<span class="math inline">\(4^{-200}\)</span>约掉后再计算两个矩阵的逐元除法。</li>
-</ol>
-<p>2)整除错误：C++中整数除整数等于相除之后再向下取整。如下示例代码：</p>
-<pre class="rmd"><code> U0 = (bx - 1/n *A * tA * a) / as_scalar(1- 1/n * a.t()*tA * a);
-## 这里1/n=0 而不等于真正的小数。应该修改成：
- U0 = (bx - 1.0/n *A * tA * a) / as_scalar(1- 1.0/n * a.t()*tA * a);</code></pre>
-<p>这是我找了大半天的错误才找到错误的原因！气死我了，好多的坑。我知道这样C++有这个语法规则，但是写代码的时候还是容易疏忽，而且还找不到错误的点在哪里。</p>
-<ol start="3" style="list-style-type: decimal">
-<li>公式中的加号运算错误的写成减法运算，导致出错。这是我容易出错的地方。
-例如：</li>
-</ol>
-<pre class="rmd"><code>X_tk = X - repmat(U0.t()  + Mu0.row(k)* W0.t(), n, 1);
-#错误写成：
-X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>避免log(a)当a=0报错的情况，可以使用</li>
-</ol>
-<pre class="rmd"><code>log(a + (a==0)) # a=0时,值会等于0</code></pre>
-<p>#引用传递和值传递的区别</p>
+<div id="基本介绍" class="section level3">
+<h3>基本介绍</h3>
+<p>Rcpp是R与C++混合编程的基础接口包，高效计算的R包中大部分代码都不是用R写的，其中C++混合就是实现高效计算的一个好办法。Armadillo当之无愧地是线性代数计算中R与C++混合编程优秀的接口包，为广大科研工作者所常用。</p>
+<p>定义C++函数时加vec&amp; x是引用时定义了一个local variable，然后不是传输整个数据到另一个函数中，这样能加快计算速度。这一种思想就是传说中的引用传递，它比指针传递简单，比值传递高效。</p>
+<p>h文件和hpp文件常在cpp的脚本开头出现，它是实现调用现有的C++库函数库函数的方法。我们在写R包时常常把多个Cpp文件用到的公共C++函数定义放到单独的一个文件中，然后再用一个hpp头文件去申明这些函数，最后需要调用它们的Cpp脚本中inlude进去便可以使用。</p>
+<p>R与Cpp混合编程有许多trick需要格外注意，初学者常常会遭遇许多的坑。在此，我将我遇到的坑都总结下来，希望减少后来者走弯路的可能性。</p>
+</div>
+</div>
+<div id="cite" class="section level2">
+<h2>强大的引用传递</h2>
 <p>引用专递就是传递对象本身，值传递是传递对象的复制品。
 打个比方：比如你有一张相片要修改，把相片编辑工具看作函数，把被处理的相片看作参数，那么直接操作相片原件就相当于引用传递，把相片复制一份然后操作这个复制品就叫值传递。</p>
 <p>很明显引用传递会影响当作参数的对象，而值传递不会影响当作参数的对象
@@ -81,8 +81,8 @@ cout &lt;&lt; &quot;n = &quot; &lt;&lt; n &lt;&lt; endl; // n = 10</code></pre>
 答案是“用适当的工具做恰如其分的工作”。
 指针能够毫无约束地操作内存中的任何东西，尽管指针功能强大，但是非常危险。
 如果的确只需要借用一下某个对象的“别名”，那么就用“引用”，而不要用“指针”，以免发生意外</p>
-<div id="c中使用引用传递来提高效率" class="section level2">
-<h2>c++中使用引用传递来提高效率</h2>
+<div id="c中使用引用传递来提高效率" class="section level3">
+<h3>c++中使用引用传递来提高效率</h3>
 <p>我们写一个函数，比如 objclass fun(objclass obj); objclass是类名，obj是对象，fun是函数名。</p>
 <p>然后调用此函数，编译器分两个步骤：</p>
 <p>1.每次通过值传递的方式给函数传递一个对象时，都会建立一个该对象的拷贝。</p>
@@ -98,12 +98,12 @@ cout &lt;&lt; &quot;n = &quot; &lt;&lt; n &lt;&lt; endl; // n = 10</code></pre>
 <p>10 与直接初始化对应的是复制初始化，什么是直接初始化？什么又是复制初始化？</p>
 </div>
 </div>
-<div id="头文件的意义" class="section level1">
-<h1>头文件的意义</h1>
+<div id="hpp" class="section level2">
+<h2>头文件的意义</h2>
 <p>Cpp中有两类文件，一个是cpp源文件.cpp为扩展名，用于写源代码，包括变量和函数定义；一个是头文件.h为扩展名，用于申明变量和函数，不能包含变量和函数的定义。 只能在头文件中写形如：extern int a;和void f();的句子。这些才是声明。如果写上int a;或者void f() {}这样的句子，那么一旦这个头文件被两个或两个以上的.cpp文件包含的话，编译器会立马报错。 “extern int a;”表示申明一个已定义的变量；“void f();”表示申明一个已定义的无返回值的函数f。
 但是，有三种情况除外，头文件中可以写const和static对象的定义；头文件中可 以写内联函数（inline）的定义；头文件中可以写类 （class）的定义。</p>
-<div id="申明函数" class="section level2">
-<h2>申明函数</h2>
+<div id="申明函数" class="section level3">
+<h3>申明函数</h3>
 <p>头文件中申明函数的语法：</p>
 <pre class="rmd"><code>int Dhv2Feature(unsigned char* p_ucData, int iWidth, int iHeight, unsigned short* p_usBlock);
 float Dhv2Dhv(unsigned short* sF1, unsigned short* sF2, int iWidth, int iHeight);</code></pre>
@@ -111,13 +111,13 @@ float Dhv2Dhv(unsigned short* sF1, unsigned short* sF2, int iWidth, int iHeight)
 <pre class="rmd"><code>int Dhv2Feature(unsigned char* , int , int , unsigned short* );
 float Dhv2Dhv(unsigned short* , unsigned short* , int , int );</code></pre>
 </div>
-<div id="申明变量" class="section level2">
-<h2>申明变量</h2>
+<div id="申明变量" class="section level3">
+<h3>申明变量</h3>
 <p>头文件中申明函数的语法：</p>
 <pre class="rmd"><code>extern int a;</code></pre>
 </div>
-<div id="类对象的申明" class="section level2">
-<h2>类对象的申明</h2>
+<div id="类对象的申明" class="section level3">
+<h3>类对象的申明</h3>
 <pre class="rmd"><code>car.h:
 #ifndef __Car_H__
 #define __Car_H__
@@ -220,8 +220,8 @@ namespace Dxn
 }
 #endif</code></pre>
 </div>
-<div id="预防头文件的反复调用" class="section level2">
-<h2>预防头文件的反复调用</h2>
+<div id="预防头文件的反复调用" class="section level3">
+<h3>预防头文件的反复调用</h3>
 <p>在C++语言编程中，我们经常会接触到头文件，比如说声明类，或者声明命名空间等，而每次在编写xxx.h的头文件时，编程书上都会让我们在代码的前后加上如下的三句代码：</p>
 <pre class="rmd"><code>#ifndef XXX_H_
 #define XXX_H_
@@ -231,30 +231,54 @@ namespace Dxn
 <p>更多详情见： <a href="https://blog.csdn.net/u012617944/article/details/78405686" class="uri">https://blog.csdn.net/u012617944/article/details/78405686</a>;
 <a href="https://blog.csdn.net/leowinbow/article/details/82884518" class="uri">https://blog.csdn.net/leowinbow/article/details/82884518</a>;</p>
 </div>
-<div id="头文件与同名源文件的关系" class="section level2">
-<h2>头文件与同名源文件的关系</h2>
+<div id="头文件与同名源文件的关系" class="section level3">
+<h3>头文件与同名源文件的关系</h3>
 <p>头文件和源文件不必同名，只是约定俗成的，为了好记而已。
 见 <a href="https://blog.csdn.net/lee244868149/article/details/39341751" class="uri">https://blog.csdn.net/lee244868149/article/details/39341751</a></p>
 </div>
-<div id="hpp头文件与h头文件的区别-c中的.hpp文件" class="section level2">
-<h2>hpp头文件与h头文件的区别 C++中的.hpp文件</h2>
+<div id="hpp头文件与h头文件的区别-c中的.hpp文件" class="section level3">
+<h3>hpp头文件与h头文件的区别 C++中的.hpp文件</h3>
 <p>见 <a href="https://blog.csdn.net/acoolgiser/article/details/102832675" class="uri">https://blog.csdn.net/acoolgiser/article/details/102832675</a></p>
 </div>
-<div id="头文件中的功能函数" class="section level2">
-<h2>头文件中的功能函数</h2>
+<div id="头文件中的功能函数" class="section level3">
+<h3>头文件中的功能函数</h3>
 <p>Cpp头文件的功能函数可以去网站查询其具体用法：
 <a href="http://www.cplusplus.com/reference/cmath/exp/" class="uri">http://www.cplusplus.com/reference/cmath/exp/</a></p>
 <p>C++之Algorithm头文件下的常用函数：
 <a href="https://blog.csdn.net/SSibyl/article/details/108929127?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control" class="uri">https://blog.csdn.net/SSibyl/article/details/108929127?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control</a></p>
 </div>
-</div>
-<div id="命名空间详解" class="section level1">
-<h1>命名空间详解</h1>
+<div id="命名空间详解" class="section level3">
+<h3>命名空间详解</h3>
 <p>见： <a href="https://zhuanlan.zhihu.com/p/126481010" class="uri">https://zhuanlan.zhihu.com/p/126481010</a>
 C++中加const与不加const的区别：<a href="https://www.cnblogs.com/code-fisher/p/5329026.html" class="uri">https://www.cnblogs.com/code-fisher/p/5329026.html</a></p>
 </div>
-<div id="编程注意" class="section level1">
-<h1>编程注意</h1>
+</div>
+<div id="trick" class="section level2">
+<h2>编程注意</h2>
+<div id="易犯错误" class="section level3">
+<h3>易犯错误</h3>
+<ol style="list-style-type: decimal">
+<li>最大值最小值溢出，C++中最小值。非常接近0的溢出为0。比如<span class="math inline">\(4^{-200}*A %( 2* 4^{-200}*B)\)</span>，对于这种就需要先把<span class="math inline">\(4^{-200}\)</span>约掉后再计算两个矩阵的逐元除法。</li>
+</ol>
+<p>2)整除错误：C++中整数除整数等于相除之后再向下取整。如下示例代码：</p>
+<pre class="rmd"><code> U0 = (bx - 1/n *A * tA * a) / as_scalar(1- 1/n * a.t()*tA * a);
+## 这里1/n=0 而不等于真正的小数。应该修改成：
+ U0 = (bx - 1.0/n *A * tA * a) / as_scalar(1- 1.0/n * a.t()*tA * a);</code></pre>
+<p>这是我找了大半天的错误才找到错误的原因！气死我了，好多的坑。我知道这样C++有这个语法规则，但是写代码的时候还是容易疏忽，而且还找不到错误的点在哪里。</p>
+<ol start="3" style="list-style-type: decimal">
+<li>公式中的加号运算错误的写成减法运算，导致出错。这是我容易出错的地方。
+例如：</li>
+</ol>
+<pre class="rmd"><code>X_tk = X - repmat(U0.t()  + Mu0.row(k)* W0.t(), n, 1);
+#错误写成：
+X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>避免log(a)当a=0报错的情况，可以使用</li>
+</ol>
+<pre class="rmd"><code>log(a + (a==0)) # a=0时,值会等于0</code></pre>
+</div>
+<div id="函数定义" class="section level3">
+<h3>函数定义</h3>
 <ol style="list-style-type: decimal">
 <li>可变虚参定义无返回值函数：这里可变虚参指函数的输入虚参数，通过 “type&amp; object”形式使得传入该函数的变量具有可变性质。于是使得无返回值函数具有了返回值函数的能力。例如：</li>
 </ol>
@@ -273,9 +297,14 @@ changeValue(y); //加上取地址符号后，就可以改变实参变量的值�
 cout&gt;&gt; y;   //arma::svd函数就是一个典型的例子。
 // 2</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>函数返回值为列表时，另一种方法：</li>
+<li>函数返回值为列表的方法：</li>
 </ol>
-<pre class="rmd"><code>List output = List::create(Rcpp::Named(&quot;alpha&quot;) = alpha,
+<pre class="rmd"><code># 1.
+List output;
+output[&quot;alpha&quot;] = alpha;
+output[&quot;beta0&quot;] = beta0;
+# 2.
+List output = List::create(Rcpp::Named(&quot;alpha&quot;) = alpha,
                                Rcpp::Named(&quot;alpha0&quot;) = alpha0,
                                Rcpp::Named(&quot;beta0&quot;) = beta0,
                                Rcpp::Named(&quot;sigma2y&quot;) = sigma2y,
@@ -345,12 +374,14 @@ cout &lt;&lt;  *q &lt;&lt; endl; //输出q指向变量的值，即变量p的值�
    cout &lt;&lt;  **q &lt;&lt; endl; //可以这样理解  cout&lt;&lt;*(*q), 等价于 cout &lt;&lt;*p， 即输出a的值</code></pre>
 <p><a href="https://blog.csdn.net/woainilixuhao/article/details/81784124" class="uri">https://blog.csdn.net/woainilixuhao/article/details/81784124</a></p>
 <ol start="6" style="list-style-type: decimal">
-<li><p>时间变量
+<li>时间变量
 std命名空间中还有时间类型.
-std::clock_t a = clock();</p></li>
-<li><p>快速调用R中现有函数
-以glmnet包中的函数为例：</p></li>
+std::clock_t a = clock();</li>
 </ol>
+</div>
+<div id="快速调用r中现有函数" class="section level3">
+<h3>快速调用R中现有函数</h3>
+<p>以glmnet包中的函数为例：</p>
 <pre class="rmd"><code>List cv_glmnet(mat x, vec y, double alpha){
   Rcpp::Environment stats(&quot;package:stats&quot;);
   Rcpp::Function optim = stats[&quot;optim&quot;];
@@ -364,9 +395,9 @@ std::clock_t a = clock();</p></li>
 <pre class="rmd"><code>library(glmnet)
 res &lt;- cv_glmnet(cbind(1:10,1), 1:10, 0.1)
 res$lambda.min</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>输出精度</li>
-</ol>
+</div>
+<div id="控制输出精度" class="section level3">
+<h3>控制输出精度</h3>
 <pre class="rmd"><code>// Program 2.8 Experimenting with floating point output
 #include &lt;iostream&gt; // fixed scientific
 #include &lt;iomanip&gt; // setprecision()
@@ -393,4 +424,6 @@ int main() {
 
   return 0;
 }</code></pre>
+<p><a href="#toc">↑ 返回目录页</a><br><br></p>
+</div>
 </div>

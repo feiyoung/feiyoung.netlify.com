@@ -2,15 +2,30 @@
 title: "Linux操作手册"
 author: "刘伟"
 date: '2021-03-02'
-output: pdf_document
+layout: post
+showtoc: true
+tags: ["Linux", "PBS psub", "R", "conda", "module"]
+editor_options:
+  chunk_output_type: console
 ---
 
 
 
-<div id="nscc-linux常见问题及操作" class="section level1">
-<h1>NSCC linux常见问题及操作</h1>
-<div id="账户" class="section level2">
-<h2>账户</h2>
+<p><em>Last update: 2021-06-09</em></p>
+<div id="toc" class="section level2">
+<h2>内容目录</h2>
+<ul>
+<li><a href="#nscc">NSCC linux</a></li>
+<li><a href="#LinuxR">Linux相关操作</a></li>
+<li><a href="#PBS">linux服务器提交计算任务</a></li>
+<li><a href="#module">Module环境变量管理工具</a></li>
+<li><a href="#vim">vi/vim编辑器的使用</a></li>
+</ul>
+</div>
+<div id="nscc" class="section level2">
+<h2>NSCC linux常见问题及操作</h2>
+<div id="账户" class="section level3">
+<h3>账户</h3>
 <p>GPU账户信息</p>
 <pre class="linux"><code>ssh weiliudeng@172.25.136.22
 Ldw-258174718
@@ -24,10 +39,13 @@ MM: Ldw@258369</code></pre>
 <p>常用操作</p>
 <pre class="linux"><code>module load R/3.6.3 # 载入R3.6.3版本环境变量
 module avail # 显示所有可用的环境变量，查看R有哪些版本 </code></pre>
+<p><a href="#toc">↑ 返回目录页</a><br><br></p>
 </div>
 </div>
-<div id="linux与r相关操作" class="section level1">
-<h1>Linux与R相关操作</h1>
+<div id="LinuxR" class="section level2">
+<h2>Linux相关操作</h2>
+<div id="安装r包和miniconda" class="section level3">
+<h3>安装R包和Miniconda</h3>
 <p>R CMD INSTALL安装R本地压缩包</p>
 <pre class="linux"><code>R CMD INSTALL MixPPCA_1.0.tar.gz</code></pre>
 <p>linux上安装miniandoconda，见网址：
@@ -39,8 +57,9 @@ export PATH=/home/hangweiqiang/miniconda3/bin:$PATH #设置环境变量</code></
 <pre class="rmd"><code>setwd(&quot;/home/hangweiqiang/LiuWei/Rfile/ProMix&quot;) </code></pre>
 <p>保存R运行后的数据文件</p>
 <pre class="rmd"><code>save(RI, file=&#39;data/RI_n600p300q8K3.Rdata&#39;)</code></pre>
-<div id="基本命令" class="section level2">
-<h2>基本命令</h2>
+</div>
+<div id="基本命令" class="section level3">
+<h3>基本命令</h3>
 <pre class="linux"><code>可用命令： 
 sudo -s 登录超级用户
 whereis xx 查看有哪些xx程序的版本，比如
@@ -76,16 +95,40 @@ cd .. # 返回上一级命令
 dos2unix ./*.sh #将当前文件夹中所有以.sh结尾的文件从文本格式转换为二进制格式
 du -h * #查看当前目录下文件的大小</code></pre>
 </div>
-<div id="linux之间的文件传输" class="section level2">
-<h2>Linux之间的文件传输</h2>
+<div id="文件操作命令" class="section level3">
+<h3>文件操作命令</h3>
+<pre class="linux"><code>stat A.txt    查看文件的创建日期等详细信息
+cp -options A B    将文件（夹）A复制为文件（夹）B。
+tar -xzvf  XX.tar.gz      解压压缩文件
+从指定网址下载文件：
+wget -O spaceranger-1.2.2.tar.gz &quot;https://cf.10xgenomics.com/releases/spatial-exp/spaceranger-1.2.2.tar.gz&quot; 
+pwd 获取当前绝对路径
+man bash 查看某个命令（比如bash)的介绍。
+head -2 XX.csv 查看文件的前两行
+cat xx.txt  打印出文件内容</code></pre>
+</div>
+<div id="安装软件" class="section level3">
+<h3>安装软件</h3>
+<p>有一些linux的安装包是.sh后缀的安装包，可以通过如下命令进行安装：</p>
+<pre class="linux"><code>bash xxx.sh</code></pre>
+</div>
+<div id="设置环境变量" class="section level3">
+<h3>设置环境变量：</h3>
+<pre class="linux"><code>export PATH=/opt/spaceranger-1.2.2:$PATH
+export PATH=/home/hangweiqiang/spaceranger/spaceranger-1.2.2:$PATH
+vim ~/.bashrc  # 修改环境配置文件
+export PATH=/home/hangweiqiang/miniconda3/bin:$PATH # 添加环境变量语句到.bashrc文件中，这样就不需要每次都设置环境变量了</code></pre>
+</div>
+<div id="linux之间的文件传输" class="section level3">
+<h3>Linux之间的文件传输</h3>
 <pre class="linux"><code>scp  -r yangyi@gmsjl:/nas/yangyi2/jicheng3 ./ # -r 传输文件夹，从远程机器传输到当前机器
 scp   -r jicheng3 gmsyan@nus.nscc.sg:/home/projects/11000368/Work/YangYi/Jicheng3/fastqData 
 #从当前机器推送文件夹到远程机器
 
 scp   bam2count.sh gmsyan@nus.nscc.sg:/home/projects/11000368/Work/YangYi/Jicheng3/submit_code/shFile #传递文件到远程机器</code></pre>
 </div>
-<div id="linux编程语言" class="section level2">
-<h2>Linux编程语言</h2>
+<div id="linux编程语言" class="section level3">
+<h3>Linux编程语言</h3>
 <pre class="linux"><code># 批量转化:Linux语法比较特别：等号之间不能有空格，Linux的下标也是从0开始计算
 sample=(AVEN_2 AVEN_3 AVEN_4 DIS3L_2 DIS3L_3 DIS3L_4 FOCAD_2 FOCAD_3 FOCAD_4 NT_2 NT_3 NT_4 SKIV2L_2 SKIV2L_3 SKIV2L_4 TTC37_2 TTC37_3 TTC37_4);
 for ((intt=1;intt&lt;18;intt++));
@@ -100,15 +143,33 @@ do
 htseq-count -f bam -r pos -s no -a 10 -t exon -i gene_id -m union ./STAR_out/HSTAR_out/${sample[intt]}_Aligned.sortedByCoord.out.bam ./fastqData/humanRefData/gencode.v30.chr_patch_hapl_scaff.basic.annotation2.gtf &gt; ./coutFiles/${sample[intt]}_counts_out.txt
 done</code></pre>
 </div>
+<div id="以管理员权限运行命令" class="section level3">
+<h3>以管理员权限运行命令</h3>
+<p>账户若具有管理员权限，则可以利用sudo命令来以管理员权限运行命令。</p>
+<pre class="linux"><code>sudo R # 以管理员权限运行R
+sudo wget https://cf.10xgenomics.com/supp/spatial-exp/refdata-gex-GRCh38-2020-A.tar.gz # 以管理员下载文件</code></pre>
 </div>
-<div id="linux与anoconda操作" class="section level1">
-<h1>Linux与Anoconda操作</h1>
+<div id="开辟新的空间" class="section level3">
+<h3>开辟新的空间</h3>
+<pre class="linux"><code>screen -S 001 #开辟一个名为001的运行空间
+screen -S 007
+Ctrl + A + D  # 从开辟的空间中退出到主界面。
+screen -ls # 查看开辟的空间的ID
+screen -r ID # 再次进入开辟的空间，查看代码运行情况
+kill ID # 删除该运行空间
+pkill -u csr3 # 删除该用户的所有运行的空间。
+kill 46747</code></pre>
+<p><a href="#toc">↑ 返回目录页</a><br><br></p>
+</div>
+</div>
+<div id="linux与anoconda操作" class="section level2">
+<h2>Linux与Anoconda操作</h2>
 <p>下载和安装miniconda3
 下载、安装地址：<a href="https://docs.conda.io/en/latest/miniconda.html#linux-installers" class="uri">https://docs.conda.io/en/latest/miniconda.html#linux-installers</a></p>
 <pre class="linux"><code>wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
-<div id="conda-安装r语言及其r包" class="section level2">
-<h2>conda 安装R语言及其R包：</h2>
+<div id="conda-安装r语言及其r包" class="section level3">
+<h3>conda 安装R语言及其R包：</h3>
 <p>1 添加channel：清华镜像 free conda-forge bioconda</p>
 <pre class="linux"><code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
@@ -148,34 +209,11 @@ conda deactivate ENV  # 退出conda环境
 conda remove -n ENV --all  # 删除conda环境
 conda config --show  # 查看channel
 conda create -n r4py5 python=3.6 R=4.0.1 # 创建虚拟环境，并指定R和Python的版本</code></pre>
-</div>
-<div id="文件操作命令" class="section level2">
-<h2>文件操作命令</h2>
-<pre class="linux"><code>stat A.txt    查看文件的创建日期等详细信息
-cp -options A B    将文件（夹）A复制为文件（夹）B。
-tar -xzvf  XX.tar.gz      解压压缩文件
-从指定网址下载文件：
-wget -O spaceranger-1.2.2.tar.gz &quot;https://cf.10xgenomics.com/releases/spatial-exp/spaceranger-1.2.2.tar.gz&quot; 
-pwd 获取当前绝对路径
-man bash 查看某个命令（比如bash)的介绍。
-head -2 XX.csv 查看文件的前两行
-cat xx.txt  打印出文件内容</code></pre>
-</div>
-<div id="安装软件" class="section level2">
-<h2>安装软件</h2>
-<p>有一些linux的安装包是.sh后缀的安装包，可以通过如下命令进行安装：</p>
-<pre class="linux"><code>bash xxx.sh</code></pre>
-</div>
-<div id="设置环境变量" class="section level2">
-<h2>设置环境变量：</h2>
-<pre class="linux"><code>export PATH=/opt/spaceranger-1.2.2:$PATH
-export PATH=/home/hangweiqiang/spaceranger/spaceranger-1.2.2:$PATH
-vim ~/.bashrc  # 修改环境配置文件
-export PATH=/home/hangweiqiang/miniconda3/bin:$PATH # 添加环境变量语句到.bashrc文件中，这样就不需要每次都设置环境变量了</code></pre>
+<p><a href="#toc">↑ 返回目录页</a><br><br></p>
 </div>
 </div>
-<div id="远程linux服务器提交计算任务" class="section level1">
-<h1>远程linux服务器提交计算任务</h1>
+<div id="PBS" class="section level2">
+<h2>远程linux服务器提交计算任务</h2>
 <p>使用PBS集群管理软件来提交任务执行，可以调配全部可用内存资源。
 新建一个xx.sh文件</p>
 <pre class="linux"><code>#!/bin/bash
@@ -202,10 +240,11 @@ R CMD BATCH /home/users/nus/gmsyan/SCLMM/simulation/submit_code/SCLMM_IS_power_r
 
 // 注1：想要得到程序运行的时间，可以使用
 date &gt; test.time</code></pre>
-<div id="pbs环境qsub-qstat-qdel" class="section level2">
-<h2>PBS环境qsub, qstat, qdel</h2>
+<div id="pbs环境qsub-qstat-qdel" class="section level3">
+<h3>PBS环境qsub, qstat, qdel</h3>
 <p>PBS 是公开源代码的作业管理系统，在此环境下运行，用户不需要指定程序在哪些节点上运行，程序
 所需的硬件资源由PBS 管理和分配。</p>
+</div>
 <div id="pbs-命令" class="section level3">
 <h3>1、PBS 命令</h3>
 <p>PBS 提供4 条命令用于作业管理。</p>
@@ -367,9 +406,10 @@ Qstat 后加不同参数可以查看不同的信息（各参数的意思，上�
 命令行：#qstat –f 211 （查看有关作业运行具体信息）
 显示结果：
 解释：exec_host 显示的是实际执行该任务的节点</p>
+<p><a href="#toc">↑ 返回目录页</a><br><br></p>
 </div>
 </div>
-<div id="module环境变量管理工具" class="section level2">
+<div id="module" class="section level2">
 <h2>Module环境变量管理工具</h2>
 <p>使用module环境变量管理工具可以很方便管理linux中的环境变量，用户不需要修改.bashrc，从而避免误操作。</p>
 <ol style="list-style-type: decimal">
@@ -387,31 +427,12 @@ module swap R R/3.6.0 # 将当前环境变量中的R替换成R3.6.0版本作为�
 <li><p>module list 显示用户加载的编译器及库</p></li>
 <li><p>module help 帮助命令</p></li>
 </ol>
+<p><a href="#toc">↑ 返回目录页</a><br><br></p>
 </div>
-<div id="以管理员权限运行命令" class="section level2">
-<h2>以管理员权限运行命令</h2>
-<p>账户若具有管理员权限，则可以利用sudo命令来以管理员权限运行命令。</p>
-<pre class="linux"><code>sudo R # 以管理员权限运行R
-sudo wget https://cf.10xgenomics.com/supp/spatial-exp/refdata-gex-GRCh38-2020-A.tar.gz # 以管理员下载文件</code></pre>
-</div>
-<div id="开辟新的空间" class="section level2">
-<h2>开辟新的空间</h2>
-<pre class="linux"><code>screen -S 001 #开辟一个名为001的运行空间
-screen -S 007
-Ctrl + A + D  # 从开辟的空间中退出到主界面。
-screen -ls # 查看开辟的空间的ID
-screen -r ID # 再次进入开辟的空间，查看代码运行情况
-kill ID # 删除该运行空间
-pkill -u csr3 # 删除该用户的所有运行的空间。
-kill 46747</code></pre>
-</div>
-<div id="sed命令示例" class="section level2">
-<h2>sed命令示例</h2>
-<p>见网址：
-<a href="https://www.cnblogs.com/feixiangmanon/p/12043757.html" class="uri">https://www.cnblogs.com/feixiangmanon/p/12043757.html</a></p>
-</div>
-<div id="vivim编辑器的使用" class="section level2">
+<div id="vim" class="section level2">
 <h2>vi/vim编辑器的使用</h2>
+<p>sed命令示例见网址：
+<a href="https://www.cnblogs.com/feixiangmanon/p/12043757.html" class="uri">https://www.cnblogs.com/feixiangmanon/p/12043757.html</a></p>
 <ol style="list-style-type: decimal">
 <li>打开文件、保存、关闭文件(vi命令模式下使用)</li>
 </ol>
@@ -452,5 +473,5 @@ U      //撤销对当前行的所有操作
 ?vpser     //向光标上搜索vpser字符串
 n           //向下搜索前一个搜素动作
 N         //向上搜索前一个搜索动作</code></pre>
-</div>
+<p><a href="#toc">↑ 返回目录页</a><br><br></p>
 </div>

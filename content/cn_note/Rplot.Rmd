@@ -1,0 +1,75 @@
+---
+title: "A ggplot2 Tutorial for Beautiful Plotting in R"
+author: "Cédric"
+date: 2019-08-05
+layout: post
+showtoc: false
+description: "An extensive tutorial containing a general introduction to ggplot2 as well as many examples how to modify a ggplot, step by step. It covers several topics such as different chart types, themes, design choices, plot combinations, and modification of axes, labels, and legends, custom fonts, interactive charts and many more."
+tags: ["DataViz", "tutorial", "R", "tidyverse", "ggplot2"]
+editor_options:
+  chunk_output_type: console
+---
+  
+```{r set options, include=FALSE}
+options(width = 700)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, out.width = "100%",
+                      fig.showtext = TRUE, retina = 2)
+```
+
+*Last update: 2021-02-09*
+  
+See https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/#panels.
+
+## Table of Content {#toc}
+
+* [Preparation](#prep)
+* [The Dataset](#data)
+* [Default ggplot](#ggplot)
+* [Pipeline operator](#pipe)
+
+## Preparation {#prep}
+
+## The Dataset {#data}
+```{r}
+chic <- readr::read_csv("https://raw.githubusercontent.com/Z3tt/R-Tutorials/master/ggplot2/chicago-nmmaps.csv")
+```
+```{r}
+tibble::glimpse(chic)
+```
+load ggplot2 package
+
+## Default ggplot {#ggplot}
+```{r}
+library(tidyverse)
+ggplot(chic, aes(x = date, y = temp)) +
+  geom_point(color = "firebrick") +
+  labs(x = "Year", y = expression(paste("Temperature (", degree ~ F, ")"^"(Hey, why should we use metric units?!)")))
+```
+
+```{r}
+library(tidyverse)
+
+chic_high <- dplyr::filter(chic, temp > 25, o3 > 20)
+
+ggplot(chic_high, aes(x = temp, y = o3)) +
+  geom_point(color = "darkcyan") +
+  labs(x = "Temperature higher than 25°F",
+       y = "Ozone higher than 20 ppb") +
+  expand_limits(x = 0, y = 0)
+```
+
+## Pipeline operator %>% {#pipe}
+```{r}
+1 %>% sin
+```
+
+## Revise title of legend
+```{r}
+ggplot(chic, aes(x = date, y = temp, color = season)) +
+  geom_point() +
+  labs(x = "Year", y = "Temperature (°F)",
+       color = "Seasons\nindicated\nby colors:") +
+  theme(legend.title = element_text(family = "Playfair",
+                                    color = "chocolate",
+                                    size = 14, face = "bold"))
+```

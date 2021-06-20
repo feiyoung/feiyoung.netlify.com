@@ -4,8 +4,22 @@ author: "刘伟"
 date: '2021-04-15'
 output: pdf_document
 ---
+## 内容目录 {#toc}
 
-# 常用函数
+* [parallel包并行](#parallel)
+* [doSNOW包并行](#doSnow)
+* [两者结合](#both)
+
+
+### R中创建S4对象
+要创建S4对象，我们可以使用setClass函数，在该函数中我们将传递对象名称，列名称以及将存储在列中的数据类型。例如，如果我们要创建一个具有名称数据和两个由x和y调用的数字列的S4，则可以使用setClass（“ data”，representation（x1 =“ numeric”，x2 =“ numeric”））。
+```{Rmd}
+setClass("data1",representation(x1="numeric",x2="numeric"))
+data1<-new("data1",x1=rnorm(20),x2=rexp(20,1.12))
+data1
+```
+
+## parallel包并行{#parallel}
 
 ```{Rmd}
 single_parallel <- function(func,num_core,iterable,varlist=NULL,...){
@@ -59,9 +73,8 @@ selectClustNumber <- function(X,Adj_sp, q, K_set= 3:10, cov='heter', num_core = 
 ```
 
 
-# 强大方便的doSNOW
-doSNOW是我现在最喜欢的并行包，因为它可以显示进度条
-
+## doSNOW包并行{#doSnow}
+doSNOW的一个优势是它可以显示进度条
 
 ```{Rmd}
 require(doSNOW) # 加载并行包
@@ -100,6 +113,72 @@ res_vc <- foreach(k = 1:nK,.packages="MixPPCA" ,.options.snow=opts,
 ```
 
 
+## 两种并行版本的结合体{#both}
+```{Rmd}
+function(X,Adj_sp, q, K_set= 3:10, cov='heter', parallel="parallel", num_core = 1,...){
+  
+  
+  nK <- length(K_set)
+  if(!is.null(parallel)){
+    if (num_core > 1) {
+      if (num_core > detectCores()) {
+        warning("selectClustNumber:: the number of cores you're setting is larger than detected cores!")
+        num_core = detectCores()
+      }
+    }
+    if(parallel=='doSNOW'){
+      require(doSNOW)
+      cl <- makeSOCKcluster(num_core)
+      registerDoSNOW(cl)
+      
+      ## set Prgogress Bar
+      pb <- txtProgressBar(min=1, max=nK, style=3)
+      progress <- function(n) setTxtProgressBar(pb, n)
+      opts <- list(progress=progress)
+      k <- 1
+      icMat <- foreach(k = 1:nK,.packages="MixPPCA" ,.options.snow=opts,
+                       .combine='rbind') %dopar% {
+                         reslist <- simulDRcluster(X,Adj_sp = Adj_sp, q=q, K=K_set[k],  ...) 
+                         
+                         c(reslist$bic, reslist$aic)
+                       }
+      close(pb)
+      stopCluster(cl)
+    }else if(parallel=='parallel'){
+      library(parallel)
+      
+      cl <- makeCluster(num_core)
+      clusterExport(cl, list("EMmPCpp", 
+                             "EMmPCpp_heter", "icmem_heterCpp", "simulDRcluster"))
+      cat("Starting parallel computing...")
+      # clusterCall(cl, function() library(MixPPCA))
+      # Run
+      icMat <- parSapply(cl, X=K_set, parafun1, XX=X, Adj_sp=Adj_sp, q=q, ...)
+      stopCluster(cl)
+      icMat <- t(icMat)
+    }
+      
+  }else{
+    icMat <- matrix(NA, nK, 2)
+    pb <- txtProgressBar()
+    for(k in 1:nK){
+      reslist <- simulDRcluster(X,Adj_sp = Adj_sp, q=q, K=K_set[k],  ...) 
+      setTxtProgressBar(pb, k)
+      icMat[k, ] <- c(reslist$bic, reslist$aic)
+    }
+    close(pb)
+  }
+  
+  
+  
+  
+  icMat <- cbind(K_set, icMat)
+  colnames(icMat) <- c("K", 'bic', 'aic')
+  row.names(icMat) <- as.character(K_set)
+  return(icMat)
+}
+```
+
 ## 内部变量赋值保存
 
 用一个外部矩阵或数组变量将并行的每次返回结果都保存下来，以防某次并行报错后，无结果返回。
@@ -135,7 +214,7 @@ head(mydata)
 
 
 为一般循环添加进度条
-```{r}
+```{Rmd}
 testit <- function(x = sort(runif(20)), ...)
 {
     pb <- txtProgressBar(...)
