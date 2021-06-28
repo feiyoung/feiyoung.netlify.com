@@ -1,14 +1,25 @@
 ---
-title: "Linux编程手册"
+title: "Matlab相关问题"
 author: "刘伟"
 date: '2021-06-09'
-output: pdf_document
+layout: post
+showtoc: true
+tags: ["Matlab", "C", "C++"]
+editor_options:
+  chunk_output_type: console
 ---
-  # NSCC linux常见问题及操作
-  ## 账户
-  GPU账户信息
-```{linux}
-ssh weiliudeng@172.25.136.22
-Ldw-258174718
 
+## C与C++编译
+```{Rmd}
+1如何设置Matlab的C和C++编译器的路径，并对C和C++
+文件进行编译：
+% set the directory of compilors
+% setenv('MW_MINGW64_LOC','C:\rtools40\mingw64')
+
+% compile all c files
+mex -setup
+clear; clc;
+mex partXY.c;
+mex setSval.cpp;
+mex updateSparse.c;
 ```
