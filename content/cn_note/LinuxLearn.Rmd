@@ -16,7 +16,7 @@ editor_options:
 * [NSCC linux](#nscc)
 * [Linux相关操作](#LinuxR)
 * [linux服务器提交计算任务](#PBS)
-* [ Module环境变量管理工具](#module)
+* [Module环境变量管理工具](#module)
 * [vi/vim编辑器的使用](#vim)
 
 ## NSCC linux常见问题及操作{#nscc}
@@ -57,6 +57,14 @@ module avail # 显示所有可用的环境变量，查看R有哪些版本
 R CMD INSTALL安装R本地压缩包
 ```{linux}
 R CMD INSTALL MixPPCA_1.0.tar.gz
+
+Linux中conda环境安装curl失败？
+wget https://cran.r-project.org/src/contrib/curl_4.3.1.tar.gz
+conda环境安装curl失败时，需要将包下载到本地，然后指定安装的路径：
+R CMD INSTALL --configure-vars='LIB_DIR=/usr/lib/x86_64-linux-gnu/pkgconfig' curl_4.3.1.tar.gz
+
+Linux下安装RSQLite失败，报错：/boost/details/fenv.cpp: no such files.
+conda install -c conda-forge boost-cpp
 ```
 linux上安装miniandoconda，见网址：
 https://docs.conda.io/en/latest/miniconda.html#linux-installers
@@ -64,20 +72,42 @@ https://docs.conda.io/en/latest/miniconda.html#linux-installers
 wget -O miniconda.sh "https://docs.conda.io/en/latest/miniconda.html#linux-installers" #下载软件安装包
 bash miniconda.sh # 安装软件
 export PATH=/home/hangweiqiang/miniconda3/bin:$PATH #设置环境变量
+#将此目录加入到该用户的局部环境目录，就可以直接调用程序了julia。
+export PATH=/home/weiliu/Julia/julia-1.4.2/bin:$PATH 
+# 不加入环境变量，也可以运行julia，但是得指定当前目录，否则笨笨的linux无法找到该可执行文件
+./julia
 ```
 设置R的工作路径
 ```{Rmd}
-setwd("/home/hangweiqiang/LiuWei/Rfile/ProMix") 
+setwd("/home/hangweiqiang/LiuWei/Rfile/ProMix")
 ```
 保存R运行后的数据文件
 ```{Rmd}
 save(RI, file='data/RI_n600p300q8K3.Rdata')
 ```
+下载内存和负载查看软件
+```{Rmd}
+conda install -c conda-forge htop #利用conda来下载htop包
+htop #查看内存占用情况
+pkill -9 -u weiliudeng R #杀掉用户为XX的R相关的进程
+```
+```{Rmd}
+#查看cpu信息命令：
+cat /proc/cpuinfo
+#查看cpu总核心数命令：
+grep 'model name' /proc/cpuinfo | wc -l 
+load average含义：
+ https://www.cnblogs.com/yiwenrong/p/13204178.html
 
+```
 
 ### 基本命令
+在linux下，扩展名没有太大意义。.doc 和.txt都是普通文件，用 ls -l查看时，“-”表示普通文件
+当执行 ls -ld /home/zgy/时，可以看到第一列内容为drwx------ ，这种开头带有d字符的文件就表示目录，目录在Linux中是一个比较特殊的文件。
 ```{linux}
 可用命令： 
+rm -rf 目录名 强制删除非空目录
+ls -l 查看当前文件夹文件的详细信息
 sudo -s 登录超级用户
 whereis xx 查看有哪些xx程序的版本，比如
 whereis python   查看有哪些python版本
@@ -201,6 +231,11 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
 conda config --set show_channel_urls yes
 conda config --show  # 查看新增channels
+conda config --remove channels # 移除掉这些channals
+ https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+
 ```
 2 创建conda环境r403，并安装R4.0.3
 ```{linux}

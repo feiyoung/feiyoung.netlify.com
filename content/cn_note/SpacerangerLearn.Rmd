@@ -50,7 +50,8 @@ spaceranger count --id=CRC33  \--transcriptome=/nas/yangyi2/CRC/refdata-gex-GRCh
 https://satijalab.org/seurat/articles/pbmc3k_tutorial.html
 
 ### 理解空间转录组数据
-每个spot(位置)包含1-200个cells（细胞），每个spot就是一个observation，以spot为单位，而不是以单个细胞为单位。 每个细胞里面都有一整套的基因（或DNA），我们可以想象成每个spot就是一个细胞，那么它就有所有的基因($G_1, G_2, \cdots, G_p$)。但是每个基因在不同的spot中的表达量是不一样的，而count data就是基因在不同位置上表达量的计数，count越高表达越强。count矩阵一般是稀疏的，因为在spot中表达的基因只有少数，大多数是不在该spot上表达，所以该spot对应的很多基因表达为0.
+每个spot(位置)包含1-200个cells（细胞），每个spot就是一个observation，以spot为单位，而不是以单个细胞为单位。 每个细胞里面都有一整套的基因（或DNA），我们可以想象成每个spot就是一个细胞，那么它就有所有的基因($$G_1, G_2, \cdots, G_p$$)。
+但是每个基因在不同的spot中的表达量是不一样的，而count data就是基因在不同位置上表达量的计数，count越高表达越强。count矩阵一般是稀疏的，因为在spot中表达的基因只有少数，大多数是不在该spot上表达，所以该spot对应的很多基因表达为0.
 
 转录组（transcriptome）指特定生物体在某种状态下，细胞内所有基因转录产物的总和，包括信使RNA(mRNA, message RNA)、转运RNA (tRNA, transfer RNA)及非编码RNA，狭义上指所有的mRNA的集合。从RNA层次研究基因表达情况，即为转录组学（transcriptomics），是研究细胞表型和功能的一个重要手段。
 
@@ -78,10 +79,3 @@ https://satijalab.org/seurat/articles/pbmc3k_tutorial.html
 细胞核是细胞内遗传信息的储存、复制和转录的主要场所。大多呈球形或椭圆形。通常一个,也有两个或多个的。借双层多孔的核膜与细胞质分隔。核内含有核液、染色质(或染色体)和核仁
 
 
-### R中创建S4对象
-要创建S4对象，我们可以使用setClass函数，在该函数中我们将传递对象名称，列名称以及将存储在列中的数据类型。例如，如果我们要创建一个具有名称数据和两个由x和y调用的数字列的S4，则可以使用setClass（“ data”，representation（x1 =“ numeric”，x2 =“ numeric”））。
-```{Rmd}
-setClass("data1",representation(x1="numeric",x2="numeric"))
-data1<-new("data1",x1=rnorm(20),x2=rexp(20,1.12))
-data1
-```

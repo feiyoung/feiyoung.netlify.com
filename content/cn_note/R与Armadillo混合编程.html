@@ -98,3 +98,10 @@ List calList(const Rcpp::List&amp; alist, const Rcpp::List blist){
   return resList;
 }</code></pre>
 </div>
+<div id="类型转换" class="section level2">
+<h2>类型转换</h2>
+<pre class="rmd"><code>field&lt;mat&gt; Rf1 = ICM_fit[&quot;Rf&quot;];
+field&lt;ivec&gt; yf(r_max);
+uvec y1_u = index_max(Rf1(r),1);
+yf(r) = conv_to&lt; ivec &gt;::from(y1_u) + 1;</code></pre>
+</div>

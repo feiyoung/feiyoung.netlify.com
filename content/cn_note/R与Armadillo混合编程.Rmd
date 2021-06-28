@@ -103,3 +103,11 @@ List calList(const Rcpp::List& alist, const Rcpp::List blist){
   return resList;
 }
 ```
+
+## 类型转换
+```{Rmd}
+field<mat> Rf1 = ICM_fit["Rf"];
+field<ivec> yf(r_max);
+uvec y1_u = index_max(Rf1(r),1);
+yf(r) = conv_to< ivec >::from(y1_u) + 1;
+```
