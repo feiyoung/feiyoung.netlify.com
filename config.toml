@@ -67,7 +67,7 @@ enableRobotsTXT = true
 [params]
   hljsStyle="github" #code highlightjs css style . See [Style List](https://github.com/highlightjs/highlight.js/tree/master/src/styles "CSS Style list")
 
-  showNextAndPrePost = false #Is Show Next and Previous Post Button
+  showNextAndPrePost = true #Is Show Next and Previous Post Button
   description = "site description"
   keywords = "site keywords use seo"
   googleSiteVerification = "google site verification key"
