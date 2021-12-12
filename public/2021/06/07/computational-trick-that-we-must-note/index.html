@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>Computational trick that we must note | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">Computational trick that we must note</h1>
+				<div class="entry__content">
+
+
+<div id="iterated-closed-form-of-covariance-matrix" class="section level2">
+<h2>Iterated closed form of covariance matrix</h2>
+<p>It is noted that we solve the iterative closed form of covariance matrix, we require to devide the interactive term into two terms.
+For example, we have an objective function
+<span class="math display">\[l(\Sigma)=-\frac{1}{2} \ln |\Sigma| - \frac{1}{2} tr\{\Sigma^{-1}
+  (\sigma^2 I_p + zz^T)\} + \mu^T \Sigma^{-1}z - \frac{1}{2} \mu^T \Sigma{-1} \mu.\]</span>
+We are used to writing <span class="math inline">\(\frac{1}{2}\mu^T\Sigma^{-1} z+ \frac{1}{2}z^T\Sigma^{-1} \mu\)</span> as <span class="math inline">\(\mu^T \Sigma^{-1}z\)</span> since the transpose of <span class="math inline">\(1\times 1\)</span> matrix is itself. However, it will lead to some problems when we solve <span class="math inline">\(\Sigma\)</span> and we will obtain a unsymmetric matrix estimae. Taking derivative on <span class="math inline">\(\Sigma^{-1}\)</span>, we have
+<span class="math display">\[\frac{1}{2} \Sigma - \frac{1}{2}(\sigma^2 + zz^T) +\mu z^T - \frac{1}{2} \mu\mu^T,\]</span>
+which implies
+<span class="math display">\[\Sigma = \sigma^2I_p + zz^T + \mu\mu^T - 2\mu z^T \notin S^{p\times p},\]</span>
+where <span class="math inline">\(S^{p\times p}\)</span> is the symmetric matrix space. Note
+<span class="math inline">\(2\mu z^T \neq \mu z^T + z\mu^T\)</span>.</p>
+<p>Thus, we rewrite <span class="math inline">\(\mu^T \Sigma^{-1}z\)</span> as <span class="math inline">\(\frac{1}{2}\mu^T\Sigma^{-1} z+ \frac{1}{2}z^T\Sigma^{-1} \mu\)</span>, then we obtain
+<span class="math display">\[\Sigma = \sigma^2I_p + zz^T + \mu\mu^T - \mu z^T - z\mu^T \in S^{p\times p}.\]</span>
+Therefore, we get the results we want.</p>
+</div>
+<div id="high-dimensional-mixture-normal-observational-log-likelihood" class="section level2">
+<h2>High-dimensional mixture normal observational log likelihood</h2>
+<p>Usually, the observational log likelihood has a following form:
+<span class="math display">\[l(\theta)= \sum_i \ln \sum_k \pi_k P(x_i|y_i = 1_k, \mu_k, \Sigma_k)=\sum_i \ln \sum_k \pi_k a_{ik}.\]</span>
+When <span class="math inline">\(x_i\)</span> is high dimensional, we often encounter that the computer will recognize <span class="math inline">\(a_{ik}\)</span> as zero before log is took.</p>
+<p>Thus, we use the equivalent form <span class="math inline">\(\ln a_{ik} - \max_k \ln a_{ik} = b_{ik} - c_i\)</span>, which leads to
+<span class="math display">\[a_{ik}= \exp(b_{ik} - c_i) \exp(c_i).\]</span>
+Furthermore,
+<span class="math display">\[l(\theta) = \sum_i [(\ln \sum_k \pi_k \exp(b_{ik}-c_i)) + \ln c_i].\]</span></p>
+</div>
+<div id="logrithm-of-non-negative-matrix" class="section level2">
+<h2>Logrithm of non-negative matrix</h2>
+<p>If a non-negative matrix <span class="math inline">\(\Phi\)</span> include some zeros entries, then we take logrithm and will obtain <span class="math inline">\(-\infty\)</span>. Sometimes, we want to compute <span class="math inline">\(\Phi .* log(\Phi)\)</span>. If <span class="math inline">\(\phi_{ik}=0\)</span>, the expected result is <span class="math inline">\(0\)</span> but we will obtain <span class="math inline">\(NaN=0* Inf\)</span>. Thus, we use the following trick to avoid this.
+<span class="math display">\[\Phi .* log(\Phi + \Phi==0).\]</span>
+So, the <span class="math inline">\(0*Inf\)</span> is changed to <span class="math inline">\(0*0\)</span>.</p>
+</div>
+<div id="reproducible-results" class="section level2">
+<h2>Reproducible results</h2>
+<p>There are many traps that need to know in real data analysis: one of the important things is to set a random seed. When we use the existing algorithm to get the initial values for our proposed algorithm, there may be randomness problems, such as Mclust or Kmeans selecting the initial cluster. If we don’t set a random seed, the results may not be reproduced.</p>
+</div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>

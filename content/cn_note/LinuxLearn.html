@@ -17,6 +17,7 @@ editor_options:
 <ul>
 <li><a href="#nscc">NSCC linux</a></li>
 <li><a href="#LinuxR">Linux相关操作</a></li>
+<li><a href="#LinuxConda">Linux与Anoconda操作</a></li>
 <li><a href="#PBS">linux服务器提交计算任务</a></li>
 <li><a href="#module">Module环境变量管理工具</a></li>
 <li><a href="#vim">vi/vim编辑器的使用</a></li>
@@ -189,7 +190,7 @@ kill 46747</code></pre>
 <p><a href="#toc">↑ 返回目录页</a><br><br></p>
 </div>
 </div>
-<div id="linux与anoconda操作" class="section level2">
+<div id="LinuxConda" class="section level2">
 <h2>Linux与Anoconda操作</h2>
 <p>下载和安装miniconda3
 下载、安装地址：<a href="https://docs.conda.io/en/latest/miniconda.html#linux-installers" class="uri">https://docs.conda.io/en/latest/miniconda.html#linux-installers</a></p>
@@ -241,6 +242,32 @@ conda deactivate ENV  # 退出conda环境
 conda remove -n ENV --all  # 删除conda环境
 conda config --show  # 查看channel
 conda create -n r4py5 python=3.6 R=4.0.1 # 创建虚拟环境，并指定R和Python的版本</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>NSCC上如何配置新的R环境：</li>
+</ol>
+<pre class="linux"><code>#1. 载入anaconda 3
+module load anaconda/3
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
+conda config --set show_channel_urls yes
+
+#2.利用anaconda 3在自己账户上创建新的conda环境
+conda create -n r4 python=3.9
+
+#3.安装R最新版4.1.1
+source activate r4
+conda install r-base=4.1.1</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Python从github上安装module</li>
+</ol>
+<pre class="linux"><code>/home/weiliu/miniconda3/envs/r-reticulate/lib/python3.9/site-packages/scvi/__init__.py:31: DeprecationWarning: scvi is deprecated, please uninstall scvi via `pip uninstall scvi` and install the new scvi-tools package at github.com/YosefLab/scvi-tools
+pip install git+https://github.com/YosefLab/scvi-tools
+sudo pip2 install git+https://github.com/epierson9/ZIFA
+python2 -m pip install git+https://github.com/epierson9/ZIFA
+sudo apt-get install python-pip
+pip2 install --upgrade setuptools
+pip2 install ez_setup</code></pre>
 <p><a href="#toc">↑ 返回目录页</a><br><br></p>
 </div>
 </div>
@@ -272,6 +299,23 @@ R CMD BATCH /home/users/nus/gmsyan/SCLMM/simulation/submit_code/SCLMM_IS_power_r
 
 // 注1：想要得到程序运行的时间，可以使用
 date &gt; test.time</code></pre>
+<div id="normal类型任务" class="section level3">
+<h3>normal类型任务</h3>
+<p>对于normal类型任务,申请不能超过96GB的内存 (mem)，不能超过24个核(ncpus),不能超过1个节点(select).
+NSCC上跑代码如何设置为long，以便能够跑48个小时。示例代码如下：</p>
+<pre class="rmd"><code>#!/bin/bash
+#PBS -P Personal
+#PBS -N ZINB
+#PBS -q normal
+#PBS -l select=1:ncpus=1:mem=90GB
+#PBS -l walltime=48:00:00
+#PBS -l place=pack
+#PBS -j oe
+#PBS -o /home/users/nus/weiliu4/LiuWei/Rfiles/logFiles/ZINB_compZ1.log
+module load R/3.6.3
+cd /home/users/nus/weiliu4/LiuWei/Rfiles/ProMix/RoutFiles
+R CMD BATCH /home/users/nus/weiliu4/LiuWei/Rfiles//ProMix/nsccRfiles/ZINB_compZ.R</code></pre>
+</div>
 <div id="pbs环境qsub-qstat-qdel" class="section level3">
 <h3>PBS环境qsub, qstat, qdel</h3>
 <p>PBS 是公开源代码的作业管理系统，在此环境下运行，用户不需要指定程序在哪些节点上运行，程序

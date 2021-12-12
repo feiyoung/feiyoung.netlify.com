@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>An introduction to the SingleCellExperiment class | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">An introduction to the SingleCellExperiment class</h1>
+				<div class="entry__content">
+
+
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<p>The <code>SingleCellExperiment</code> class is a lightweight Bioconductor container for storing and manipulating single-cell genomics data.
+It extends the <code>RangedSummarizedExperiment</code> class and follows similar conventions,
+i.e., rows should represent features (genes, transcripts, genomic regions) and columns should represent cells.
+It provides methods for storing dimensionality reduction results and data for alternative feature sets (e.g., synthetic spike-in transcripts, antibody-derived tags).
+It is the central data structure for Bioconductor single-cell packages like <em><a href="https://bioconductor.org/packages/3.12/scater">scater</a></em> and <em><a href="https://bioconductor.org/packages/3.12/scran">scran</a></em>.</p>
+</div>
+<div id="creating-singlecellexperiment-instances" class="section level1">
+<h1>Creating SingleCellExperiment instances</h1>
+<p><code>SingleCellExperiment</code> objects can be created via the constructor of the same name.
+For example, if we have a count matrix in <code>counts</code>, we can simply call:</p>
+<pre class="r"><code>library(SingleCellExperiment)
+counts &lt;- matrix(rpois(100, lambda = 10), ncol=10, nrow=10)
+sce &lt;- SingleCellExperiment(counts)
+sce</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 10 10 
+## metadata(0):
+## assays(1): &#39;&#39;
+## rownames: NULL
+## rowData names(0):
+## colnames: NULL
+## colData names(0):
+## reducedDimNames(0):
+## altExpNames(0):</code></pre>
+<p>In practice, it is often more useful to name the assay by passing in a named list:</p>
+<pre class="r"><code>sce &lt;- SingleCellExperiment(list(counts=counts))
+sce</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 10 10 
+## metadata(0):
+## assays(1): counts
+## rownames: NULL
+## rowData names(0):
+## colnames: NULL
+## colData names(0):
+## reducedDimNames(0):
+## altExpNames(0):</code></pre>
+<p>It is similarly easy to set the column and row metadata by passing values to the appropriate arguments.
+We will not go into much detail here as most of this is covered by the <em><a href="https://bioconductor.org/packages/3.12/SummarizedExperiment">SummarizedExperiment</a></em> documentation,
+but to give an example:</p>
+<pre class="r"><code>pretend.cell.labels &lt;- sample(letters, ncol(counts), replace=TRUE)
+pretend.gene.lengths &lt;- sample(10000, nrow(counts))
+
+sce &lt;- SingleCellExperiment(list(counts=counts),
+    colData=DataFrame(label=pretend.cell.labels),
+    rowData=DataFrame(length=pretend.gene.lengths),
+    metadata=list(study=&quot;GSE111111&quot;)
+)
+sce</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 10 10 
+## metadata(1): study
+## assays(1): counts
+## rownames: NULL
+## rowData names(1): length
+## colnames: NULL
+## colData names(1): label
+## reducedDimNames(0):
+## altExpNames(0):</code></pre>
+<p>We can also construct a <code>SingleCellExperiment</code> by coercing an existing <code>(Ranged)SummarizedExperiment</code> object:</p>
+<pre class="r"><code>se &lt;- SummarizedExperiment(list(counts=counts))
+as(se, &quot;SingleCellExperiment&quot;)</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 10 10 
+## metadata(0):
+## assays(1): counts
+## rownames: NULL
+## rowData names(0):
+## colnames: NULL
+## colData names(0):
+## reducedDimNames(0):
+## altExpNames(0):</code></pre>
+<p>The set of operations that can be applied to a <code>RangedSummarizedExperiment</code> are also applicable to any instance of a <code>SingleCellExperiment</code>.
+This includes access to assay data via <code>assay()</code>, column metadata with <code>colData()</code>, and so on.
+Again, without going into too much detail:</p>
+<pre class="r"><code>dim(assay(sce))</code></pre>
+<pre><code>## [1] 10 10</code></pre>
+<pre class="r"><code>colnames(colData(sce))</code></pre>
+<pre><code>## [1] &quot;label&quot;</code></pre>
+<pre class="r"><code>colnames(rowData(sce))</code></pre>
+<pre><code>## [1] &quot;length&quot;</code></pre>
+<p>To demonstrate the use of the class in the rest of the vignette, we will use the Allen data set from the <em><a href="https://bioconductor.org/packages/3.12/scRNAseq">scRNAseq</a></em> package.</p>
+<pre class="r"><code>library(scRNAseq)
+sce &lt;- ReprocessedAllenData(&quot;tophat_counts&quot;)
+sce</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 20816 379 
+## metadata(2): SuppInfo which_qc
+## assays(1): tophat_counts
+## rownames(20816): 0610007P14Rik 0610009B22Rik ... Zzef1 Zzz3
+## rowData names(0):
+## colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336
+## colData names(22): NREADS NALIGNED ... Animal.ID passes_qc_checks_s
+## reducedDimNames(0):
+## altExpNames(1): ERCC</code></pre>
+</div>
+<div id="adding-low-dimensional-representations" class="section level1">
+<h1>Adding low-dimensional representations</h1>
+<p>We compute log-transformed normalized expression values from the count matrix.
+(We note that many of these steps can be performed as one-liners from the <em><a href="https://bioconductor.org/packages/3.12/scater">scater</a></em> package,
+but we will show them here in full to demonstrate the capabilities of the <code>SingleCellExperiment</code> class.)</p>
+<pre class="r"><code>counts &lt;- assay(sce, &quot;tophat_counts&quot;)
+libsizes &lt;- colSums(counts)
+size.factors &lt;- libsizes/mean(libsizes)
+logcounts(sce) &lt;- log2(t(t(counts)/size.factors) + 1)
+assayNames(sce)</code></pre>
+<pre><code>## [1] &quot;tophat_counts&quot; &quot;logcounts&quot;</code></pre>
+<p>We obtain the PCA and t-SNE representations of the data and add them to the object with the <code>reducedDims()&lt;-</code> method.
+Alternatively, we can representations one at a time with the <code>reducedDim()&lt;-</code> method (note the missing <code>s</code>).</p>
+<pre class="r"><code>pca_data &lt;- prcomp(t(logcounts(sce)), rank=50)
+
+library(Rtsne)
+set.seed(5252)
+tsne_data &lt;- Rtsne(pca_data$x[,1:50], pca = FALSE)
+
+reducedDims(sce) &lt;- list(PCA=pca_data$x, TSNE=tsne_data$Y)
+sce</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 20816 379 
+## metadata(2): SuppInfo which_qc
+## assays(2): tophat_counts logcounts
+## rownames(20816): 0610007P14Rik 0610009B22Rik ... Zzef1 Zzz3
+## rowData names(0):
+## colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336
+## colData names(22): NREADS NALIGNED ... Animal.ID passes_qc_checks_s
+## reducedDimNames(2): PCA TSNE
+## altExpNames(1): ERCC</code></pre>
+<p>The coordinates for all representations can be retrieved from a <code>SingleCellExperiment</code> <em>en masse</em> with <code>reducedDims()</code>
+or one at a time by name/index with <code>reducedDim()</code>.
+Each row of the coordinate matrix is assumed to correspond to a cell while each column represents a dimension.</p>
+<pre class="r"><code>reducedDims(sce)</code></pre>
+<pre><code>## List of length 2
+## names(2): PCA TSNE</code></pre>
+<pre class="r"><code>reducedDimNames(sce)</code></pre>
+<pre><code>## [1] &quot;PCA&quot;  &quot;TSNE&quot;</code></pre>
+<pre class="r"><code>head(reducedDim(sce, &quot;PCA&quot;)[,1:2])</code></pre>
+<pre><code>##                   PC1       PC2
+## SRR2140028  -70.23670  33.78880
+## SRR2140022  -41.00366  49.76633
+## SRR2140055 -133.70763   7.68870
+## SRR2140083  -36.26099 113.18806
+## SRR2139991 -100.86439  15.94740
+## SRR2140067  -97.71210  35.77881</code></pre>
+<pre class="r"><code>head(reducedDim(sce, &quot;TSNE&quot;)[,1:2])</code></pre>
+<pre><code>##                 [,1]       [,2]
+## SRR2140028  5.496253 -3.0603142
+## SRR2140022  6.028424 -1.2858942
+## SRR2140055 -2.105741 -2.6448354
+## SRR2140083  5.755633  6.3093892
+## SRR2139991  4.929426 -0.5097958
+## SRR2140067  4.898115 -5.2522140</code></pre>
+<p>Any subsetting by column of <code>sce_sub</code> will also lead to subsetting of the dimensionality reduction results by cell.
+This is convenient as it ensures our low-dimensional results are always synchronized with the gene expression data.</p>
+<pre class="r"><code>dim(reducedDim(sce, &quot;PCA&quot;))</code></pre>
+<pre><code>## [1] 379  50</code></pre>
+<pre class="r"><code>dim(reducedDim(sce[,1:10], &quot;PCA&quot;))</code></pre>
+<pre><code>## [1] 10 50</code></pre>
+</div>
+<div id="convenient-access-to-named-assays" class="section level1">
+<h1>Convenient access to named assays</h1>
+<p>In the <code>SingleCellExperiment</code>, users can assign arbitrary names to entries of <code>assays</code>.
+To assist interoperability between packages, we provide some suggestions for what the names should be for particular types of data:</p>
+<ul>
+<li><code>counts</code>: Raw count data, e.g., number of reads or transcripts for a particular gene.</li>
+<li><code>normcounts</code>: Normalized values on the same scale as the original counts.
+For example, counts divided by cell-specific size factors that are centred at unity.</li>
+<li><code>logcounts</code>: Log-transformed counts or count-like values.
+In most cases, this will be defined as log-transformed <code>normcounts</code>, e.g., using log base 2 and a pseudo-count of 1.</li>
+<li><code>cpm</code>: Counts-per-million.
+This is the read count for each gene in each cell, divided by the library size of each cell in millions.</li>
+<li><code>tpm</code>: Transcripts-per-million.
+This is the number of transcripts for each gene in each cell, divided by the total number of transcripts in that cell (in millions).</li>
+</ul>
+<p>Each of these suggested names has an appropriate getter/setter method for convenient manipulation of the <code>SingleCellExperiment</code>.
+For example, we can take the (very specifically named) <code>tophat_counts</code> name and assign it to <code>counts</code> instead:</p>
+<pre class="r"><code>counts(sce) &lt;- assay(sce, &quot;tophat_counts&quot;)
+sce</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 20816 379 
+## metadata(2): SuppInfo which_qc
+## assays(3): tophat_counts logcounts counts
+## rownames(20816): 0610007P14Rik 0610009B22Rik ... Zzef1 Zzz3
+## rowData names(0):
+## colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336
+## colData names(22): NREADS NALIGNED ... Animal.ID passes_qc_checks_s
+## reducedDimNames(2): PCA TSNE
+## altExpNames(1): ERCC</code></pre>
+<pre class="r"><code>dim(counts(sce))</code></pre>
+<pre><code>## [1] 20816   379</code></pre>
+<p>This means that functions expecting count data can simply call <code>counts()</code> without worrying about package-specific naming conventions.</p>
+</div>
+<div id="adding-alternative-feature-sets" class="section level1">
+<h1>Adding alternative feature sets</h1>
+<p>Many scRNA-seq experiments contain sequencing data for multiple feature types beyond the endogenous genes:</p>
+<ul>
+<li>Externally added spike-in transcripts for plate-based experiments.</li>
+<li>Antibody tags for CITE-seq experiments.</li>
+<li>CRISPR tags for CRISPR-seq experiments.</li>
+<li>Allele information for experiments involving multiple genotypes.</li>
+</ul>
+<p>Such features can be stored inside the <code>SingleCellExperiment</code> via the concept of “alternative Experiments”.
+These are nested <code>SummarizedExperiment</code> instances that are guaranteed to have the same number and ordering of columns as the main <code>SingleCellExperiment</code> itself.
+Data for endogenous genes and other features can thus be kept separate - which is often desirable as they need to be processed differently - while still retaining the synchronization of operations on a single object.</p>
+<p>To illustrate, consider the case of the spike-in transcripts in the Allen data.
+The <code>altExp()</code> method returns a self-contained <code>SingleCellExperiment</code> instance containing only the spike-in transcripts.</p>
+<pre class="r"><code>altExp(sce)</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 92 379 
+## metadata(2): SuppInfo which_qc
+## assays(1): tophat_counts
+## rownames(92): ERCC-00002 ERCC-00003 ... ERCC-00170 ERCC-00171
+## rowData names(0):
+## colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336
+## colData names(0):
+## reducedDimNames(0):
+## altExpNames(0):</code></pre>
+<p>Each alternative Experiment can have a different set of assays from the main <code>SingleCellExperiment</code>.
+This is useful in cases where the other feature types must be normalized or transformed differently.
+Similarly, the alternative Experiments can have different <code>rowData()</code> from the main object.</p>
+<pre class="r"><code>rowData(altExp(sce))$concentration &lt;- runif(nrow(altExp(sce)))
+rowData(altExp(sce))</code></pre>
+<pre><code>## DataFrame with 92 rows and 1 column
+##            concentration
+##                &lt;numeric&gt;
+## ERCC-00002      0.034970
+## ERCC-00003      0.979286
+## ERCC-00004      0.171510
+## ERCC-00009      0.577606
+## ERCC-00012      0.965111
+## ...                  ...
+## ERCC-00164     0.2945227
+## ERCC-00165     0.4449455
+## ERCC-00168     0.2821027
+## ERCC-00170     0.0817114
+## ERCC-00171     0.4178510</code></pre>
+<pre class="r"><code>rowData(sce)</code></pre>
+<pre><code>## DataFrame with 20816 rows and 0 columns</code></pre>
+<p>We provide the <code>splitAltExps()</code> utility to easily split a <code>SingleCellExperiment</code> into new alternative Experiments.
+For example, if we wanted to split the RIKEN transcripts into a separate Experiment
+- say, to ensure that they are not used in downstream analyses without explicitly throwing out the data -
+we would do:</p>
+<pre class="r"><code>is.riken &lt;- grepl(&quot;^[0-9]&quot;, rownames(sce))
+sce &lt;- splitAltExps(sce, ifelse(is.riken, &quot;RIKEN&quot;, &quot;gene&quot;))
+altExpNames(sce)</code></pre>
+<pre><code>## [1] &quot;ERCC&quot;  &quot;RIKEN&quot;</code></pre>
+<p>Alternatively, if we want to swap the main and alternative Experiments -
+perhaps because the RIKEN transcripts were more interesting than expected, and we want to perform our analyses on them -
+we can simply use <code>swapAltExp()</code> to switch the RIKEN alternative Experiment with the gene expression data:</p>
+<pre class="r"><code>swapAltExp(sce, &quot;RIKEN&quot;, saved=&quot;original&quot;)</code></pre>
+<pre><code>## class: SingleCellExperiment 
+## dim: 611 379 
+## metadata(2): SuppInfo which_qc
+## assays(3): tophat_counts logcounts counts
+## rownames(611): 0610007P14Rik 0610009B22Rik ... 9930111J21Rik1
+##   9930111J21Rik2
+## rowData names(0):
+## colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336
+## colData names(22): NREADS NALIGNED ... Animal.ID passes_qc_checks_s
+## reducedDimNames(2): PCA TSNE
+## altExpNames(3): ERCC RIKEN original</code></pre>
+</div>
+<div id="storing-row-or-column-pairings" class="section level1">
+<h1>Storing row or column pairings</h1>
+<p>A common procedure in single-cell analyses is to identify relationships between pairs of cells,
+e.g., to construct a nearest-neighbor graph or to mark putative physical interactions between cells.
+We can capture this information in the <code>SingleCellExperiment</code> class with the <code>colPairs()</code> functionality.
+To demonstrate, say we have 100 relationships between the cells in <code>sce</code>, characterized by some distance measure:</p>
+<pre class="r"><code>cell1 &lt;- sample(ncol(sce), 100, replace=TRUE)
+cell2 &lt;- sample(ncol(sce), 100, replace=TRUE)
+distance &lt;- runif(100)</code></pre>
+<p>We store this in the <code>SingleCellExperiment</code> as a <code>SelfHits</code> object using the <code>value</code> metadata field to hold our data.
+This is easily extracted as a <code>SelfHits</code> or, for logical or numeric data, as a sparse matrix from <em><a href="https://CRAN.R-project.org/package=Matrix">Matrix</a></em>.</p>
+<pre class="r"><code>colPair(sce, &quot;relationships&quot;) &lt;- SelfHits(
+    cell1, cell2, nnode=ncol(sce), value=distance)
+colPair(sce, &quot;relationships&quot;)</code></pre>
+<pre><code>## SelfHits object with 100 hits and 1 metadata column:
+##              from        to |     value
+##         &lt;integer&gt; &lt;integer&gt; | &lt;numeric&gt;
+##     [1]         2       224 | 0.3155391
+##     [2]         2       311 | 0.0554668
+##     [3]        12       200 | 0.6148850
+##     [4]        16       304 | 0.0174597
+##     [5]        21       244 | 0.9801941
+##     ...       ...       ... .       ...
+##    [96]       349       369 |  0.662352
+##    [97]       349       372 |  0.839914
+##    [98]       352        10 |  0.540362
+##    [99]       360       172 |  0.392147
+##   [100]       360       237 |  0.626605
+##   -------
+##   nnode: 379</code></pre>
+<pre class="r"><code>class(colPair(sce, asSparse=TRUE))</code></pre>
+<pre><code>## [1] &quot;dgCMatrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;Matrix&quot;</code></pre>
+<p>A particularly useful feature is that the indices of the interacting cells are automatically remapped when <code>sce</code> is subsetted.
+This ensures that the pairings are always synchronized with the identities of the cells in <code>sce</code>.</p>
+<pre class="r"><code>sub &lt;- sce[,50:300]
+colPair(sub) # grabs the first pairing, if no &#39;type&#39; is supplied.</code></pre>
+<pre><code>## SelfHits object with 46 hits and 1 metadata column:
+##             from        to |      value
+##        &lt;integer&gt; &lt;integer&gt; |  &lt;numeric&gt;
+##    [1]         7       157 |   0.748443
+##    [2]        11         2 |   0.260945
+##    [3]        18       203 |   0.857025
+##    [4]        19       217 |   0.967591
+##    [5]        32       249 |   0.608411
+##    ...       ...       ... .        ...
+##   [42]       236         3 | 0.17149734
+##   [43]       240       245 | 0.98800819
+##   [44]       245        52 | 0.00164622
+##   [45]       248       208 | 0.53441707
+##   [46]       250        65 | 0.31503674
+##   -------
+##   nnode: 251</code></pre>
+<p>Similar functionality is available for pairings between rows via the <code>rowPairs()</code> family of functions,
+which is potentially useful for representing coexpression or regulatory networks.</p>
+</div>
+<div id="additional-metadata-fields" class="section level1">
+<h1>Additional metadata fields</h1>
+<p>The <code>SingleCellExperiment</code> class provides the <code>sizeFactors()</code> getter and setter methods,
+to set and retrieve size factors from the <code>colData</code> of the object.
+Each size factor represents the scaling factor applied to a cell to normalize expression values prior to downstream comparisons,
+e.g., to remove the effects of differences in library size and other cell-specific biases.
+These methods are primarily intended for programmatic use in functions implementing normalization methods,
+but users can also directly call this to inspect or define the size factors for their analysis.</p>
+<pre class="r"><code># Making up some size factors and storing them:
+sizeFactors(sce) &lt;- 2^rnorm(ncol(sce))
+summary(sizeFactors(sce))</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.1336  0.6761  1.0082  1.2365  1.5034  9.8244</code></pre>
+<pre class="r"><code># Deleting the size factors:
+sizeFactors(sce) &lt;- NULL
+sizeFactors(sce)</code></pre>
+<pre><code>## NULL</code></pre>
+<p>The <code>colLabels()</code> getter and setters methods allow applications to set and retrieve cell labels from the <code>colData</code>.
+These labels can be derived from cluster annotations, assigned by classification algorithms, etc.
+and are often used in downstream visualization and analyses.
+While labels can be stored in any <code>colData</code> field, the <code>colLabels()</code> methods aim to provide some informal standardization
+to a default location that downstream functions can search first when attempting to retrieve annotations.</p>
+<pre class="r"><code># Making up some labels and storing them:
+colLabels(sce) &lt;- sample(letters, ncol(sce), replace=TRUE)
+table(colLabels(sce))</code></pre>
+<pre><code>## 
+##  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z 
+## 18 14 15 13 16 12 19 14 10 12 14 13 16 10 25 22 15  8 12 19 14 19 12 17 11  9</code></pre>
+<pre class="r"><code># Deleting the labels:
+colLabels(sce) &lt;- NULL
+colLabels(sce)</code></pre>
+<pre><code>## NULL</code></pre>
+<p>In a similar vein, we provide the <code>rowSubset()</code> function for users to set and get row subsets from the <code>rowData</code>.
+This will store any vector of gene identities (e.g., row names, integer indices, logical vector)
+in the <code>SingleCellExperiment</code> object for retrieval and use by downstream functions.
+Users can then easily pack multiple feature sets into the same object for synchronized manipulation.</p>
+<pre class="r"><code># Packs integer or character vectors into the rowData:
+rowSubset(sce, &quot;my gene set 1&quot;) &lt;- 1:10
+which(rowSubset(sce, &quot;my gene set 1&quot;))</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code># Easy to delete:
+rowSubset(sce, &quot;my gene set 1&quot;) &lt;- NULL
+rowSubset(sce, &quot;my gene set 1&quot;)</code></pre>
+<pre><code>## NULL</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session Info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.0.3 (2020-10-10)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19041)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=Chinese (Simplified)_China.936 
+## [2] LC_CTYPE=Chinese (Simplified)_China.936   
+## [3] LC_MONETARY=Chinese (Simplified)_China.936
+## [4] LC_NUMERIC=C                              
+## [5] LC_TIME=Chinese (Simplified)_China.936    
+## 
+## attached base packages:
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] Rtsne_0.15                  scRNAseq_2.4.0             
+##  [3] SingleCellExperiment_1.12.0 SummarizedExperiment_1.20.0
+##  [5] Biobase_2.50.0              GenomicRanges_1.42.0       
+##  [7] GenomeInfoDb_1.26.4         IRanges_2.24.1             
+##  [9] S4Vectors_0.28.1            BiocGenerics_0.36.0        
+## [11] MatrixGenerics_1.2.1        matrixStats_0.58.0         
+## [13] BiocStyle_2.18.1           
+## 
+## loaded via a namespace (and not attached):
+##  [1] ProtGenerics_1.22.0           bitops_1.0-6                 
+##  [3] bit64_4.0.5                   progress_1.2.2               
+##  [5] httr_1.4.2                    tools_4.0.3                  
+##  [7] bslib_0.2.4                   utf8_1.1.4                   
+##  [9] R6_2.5.0                      lazyeval_0.2.2               
+## [11] DBI_1.1.1                     withr_2.4.1                  
+## [13] tidyselect_1.1.0              prettyunits_1.1.1            
+## [15] bit_4.0.4                     curl_4.3                     
+## [17] compiler_4.0.3                xml2_1.3.2                   
+## [19] DelayedArray_0.16.0           rtracklayer_1.50.0           
+## [21] bookdown_0.21                 sass_0.3.1                   
+## [23] askpass_1.1                   rappdirs_0.3.3               
+## [25] stringr_1.4.0                 digest_0.6.27                
+## [27] Rsamtools_2.6.0               rmarkdown_2.7                
+## [29] XVector_0.30.0                pkgconfig_2.0.3              
+## [31] htmltools_0.5.1.1             ensembldb_2.14.0             
+## [33] dbplyr_2.1.0                  fastmap_1.1.0                
+## [35] rlang_0.4.10                  RSQLite_2.2.3                
+## [37] shiny_1.6.0                   jquerylib_0.1.3              
+## [39] generics_0.1.0                jsonlite_1.7.2               
+## [41] BiocParallel_1.24.1           dplyr_1.0.5                  
+## [43] RCurl_1.98-1.2                magrittr_2.0.1               
+## [45] GenomeInfoDbData_1.2.4        Matrix_1.2-18                
+## [47] Rcpp_1.0.5                    fansi_0.4.2                  
+## [49] lifecycle_1.0.0               stringi_1.5.3                
+## [51] yaml_2.2.1                    zlibbioc_1.36.0              
+## [53] BiocFileCache_1.14.0          AnnotationHub_2.22.0         
+## [55] grid_4.0.3                    blob_1.2.1                   
+## [57] promises_1.1.1                ExperimentHub_1.16.0         
+## [59] crayon_1.4.1                  lattice_0.20-41              
+## [61] Biostrings_2.58.0             GenomicFeatures_1.42.1       
+## [63] hms_1.0.0                     knitr_1.31                   
+## [65] pillar_1.5.1                  biomaRt_2.46.3               
+## [67] XML_3.99-0.5                  glue_1.4.2                   
+## [69] BiocVersion_3.12.0            evaluate_0.14                
+## [71] blogdown_1.2                  BiocManager_1.30.10          
+## [73] vctrs_0.3.6                   httpuv_1.5.4                 
+## [75] openssl_1.4.3                 purrr_0.3.4                  
+## [77] assertthat_0.2.1              cachem_1.0.4                 
+## [79] xfun_0.22                     mime_0.10                    
+## [81] xtable_1.8-4                  AnnotationFilter_1.14.0      
+## [83] later_1.1.0.1                 tibble_3.1.0                 
+## [85] GenomicAlignments_1.26.0      AnnotationDbi_1.52.0         
+## [87] memoise_2.0.0                 ellipsis_0.3.1               
+## [89] interactiveDisplayBase_1.28.0</code></pre>
+</div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>

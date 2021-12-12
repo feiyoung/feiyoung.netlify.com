@@ -11,10 +11,12 @@ editor_options:
 
 *Last update: 2021-06-09*
 
+
 ## 内容目录 {#toc}
 
 * [NSCC linux](#nscc)
 * [Linux相关操作](#LinuxR)
+* [Linux与Anoconda操作](#LinuxConda)
 * [linux服务器提交计算任务](#PBS)
 * [Module环境变量管理工具](#module)
 * [vi/vim编辑器的使用](#vim)
@@ -214,9 +216,10 @@ kill 46747
 ```
 [↑ 返回目录页](#toc)<br><br>
 
-## Linux与Anoconda操作
+## Linux与Anoconda操作{#LinuxConda}
 下载和安装miniconda3
 下载、安装地址：https://docs.conda.io/en/latest/miniconda.html#linux-installers
+
 
 ```{linux}
 wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -278,6 +281,32 @@ conda remove -n ENV --all  # 删除conda环境
 conda config --show  # 查看channel
 conda create -n r4py5 python=3.6 R=4.0.1 # 创建虚拟环境，并指定R和Python的版本
 ```
+6. NSCC上如何配置新的R环境：
+```{linux}
+#1. 载入anaconda 3
+module load anaconda/3
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
+conda config --set show_channel_urls yes
+
+#2.利用anaconda 3在自己账户上创建新的conda环境
+conda create -n r4 python=3.9
+
+#3.安装R最新版4.1.1
+source activate r4
+conda install r-base=4.1.1
+```
+7. Python从github上安装module
+```{linux}
+/home/weiliu/miniconda3/envs/r-reticulate/lib/python3.9/site-packages/scvi/__init__.py:31: DeprecationWarning: scvi is deprecated, please uninstall scvi via `pip uninstall scvi` and install the new scvi-tools package at github.com/YosefLab/scvi-tools
+pip install git+https://github.com/YosefLab/scvi-tools
+sudo pip2 install git+https://github.com/epierson9/ZIFA
+python2 -m pip install git+https://github.com/epierson9/ZIFA
+sudo apt-get install python-pip
+pip2 install --upgrade setuptools
+pip2 install ez_setup
+```
 [↑ 返回目录页](#toc)<br><br>
 
 ## 远程linux服务器提交计算任务{#PBS}
@@ -310,6 +339,24 @@ R CMD BATCH /home/users/nus/gmsyan/SCLMM/simulation/submit_code/SCLMM_IS_power_r
 
 // 注1：想要得到程序运行的时间，可以使用
 date > test.time
+```
+
+### normal类型任务
+对于normal类型任务,申请不能超过96GB的内存 (mem)，不能超过24个核(ncpus),不能超过1个节点(select).
+NSCC上跑代码如何设置为long，以便能够跑48个小时。示例代码如下：
+```{Rmd}
+#!/bin/bash
+#PBS -P Personal
+#PBS -N ZINB
+#PBS -q normal
+#PBS -l select=1:ncpus=1:mem=90GB
+#PBS -l walltime=48:00:00
+#PBS -l place=pack
+#PBS -j oe
+#PBS -o /home/users/nus/weiliu4/LiuWei/Rfiles/logFiles/ZINB_compZ1.log
+module load R/3.6.3
+cd /home/users/nus/weiliu4/LiuWei/Rfiles/ProMix/RoutFiles
+R CMD BATCH /home/users/nus/weiliu4/LiuWei/Rfiles//ProMix/nsccRfiles/ZINB_compZ.R
 ```
 
 ### PBS环境qsub, qstat, qdel

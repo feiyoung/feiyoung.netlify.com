@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>EM algorithm: an exmaple with mixture probabilistic PCA | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">EM algorithm: an exmaple with mixture probabilistic PCA</h1>
+				<div class="entry__content">
+
+
+<div id="mixture-probabilistic-pca" class="section level1">
+<h1>mixture probabilistic PCA</h1>
+<p>Consider a model
+<span class="math display">\[x_i = \mu_k + W_k z_i + \varepsilon_k, ~~ if~y_{ik}=1,y_{ij}=0,i\neq j.\tag{1.1}\]</span>
+where <span class="math inline">\(x_i \in R^p, z_i \in R^q, \varepsilon_k\sim N(0, \sigma^2_kI_p)\)</span>,<span class="math inline">\(z_i \sim N(0, I_q), W_k \in R^{p\times q}, y_i \sim Multinormial(1,\pi),\pi \in R^K\)</span>.
+First, it performs clustering, then conducts PCA. The following contents are divided into three parts:</p>
+<ol style="list-style-type: decimal">
+<li><p>evaluate full-data loglikelihood <span class="math inline">\(l(\theta)\)</span>;</p></li>
+<li><p>take posterior expectation of latent variables on <span class="math inline">\(l(\theta)\)</span>, and obtain Q-function;</p></li>
+<li><p>Maximize the Q-function.</p></li>
+</ol>
+<div id="full-data-loglikelihood" class="section level2">
+<h2>Full-data loglikelihood</h2>
+<p>By <span class="math inline">\((1.1)\)</span>, we can obtain the complete-data likelihood for individual <span class="math inline">\(i\)</span>,
+<span class="math inline">\(P(x_i,z_i, y_i)=p(x_i|z_i,y_i)p(z_i|y_i)p(y_i)\)</span>, whose specific form is
+<span class="math display">\[\Pi_{k=1}^K\{\pi_k f_{ki} g_i\}^{y_{ik}},\]</span>
+where
+<span class="math display">\[f_{ki}=(2\pi \sigma_k^2)^{-p/2}\exp\{\frac{-1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2\}, g_i=(2\pi)^{-q/2}\exp(-\frac{1}{2}\|z_i\|^2).\]</span>
+The corresponding loglikelihood is given by
+<span class="math display">\[l=\sum_{k=1}^K y_{ik} \{\ln(\pi_k) + \ln f_{ki} + \ln g_i\} \tag{1.2}\]</span></p>
+</div>
+</div>
+<div id="em-algorithm" class="section level1">
+<h1>EM algorithm</h1>
+<p>The essential objective of EM algorithm is to maximize the observation likelihood.
+To deduce EM algorithm, we first calculate the posterior distribution of <span class="math inline">\((y_i, z_i)\)</span> given <span class="math inline">\(x_i\)</span> and parameters by previous iteration. Noting each <span class="math inline">\(y_{ik}\)</span> is seperatable, we consider
+<span class="math display">\[P(y_{ik}=1, z_i | x_i)=P(y_{ik}=1|x_i)P(z_i|y_{ik}=1,x_i)=R_{ik}f_{k}(z_i),\]</span>
+where <span class="math inline">\(f_k(z_i)\)</span> is the posterior distribution of <span class="math inline">\(z_i\)</span> given <span class="math inline">\(x_i\)</span> when <span class="math inline">\(y_{ik}=1\)</span>, <span class="math inline">\(R_{ik}=P(y_{ik}=1|x_i)=a_{ki}/(\sum_k a_{ki})\)</span>, where <span class="math inline">\(a_{ki}=\pi_k |C_k|^{-1/2} \exp\{-\frac{1}{2} (x_i-\mu_k)^T C_k^{-1} (x_i -\mu_k)\}\)</span> and <span class="math inline">\(C_k= \sigma_k^2 I + W_k W_k^T\)</span>.
+By <span class="math inline">\((8)\)</span> in Bishop (1999), we have
+<span class="math display">\[f_{k}(z_i)=(2\pi)^{-q/2}|\sigma_k^2M_k|^{1/2}\exp\{(z_i-s_k(x_i)^T\sigma_k^{-2}M_k(z_i -s_k(x_i))\},\]</span>
+where <span class="math inline">\(\sigma_k^2M_k^{-1}=\sigma_k^2(\sigma^2_kI_q+W_k^TW_k)^{-1}\)</span> and <span class="math inline">\(s_k(x_i)=M_k^{-1}W_k(x_i-\mu_k)\)</span>.</p>
+<div id="e-step" class="section level2">
+<h2>E-step</h2>
+<p>We rewrite <span class="math inline">\((1.2)\)</span> as the specific form,
+<span class="math display">\[l_k=y_{ik}\{\ln(\pi_k) - \frac{p}{2} \ln(2\pi \sigma^2_k) - \frac{1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2-\frac{q}{2} \ln(2\pi)-\frac{1}{2}\|z_i\|^2\}.\]</span>
+Omitting the terms independent of parameters, we have
+<span class="math display">\[l_k = y_{ik}\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) - \frac{1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2-\frac{1}{2}\|z_i\|^2\}.\]</span>
+Thus
+<span class="math display">\[E_{(y_{ik},z_i)|x_i}(l_k)=\int l_k(y_{ik}, z_i)P(y_{ik}=1,z_i|x_i)d(y_{ik},z_i)=\int l_k(1,z_i)R_{ik}f_{k}(z_i)dz_i.\tag{1.3}\]</span>
+Denote <span class="math inline">\(h_k(z_i)=\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) - \frac{1}{2\sigma_k^2}\|x_i-\mu_k-W_kz_i\|^2-\frac{1}{2}\|z_i\|^2\)</span><span class="math inline">\(=\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k)-\frac{1}{2}z_i^Tz_i - \frac{1}{2\sigma_k^2}\{z_i^TW^TWz_i-2(x_i-\mu_k)^TW_kz_i+ \|x_i-\mu_k\|^2\}.\)</span>
+Furthermore, <span class="math inline">\((1.3)\)</span> simplifies as
+<span class="math display">\[E_{(y_{ik},z_i)|x_i}(l_k)= R_{ik} \int h_k(z_i) f_{k}(z_i)dz_i. \tag{1.4}\]</span>
+<span class="math inline">\((1.4)\)</span> only involves the posterior first-order moment and second-order moment of <span class="math inline">\(z_i\)</span> that are denoted by
+<span class="math display">\[\langle z_i\rangle=M_k^{-1}W_k^T(x_i-\mu_k)\]</span>
+and
+<span class="math display">\[\langle z_iz_i^T\rangle= \sigma^2_kM_k^{-1} +\langle z_i\rangle\langle z_i\rangle^T. \]</span>
+Similar to (54) in Bishop (1999), we obtain
+<span class="math display">\[E_{(y_i,z_i)|x_i}l = \sum_{k=1}^K E_{(y_{ik},z_i)|x_i}(l_k)= \sum_{k=1}^K R_{ik}\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) -\frac{1}{2}\langle z_iz_i^T\rangle - \frac{1}{2\sigma_k^2}(tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2)\}.\]</span>
+Finally, we obtain the Q-function,
+<span class="math display">\[Q(\theta;\theta^{(t)})=\sum\limits_{i=1}^n\sum\limits_{k=1}^KR_{ik}(\theta^{(t)})\{\ln(\pi_k) - \frac{p}{2} \ln(\sigma^2_k) -\frac{1}{2}tr(\langle z_iz_i^T\rangle) - \frac{1}{2\sigma_k^2}(tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2)\},\]</span>
+where <span class="math inline">\(\langle z_i\rangle\)</span> and <span class="math inline">\(\langle z_iz_i^T\rangle\)</span> also include <span class="math inline">\(\theta^{(t)}\)</span>.</p>
+</div>
+<div id="m-step" class="section level2">
+<h2>M-step</h2>
+<p>This step is to maximize the Q-function. Denote <span class="math inline">\(\theta=(\pi_k, \sigma^2_k, \mu_k , W_k, k\leq K)\)</span>, all involved parameters. Since the constraint <span class="math inline">\(\sum_{k=1}^K \pi_k=1\)</span> is required, we use Langrange method to obtain a new objective function,
+<span class="math display">\[L(\theta, \lambda;\theta^{(t)})=Q(\theta;\theta^{(t)}) + \lambda (1-\sum_{k=1}^K \pi_k).\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Taking derivative on <span class="math inline">\(\pi_k, \lambda\)</span>, and setting it to zero, we obtain
+<span class="math display">\[\frac{\partial L}{\partial \pi_k}=\sum\limits_{i=1}^n R_{ik}(\theta^{(t)}) \pi_k^{-1} - \lambda=0 \tag{2.2.1}\]</span>
+<span class="math display">\[\sum_{k=1}^K \pi_k=1 \tag{2.2.2}\]</span>
+Combining <span class="math inline">\((2.2.1)\)</span> and <span class="math inline">\((2.2.2)\)</span>, we conclude
+<span class="math display">\[\pi_k^{(t+1)} = n^{-1}\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})\]</span>
+by using the fact that <span class="math inline">\(\sum\limits_{i=1}^n(\sum\limits_{k=1}^KR_{ik}(\theta^{(t)}))=n.\)</span></p></li>
+<li><p>Taking derivative on <span class="math inline">\(\mu_k\)</span>, we have
+<span class="math display">\[\mu_k^{(t+1)}=\frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})\{x_i - W_k^{(t+1)}\langle z_i\rangle^{(t)}\}}{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}\]</span></p></li>
+<li><p>Taking derivative on <span class="math inline">\(W_k\)</span> and using scalar-to-Matrix derivative, we get
+<span class="math display">\[\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)}) \{ \langle z_i\rangle (x_i -\mu_k)^T - \langle z_i z_i^T\rangle W_k^T\}]=0\]</span>
+which leads to
+<span class="math display">\[W_k^{(t+1)}=\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})(x_i -\mu_k^{(t+1)})\langle z_i\rangle^T] [\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})\langle z_i z_i^T\rangle]^{-1}. \tag{2.2.3}\]</span></p></li>
+<li><p>Denote <span class="math inline">\(s_{ik}(W_k, \mu_k)=tr(W_k^TW_k\langle z_iz_i^T\rangle)-2(x_i-\mu_k)^TW_k \langle z_i \rangle+\|x_i-\mu_k\|^2\)</span>. Taking derivative on <span class="math inline">\(\sigma^2_i\)</span>, we get
+<span class="math display">\[\sigma_k^{2,(t+1)}= \frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)}) s_{ik}(W_k^{(t+1)}, \mu_k^{(t+1)})}{p\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}. \tag{2.2.4}\]</span></p></li>
+</ol>
+</div>
+<div id="two-stage-em-procedure" class="section level2">
+<h2>Two-stage EM procedure</h2>
+<p>Note that M-step equations for <span class="math inline">\(\mu_i\)</span> and <span class="math inline">\(W_i\)</span> are coupled, so further manipulation is required to obtain explicit solutions.</p>
+<p>The likelihood function we wish to maximize is given by
+<span class="math display">\[L(\theta) =\sum\limits_{i=1}^n \ln \big\{\sum\limits_{k=1}^K \pi_k p(x_i|y_{ik}=1)\big\}.\]</span>
+Now, we introduce labels <span class="math inline">\(y_{i}\)</span> as missing data, and ignore the presence of the latent <span class="math inline">\(z_i\)</span>. Here, <span class="math inline">\(z_i\)</span> is integrated, so only <span class="math inline">\(y_i\)</span> is missing data. Then the “full” loglikelihood is
+<span class="math display">\[L(\theta; x,y)=\sum\limits_{i=1}^n \sum\limits_{k=1}^K y_{ik}\ln \big\{ \pi_k p(x_i|y_{ik}=1)\big\}.\]</span>
+Based on this full log likelihood, we will construct EM algorithm.
+Thus, the expected complete-data log likelihood is given by
+<span class="math display">\[\hat L= \sum\limits_{i=1}^n \sum\limits_{k=1}^K R_{ik}\ln \big\{ \pi_k p(x_i|y_{ik}=1)\big\}, \tag{2.3.1}\]</span>
+from which we get the updation of <span class="math inline">\(\pi_k^{(t+1)}\)</span> and <span class="math inline">\(\mu_k^{(t+1)}\)</span>:
+<span class="math display">\[\pi_k^{(t+1)}=n^{-1}\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})\]</span>
+<span class="math display">\[\mu_k^{(t+1)}=\frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})x_i}{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}.\]</span>
+However, we don’t solve <span class="math inline">\(\sigma_k^2\)</span> and <span class="math inline">\(W_k\)</span> from <span class="math inline">\((2.3.1)\)</span>, because there is no closed-form in it. Actually, we only need to find <span class="math inline">\(\sigma_k^{2,(t+1)}\)</span> and <span class="math inline">\(W_k^{(t+1)}\)</span> increasing <span class="math inline">\(\hat L(\theta)\)</span>.
+<span class="math inline">\((2.2.3)\)</span> and <span class="math inline">\((2.2.4)\)</span> based on <span class="math inline">\(L(\theta, \lambda;\theta^{(t)})\)</span> regarding <span class="math inline">\(z_i\)</span> and <span class="math inline">\(y_i\)</span> as missing data provide the iterative value such that condition.</p>
+<p>We update <span class="math inline">\(W_k\)</span> by
+<span class="math display">\[W_k^{(t+1)}=\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})(x_i -\mu_k^{(t+1)})\langle z_i\rangle^T] [\sum\limits_{i=1}^n [R_{ik}(\theta^{(t)})\langle z_i z_i^T\rangle]^{-1}.\]</span>
+and update <span class="math inline">\(\sigma^2_k\)</span> by
+<span class="math display">\[\sigma_k^{2,(t+1)}= \frac{\sum\limits_{i=1}^n R_{ik}(\theta^{(t)}) s_{ik}(W_k^{(t+1)}, \mu_k^{(t+1)})}{p\sum\limits_{i=1}^n R_{ik}(\theta^{(t)})}.\]</span>
+So far, each parameter has a iterative closed-form solution.</p>
+</div>
+<div id="convergence-check" class="section level2">
+<h2>Convergence check</h2>
+<p>Since EM algorithm is a subclass of MM algorithm, by the principle of MM algorithm we can check the convergence by the fact that
+<span class="math display">\[g(\theta; \theta^{(t)})\leq L(\theta) ~~ for all~~ \theta\]</span>
+and
+<span class="math display">\[g(\theta; \theta^{(t)})= L(\theta) ~if~~and ~only~if~ \theta=  \theta^{(t)}.\]</span></p>
+<pre class="rmd"><code>Note: g-function is not the Q-function!!! 
+  There are some relation between them.</code></pre>
+<p>Thus, we have
+<span class="math display">\[L(\theta^{(t)})=g(\theta^{(t)}; \theta^{(t)})\leq g(\theta^{(t+1)}; \theta^{(t)})\leq L(\theta^{(t+1)}). \tag{2.4.1}\]</span>
+Recursively, we have
+<span class="math display">\[g(\theta^{(t+1)}; \theta^{(t)}) \leq g(\theta^{(t+2)}; \theta^{(t+1)}). \tag{2.4.2}\]</span>
+Thus, there are two methods to check the convergence (correction of programming) of algorithm from the aspect of the objective function.</p>
+<ol style="list-style-type: decimal">
+<li><p>By <span class="math inline">\((2.4.1)\)</span>, we can check whether the value of the observed loglikelihood function is nondecreasing.</p></li>
+<li><p>By <span class="math inline">\((2.4.2)\)</span>, we can check whether the value of the g-function is nondecreasing.</p></li>
+<li><p>Check <span class="math inline">\(dQ=Q(\theta^{t+1};\theta^{(t)})- Q(\theta^{t};\theta^{(t)})\)</span> whether approach 0.</p></li>
+</ol>
+</div>
+</div>
+<div id="generalized-em-algorithm" class="section level1">
+<h1>Generalized EM algorithm</h1>
+<p>We learn the generalized EM algorithm in this section, whose definition is referred to Dempster (1977, JRSSB, EM and GEM). An iterative algorithm <span class="math inline">\(\theta^{(t+1)}= M(\theta^{(t)})\)</span> is a generalized EM if
+<span class="math display">\[Q(M(\theta); \theta) \geq Q(\theta; \theta).\]</span>
+So, we only need that <span class="math inline">\(\theta\)</span> iterates one step towards the nondecreasing direction of <span class="math inline">\(Q(\theta; \theta^{(t)})\)</span>. MM algorithm is an extension of GEM in the sense that Q-function is changed to 1)Minorization function, i.e. <span class="math inline">\(L(\theta) \geq Q(\theta; \theta^{(t)})\)</span> and 2)equality holds iif <span class="math inline">\(\theta=\theta^{(t)}\)</span>.</p>
+<p>Assume <span class="math inline">\(\{y_i,i\leq n\}\)</span> is the observed data, <span class="math inline">\(\{z_i,i\leq n\}\)</span> the latent variable, and we are interested in parameter <span class="math inline">\(\theta\)</span>.</p>
+<p>Following the principle of EM algorithm, the complete-data log likelihood is given by
+<span class="math display">\[l(\theta; Y,Z)=\sum_i \ln (P(y_i,z_i; \theta)).\]</span>
+Next, according the posterior distribution of <span class="math inline">\(z_i\)</span> given <span class="math inline">\(y_i\)</span>, <span class="math inline">\(P(z_i|y_i;\theta)\)</span>, we take conditional expectation on <span class="math inline">\(z_i\)</span> for <span class="math inline">\(l(\theta;Y,Z)\)</span> to obtain Q function. However, it is often difficult to
+calculate <span class="math inline">\(P(z_i|y_i;\theta)\)</span> in practice, which leads to that EM algorithm fails. In this backgroud, GEM is developed to solve this problem.</p>
+<p>First, we inspect the another derivation of EM algorithm,
+<span class="math display">\[\ln P(Y;\theta)=\ln P(Y,Z;\theta)-\ln P(Z|Y;\theta)=\ln \frac{P(Y,Z;\theta)}{q(Z)} - \ln \frac{P(Z|Y;\theta)}{q(Z)}, \tag{3.1}\]</span>
+where <span class="math inline">\(q(Z)\)</span> is the density function of <span class="math inline">\(Z\)</span> and is a unknown function to be optimized.
+Taking expectation with respect to <span class="math inline">\(Z\)</span> on both sides of <span class="math inline">\((3.1)\)</span>, we have
+<span class="math display">\[\ln P(Y;\theta)=\sum_zq(z)\ln \frac{P(Y,z;\theta)}{q(z)}-\sum_zq(z)\ln \frac{P(z|Y;\theta)}{q(z)},\]</span>
+where the first term is called evidence lower bound (ELBO), and the second term is KL divergence of <span class="math inline">\(P(Z|Y,\theta)\)</span> and <span class="math inline">\(q(Z)\)</span>. That is
+<span class="math display">\[ELBO = \sum_zq(z)\ln \frac{P(Y,z;\theta)}{q(z)}\]</span>
+and
+<span class="math display">\[KL(q(Z)\|P(Z|Y,\theta))=\sum_zq(z)\ln \frac{P(z|Y;\theta)}{q(z)}.\]</span>
+Thus, we obtain
+<span class="math display">\[\ln P(Y;\theta) = ELBO + KL(q(Z)\|P(Z|Y,\theta)). \tag{3.2}\]</span>
+Recalling EM algorithm, paramter <span class="math inline">\(\theta\)</span> is fixed at E-step, so <span class="math inline">\(\ln P(Y;\theta)\)</span> is constant here. Thus, the optimized solution of <span class="math inline">\(q(z)\)</span> is equal to <span class="math inline">\(P(z|y;\theta)\)</span> as much as possible. By this way, the E-step of GEM turns to
+<span class="math display">\[\arg\max_{q(z)}ELBO\]</span>
+due to
+<span class="math display">\[\arg\min_{q(z)}KL(q(z)\|P(z|Y=y,\theta)) \Leftrightarrow \arg\max_{q(z)}ELBO\]</span>
+by the fact that <span class="math inline">\(KL(q(Z)\|P(Z|Y,\theta))=\ln P(Y;\theta) - ELBO\)</span>.</p>
+<p>And the M-step of GEM is
+<span class="math display">\[\theta = \arg\max_\theta ELBO(\theta).\]</span>
+In summary, GEM algorithm is given by
+<span class="math display">\[E-step:~~ q(z)^{(t+1)}=\arg\max_{q(z)} \sum_zq(z)\ln \frac{P(Y,z;\theta^{(t)})}{q(z)}; \tag{3.3}\]</span>
+<span class="math display">\[M-step:~~\theta^{(t+1)}=\arg\max_\theta \sum_zq(z)^{(t+1)}\ln \frac{P(Y,z;\theta^{(t)})}{q(z)^{(t+1)}}. \tag{3.4}\]</span>
+Given inital value <span class="math inline">\(\theta^{(0)}\)</span>, then repeat <span class="math inline">\((3.3)\)</span> and <span class="math inline">\((3.4)\)</span> until convergence. Actually, GEM algorithm belongs to the class of coordinate ascent algortihm, that is, EBLO is a bivariant function on <span class="math inline">\(q(z)\)</span> and <span class="math inline">\(\theta\)</span>; first, we optimize <span class="math inline">\(q(z)\)</span> given <span class="math inline">\(\theta\)</span>; then we optimize <span class="math inline">\(\theta\)</span> given <span class="math inline">\(q(z)\)</span>.</p>
+<pre class="rmd"><code>Remark 1: q(z) is also a parameter joining in iteration.
+Remark 2: GEM does not involve computing P(z|y;\theta).
+Remark 3: In practice, we assume a parametric form for q(z) to approximate P(z|Y;\theta), 
+          then optimize the parameter in iteration, which is called
+          variational Bayesian EM algorithm.</code></pre>
+<p>See <a href="https://mbernste.github.io/posts/elbo/" class="uri">https://mbernste.github.io/posts/elbo/</a> for more details about GEM and ELBO. Why ELBO is called evidence lower bound? Since, given <span class="math inline">\(\theta\)</span>, <span class="math inline">\(\ln P(Y;\theta)\)</span> is called evidence, which indicates the evidence of model fitting data by taking <span class="math inline">\(\theta\)</span>. By Jensen inequality, we have <span class="math inline">\(\ln P(Y;\theta) \geq ELBO\)</span>, a lower bound of envidence, so ELBO is called envidence lower bound.</p>
+</div>
+<div id="mm-algorithm-em-as-a-special-case" class="section level1">
+<h1>MM algorithm: EM as a special case</h1>
+<p>Assume <span class="math inline">\(f(x; \theta)\)</span> is observerd density function, then
+<span class="math display">\[\ln f(x;\theta)- \ln f(x;\theta^{(t)}) = \ln \frac{\int f(x,z;\theta)dz}{ f(x;\theta^{(t)})}\hat = I_1,\]</span>
+where <span class="math inline">\(z\)</span> is a latent variable or missing data.
+Furthermore, we obtain
+<span class="math display">\[I_1 = \ln \int\frac{ f(x,z;\theta)}{ f(x,z;\theta^{(t)})} f(z|x;\theta^{(t)})dz = \ln E_{z|x;\theta^{(t)}} \left(\frac{ f(x,z;\theta)}{ f(x,z;\theta^{(t)})} \right).\]</span>
+By Jesen inequality, we have
+<span class="math display">\[I_1 \geq E_{z|x;\theta^{(t)}}  \ln \left(\frac{ f(x,z;\theta)}{ f(x,z;\theta^{(t)})} \right),\]</span>
+where the equality holds iif <span class="math inline">\(\theta=\theta^{(t)}\)</span>.
+Thus, we get
+<span class="math display">\[\ln f(x;\theta) \geq   E_{z|x;\theta^{(t)}}\ln f(x,z;\theta) - E_{z|x;\theta^{(t)}}\ln f(x,z;\theta^{(t)}) + \ln f(x;\theta^{(t)}).\]</span>
+The minorization function
+<span class="math display">\[g(\theta; \theta^{(t)})= E_{z|x;\theta^{(t)}}\ln f(x,z;\theta) + C(\theta^{(t)}),\]</span>
+where <span class="math inline">\(C(\theta^{(t)})\)</span> is a constant independent of <span class="math inline">\(\theta\)</span>. Thus, we only require to maximize the posterior expectation of <span class="math inline">\(z\)</span> on full-data loglikelihood, and EM algorithm is a special case of MM algorithm.</p>
+<div id="alternative-drivation-of-mm-algorithm" class="section level2">
+<h2>Alternative drivation of MM algorithm</h2>
+<p>Actually, Q function is increased in iteration, which refers to
+<span class="math display">\[Q(\theta^{(t+1)};\theta^{(t)}) \geq Q(\theta^{(t)}; \theta^{(t)}),\]</span>
+rather than
+<span class="math display">\[Q(\theta^{(t+2)};\theta^{(t+1)}) \geq Q(\theta^{(t+1)}; \theta^{(t)}),\]</span>
+which is false.</p>
+<p>We know observed loglikelihood
+<span class="math display">\[\log P(Y;\theta)= \log P(Y,Z;\theta) - \log P(Z|Y;\theta),\]</span>
+so take expectation of <span class="math inline">\(Z\)</span> conditional on <span class="math inline">\(Y\)</span> given <span class="math inline">\(\theta^{(t)}\)</span>,
+<span class="math display">\[\log P(Y;\theta) = Q(\theta;\theta^{(t)}) - H(\theta;\theta^{(t)}),\]</span>
+where <span class="math inline">\(H(\theta;\theta^{(t)})= \int P(Z|Y;\theta^{(t)})\log P(Z|Y;\theta)\)</span>.
+Thus,
+<span class="math display">\[\log P(Y;\theta) - \log P(Y;\theta^{(t)}) =\{Q(\theta;\theta^{(t)})-Q(\theta^{(t)};\theta^{(t)})\} + \Delta H(\theta;\theta^{(t)}),\]</span>
+where <span class="math inline">\(\Delta H(\theta;\theta^{(t)})=-H(\theta;\theta^{(t)}) + H(\theta^{(t)};\theta^{(t)})\)</span>, which is the KL-divergence of <span class="math inline">\(P(Z|Y;\theta)\)</span> and <span class="math inline">\(P(Z|Y;\theta^{(t)})\)</span> and non-negative, equal zero if and only if <span class="math inline">\(\theta=\theta^{(t)}\)</span>.</p>
+<p>Therefore,
+<span class="math display">\[\log P(Y;\theta) \geq \log P(Y;\theta^{(t)}) +\{Q(\theta;\theta^{(t)})-Q(\theta^{(t)};\theta^{(t)})\}\]</span>
+Let <span class="math inline">\(g(\theta; \theta^{(t)})=\log P(Y;\theta^{(t)}) +\{Q(\theta;\theta^{(t)})-Q(\theta^{(t)};\theta^{(t)})\}\)</span>, which is the minorization function of <span class="math inline">\(l_{obs}(\theta)=\log P(Y;\theta)\)</span>.</p>
+<p>By MM principle, we have
+<span class="math display">\[l_{obs}(\theta^{(t+1)})\geq g(\theta^{(t+1)}; \theta^{(t)})\geq g(\theta^{(t)}; \theta^{(t)})=l_{obs}(\theta^{(t)}).\]</span></p>
+</div>
+</div>
+<div id="ecm-algorithm" class="section level1">
+<h1>ECM algorithm</h1>
+<p>ECM algorithm is also an extension of EM algorithm, which solves the computation problem in M-step and has good convergence properties.</p>
+<pre class="rmd"><code>References:
+  https://mbernste.github.io/posts/elbo/
+  https://zhuanlan.zhihu.com/p/150342963
+  Shi X, Jiao Y, Yang Y, Cheng CY, Yang C, Lin X, Liu J. VIMCO: variational inference for multiple correlated outcomes in genome-wide
+association studies. Bioinformatics. 2019 Oct 1;35(19):3693-3700. doi: 10.1093/bioinformatics/btz167. PMID: 30851102.
+  Tipping, M. E., &amp; Bishop, C. M. (1999). Mixtures of probabilistic principal component analyzers. Neural computation , 11 (2), 443-482.</code></pre>
+</div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>
