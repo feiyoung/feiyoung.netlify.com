@@ -1,0 +1,66 @@
+---
+title: "Julia语法手册"
+author: "刘伟"
+date: '2021-12-29'
+---
+
+### Julia学习网址
+
+https://docs.juliacn.com/latest/
+
+https://github.com/bethandtownes/MatrixCompletion.jl
+
+### 基本语法
+```{Rmd}
+pwd()  #查看当前路径
+homedir() #查看home工作路径
+cd("C:\\Users\\Jonhson\\Documents\\Julia files\\OB")
+cd("D:\\LearnFiles\\Research paper\\idea\\MixImpute\\Rcode")
+# 存为matlab或读取matlab文件
+# https://github.com/JuliaIO/MAT.jl
+```
+
+第一步：安装支持读取.mat文件的MAT包；
+```{Rmd}
+Pkg.add("MAT")
+```
+第二步：使用安装好的MAT模块；
+```{Rmd}
+using MAT
+```
+
+```{Rmd}
+input = matread("mydata.mat");
+Xmis = input["Xmis"];
+n = size(Xmis)[1];p = size(Xmis)[2]
+manual_type_matrix = Array{Symbol}(undef, 100, 100);
+manual_type_matrix[:, 1:100] .= :Gaussian;
+user_input_estimators = Dict(:NegativeBinomial=> Dict(:r=>6, :p=>0.8))
+A = Array{Union{Float64, Missing}}(Xmis);
+for i= 1:n
+  for j = 1:p
+    if(isnan(Xmis[i,j]))
+       A[i,j] = missing;
+end
+end
+end
+completed_matrix, type_tracker, tracker = complete(A                     = A,
+                                                    maxiter               = 200,
+                                                    ρ                     = 0.3,
+                                                    use_autodiff          = false,
+                                                    gd_iter               = 3,
+                                                    debug_mode            = false,
+                                                   # user_input_estimators = user_input_estimators,
+                                                    #project_rank          = 3,
+                                                    type_assignment       = manual_type_matrix)
+
+hX = predict(MatrixCompletionModel(),
+                            completed_matrix = completed_matrix,
+                            type_tracker     = type_tracker,
+                            estimators       = user_input_estimators);
+
+file = matopen("matfile.mat", "w");
+write(file, "hX", hX);
+close(file);
+
+```

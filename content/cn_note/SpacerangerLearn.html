@@ -1,11 +1,23 @@
 ---
-title: "Spaceranger操作手册"
+title: "基因组学的基础知识以及R语言"
 author: "刘伟"
-date: '2021-03-02'
+date: '2021-12-29'
 ---
 
 
 
+<div id="基因id的转化" class="section level3">
+<h3>基因ID的转化</h3>
+<p>这里介绍如何将gene symbol ID转化为ENSEMBL ID。这里的geneset属于人类基因，所以选择<em>org.Hs.eg.db</em>数据库包，如果是其他物种，需要选择其他数据库包。keytype指当前gene ID，column是指需要转化成的基因ID。</p>
+<pre class="rmd"><code>geneset &lt;- c(&#39;AQP4&#39;, &#39;HPCAL1&#39;, &#39;FREM3&#39;, &#39;TRABD2A&#39;, &#39;KRT17&#39;,
+  &#39;FABP7&#39; , &#39;ADCYAP1&#39; ,&#39;PVALB&#39;,
+  &#39;CCK&#39; ,&#39;ENC1&#39;,&#39;CUX2&#39;,&#39;RORB&#39;,&#39;NTNG2&#39;,
+  &#39;MBP&#39;,&#39;PCP4&#39;,
+  &quot;SNAP25&quot;, &quot;MOBP&quot;)
+library(&quot;org.Hs.eg.db&quot;) # remember to install it if you don&#39;t have it already
+symbols &lt;- mapIds(org.Hs.eg.db, keys = geneset, 
+                  keytype = &quot;SYMBOL&quot;, column=&quot;ENSEMBL&quot;)</code></pre>
+</div>
 <div id="spaceranger" class="section level3">
 <h3>spaceranger</h3>
 <p>对于10X空间转录组数据而言，可以使用官方软件space ranger对原始数据进行处理。
@@ -36,6 +48,8 @@ spaceranger aggr ##可以将同分组，同流程的样本进行合并</code></p
 # area是指不获区域
 # image是指高分辨率图像文件
 # sample是指根据FASTQ文件名所得到的样本名称</code></pre>
+<p>spaceRanger的输出详细信息：
+<a href="https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/overview" class="uri">https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/overview</a></p>
 </div>
 <div id="seraut包" class="section level3">
 <h3>Seraut包</h3>
@@ -61,4 +75,18 @@ spaceranger aggr ##可以将同分组，同流程的样本进行合并</code></p
 ### 细胞
 动物细胞结构：动物细胞有细胞膜、细胞质、细胞核。动物细胞的细胞质包括细胞质基质和细胞器。动物细胞的细胞器包括内质网、线粒体、高尔基体、核糖体、溶酶体、中心体，动物细胞与植物细胞相比较，具有很多相似的地方，如动物细胞也具有细胞膜、细胞质、细胞核等结构。但是动物细胞与植物细胞又有一些重要的区别，如动物细胞的最外面是细胞膜，没有细胞壁;动物细胞的细胞质中不含叶绿体，也不形成中央液泡。而高等植物细胞没有中心体</p>
 <p>细胞核是细胞内遗传信息的储存、复制和转录的主要场所。大多呈球形或椭圆形。通常一个,也有两个或多个的。借双层多孔的核膜与细胞质分隔。核内含有核液、染色质(或染色体)和核仁</p>
+</div>
+<div id="转录" class="section level3">
+<h3>转录</h3>
+<p>RNA是在细胞核中，以DNA的一条链为模板合成的，这一过程称为转录。当细胞开始合成某种蛋白质时，编码这个蛋白质的一段DNA双链将解开，双链的碱基得以暴露。细胞中游离的核糖核苷酸(RNA)与供转录用的DNA的一条链上的碱基互补配对，在RNA聚合酶作用下，依次连接，形成一个mRNA分子。RNA聚合酶能旋解DNA双链。</p>
+<p>cDNA（互补DNA）是指具有与某RNA链呈互补碱基序列的单链DNA。与RNA链互补的单链DNA，以其RNA为模板，在适当引物的存在下，由依赖RNA的DNA聚合酶（反转录酶）作用而合成，并且在合成单链cDNA后，再用碱处理除去与其对应的RNA以后，以单链cDNA为模板，由依赖DNA的DNA聚合酶或依赖RNA的DNA聚合酶作用合成双链cDNA。在这种情况下，mRNA的cDNA，与原来的基因组DNA相同而且无内含子</p>
+<p>基因长度一般以bp为单位，即base pair碱基对。</p>
+<p>内含子（Intron）又称间隔顺序，指一个基因或mRNA分子中无编码作用的片段 [1] 。内含子是一段特殊的DNA序列
+RNA-Seq技术利用新一代高通量测序平台对基因组cDNA测序，通过统计相关Reads（用于测序的cDNA小片段）数计算出不同mRNA的表达量，
+分析转录本的结构和表达水平，同时发现未知转录本和稀有转录本，精确地识别可变剪切位点以及编码序列单核苷酸多态性，提供最全面的转录组信息。</p>
+</div>
+<div id="foldchange" class="section level3">
+<h3>Foldchange</h3>
+<p>Fold Change定义：
+<a href="https://www.cnblogs.com/leezx/p/7132099.html" class="uri">https://www.cnblogs.com/leezx/p/7132099.html</a></p>
 </div>

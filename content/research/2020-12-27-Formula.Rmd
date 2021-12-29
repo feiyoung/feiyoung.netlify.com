@@ -1,10 +1,18 @@
 ---
 title: "Common-used Formula"
 author: "Wei Liu"
-date: '2020-12-27'
+date: '2021-12-29'
 output: pdf_document
 layout: post
 ---
+
+
+## Entropy formula of multivariate normal distribution
+Assume $x \sim N(\mu, \Sigma)$ and $x\in R^p$, then the entropy is
+$$E_x(-\ln P(x; \mu, \Sigma))=\frac{1}{2}\ln|\Sigma| + \frac{p}{2}(1+\ln(2\pi)).$$
+
+For more details, please see https://math.stackexchange.com/questions/2029707/entropy-of-the-multivariate-gaussian
+.
 
 ## Decomposition of Matrix
 Cholskey decomposition, QR decomposition, LU decomposition, SVD decomposition and Jordan decomposition:

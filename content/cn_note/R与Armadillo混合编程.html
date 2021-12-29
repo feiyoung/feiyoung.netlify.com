@@ -16,9 +16,13 @@ editor_options:
 <h2>内容目录</h2>
 <ul>
 <li><a href="#arma">armadillo官网</a></li>
-<li><a href="#cite">强大的引用传递</a></li>
-<li><a href="#hpp">头文件的意义</a></li>
-<li><a href="#trick">编程Trick</a></li>
+<li><a href="#listre">List返回值的类型的重复申明</a></li>
+<li><a href="#note">注意事项</a></li>
+<li><a href="#unstructure">传递非结构化数据</a></li>
+<li><a href="#transfer">类型转换</a></li>
+<li><a href="#colwise">逐行逐列做运算</a></li>
+<li><a href="#embedList">List套List</a></li>
+<li><a href="#unregular">非规则向量元素访问</a></li>
 </ul>
 </div>
 <div id="arma" class="section level2">
@@ -26,7 +30,7 @@ editor_options:
 <p><a href="http://arma.sourceforge.net/" class="uri">http://arma.sourceforge.net/</a></p>
 <p>可以使用ctrl+F在该网站上搜索需要查阅的函数，方便快捷。</p>
 </div>
-<div id="list返回值的类型的重复申明" class="section level2">
+<div id="listre" class="section level2">
 <h2>List返回值的类型的重复申明</h2>
 <ol style="list-style-type: decimal">
 <li>为什么cpp中定义的函数返回List后，List的成分为矩阵时，无法做index_max()计算和返回该矩阵到另一个List的成分中？？</li>
@@ -36,7 +40,7 @@ editor_options:
 mat mat1 = aList[&quot;mat&quot;]; // 注意这里的申明mat不能省略，否则无法强制转换。
 </code></pre>
 </div>
-<div id="注意事项" class="section level2">
+<div id="note" class="section level2">
 <h2>注意事项</h2>
 <ol style="list-style-type: decimal">
 <li><p>若A是一个矩阵，则A.col(k)可以直接支持diagmat(),repmat()函数中使用，表示它返回一个列向量。</p></li>
@@ -64,8 +68,9 @@ X_tk = X - repmat(U0.t()  - Mu0.row(k)* W0.t(), n, 1);</code></pre>
 <li>避免log(a)当a=0报错的情况，可以使用</li>
 </ol>
 <pre class="rmd"><code>log(a + (a==0)) # a=0时,值会等于0</code></pre>
+<p><a href="#toc">返回目录</a></p>
 </div>
-<div id="如何传递非结构化数据" class="section level2">
+<div id="unstructure" class="section level2">
 <h2>如何传递非结构化数据</h2>
 <p>R中list类型常常用于存储非结构化数据，如何将非结构化数据传入到C++中进行计算，这是一个非常重要的问题。
 下面这段使用List的代码非常经典，值得学习。</p>
@@ -97,11 +102,84 @@ List calList(const Rcpp::List&amp; alist, const Rcpp::List blist){
   );
   return resList;
 }</code></pre>
+<p><a href="#toc">返回目录</a></p>
 </div>
-<div id="类型转换" class="section level2">
+<div id="transfer" class="section level2">
 <h2>类型转换</h2>
 <pre class="rmd"><code>field&lt;mat&gt; Rf1 = ICM_fit[&quot;Rf&quot;];
 field&lt;ivec&gt; yf(r_max);
 uvec y1_u = index_max(Rf1(r),1);
 yf(r) = conv_to&lt; ivec &gt;::from(y1_u) + 1;</code></pre>
+<p><a href="#toc">返回目录</a></p>
+</div>
+<div id="colwise" class="section level2">
+<h2>逐行逐列做运算</h2>
+<p>使用.each_col()和.each_row()属性的用法，能够避免使用循环。</p>
+<pre class="rmd"><code>mat X(6, 5, fill::ones);
+vec v = linspace&lt;vec&gt;(10,15,6);
+
+X.each_col() += v;         // in-place addition of v to each column vector of X
+
+mat Y = X.each_col() + v;  // generate Y by adding v to each column vector of X
+
+// subtract v from columns 0 through to 3 in X
+X.cols(0,3).each_col() -= v;
+
+
+uvec indices(2);
+indices(0) = 2;
+indices(1) = 4;
+
+X.each_col(indices) = v;   // copy v to columns 2 and 4 in X</code></pre>
+<p><a href="#toc">返回目录</a></p>
+</div>
+<div id="embedList" class="section level2">
+<h2>List套List</h2>
+<p>Armadillo中List套List的经典代码:</p>
+<pre class="rmd"><code>
+//[[Rcpp::export]]
+List solution_pathCpp(const vec&amp; Y, const mat&amp; X,const vec&amp; lambda_set, const double&amp; alpha0,  const double&amp; r2,
+                      mat&amp; beta_int, const int&amp; maxIter=100, const double&amp; epsObj=1e-4, const bool&amp; verbose=true){
+  
+  int i, nLam = lambda_set.n_elem, p = X.n_cols;
+  mat betaMat(p ,nLam, fill::zeros);
+  List resList(nLam);
+  List tmpList = lmPenAlphaCpp(Y, X, alpha0, lambda_set(0), r2, beta_int, maxIter, 
+          epsObj, false, verbose);
+  mat betai = tmpList[&quot;beta0&quot;];
+  resList[0] = tmpList;
+  betaMat.col(0) = betai;
+  if(nLam &gt; 1){
+    for(i=1; i&lt; nLam; ++i){
+      tmpList = lmPenAlphaCpp(Y, X, alpha0, lambda_set(0), r2, betai, maxIter, 
+              epsObj, true, verbose);
+      vec tmpvec = tmpList[&quot;beta0&quot;];
+      betaMat.col(i) = tmpvec;
+      resList[i] = tmpList;
+    }
+    
+  }
+  List outList = List::create(
+    Rcpp::Named(&quot;betaMat&quot;) = betaMat,
+    Rcpp::Named(&quot;lambda_set&quot;) = lambda_set,
+    Rcpp::Named(&quot;fitList&quot;) = resList
+  );
+  return(outList);
+}</code></pre>
+<p><a href="#toc">返回目录</a></p>
+</div>
+<div id="unregular" class="section level2">
+<h2>非规则向量元素访问</h2>
+<p>Armadillo中的向量原来还可以这样访问元素 gamma(S)：</p>
+<pre class="rmd"><code>uvec S = find(abs(gamma) &lt;= r2);
+  cout&lt;&lt;&quot;S=&quot;&lt;&lt;S.t()&lt;&lt;endl;
+  cout&lt;&lt;gamma(S).t()&lt;&lt;endl;
+  double obj = pow(norm(Y- X* (gamma+ alpha)), 2.0) / n;
+  if(S.n_elem &gt;0){
+    pen2 = lambda2* accu(gamma(S) % gamma(S)) * pow(S.n_elem, -nu);
+  }else{
+    pen2 = 1e20;
+  }
+</code></pre>
+<p><a href="#toc">返回目录</a></p>
 </div>

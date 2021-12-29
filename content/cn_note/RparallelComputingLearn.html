@@ -1,5 +1,5 @@
 ---
-title: "R语言有效进行并行计算"
+title: "R语言创建包和并行"
 author: "刘伟"
 date: '2021-04-15'
 output: pdf_document
@@ -10,16 +10,79 @@ output: pdf_document
 <div id="toc" class="section level2">
 <h2>内容目录</h2>
 <ul>
+<li><a href="#cran">上传包至CRAN</a></li>
 <li><a href="#parallel">parallel包并行</a></li>
 <li><a href="#doSnow">doSNOW包并行</a></li>
 <li><a href="#both">两者结合</a></li>
 </ul>
+</div>
+<div id="创建r包" class="section level2">
+<h2>创建R包</h2>
+<div id="限制加载包的信息输出" class="section level3">
+<h3>限制加载包的信息输出</h3>
+<pre class="rmd"><code>  suppressMessages(require(DropletUtils)) # For the downsampling
+  suppressMessages(require(purrr))
+  suppressMessages(require(dplyr))
+  suppressMessages(require(tidyr))</code></pre>
+</div>
 <div id="r中创建s4对象" class="section level3">
 <h3>R中创建S4对象</h3>
 <p>要创建S4对象，我们可以使用setClass函数，在该函数中我们将传递对象名称，列名称以及将存储在列中的数据类型。例如，如果我们要创建一个具有名称数据和两个由x和y调用的数字列的S4，则可以使用setClass（“ data”，representation（x1 =“ numeric”，x2 =“ numeric”））。</p>
 <pre class="rmd"><code>setClass(&quot;data1&quot;,representation(x1=&quot;numeric&quot;,x2=&quot;numeric&quot;))
 data1&lt;-new(&quot;data1&quot;,x1=rnorm(20),x2=rexp(20,1.12))
 data1</code></pre>
+</div>
+<div id="cran" class="section level3">
+<h3>上传到CRAN的准备工作</h3>
+<div id="description文件" class="section level4">
+<h4>Description文件</h4>
+<p>（1）The Title field非介词类单词需要大写. 比如’Joint Dimension Reduction and Spatial Clustering for Single-Cell RNA Sequencing and Spatial Transcriptomics Data’；标题不能超过65个字符，可以用nchar函数来检查。错误例子如：‘Joint dimension reduction and spatial clustering for Single-cell RNA sequencing and spatial transcriptomics data’。 ## Add data to this packeages usethis::use_data(PC)</p>
+<p>（2）在函数帮助文件中,每个keyword里面只能放一个关键词，如 <em>keyword{DR-SC}</em>; <em>keyword{tSNE}</em>。非标准的关键词用命令<em>concept{}</em>而不要用<em>keyword</em>.
+一个keyword里面不能放多个关键词， 比如：<em>keyword{DR-SC, tSNE, UMAP.}</em></p>
+</div>
+<div id="本地检测package的error和note" class="section level4">
+<h4>本地检测package的error和note</h4>
+<p>利用CMD到Windows命令行，然后用R CMD check –as-cran GFM_1.1.0.tar.gz 可以用于初步本地检测是否存在Error, Warning和Note，比发邮件更方便。直到只有一个关于“New submission”的Note为止，不能包含一个error和warning。</p>
+</div>
+<div id="vignettes格式" class="section level4">
+<h4>Vignettes格式</h4>
+<p>其中需要注意output的设置是只输出html！另外，其中的R命令，需要设置关闭模式，即eval=FALSE，否则运行时间无法通过CRAN的审核。另外，使用Vignettes，description中必须添加两句话：VignetteBuilder: knitr
+Suggests: knitr, rmarkdown</p>
+<pre class="rmd"><code>---title: &#39;DR-SC: HCC1 Data Analysis&#39;
+author: &quot;Wei Liu&quot;
+date: &quot;`r Sys.Date()`&quot;
+output: rmarkdown::html_vignette
+vignette: &gt;
+  %\VignetteIndexEntry{DR-SC HCC1}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---</code></pre>
+<pre class="rmd"><code>knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = &quot;#&gt;&quot;
+)</code></pre>
+<pre class="r"><code>library(&quot;DR.SC&quot;)</code></pre>
+</div>
+<div id="global.r文件" class="section level4">
+<h4>global.R文件</h4>
+<p>新建一个R/global.R文件来声明nonvisible的函数和变量，避免出现warning，文件内容类似如下：</p>
+<pre class="rmd"><code>utils::globalVariables(c(&quot;makeSOCKcluster&quot;, &quot;%dopar%&quot;, &quot;detectCores&quot;,
+                         &quot;makeCluster&quot;, &quot;stopCluster&quot;));</code></pre>
+<p>若用并行计算：需要在namespace中添加：</p>
+<pre class="rmd"><code>import(parallel)
+import(doSNOW)</code></pre>
+</div>
+<div id="邮件检测" class="section level4">
+<h4>邮件检测</h4>
+<p>初步本地检测合格了，再用邮件检测。具体操作为：
+check the corrrectness of Windows：</p>
+<pre class="rmd"><code>devtools::check_win_release();</code></pre>
+<p>然后你会收到CRAN在Windows平台检测的报告详情，你可以根据报告再做相应修改，直到只有一个note为止。</p>
+</div>
+</div>
+<div id="建立package网站" class="section level3">
+<h3>建立package网站</h3>
+<p>建立网站：<a href="https://pkgdown.r-lib.org/" class="uri">https://pkgdown.r-lib.org/</a></p>
 </div>
 </div>
 <div id="parallel" class="section level2">

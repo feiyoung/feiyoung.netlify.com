@@ -1,16 +1,24 @@
 ---
-title: "R语言有效进行并行计算"
+title: "R语言创建包和并行"
 author: "刘伟"
 date: '2021-04-15'
 output: pdf_document
 ---
 ## 内容目录 {#toc}
 
+* [上传包至CRAN](#cran)
 * [parallel包并行](#parallel)
 * [doSNOW包并行](#doSnow)
 * [两者结合](#both)
 
-
+## 创建R包
+### 限制加载包的信息输出
+```{Rmd}
+  suppressMessages(require(DropletUtils)) # For the downsampling
+  suppressMessages(require(purrr))
+  suppressMessages(require(dplyr))
+  suppressMessages(require(tidyr))
+```
 ### R中创建S4对象
 要创建S4对象，我们可以使用setClass函数，在该函数中我们将传递对象名称，列名称以及将存储在列中的数据类型。例如，如果我们要创建一个具有名称数据和两个由x和y调用的数字列的S4，则可以使用setClass（“ data”，representation（x1 =“ numeric”，x2 =“ numeric”））。
 ```{Rmd}
@@ -18,6 +26,67 @@ setClass("data1",representation(x1="numeric",x2="numeric"))
 data1<-new("data1",x1=rnorm(20),x2=rexp(20,1.12))
 data1
 ```
+
+### 上传到CRAN的准备工作 {#cran}
+#### Description文件
+（1）The Title field非介词类单词需要大写. 比如'Joint Dimension Reduction and Spatial Clustering for Single-Cell RNA Sequencing and Spatial Transcriptomics Data'；标题不能超过65个字符，可以用nchar函数来检查。错误例子如：'Joint dimension reduction and spatial clustering for Single-cell RNA sequencing and spatial transcriptomics data'。  ## Add data to this packeages usethis::use_data(PC)
+
+（2）在函数帮助文件中,每个keyword里面只能放一个关键词，如 *keyword{DR-SC}*; *keyword{tSNE}*。非标准的关键词用命令*concept{}*而不要用*keyword*.
+一个keyword里面不能放多个关键词， 比如：*keyword{DR-SC, tSNE, UMAP.}*
+
+#### 本地检测package的error和note
+利用CMD到Windows命令行，然后用R CMD check --as-cran GFM_1.1.0.tar.gz 可以用于初步本地检测是否存在Error, Warning和Note，比发邮件更方便。直到只有一个关于“New submission”的Note为止，不能包含一个error和warning。
+
+#### 	Vignettes格式
+其中需要注意output的设置是只输出html！另外，其中的R命令，需要设置关闭模式，即eval=FALSE，否则运行时间无法通过CRAN的审核。另外，使用Vignettes，description中必须添加两句话：VignetteBuilder: knitr
+Suggests: knitr, rmarkdown
+```{Rmd}
+---title: 'DR-SC: HCC1 Data Analysis'
+author: "Wei Liu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{DR-SC HCC1}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```
+
+```{Rmd}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r  eval=FALSE}
+library("DR.SC")
+```
+
+
+#### global.R文件
+新建一个R/global.R文件来声明nonvisible的函数和变量，避免出现warning，文件内容类似如下：
+```{Rmd}
+utils::globalVariables(c("makeSOCKcluster", "%dopar%", "detectCores",
+                         "makeCluster", "stopCluster"));
+```
+若用并行计算：需要在namespace中添加：
+```{Rmd}
+import(parallel)
+import(doSNOW)
+```
+
+
+#### 邮件检测
+初步本地检测合格了，再用邮件检测。具体操作为：
+check the corrrectness of Windows：
+```{Rmd}
+devtools::check_win_release();
+```
+然后你会收到CRAN在Windows平台检测的报告详情，你可以根据报告再做相应修改，直到只有一个note为止。
+
+### 建立package网站
+建立网站：https://pkgdown.r-lib.org/
 
 ## parallel包并行{#parallel}
 

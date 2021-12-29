@@ -1,0 +1,59 @@
+---
+title: "Julia语法手册"
+author: "刘伟"
+date: '2021-12-29'
+---
+
+
+
+<div id="julia学习网址" class="section level3">
+<h3>Julia学习网址</h3>
+<p><a href="https://docs.juliacn.com/latest/" class="uri">https://docs.juliacn.com/latest/</a></p>
+<p><a href="https://github.com/bethandtownes/MatrixCompletion.jl" class="uri">https://github.com/bethandtownes/MatrixCompletion.jl</a></p>
+</div>
+<div id="基本语法" class="section level3">
+<h3>基本语法</h3>
+<pre class="rmd"><code>pwd()  #查看当前路径
+homedir() #查看home工作路径
+cd(&quot;C:\\Users\\Jonhson\\Documents\\Julia files\\OB&quot;)
+cd(&quot;D:\\LearnFiles\\Research paper\\idea\\MixImpute\\Rcode&quot;)
+# 存为matlab或读取matlab文件
+# https://github.com/JuliaIO/MAT.jl</code></pre>
+<p>第一步：安装支持读取.mat文件的MAT包；</p>
+<pre class="rmd"><code>Pkg.add(&quot;MAT&quot;)</code></pre>
+<p>第二步：使用安装好的MAT模块；</p>
+<pre class="rmd"><code>using MAT</code></pre>
+<pre class="rmd"><code>input = matread(&quot;mydata.mat&quot;);
+Xmis = input[&quot;Xmis&quot;];
+n = size(Xmis)[1];p = size(Xmis)[2]
+manual_type_matrix = Array{Symbol}(undef, 100, 100);
+manual_type_matrix[:, 1:100] .= :Gaussian;
+user_input_estimators = Dict(:NegativeBinomial=&gt; Dict(:r=&gt;6, :p=&gt;0.8))
+A = Array{Union{Float64, Missing}}(Xmis);
+for i= 1:n
+  for j = 1:p
+    if(isnan(Xmis[i,j]))
+       A[i,j] = missing;
+end
+end
+end
+completed_matrix, type_tracker, tracker = complete(A                     = A,
+                                                    maxiter               = 200,
+                                                    ρ                     = 0.3,
+                                                    use_autodiff          = false,
+                                                    gd_iter               = 3,
+                                                    debug_mode            = false,
+                                                   # user_input_estimators = user_input_estimators,
+                                                    #project_rank          = 3,
+                                                    type_assignment       = manual_type_matrix)
+
+hX = predict(MatrixCompletionModel(),
+                            completed_matrix = completed_matrix,
+                            type_tracker     = type_tracker,
+                            estimators       = user_input_estimators);
+
+file = matopen(&quot;matfile.mat&quot;, &quot;w&quot;);
+write(file, &quot;hX&quot;, hX);
+close(file);
+</code></pre>
+</div>
