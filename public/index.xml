@@ -6,10 +6,173 @@
     <description>Recent content on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Nov 2020 21:48:51 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2020 21:48:51 -0700</lastBuildDate><atom:link href="http://feiyoung.netlify.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux Programming</title>
+      <link>http://feiyoung.netlify.com/en_note/linux_pg/</link>
+      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/en_note/linux_pg/</guid>
+      <description>NSCC linuxsmp=(a b c);</description>
+    </item>
     
-	<atom:link href="http://feiyoung.netlify.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Matlab相关问题</title>
+      <link>http://feiyoung.netlify.com/cn_note/linux_program/</link>
+      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/linux_program/</guid>
+      <description>C与C++编译 1如何设置Matlab的C和C++编译器的路径，并对C和C++ 文件进行编译： % set the directory of compilors % setenv(&amp;#39;MW_MINGW64_LOC&amp;#39;,&amp;#39;C:\rtools40\mingw64&amp;#39;) % compile all c files mex -setup clear; clc; mex partXY.c; mex setSval.cpp; mex updateSparse.c;</description>
+    </item>
     
+    <item>
+      <title>Computational trick that we must note</title>
+      <link>http://feiyoung.netlify.com/2021/06/07/computational-trick-that-we-must-note/</link>
+      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/06/07/computational-trick-that-we-must-note/</guid>
+      <description>Iterated closed form of covariance matrixIt is noted that we solve the iterative closed form of covariance matrix, we require to devide the interactive term into two terms.For example, we have an objective function\[l(\Sigma)=-\frac{1}{2} \ln |\Sigma| - \frac{1}{2} tr\{\Sigma^{-1}(\sigma^2 I_p + zz^T)\} + \mu^T \Sigma^{-1}z - \frac{1}{2} \mu^T \Sigma{-1} \mu.\]We are used to writing \(\frac{1}{2}\mu^T\Sigma^{-1} z+ \frac{1}{2}z^T\Sigma^{-1} \mu\) as \(\mu^T \Sigma^{-1}z\) since the transpose of \(1\times 1\) matrix is itself.</description>
+    </item>
+    
+    <item>
+      <title>R语言有效进行并行计算</title>
+      <link>http://feiyoung.netlify.com/cn_note/rparallelcomputinglearn/</link>
+      <pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/rparallelcomputinglearn/</guid>
+      <description>内容目录 parallel包并行 doSNOW包并行 两者结合 R中创建S4对象 要创建S4对象，我们可以使用setClass函数，在该函数中我们将传</description>
+    </item>
+    
+    <item>
+      <title>R绘制漂亮的图</title>
+      <link>http://feiyoung.netlify.com/cn_note/rplotlearn/</link>
+      <pubDate>Mon, 12 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/rplotlearn/</guid>
+      <description>Table of Content 普通plot绘图 ggplot绘图 Work on scale of axis Work on layout Work on colors Auto save many figures Work on theme 普通plot绘图 绘制折线图 绘制折线图，并设置合适的坐标字体 par(mar=c(4.8,4.8,2,2)) plot(1:(n_egv-1), egrat, type=&amp;#39;o&amp;#39;,</description>
+    </item>
+    
+    <item>
+      <title>变分贝叶斯</title>
+      <link>http://feiyoung.netlify.com/cn_note/vb_bayes/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/vb_bayes/</guid>
+      <description>共轭分布 共轭分布是一种极大简化贝叶斯分析的方法。其作用是，在贝叶斯公式包含多种概率分布的情况下，使这些分布的未知参数在试验前被赋予的物理意义</description>
+    </item>
+    
+    <item>
+      <title>随笔之阅读所感</title>
+      <link>http://feiyoung.netlify.com/2021/03/07/%E9%9A%8F%E7%AC%94%E4%B9%8B%E9%98%85%E8%AF%BB%E6%89%80%E6%84%9F/</link>
+      <pubDate>Sun, 07 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/03/07/%E9%9A%8F%E7%AC%94%E4%B9%8B%E9%98%85%E8%AF%BB%E6%89%80%E6%84%9F/</guid>
+      <description>一、 我们一生学习的主要是：分析和解决问题的能力。无论你学习的具体内容是什么，都可归纳成这点。那为什么产生问题呢？更进一步，问题是主动产生而施</description>
+    </item>
+    
+    <item>
+      <title>Linux操作手册</title>
+      <link>http://feiyoung.netlify.com/cn_note/linuxlearn/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/linuxlearn/</guid>
+      <description>Last update: 2021-06-09 内容目录 NSCC linux Linux相关操作 linux服务器提交计算任务 Module环境变量管理工具 vi/vim编辑器的使用 NSCC linux常见问题及操</description>
+    </item>
+    
+    <item>
+      <title>Spaceranger操作手册</title>
+      <link>http://feiyoung.netlify.com/cn_note/spacerangerlearn/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/spacerangerlearn/</guid>
+      <description>spaceranger 对于10X空间转录组数据而言，可以使用官方软件space ranger对原始数据进行处理。 主要的三个功能： spaceranger mkfastq ##将bcl数据转换成fast</description>
+    </item>
+    
+    <item>
+      <title>寻常问题集</title>
+      <link>http://feiyoung.netlify.com/research/%E5%88%97%E7%A9%BA%E9%97%B4%E6%BC%AB%E8%B0%88/</link>
+      <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/research/%E5%88%97%E7%A9%BA%E9%97%B4%E6%BC%AB%E8%B0%88/</guid>
+      <description>矩阵列空间 列空间、列空间，我们常常谈论矩阵列空间。顾名思义，它就是由矩阵的所有列张成的一个向量空间，数学定义如下： 假设\(A \in R^{n\times p}\)，则</description>
+    </item>
+    
+    <item>
+      <title>R与Armadillo混合编程</title>
+      <link>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Earmadillo%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Earmadillo%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</guid>
+      <description>Last update: 2021-06-09 内容目录 armadillo官网 强大的引用传递 头文件的意义 编程Trick armadillo官网 http://arma.sourceforge.net/ 可以使用ctrl+F在该网站上搜索需要查</description>
+    </item>
+    
+    <item>
+      <title>R与Cpp混合编程</title>
+      <link>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Ecpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Ecpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</guid>
+      <description>Last update: 2021-06-09 内容目录 Rcpp基本简介 强大的引用传递 头文件的意义 编程Trick Rcpp基本简介 http://arma.sourceforge.net/ R配置 要正确编译cpp文件，R的安装路径不能有空格，</description>
+    </item>
+    
+    <item>
+      <title>EM algorithm: an exmaple with mixture probabilistic PCA</title>
+      <link>http://feiyoung.netlify.com/2021/01/15/em-algorithm-an-exmaple-with-mixture-probabilistic-pca/</link>
+      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/01/15/em-algorithm-an-exmaple-with-mixture-probabilistic-pca/</guid>
+      <description>mixture probabilistic PCAConsider a model\[x_i = \mu_k + W_k z_i + \varepsilon_k, ~~ if~y_{ik}=1,y_{ij}=0,i\neq j.\tag{1.1}\]where \(x_i \in R^p, z_i \in R^q, \varepsilon_k\sim N(0, \sigma^2_kI_p)\),\(z_i \sim N(0, I_q), W_k \in R^{p\times q}, y_i \sim Multinormial(1,\pi),\pi \in R^K\).First, it performs clustering, then conducts PCA. The following contents are divided into three parts:
+evaluate full-data loglikelihood \(l(\theta)\);
+take posterior expectation of latent variables on \(l(\theta)\), and obtain Q-function;</description>
+    </item>
+    
+    <item>
+      <title>Summary of problems in discussion</title>
+      <link>http://feiyoung.netlify.com/2021/01/15/summary-of-problems-in-discussion/</link>
+      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/01/15/summary-of-problems-in-discussion/</guid>
+      <description>Summary, 2021-01-29The aims or problmes are as follows:
+Write a R package to implement the algorithm about the estimation of the current model;
+Compare the performance of three methods: 1)the Proposed, 2) conducting GMM after PCA dimension reduction, and 3) conducting GMM on the latent variable, where GMM denotes Gaussian mixture model.
+Write the model settings and simulation results into a document, and viualization is preferred.</description>
+    </item>
+    
+    <item>
+      <title>再生核方法-第四章 算子的应用</title>
+      <link>http://feiyoung.netlify.com/research/2021-01-13-rkhs%E4%B9%8B%E7%AE%97%E5%AD%90%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/research/2021-01-13-rkhs%E4%B9%8B%E7%AE%97%E5%AD%90%E5%BA%94%E7%94%A8/</guid>
+      <description>再生核方法-第四章 算子的应用 一般非线性回归的变量选择 考虑模型 \[y_i = f^*(x_i) + \varepsilon_i,\] 其中\(x_i \in R^d\)，中\(f^*\)来自于一个对称正定核\(k</description>
+    </item>
+    
+    <item>
+      <title>家常食谱</title>
+      <link>http://feiyoung.netlify.com/2021/01/12/%E5%AE%B6%E5%B8%B8%E9%A3%9F%E8%B0%B1/</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/01/12/%E5%AE%B6%E5%B8%B8%E9%A3%9F%E8%B0%B1/</guid>
+      <description>家常炖鸡肉 https://m.haodou.com/recipe/162073 红烧茄子 https://m.renrenshipu.com/caipu/video/10316.html 糖醋排骨 https://m.meishij.net/html5/zuofa/jiachangtangcupaigu_2.html?src=360_so_kch 干煸四季豆 https://www.360kuai.com/mob/transcoding?url=9848903322216d1da&amp;amp;cota=4&amp;amp;kuai_so=1&amp;amp;tj_url=so_rec&amp;amp;sign=360_e39369d1&amp;amp;refer_scene=so_2</description>
+    </item>
+    
+    <item>
+      <title>统计假设检验-检验理论</title>
+      <link>http://feiyoung.netlify.com/research/2020-01-11-%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C2/</link>
+      <pubDate>Mon, 11 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/research/2020-01-11-%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C2/</guid>
+      <description>假设检验 闲居 考虑一个size水平为\(\alpha\)的假设检验，其中原假设为\(H_0:\theta \in \Theta_0 \subset \Theta~~vs~~ H_1:\theta \in \Theta_1=\Theta/\Theta_0\). 功效函数 在参数假设检验中</description>
+    </item>
+    
+    <item>
+      <title>Common-used Formula</title>
+      <link>http://feiyoung.netlify.com/research/2020-12-27-formula/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/research/2020-12-27-formula/</guid>
+      <description>Decomposition of Matrix Cholskey decomposition, QR decomposition, LU decomposition, SVD decomposition and Jordan decomposition: see https://blog.csdn.net/mucai1/article/details/85242098 Matrix inverse trick: Assume \(A \in R^{p\times p}\) is invertible, we can speed up the computation by Cholskey decomposition, \[A = L L^T.\] Then we have \[A^{-1} = L^{-1} (L^{-1})^T.\] Computational Complexity of Matrix We list the common-used complexity, see https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations#Transforms for more details. The complexity of computing \(|A|\) is \(O(n^3)\) if \(A \in</description>
+    </item>
     
     <item>
       <title>更换主题</title>
@@ -17,7 +180,7 @@
       <pubDate>Sat, 26 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>http://feiyoung.netlify.com/2020/12/26/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/</guid>
-      <description>琳琅满目的主题 选择合适自己风格的主题，请参照： https://themes.gohugo.io/ 不支持公式 请参照： https://butui.me/post/yet-best-math-formula-support-for-hugo-with-mathjax/</description>
+      <description>常用VPN 网驰VPN： http://wch.bkwlk.cn/?c=3038 佛跳墙VPN： https://www.haoxixin.com/ncn/?a=fr 琳琅满目的主题 选择合适自己风格的主题，请参照： https://themes.gohugo.io/ 不支持公式 请参照： https://butui.me/post/yet-best-math-formula-support-for-hugo-with-mathjax/</description>
     </item>
     
     <item>
@@ -44,7 +207,7 @@
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>http://feiyoung.netlify.com/research/2020-12-13-hypothesistest/</guid>
-      <description>假设检验 闲居 2020年12月于武侯 简单假设和复合假设 简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概</description>
+      <description>假设检验 闲居 2020年12月于武侯 置信集(Confidence set) 关于参数\(\phi(\theta)\)的水平为\(\beta\)的置信集\</description>
     </item>
     
     <item>
@@ -54,6 +217,16 @@
       
       <guid>http://feiyoung.netlify.com/research/2020-11-29-rkhs%E4%B9%8B%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</guid>
       <description>再生核方法-第二章 无所不能的支持向量机 闲居 2020年11月于西财明辨园 线性支持超平面分类器 考虑\(D=(x_i, y_i)_{i=1}^n, x_i \in R^p, y_i \in \{-1, 1\}\)的分</description>
+    </item>
+    
+    <item>
+      <title>Clustering analysis of spatial expression data</title>
+      <link>http://feiyoung.netlify.com/2020/11/23/clustering-analysis-of-spatial-expression-data/</link>
+      <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2020/11/23/clustering-analysis-of-spatial-expression-data/</guid>
+      <description>Markov random fieldA Markov random field(MRF) is an undirected graphical model that explicitly expresses the conditional independence relationships between nodes. Two nodes are conditionally independent if all paths between them are blocked by given nodes. Thus, assume \(X_i,i\in S\) is a MRF, then \(X_i\) is independent of all other \(X_j\) given the neighbors \(N_i\) of \(X_i\).
+Gassausian Graphical Model is a model frequently explored in Statistics.Hidden markov modelHidden Markov Model (HMM) is a statistical Markov model in which the system being modeled is assumed to be a Markov process – call it \(X\) – with unobservable (“hidden”) states.</description>
     </item>
     
     <item>
@@ -100,7 +273,7 @@ Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, the
       <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>http://feiyoung.netlify.com/research/2020-11-29-%E7%AE%97%E5%AD%90%E7%90%86%E8%AE%BA/</guid>
-      <description>再生核方法-第零章 算子理论基础 闲居 2020年11月于西财明辨园 基本算子 定义1(迹类算子).若线性算子\(A: \mathcal{H} \rightarrow \mathcal{H}\)满</description>
+      <description>再生核方法-第零章 算子理论基础 闲居 2020年11月于西财明辨园 空间 线性（向量）空间 最基本的空间是线性空间，或者称为向量空间，它满足八条公理，</description>
     </item>
     
     <item>
@@ -527,6 +700,17 @@ Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, the
     </item>
     
     <item>
+      <title>A ggplot2 Tutorial for Beautiful Plotting in R</title>
+      <link>http://feiyoung.netlify.com/cn_note/rplot/</link>
+      <pubDate>Mon, 05 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/rplot/</guid>
+      <description>Last update: 2021-02-09
+See https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/#panels.
+Table of ContentPreparationThe DatasetDefault ggplotPipeline operatorPreparationThe Datasetchic &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/Z3tt/R-Tutorials/master/ggplot2/chicago-nmmaps.csv&amp;quot;)tibble::glimpse(chic)## Rows: 1,461## Columns: 10## $ city &amp;lt;chr&amp;gt; &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;~## $ date &amp;lt;date&amp;gt; 1997-01-01, 1997-01-02, 1997-01-03, 1997-01-04, 1997-01-05, 1997-01-06, 1997-01-07, 1997-01-08, 1997-01-09, 1997-01-10, 1997-01-11, 1997-01-12, 1997-01-13, 1997-01-14, 1997-01-15, 1997-01-16, 1997-01-17, 1997-01-18, 1997-01-19, 1997-01-20, 1997-01-21, 1997-01-22, 1997-01-23, 1997-01-24, 1997-01-25, 1997-01-26, 1997-01-27, 1997-01-28, 1997-01-29, 1997-01-30, 1997-01-31, 1997-02-01, 1997-02-02, 1997-02-03, 1997-02-04, 1997-02-05, 1997-02-06, 1997-02-07, 1997-02-08, 1997-02-09, 1997-02-10, 1997-02-11, 1997-02-12, 1997-02-13, 1997-02-14, 1997-02-15, 1997-02-16, 1997-02-17, 1997-02-18, 1997-02-19, 1997-02-20, 1997-02-21, 1997-02-22, 1997-02-23, 1997-02-24, 1997-02-25, 1997-02-~## $ death &amp;lt;dbl&amp;gt; 137, 123, 127, 146, 102, 127, 116, 118, 148, 121, 110, 127, 129, 151, 128, 132, 116, 142, 124, 124, 127, 121, 134, 120, 109, 109, 115, 105, 114, 120, 117, 126, 97, 96, 119, 125, 116, 118, 121, 114, 111, 107, 127, 98, 104, 122, 124, 120, 106, 103, 139, 133, 109, 121, 111, 105, 107, 123, 124, 125, 108, 114, 104, 120, 134, 101, 102, 125, 119, 115, 121, 112, 127, 99, 125, 115, 113, 105, 113, 120, 105, 119, 147, 123, 108, 117, 110, 106, 96, 119, 119, 99, 120, 130, 97, 105, 102, 104, 137, 111, 108, 96, 100, 105, 128, 120, 98, 118, 94, 117, 121, 110, 110, 108, 121, 114, 116, 109, 123, 115, 101, 118, 100, 126, 126, 121, 114, 112, 111, 111, 107, 124, 104, 107, 109, 133, 108, 109, 9~## $ temp &amp;lt;dbl&amp;gt; 36.</description>
+    </item>
+    
+    <item>
       <title>旅车稻城</title>
       <link>http://feiyoung.netlify.com/poem/2019-08-01-%E6%97%85%E8%BD%A6%E7%A8%BB%E5%9F%8E-/</link>
       <pubDate>Thu, 01 Aug 2019 00:00:00 +0000</pubDate>
@@ -731,186 +915,6 @@ Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, the
       
       <guid>http://feiyoung.netlify.com/poem/2018-12-12-%E5%A4%9C%E8%AF%B4%E5%BF%83%E5%A2%83/</guid>
       <description>夜说心境 闲居 2018.12.12 update 扬名在外震山雷， 夜练功夫剑挑眉。 西南名山皆可留， 然是无为亦有为。</description>
-    </item>
-    
-    <item>
-      <title>咏银杏</title>
-      <link>http://feiyoung.netlify.com/poem/2018-12-09-%E5%92%8F%E9%93%B6%E6%9D%8F/</link>
-      <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-12-09-%E5%92%8F%E9%93%B6%E6%9D%8F/</guid>
-      <description>咏银杏 闲居 2018.12.09于西财一粟 徐风卷叶纷飞雨， 影乱心迷醉金花。 独秀一枝肃冬寒， 斗志凌云傲霜华。</description>
-    </item>
-    
-    <item>
-      <title>一七令~雾</title>
-      <link>http://feiyoung.netlify.com/poem/2018-11-30-%E4%B8%80%E4%B8%83%E4%BB%A4~%E9%9B%BE/</link>
-      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-11-30-%E4%B8%80%E4%B8%83%E4%BB%A4~%E9%9B%BE/</guid>
-      <description>一七令~雾 闲居 2018.11.30于西财一粟 静，空。 梦幻，朦胧。 若隐匿，犹虚荣。 观景雾里，趣乐无穷。 闲日入古寺，山间闻晨钟。 清溪曲径密树，细</description>
-    </item>
-    
-    <item>
-      <title>悟价</title>
-      <link>http://feiyoung.netlify.com/poem/2018-05-05-%E6%82%9F%E4%BB%B7/</link>
-      <pubDate>Sat, 05 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-05-05-%E6%82%9F%E4%BB%B7/</guid>
-      <description>$${\Huge 悟价}$$ $${\Large 闲居}$$ $$2018.05.05于明辨 $$ $$名利权色趣， $$ $$ 众生心醉迷。 $$ $$君欲何所取？ $$ $$末者为真理。 $$</description>
-    </item>
-    
-    <item>
-      <title>清风徐来</title>
-      <link>http://feiyoung.netlify.com/poem/2018-04-27-%E6%B8%85%E9%A3%8E%E5%BE%90%E6%9D%A5/</link>
-      <pubDate>Fri, 27 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-04-27-%E6%B8%85%E9%A3%8E%E5%BE%90%E6%9D%A5/</guid>
-      <description>清风徐来 闲居 2018.04.27于明辨 风扣门扉惊， 帘卷砚纸鸣。 午睡悠悠起， 青云簌簌行。 晚春日正暖， 逍遥人忘还。 久居深楼里， 复得归自然。</description>
-    </item>
-    
-    <item>
-      <title>春不与予</title>
-      <link>http://feiyoung.netlify.com/poem/2018-04-09-%E6%98%A5%E4%B8%8D%E4%B8%8E%E4%BA%88/</link>
-      <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-04-09-%E6%98%A5%E4%B8%8D%E4%B8%8E%E4%BA%88/</guid>
-      <description>春不与予 闲居 2018.04.09于校园 草尖白露笑， 枝头鸟鸣急。 万物春意闹， 余竟无心理。</description>
-    </item>
-    
-    <item>
-      <title>都江堰行</title>
-      <link>http://feiyoung.netlify.com/poem/2018-04-06-%E9%83%BD%E6%B1%9F%E5%A0%B0%E8%A1%8C/</link>
-      <pubDate>Fri, 06 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-04-06-%E9%83%BD%E6%B1%9F%E5%A0%B0%E8%A1%8C/</guid>
-      <description>都江堰行 闲居 2018.04.06于都江堰 天初亮，气微凉，乘风踏雨入都江。 蜀守李氏今何在？千秋利民丰功伟绩浩气长。 离堆旁，宝瓶上，飞沙石堰断流</description>
-    </item>
-    
-    <item>
-      <title>如梦令*三春晖</title>
-      <link>http://feiyoung.netlify.com/poem/2018-02-02-%E5%A6%82%E6%A2%A6%E4%BB%A4-%E4%B8%89%E6%98%A5%E6%99%96/</link>
-      <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-02-02-%E5%A6%82%E6%A2%A6%E4%BB%A4-%E4%B8%89%E6%98%A5%E6%99%96/</guid>
-      <description>如梦令*三春晖 闲居 2018年农历2月初2（母亲生日）于明辨 浣裳厨房厅堂，屋外家内贪忙。 生辰在何方，当属对门墚上。无妨，无妨，愿化子女暖阳。</description>
-    </item>
-    
-    <item>
-      <title>有感而发</title>
-      <link>http://feiyoung.netlify.com/poem/2018-01-18-%E6%9C%89%E6%84%9F%E8%80%8C%E5%8F%91/</link>
-      <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-01-18-%E6%9C%89%E6%84%9F%E8%80%8C%E5%8F%91/</guid>
-      <description>有感而发 闲居 2018.01.18于明辨 凡尘俗世多纷扰， 可畏人言钻心凿。 五行之外觅知己， 且无风雨何飘摇？</description>
-    </item>
-    
-    <item>
-      <title>新年颂</title>
-      <link>http://feiyoung.netlify.com/poem/2018-01-15-%E6%96%B0%E5%B9%B4%E9%A2%82/</link>
-      <pubDate>Mon, 15 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-01-15-%E6%96%B0%E5%B9%B4%E9%A2%82/</guid>
-      <description>新年颂 闲居 2018.01.15于达州 爆竹声声传喜庆， 青烟袅袅悼先陵。 万家灯火何明烈， 堂前团圆淀亲情。 儿时喜乐已无音， 节日传承须勤行。 又是一年</description>
-    </item>
-    
-    <item>
-      <title>灰车铭</title>
-      <link>http://feiyoung.netlify.com/poem/2018-01-15-%E7%81%B0%E8%BD%A6%E9%93%AD/</link>
-      <pubDate>Mon, 15 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-01-15-%E7%81%B0%E8%BD%A6%E9%93%AD/</guid>
-      <description>新年颂 闲居 2018.05.17于成都 白衣少年，书生意气。驾长车，一飞八千里。难意料，蹬腿掉地，撞击声惊两旁人，车难停，人已去。可奈何，唏嘘不</description>
-    </item>
-    
-    <item>
-      <title>秋凉词</title>
-      <link>http://feiyoung.netlify.com/poem/2018-01-14-%E7%A7%8B%E5%87%89%E8%AF%8D/</link>
-      <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-01-14-%E7%A7%8B%E5%87%89%E8%AF%8D/</guid>
-      <description>秋凉词 闲居 2018.01.14于明辨 秋意凉，郁满肠，银杏凋敝尽枯黄。 薄纱窗，南门望，高楼林立已成殇。 单车翔，尘土扬，寒风凌冽刮脸庞。 学海忙，</description>
-    </item>
-    
-    <item>
-      <title>记元旦佳节聚会词</title>
-      <link>http://feiyoung.netlify.com/poem/2018-01-01-%E8%AE%B0%E5%85%83%E6%97%A6%E4%BD%B3%E8%8A%82%E8%81%9A%E4%BC%9A%E8%AF%8D/</link>
-      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2018-01-01-%E8%AE%B0%E5%85%83%E6%97%A6%E4%BD%B3%E8%8A%82%E8%81%9A%E4%BC%9A%E8%AF%8D/</guid>
-      <description>记元旦佳节聚会词 闲居 2018.01.01于明辨 雾朦胧，喜气融，蜀皇牛肉聚宾朋。 字句全言前途计，醉翁之意不在杯盏中。 酒微醺，热上涌，暗伤毕业难</description>
-    </item>
-    
-    <item>
-      <title>卜算子.驱霾</title>
-      <link>http://feiyoung.netlify.com/poem/2017-12-29-%E5%8D%9C%E7%AE%97%E5%AD%90.%E9%A9%B1%E9%9C%BE/</link>
-      <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2017-12-29-%E5%8D%9C%E7%AE%97%E5%AD%90.%E9%A9%B1%E9%9C%BE/</guid>
-      <description>卜算子.驱霾 闲居 2017.12.29闲居于统计学院 浓雾漫苍穹，浊气侵人心。 白云蓝天转头空，何不醒而今。 治理揽良策，保全须法令。 待到青山绿水时</description>
-    </item>
-    
-    <item>
-      <title>寄宿学时</title>
-      <link>http://feiyoung.netlify.com/poem/2020-11-28-%E5%AF%84%E5%AE%BF%E5%AD%A6%E6%97%B6/</link>
-      <pubDate>Tue, 28 Nov 2017 21:48:51 -0700</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2020-11-28-%E5%AF%84%E5%AE%BF%E5%AD%A6%E6%97%B6/</guid>
-      <description>寄宿学时 闲居 2017年11月于达州 晨起梳洗早， 山涧流岚晓。 举步早读去， 慎思明辨少。</description>
-    </item>
-    
-    <item>
-      <title>沉沙落雁式，踩坑建博客</title>
-      <link>http://feiyoung.netlify.com/2017/11/28/%E6%B2%89%E6%B2%99%E8%90%BD%E9%9B%81%E5%BC%8F%E8%B8%A9%E5%9D%91%E5%BB%BA%E5%8D%9A%E5%AE%A2/</link>
-      <pubDate>Tue, 28 Nov 2017 21:48:51 -0700</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/2017/11/28/%E6%B2%89%E6%B2%99%E8%90%BD%E9%9B%81%E5%BC%8F%E8%B8%A9%E5%9D%91%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid>
-      <description>今天心情颇差，为建Blogdown博客，倒腾大半天持续踩坑，这让本不自信的我变得更丧。 大水冲了龙王庙——Hugo与Blogdown的相识 栽在</description>
-    </item>
-    
-    <item>
-      <title>浮生叹</title>
-      <link>http://feiyoung.netlify.com/poem/2020-11-28-%E6%B5%AE%E7%94%9F%E5%8F%B9/</link>
-      <pubDate>Tue, 28 Nov 2017 21:48:51 -0700</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2020-11-28-%E6%B5%AE%E7%94%9F%E5%8F%B9/</guid>
-      <description>浮生叹 闲居 2017年11月于达州 贫寒卑微心中怀， 功名权势栋梁才。 今朝晓镜浮云散， 闲游于世随趣来。</description>
-    </item>
-    
-    <item>
-      <title>烦日</title>
-      <link>http://feiyoung.netlify.com/poem/2017-11-18-%E7%83%A6%E6%97%A5/</link>
-      <pubDate>Sat, 18 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2017-11-18-%E7%83%A6%E6%97%A5/</guid>
-      <description>烦日 闲居 2017.11.18于明辨园659上铺 繁复琐事接踵至， 心灵静土无宁日。 刀剑笛乐书中客， 何苦违心三五次。</description>
-    </item>
-    
-    <item>
-      <title>自足歌</title>
-      <link>http://feiyoung.netlify.com/poem/2017-10-22-%E8%87%AA%E8%B6%B3%E6%AD%8C/</link>
-      <pubDate>Sun, 22 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2017-10-22-%E8%87%AA%E8%B6%B3%E6%AD%8C/</guid>
-      <description>自足歌 闲居 2017.10.22 于西南财经大学柳林小炒 身不由己处江湖， 辗转反侧不入俗。 从雅随趣闲游书， 舍名弃利亦餍足。</description>
-    </item>
-    
-    <item>
-      <title>返校抒怀</title>
-      <link>http://feiyoung.netlify.com/poem/2017-09-03-%E8%BF%94%E6%A0%A1%E6%8A%92%E6%80%80/</link>
-      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2017-09-03-%E8%BF%94%E6%A0%A1%E6%8A%92%E6%80%80/</guid>
-      <description>返校抒怀 闲居 2017.09.03于达州火车站 淫雨霏霏雾蒙蒙， 绿水群山轻纱笼。 又是一季离别意， 功成名就论英雄。</description>
-    </item>
-    
-    <item>
-      <title>青春的葬礼诗</title>
-      <link>http://feiyoung.netlify.com/poem/2017-09-03-%E9%9D%92%E6%98%A5%E7%9A%84%E8%91%AC%E7%A4%BC%E8%AF%97/</link>
-      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://feiyoung.netlify.com/poem/2017-09-03-%E9%9D%92%E6%98%A5%E7%9A%84%E8%91%AC%E7%A4%BC%E8%AF%97/</guid>
-      <description>青春的葬礼诗 闲居 2017.09.02于达州 我在时间的罅隙中穿梭， 试图阻断光阴无情的流逝。 任凭江河的大浪淘沙， 挽留住父母的青丝黑发。 那时父亲还</description>
     </item>
     
   </channel>

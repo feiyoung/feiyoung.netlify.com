@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>再生核方法-第四章 算子的应用 | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">再生核方法-第四章 算子的应用</h1>
+				<div class="entry__content">
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p><strong>再生核方法-第四章 算子的应用</strong></p>
+<div id="一般非线性回归的变量选择" class="section level1">
+<h1>一般非线性回归的变量选择</h1>
+<p>考虑模型
+<span class="math display">\[y_i = f^*(x_i) + \varepsilon_i,\]</span>
+其中<span class="math inline">\(x_i \in R^d\)</span>，中<span class="math inline">\(f^*\)</span>来自于一个对称正定核<span class="math inline">\(k\)</span>诱导出的再生核希尔伯特空间<span class="math inline">\(\mathcal{H}\)</span>。定义偏导函数的<span class="math inline">\(L_2(P)\)</span>范数
+<span class="math display">\[\|\frac{\partial f}{\partial x^a}\|_P= \sqrt{\int (\frac{\partial f(x)}{\partial x^a})^2 dP(x)}. \tag{1.1}\]</span>
+在一定条件下，有<span class="math inline">\(\|\frac{\partial f}{\partial x^a}\|_P=0 \Rightarrow ~~ f\)</span>关于<span class="math inline">\(x_a\)</span>是常数。
+<span class="math inline">\((1.1)\)</span>的样本版本为
+<span class="math display">\[\|\frac{\partial f}{\partial x^a}\|_n= \sqrt{\frac{1}{n} \sum_{i=1}^n (\frac{\partial f(x_i)}{\partial x^a})^2},\]</span>
+其中<span class="math inline">\(\frac{\partial f}{\partial x^a}\)</span>表示<span class="math inline">\(f\)</span>关于第<span class="math inline">\(a\)</span>个分量的偏导数。</p>
+<p>我们考虑如下最小化如下正则化的泛函来求解函数<span class="math inline">\(f\)</span>，并实现变量选择，
+<span class="math display">\[\hat E^\tau(f) = \frac{1}{n} \sum_{i=1}^n (y_i - f(x_i))^2 + \tau (2\hat \Omega_1^D(f) + \nu \|f\|^2_{\mathcal{H}}). \tag{1.2}\]</span>
+添加<span class="math inline">\(\nu \|f\|^2_{\mathcal{H}}\)</span>项是为了泛函的强凸性，从而保证解的唯一性，也保证算法的稳定性。</p>
+</div>
+<div id="推导新的表示定理" class="section level1">
+<h1>推导新的表示定理</h1>
+<p>由核函数的再生性可得,对<span class="math inline">\(\forall ~f\in \mathcal{H}, x\in \mathcal{X},\)</span>
+<span class="math display">\[f(x) = \langle f, k_x \rangle_H\]</span>
+定义抽样算子<span class="math inline">\(\hat S\)</span>，它输出一个函数<span class="math inline">\(f\in \mathcal{H}\)</span>在样本点的取值，即
+<span class="math display">\[\hat S: \mathcal{H} \rightarrow R^n,~~~~(\hat S f)_i=\langle f, k_{x_i}\rangle,~~i=1,\cdots,n.\]</span>
+如果核函数有界，则该算子是线性且有界的（见参考文献）。由定义和再生性可知：<span class="math inline">\((\hat S f)_i=f(x_i).\)</span></p>
+<p>下面介绍一下再生核理论如何实现导数的有效计算。记核函数关于第一个变量的偏导数为
+<span class="math display">\[(\partial_a k)_x\equiv \frac{\partial k(s,\cdot)}{\partial s^a}|_{s=x}.\]</span></p>
+<p>根据Zhou(2008)中定理1有：如果<span class="math inline">\(k\)</span>为至少二次可微函数(<span class="math inline">\(k\in C^2(\mathcal{X}\times \mathcal{X})\)</span>)，则对<span class="math inline">\(\forall x \in \mathcal{X}\)</span>有<span class="math inline">\((\partial_a k)_x\in \mathcal{H}\)</span>并且对于<span class="math inline">\(a=1,\cdots,d,\)</span>
+<span class="math display">\[\frac{\partial f}{\partial x^a} = \langle f, (\partial_a k)_x \rangle.\]</span>
+于是，关于导数可以定义类似的抽样算子：
+<span class="math display">\[\hat D_a: \mathcal{H} \rightarrow R^n,~~~~(\hat D_a f)_i=\langle f, (\partial_a k)_{x_i}\rangle,~~i=1,\cdots,n.\]</span>
+进一步，定义经验梯度算子：<span class="math inline">\(\hat \nabla: \mathcal{H} \rightarrow (R^n)^d,~~ \hat\nabla f= (\hat D_a f, a=1,\cdots,d)\)</span>. 在一定条件下，可以证明这些算子都是线性且有界的。</p>
+<p>记<span class="math inline">\(F(f)=\frac{1}{n} \sum_{i=1}^n (y_i - f(x_i))^2 + \tau\nu \|f\|^2_{\mathcal{H}}\)</span>，则根据算子定义，可以重写成：
+<span class="math display">\[F(f) =\frac{1}{n}\|Y- \hat S f\|^2 + \tau\nu \|f\|^2_{\mathcal{H}}, \tag{1.3}\]</span>
+其中<span class="math inline">\(Y=(y_1,\cdots, y_n)^T\)</span>。于是，泛函<span class="math inline">\(F\)</span>关于<span class="math inline">\(f\)</span>的导数为
+<span class="math display">\[\nabla F(f)=\frac{2}{n} \hat S^* (\hat S f -Y) + 2\tau \nu f,\]</span>
+其中<span class="math inline">\(\hat S^*\)</span>为<span class="math inline">\(\hat S\)</span>的伴随算子。</p>
+<p>对于任意算子<span class="math inline">\(A: W \rightarrow V\)</span>,定义它的值空间（也叫Range空间）为：
+<span class="math display">\[Range(A) = \{Aw: \forall w \in W\} \subset V.\]</span>定义它的零空间（也叫kernel空间）为：
+<span class="math display">\[Ker(A)=\{w: Aw = 0, w \in W\}.\]</span></p>
+<p>新表示定理的证明：因为<span class="math inline">\(Range(\hat S^*)+Range(\hat V^*)\)</span>（此处加号指两个集合的并）是<span class="math inline">\(\mathcal{H}\)</span>的一个闭子空间，于是对任意函数<span class="math inline">\(f \in \mathcal{H}\)</span>存在存在正交分解：<span class="math inline">\(f = f^{//} + f^{\perp}\)</span>，其中<span class="math inline">\(f^{//} \in Range(\hat S^*)+Range(\hat V^*)\)</span>，而<span class="math inline">\(f^\perp \perp \{Range(\hat S^*)+Range(\hat V^*)\}\)</span>. 将该分解代入<span class="math inline">\((1.2)\)</span>，分别考察目标函数中每一项与<span class="math inline">\(f\)</span>分解的依赖关系。第一项只通过<span class="math inline">\(f(x_i)\)</span>与<span class="math inline">\(f\)</span>产生关系，有<span class="math inline">\(f(x_i) = \langle k_{x_i}， f \rangle = \langle k_{x_i}， f^{//} \rangle + \langle k_{x_i}， f^{\perp} \rangle\)</span></p>
+<pre class="rmd"><code>本内容参考文献：
+Rosasco, et al., Nonparameteric Sparsity and Regularization, 2013, JMLR.</code></pre>
+</div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>

@@ -6,10 +6,24 @@
     <description>Recent content in 中文日志 on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 31 Jan 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://feiyoung.netlify.com/cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>随笔之阅读所感</title>
+      <link>http://feiyoung.netlify.com/2021/03/07/%E9%9A%8F%E7%AC%94%E4%B9%8B%E9%98%85%E8%AF%BB%E6%89%80%E6%84%9F/</link>
+      <pubDate>Sun, 07 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/03/07/%E9%9A%8F%E7%AC%94%E4%B9%8B%E9%98%85%E8%AF%BB%E6%89%80%E6%84%9F/</guid>
+      <description>一、 我们一生学习的主要是：分析和解决问题的能力。无论你学习的具体内容是什么，都可归纳成这点。那为什么产生问题呢？更进一步，问题是主动产生而施</description>
+    </item>
     
-	<atom:link href="http://feiyoung.netlify.com/cn/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>家常食谱</title>
+      <link>http://feiyoung.netlify.com/2021/01/12/%E5%AE%B6%E5%B8%B8%E9%A3%9F%E8%B0%B1/</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/01/12/%E5%AE%B6%E5%B8%B8%E9%A3%9F%E8%B0%B1/</guid>
+      <description>家常炖鸡肉 https://m.haodou.com/recipe/162073 红烧茄子 https://m.renrenshipu.com/caipu/video/10316.html 糖醋排骨 https://m.meishij.net/html5/zuofa/jiachangtangcupaigu_2.html?src=360_so_kch 干煸四季豆 https://www.360kuai.com/mob/transcoding?url=9848903322216d1da&amp;amp;cota=4&amp;amp;kuai_so=1&amp;amp;tj_url=so_rec&amp;amp;sign=360_e39369d1&amp;amp;refer_scene=so_2</description>
+    </item>
     
     <item>
       <title>更换主题</title>
@@ -17,7 +31,7 @@
       <pubDate>Sat, 26 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>http://feiyoung.netlify.com/2020/12/26/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/</guid>
-      <description>琳琅满目的主题 选择合适自己风格的主题，请参照： https://themes.gohugo.io/ 不支持公式 请参照： https://butui.me/post/yet-best-math-formula-support-for-hugo-with-mathjax/</description>
+      <description>常用VPN 网驰VPN： http://wch.bkwlk.cn/?c=3038 佛跳墙VPN： https://www.haoxixin.com/ncn/?a=fr 琳琅满目的主题 选择合适自己风格的主题，请参照： https://themes.gohugo.io/ 不支持公式 请参照： https://butui.me/post/yet-best-math-formula-support-for-hugo-with-mathjax/</description>
     </item>
     
     <item>
@@ -35,7 +49,7 @@
       <pubDate>Tue, 28 Nov 2017 21:48:51 -0700</pubDate>
       
       <guid>http://feiyoung.netlify.com/2017/11/28/%E6%B2%89%E6%B2%99%E8%90%BD%E9%9B%81%E5%BC%8F%E8%B8%A9%E5%9D%91%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid>
-      <description>今天心情颇差，为建Blogdown博客，倒腾大半天持续踩坑，这让本不自信的我变得更丧。 大水冲了龙王庙——Hugo与Blogdown的相识 栽在</description>
+      <description>如何用Rstudio访问github？ 现在Rstudio访问github需要使用 Personal Access Token，Rstudio的设置教程见： https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/ 今天心情颇差，</description>
     </item>
     
   </channel>

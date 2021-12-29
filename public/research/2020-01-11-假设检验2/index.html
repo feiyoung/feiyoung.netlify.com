@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>统计假设检验-检验理论 | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">统计假设检验-检验理论</h1>
+				<div class="entry__content">
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p><strong>假设检验</strong></p>
+<p><strong>闲居</strong></p>
+<p>考虑一个size水平为<span class="math inline">\(\alpha\)</span>的假设检验，其中原假设为<span class="math inline">\(H_0:\theta \in \Theta_0 \subset \Theta~~vs~~ H_1:\theta \in \Theta_1=\Theta/\Theta_0\)</span>.</p>
+<div id="功效函数" class="section level1">
+<h1>功效函数</h1>
+<p>在参数假设检验中，功效函数<span class="math inline">\(\beta(\theta)\)</span>定义为当真实参数等于<span class="math inline">\(\theta\)</span>时拒绝原假设<span class="math inline">\(H_0\)</span>的概率。因此，功效函数的图像是在保持原假设固定，然后改变真实参数的值来得到的曲线图。用于评估在当前样本下，我们最优的假设<span class="math inline">\(\theta\)</span>应该取什么值。假设<span class="math inline">\(W(\Theta_0)\)</span>是拒绝域，则<span class="math inline">\(\beta(\theta)=P_{\theta}\{(X_1,\cdots, X_n) \in W(\Theta_0)\}\)</span>。</p>
+<p>举一个简单的例子，假设我想检验的原假设为假设真实参数等于0，即<span class="math inline">\(H_0:\theta=0\)</span>。如果对应功效函数在<span class="math inline">\(\theta=1\)</span>处的值为<span class="math inline">\(\beta(1)=0.5\)</span>，它表示如果真实参数等于1，那么该检验方法有50%的概率拒绝（错误的）<span class="math inline">\(H_0\)</span>。</p>
+</div>
+<div id="功效" class="section level1">
+<h1>功效</h1>
+<p>功效的定义与功效函数有点区别，它是指在<span class="math inline">\(H_0\)</span>为假时，拒绝原假设的概率，也就是备择假设空间的功效函数值(<span class="math inline">\(\beta(\theta), \theta \in \Theta_1\)</span>)。或者叫在备择假设成立时，样本落在拒绝域的概率。</p>
+<p>影响功效的三个因素：1)所用的显著性水平<span class="math inline">\(\alpha\)</span>；2)对总体中感兴趣的效应强度；3)用于探测该效应的样本容量。
+# 无偏检验
+我们把功效函数<span class="math inline">\(\beta\)</span>满足如下条件的检验称为无偏检验，即
+<span class="math display">\[\beta(\theta) \leq \alpha, 若\theta \in \Theta_0\]</span>
+<span class="math display">\[\beta(\theta) \geq \alpha, 若\theta \in \Theta_1.\]</span>
+直观理解是真实值落在备择假设空间时的功效比size水平更高，真实值落在原假设空间时的功效函数值比size水平更低。</p>
+<p>举一个简单的例子，比如我们使用标准的t检验来检验<span class="math inline">\(H_0:\theta \leq 0\)</span>和<span class="math inline">\(H_1:\theta &gt;0\)</span>.显著性水平<span class="math inline">\(\alpha=0.05\)</span>的标准的拒绝规则为<span class="math inline">\(T_n&gt;1.645\)</span>。假设我们仍然使用该规则来检验<span class="math inline">\(H_0:\theta=0~~vs~~H_1:\theta\neq0\)</span>，则该检验就是一个有偏的检验，当<span class="math inline">\(\theta \in (-\infty,0)\)</span>时，我们可以证明<span class="math inline">\(\beta(\theta)&lt;\alpha\)</span>。</p>
+<p>为了更加具体地解释无偏检验和有偏检验，我们假设<span class="math inline">\(X_i \sim N(\theta,1)\)</span>。
+检验<span class="math inline">\(H_0:\theta\leq 0\)</span>的t统计量为<span class="math inline">\(T_n=\sqrt{n}\bar X\)</span>并且
+<span class="math display">\[\sqrt{n}(\bar X - \theta) \sim N(0,1).\]</span>
+因此，<span class="math inline">\(\beta(\theta)=P(T_n&gt;1.645)=P(\sqrt{n}(\bar X - \theta)&gt; 1.654-\sqrt{n}\theta)=1 - \Phi(1.645-\sqrt{n}\theta)\)</span>.</p>
+<p>1)当<span class="math inline">\(\theta \in \Theta_1\)</span>，即<span class="math inline">\(\theta &gt;0\)</span>,则有
+<span class="math display">\[\beta(\theta)\geq 1- \Phi(1.645-0)=1-0.95=\alpha.\]</span></p>
+<p>2)当<span class="math inline">\(\theta \in \Theta_0\)</span>，即<span class="math inline">\(\theta \leq 0\)</span>,则有
+<span class="math display">\[\beta(\theta)\leq 1- \Phi(1.645-0)=1-0.95=\alpha.\]</span>
+从而对于这个检验问题，t检验是无偏检验。</p>
+<p>而检验<span class="math inline">\(H_0:\theta=0\)</span>的t统计量仍为<span class="math inline">\(T_n=\sqrt{n}\bar X\)</span>且<span class="math inline">\(\beta(\theta)=1 - \Phi(1.645-\sqrt{n}\theta).\)</span></p>
+<p>可以看出：当<span class="math inline">\(\theta \in \Theta_1\)</span>并且趋近于负无穷时，<span class="math inline">\(\beta(\theta)\rightarrow 0\)</span>，故对于这个检验问题，该检验方法是有偏的。</p>
+<pre class="rmd"><code>注：证明检验的无偏性，只需证明两点：
+1)备择假设为真时的功效比size水平更高;
+2)原假设为真时的功效函数值比size水平更低。</code></pre>
+</div>
+<div id="统计检验的理论分析" class="section level1">
+<h1>统计检验的理论分析</h1>
+<p>检验理论常常考虑如下几个方面：</p>
+<p>1)第一类错误可以控制在名义水平（或者以下）：最理想的情况是证明在原假设为真时，检验统计量收敛到一个已知的分布（当然这个分布也可以在bootstrap意义上已知的），即<span class="math inline">\(H_0\)</span>为真时，有
+<span class="math display">\[\sup_{\alpha \in (0,1)}|P(T_n &gt; t_{1-\alpha}) - \alpha|=o(1).\]</span>
+有时只能得到保守检验方法，我们只能证明：
+<span class="math display">\[P(T_n &gt; t_{1-\alpha}|H_0为真)\leq \alpha.\]</span></p>
+<p>2)检验的无偏性：这属于功效分析(Power analysis)的范畴。即证明：
+<span class="math display">\[\beta(\theta) \leq \alpha, 若\theta \in \Theta_0\]</span>
+<span class="math display">\[\beta(\theta) \geq \alpha, 若\theta \in \Theta_1.\]</span></p>
+<p>3)最小信号强度：这一块也属于功效分析的范畴。这是分析真实参数满足什么信号条件时，功效函数可以趋近于1。假设<span class="math inline">\(H_0:\theta=0\)</span>和可分集<span class="math inline">\(G_(c)=\{\theta: |\theta|\geq n^{-1/2} c\}\)</span>，我们证明对于任意<span class="math inline">\(\epsilon &gt;0\)</span>，有
+<span class="math display">\[\inf_{\theta \in G(2+\epsilon)} \beta(\theta) \rightarrow 1.\]</span>
+其中<span class="math inline">\(n^{-1/2}(2+\epsilon)\)</span>称为最小信号强度。</p>
+</div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>

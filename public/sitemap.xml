@@ -3,6 +3,237 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://feiyoung.netlify.com/tags/c/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/c&#43;&#43;/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/en_note/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/en_note/linux_pg/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/matlab/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/linux_program/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/</loc>
+    <lastmod>2021-06-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/2021/06/07/computational-trick-that-we-must-note/</loc>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/en/</loc>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/rparallelcomputinglearn/</loc>
+    <lastmod>2021-04-15T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/rplotlearn/</loc>
+    <lastmod>2021-04-12T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/vb_bayes/</loc>
+    <lastmod>2021-03-17T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/2021/03/07/%E9%9A%8F%E7%AC%94%E4%B9%8B%E9%98%85%E8%AF%BB%E6%89%80%E6%84%9F/</loc>
+    <lastmod>2021-03-07T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/conda/</loc>
+    <lastmod>2021-03-02T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/linux/</loc>
+    <lastmod>2021-03-02T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/linuxlearn/</loc>
+    <lastmod>2021-03-02T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/module/</loc>
+    <lastmod>2021-03-02T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/pbs-psub/</loc>
+    <lastmod>2021-03-02T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/r/</loc>
+    <lastmod>2021-03-02T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/spacerangerlearn/</loc>
+    <lastmod>2021-03-02T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/research/%E5%88%97%E7%A9%BA%E9%97%B4%E6%BC%AB%E8%B0%88/</loc>
+    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/armadillo/</loc>
+    <lastmod>2021-01-29T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/bh/</loc>
+    <lastmod>2021-01-29T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/rcpp/</loc>
+    <lastmod>2021-01-29T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Earmadillo%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-01-29T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Ecpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-01-29T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/2021/01/15/em-algorithm-an-exmaple-with-mixture-probabilistic-pca/</loc>
+    <lastmod>2021-01-15T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/2021/01/15/summary-of-problems-in-discussion/</loc>
+    <lastmod>2021-01-15T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/research/2021-01-13-rkhs%E4%B9%8B%E7%AE%97%E5%AD%90%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2021-01-13T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/2021/01/12/%E5%AE%B6%E5%B8%B8%E9%A3%9F%E8%B0%B1/</loc>
+    <lastmod>2021-01-12T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/research/2020-01-11-%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C2/</loc>
+    <lastmod>2021-01-11T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/research/2020-12-27-formula/</loc>
+    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://feiyoung.netlify.com/2020/12/26/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/</loc>
     <lastmod>2020-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -45,7 +276,7 @@
   </url>
   
   <url>
-    <loc>http://feiyoung.netlify.com/en/</loc>
+    <loc>http://feiyoung.netlify.com/2020/11/23/clustering-analysis-of-spatial-expression-data/</loc>
     <lastmod>2020-11-23T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -430,6 +661,41 @@
   </url>
   
   <url>
+    <loc>http://feiyoung.netlify.com/cn_note/rplot/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/dataviz/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/ggplot2/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/tidyverse/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/tags/tutorial/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://feiyoung.netlify.com/poem/2019-08-01-%E6%97%85%E8%BD%A6%E7%A8%BB%E5%9F%8E-/</loc>
     <lastmod>2019-08-01T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -759,7 +1025,7 @@
   </url>
   
   <url>
-    <loc>http://feiyoung.netlify.com/about/</loc>
+    <loc>http://feiyoung.netlify.com/2016/05/05/about/</loc>
     <lastmod>2016-05-05T21:48:51-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -822,14 +1088,19 @@
   </url>
   
   <url>
-    <loc>http://feiyoung.netlify.com/tags/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>http://feiyoung.netlify.com/250/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://feiyoung.netlify.com/250/</loc>
+    <loc>http://feiyoung.netlify.com/1/01/01/an-introduction-to-the-singlecellexperiment-class/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://feiyoung.netlify.com/research/note1_highdim_statistics_nonasymp_view/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

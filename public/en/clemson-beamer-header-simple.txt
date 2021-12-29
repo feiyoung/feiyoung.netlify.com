@@ -1,0 +1,49 @@
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{xcolor}
+%\setbeamertemplate{caption}[numbered]
+
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+%\mode<presentation>
+
+\usepackage{wasysym}
+\usepackage{amsmath}
+
+\setbeamertemplate{navigation symbols}{}
+\institute{Department of Statistics}
+\titlegraphic{\includegraphics[width=0.1\paperwidth]{nufe.jpg}}
+\setbeamertemplate{title page}[empty]
+
+\setbeamerfont{subtitle}{size=\small}
+
+\setbeamercovered{transparent}
+
+%\definecolor{nufered}{HTML}{CC0033}
+%\definecolor{nufeorange}{HTML}{F66733}
+\definecolor{nufered}{cmyk}{0.4,1,1,0}
+\definecolor{nufeorange}{cmyk}{0,0.5,1,0}
+
+\setbeamercolor{frametitle}{fg=blue,bg=white}
+\setbeamercolor{title}{fg=blue,bg=white}
+\setbeamercolor{local structure}{fg=blue}
+\setbeamercolor{section in toc}{fg=nufered,bg=white}
+% \setbeamercolor{subsection in toc}{fg=nufeorange,bg=white}
+
+\setbeamercolor{item projected}{fg=clemsonred,bg=white}
+\setbeamertemplate{itemize item}{\color{nufered}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{nufered}\scriptsize{$\bullet$}}
+\let\Tiny=\tiny
+
+\AtBeginPart{}
+\AtBeginSection{}
+\AtBeginSubsection{}
+\AtBeginSubsubsection{}
+\setlength{\emergencystretch}{0em}
+\setlength{\parskip}{0pt}
+
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{footline}[page number]
+\setbeamercolor{footline}{fg=nufered,bg=white}

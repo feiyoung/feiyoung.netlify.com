@@ -6,10 +6,48 @@
     <description>Recent content in Ens on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://feiyoung.netlify.com/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Computational trick that we must note</title>
+      <link>http://feiyoung.netlify.com/2021/06/07/computational-trick-that-we-must-note/</link>
+      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/06/07/computational-trick-that-we-must-note/</guid>
+      <description>Iterated closed form of covariance matrixIt is noted that we solve the iterative closed form of covariance matrix, we require to devide the interactive term into two terms.For example, we have an objective function\[l(\Sigma)=-\frac{1}{2} \ln |\Sigma| - \frac{1}{2} tr\{\Sigma^{-1}(\sigma^2 I_p + zz^T)\} + \mu^T \Sigma^{-1}z - \frac{1}{2} \mu^T \Sigma{-1} \mu.\]We are used to writing \(\frac{1}{2}\mu^T\Sigma^{-1} z+ \frac{1}{2}z^T\Sigma^{-1} \mu\) as \(\mu^T \Sigma^{-1}z\) since the transpose of \(1\times 1\) matrix is itself.</description>
+    </item>
     
-	<atom:link href="http://feiyoung.netlify.com/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EM algorithm: an exmaple with mixture probabilistic PCA</title>
+      <link>http://feiyoung.netlify.com/2021/01/15/em-algorithm-an-exmaple-with-mixture-probabilistic-pca/</link>
+      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/01/15/em-algorithm-an-exmaple-with-mixture-probabilistic-pca/</guid>
+      <description>mixture probabilistic PCAConsider a model\[x_i = \mu_k + W_k z_i + \varepsilon_k, ~~ if~y_{ik}=1,y_{ij}=0,i\neq j.\tag{1.1}\]where \(x_i \in R^p, z_i \in R^q, \varepsilon_k\sim N(0, \sigma^2_kI_p)\),\(z_i \sim N(0, I_q), W_k \in R^{p\times q}, y_i \sim Multinormial(1,\pi),\pi \in R^K\).First, it performs clustering, then conducts PCA. The following contents are divided into three parts:
+evaluate full-data loglikelihood \(l(\theta)\);
+take posterior expectation of latent variables on \(l(\theta)\), and obtain Q-function;</description>
+    </item>
     
+    <item>
+      <title>Summary of problems in discussion</title>
+      <link>http://feiyoung.netlify.com/2021/01/15/summary-of-problems-in-discussion/</link>
+      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2021/01/15/summary-of-problems-in-discussion/</guid>
+      <description>Summary, 2021-01-29The aims or problmes are as follows:
+Write a R package to implement the algorithm about the estimation of the current model;
+Compare the performance of three methods: 1)the Proposed, 2) conducting GMM after PCA dimension reduction, and 3) conducting GMM on the latent variable, where GMM denotes Gaussian mixture model.
+Write the model settings and simulation results into a document, and viualization is preferred.</description>
+    </item>
+    
+    <item>
+      <title>Clustering analysis of spatial expression data</title>
+      <link>http://feiyoung.netlify.com/2020/11/23/clustering-analysis-of-spatial-expression-data/</link>
+      <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2020/11/23/clustering-analysis-of-spatial-expression-data/</guid>
+      <description>Markov random fieldA Markov random field(MRF) is an undirected graphical model that explicitly expresses the conditional independence relationships between nodes. Two nodes are conditionally independent if all paths between them are blocked by given nodes. Thus, assume \(X_i,i\in S\) is a MRF, then \(X_i\) is independent of all other \(X_j\) given the neighbors \(N_i\) of \(X_i\).
+Gassausian Graphical Model is a model frequently explored in Statistics.Hidden markov modelHidden Markov Model (HMM) is a statistical Markov model in which the system being modeled is assumed to be a Markov process – call it \(X\) – with unobservable (“hidden”) states.</description>
+    </item>
     
     <item>
       <title>Use of Rmarkdown: taking GFM package as an example</title>
@@ -19,6 +57,24 @@
       <guid>http://feiyoung.netlify.com/2020/11/23/use-of-rmarkdown-taking-gfm-package-as-an-example/</guid>
       <description>Introduction of RmarkdownIn this section, we briefly introduce some features of Rmarkdown.The Laguage of Rmarkdown is similar to that of Markdown, which is very easy to learn and write it.
 Creating Rmarkdown file in RstudioFirstly, we create a new file in Rstudio, then choose the format of this file as ‘Rmd’(extension name). If we uncarefully save it as format ‘md’, then we can not run R code in each small chunk.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://feiyoung.netlify.com/2016/05/05/about/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/2016/05/05/about/</guid>
+      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+    </item>
+    
+    <item>
+      <title>An introduction to the SingleCellExperiment class</title>
+      <link>http://feiyoung.netlify.com/1/01/01/an-introduction-to-the-singlecellexperiment-class/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/1/01/01/an-introduction-to-the-singlecellexperiment-class/</guid>
+      <description>MotivationThe SingleCellExperiment class is a lightweight Bioconductor container for storing and manipulating single-cell genomics data.It extends the RangedSummarizedExperiment class and follows similar conventions,i.e., rows should represent features (genes, transcripts, genomic regions) and columns should represent cells.It provides methods for storing dimensionality reduction results and data for alternative feature sets (e.g., synthetic spike-in transcripts, antibody-derived tags).It is the central data structure for Bioconductor single-cell packages like scater and scran.</description>
     </item>
     
   </channel>

@@ -6,11 +6,7 @@
     <description>Recent content in Posts on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Nov 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://feiyoung.netlify.com/post/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 23 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://feiyoung.netlify.com/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Use of Rmarkdown: taking GFM package as an example</title>
       <link>http://feiyoung.netlify.com/post/2020-11-28-gfm/</link>

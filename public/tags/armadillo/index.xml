@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Armadillo on Wei Liu</title>
+    <link>http://feiyoung.netlify.com/tags/armadillo/</link>
+    <description>Recent content in Armadillo on Wei Liu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://feiyoung.netlify.com/tags/armadillo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R与Armadillo混合编程</title>
+      <link>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Earmadillo%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Earmadillo%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</guid>
+      <description>Last update: 2021-06-09 内容目录 armadillo官网 强大的引用传递 头文件的意义 编程Trick armadillo官网 http://arma.sourceforge.net/ 可以使用ctrl+F在该网站上搜索需要查</description>
+    </item>
+    
+    <item>
+      <title>R与Cpp混合编程</title>
+      <link>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Ecpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Ecpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</guid>
+      <description>Last update: 2021-06-09 内容目录 Rcpp基本简介 强大的引用传递 头文件的意义 编程Trick Rcpp基本简介 http://arma.sourceforge.net/ R配置 要正确编译cpp文件，R的安装路径不能有空格，</description>
+    </item>
+    
+  </channel>
+</rss>

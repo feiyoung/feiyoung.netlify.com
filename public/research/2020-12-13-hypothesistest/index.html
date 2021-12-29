@@ -1,95 +1,107 @@
-<!doctype html>
-<html lang="en"><head>
-    <title>统计假设检验</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="" />
-
-    
-    
-    
-    <link rel="stylesheet" href="/sass/override.scss">
-
-    
-    
-    
-
-    
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>统计假设检验 | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
 </head>
-<body>
-        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
-    <div class="row">
-        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
-            <a href="/" class="text-decoration-none">
-                <img id="home-image" class="rounded-circle"
-                    
-                        src="/images/avatar.png"
-                    
-                />
-            </a>
-        </div>
-        <div class="col-sm-8 col-12 text-sm-left text-center">
-            <h2 class="m-0 mb-2 mt-4">
-                <a href="/" class="text-decoration-none">
-                    
-                        Your Name
-                    
-                </a>
-            </h2>
-            <p class="text-muted mb-1">
-                
-                    Your Creative Subtitle
-                
-            </p>
-            <ul id="nav-links" class="list-inline mb-2">
-                
-                
-                    <li class="list-inline-item">
-                        <a class="badge badge-white " href="/" title="">主页</a>
-                    </li>
-                
-                    <li class="list-inline-item">
-                        <a class="badge badge-white " href="/cn/" title="">日志</a>
-                    </li>
-                
-                    <li class="list-inline-item">
-                        <a class="badge badge-white " href="/research/" title="">研究</a>
-                    </li>
-                
-                    <li class="list-inline-item">
-                        <a class="badge badge-white " href="/poem/" title="">诗词</a>
-                    </li>
-                
-                    <li class="list-inline-item">
-                        <a class="badge badge-white " href="/cn_about/" title="">关于</a>
-                    </li>
-                
-                    <li class="list-inline-item">
-                        <a class="badge badge-white " href="/en/" title="">EBlog</a>
-                    </li>
-                
-                    <li class="list-inline-item">
-                        <a class="badge badge-white " href="/en_about/" title="">About</a>
-                    </li>
-                
-            </ul>
-            <ul id="nav-social" class="list-inline">
-                
-            </ul>
-        </div>
-    </div>
-    <hr />
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
 </header>
-<div class="container">
-    <div class="pl-sm-4 ml-sm-5">
-        
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">统计假设检验</h1>
+				<div class="entry__content">
 
 
 <p><strong>假设检验</strong></p>
 <p><strong>闲居</strong></p>
 <p><em>2020年12月于武侯</em></p>
+<div id="置信集confidence-set" class="section level1">
+<h1>置信集(Confidence set)</h1>
+<p>关于参数<span class="math inline">\(\phi(\theta)\)</span>的水平为<span class="math inline">\(\beta\)</span>的置信集<span class="math inline">\(C\)</span>是一个<span class="math inline">\(\phi(\theta)\)</span>取值集合的随机子集，且满足对每个<span class="math inline">\(\theta\)</span>
+<span class="math display">\[P(\phi(\theta) \in C) \geq \beta.\]</span>
+置信集和假设检验的关系很近，若取<span class="math inline">\(\beta=1-\alpha\)</span>，则<span class="math inline">\(C\)</span>是<span class="math inline">\(\phi(\theta)\)</span>的显著性水平为<span class="math inline">\(\alpha\)</span>的置信区间。</p>
+<div id="根据枢轴量pivot来计算置信集" class="section level2">
+<h2>根据枢轴量(Pivot)来计算置信集</h2>
+<p>一个枢轴量为一个函数<span class="math inline">\(g(X,\theta)\)</span>，并且它的分布对所有<span class="math inline">\(\theta\)</span>都是一样的。注意枢轴量中的<span class="math inline">\(\theta\)</span>与<span class="math inline">\(X\)</span>分布中的<span class="math inline">\(\theta\)</span>相同。令<span class="math inline">\(\beta= P(g(X,\theta) \in A)\)</span>，则由<span class="math inline">\(g(X,\theta) \in A\)</span>可以推出<span class="math inline">\(\theta \in C(X, A)\)</span>。则<span class="math inline">\(C\)</span>是<span class="math inline">\(\theta\)</span>水平为<span class="math inline">\(\beta\)</span>的置信集。</p>
+</div>
+</div>
 <div id="简单假设和复合假设" class="section level1">
 <h1>简单假设和复合假设</h1>
 <p>简单假设和复合假设这两个概念是针对原假设或备择假设而言的，而不是针对一个检验问题而言的概念。
@@ -186,19 +198,23 @@ False positive（FP）指拒绝错了，叫假阳性或错误阳性。若对m个
 其中<span class="math inline">\(U\)</span>和<span class="math inline">\(U&#39;\)</span>都为<span class="math inline">\([0,1]\)</span>均匀分布的随机变量。</p>
 </div>
 </div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
 
-    </div>
 
-            </div>
-        </div><footer class="text-center pb-1">
-    <small class="text-muted">
-        
-            &copy; Copyright Year, Your Name
-        
-        <br>
-        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
-        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
-    </small>
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
 </footer>
+<script src="/js/menu.js"></script>
 </body>
 </html>

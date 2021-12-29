@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>Clustering analysis of spatial expression data | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">Clustering analysis of spatial expression data</h1>
+				<div class="entry__content">
+<link href="2021-01-12-clustering-analysis-of-spatial-expression-data_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="2021-01-12-clustering-analysis-of-spatial-expression-data_files/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="markov-random-field" class="section level1">
+<h1>Markov random field</h1>
+<p>A Markov random field(MRF) is an undirected graphical model that explicitly expresses the conditional independence relationships between nodes. Two nodes are conditionally independent if all paths between them are blocked by given nodes. Thus, assume <span class="math inline">\(X_i,i\in S\)</span> is a MRF, then <span class="math inline">\(X_i\)</span> is independent of all other <span class="math inline">\(X_j\)</span> given the neighbors <span class="math inline">\(N_i\)</span> of <span class="math inline">\(X_i\)</span>.</p>
+<pre class="rmd"><code>Gassausian Graphical Model is a model frequently  explored in Statistics.</code></pre>
+</div>
+<div id="hidden-markov-model" class="section level1">
+<h1>Hidden markov model</h1>
+<p>Hidden Markov Model (HMM) is a statistical Markov model in which the system being modeled is assumed to be a Markov process – call it <span class="math inline">\(X\)</span> – with unobservable (“hidden”) states. HMM assumes that there is another process <span class="math inline">\(Y\)</span> whose behavior “depends” on <span class="math inline">\(X\)</span>. The goal is to learn about <span class="math inline">\(X\)</span> by observing <span class="math inline">\(Y\)</span>.</p>
+<p>Let <span class="math inline">\(X_{n}\)</span> and <span class="math inline">\(Y_{n}\)</span> be discrete-time stochastic processes and <span class="math inline">\(n\geq 1\)</span>. The pair <span class="math inline">\((X_{n},Y_{n})\)</span> is a hidden markov model if</p>
+<p>1)<span class="math inline">\(X_{n}\)</span> is a Markov process whose behavior is not directly observable (“hidden”);</p>
+<p>2)<span class="math inline">\(P(Y_n \in A|X_1=x_1, \cdots, X_n=x_n)=P(Y_n \in A|X_n=x_n),\)</span>
+for every <span class="math inline">\(n\geq 1, x_1,\cdots,x_n\)</span> and an arbitrary (measurable) set <span class="math inline">\(A\)</span>.</p>
+<p>Terminology:
+The states of the process <span class="math inline">\(X_{n}\)</span> are called hidden states, and <span class="math inline">\(P(Y_n\in A|X_n=x_n)\)</span> is called emission probability or output probability.</p>
+<pre class="rmd"><code>The process in HMM is indexed by time that is
+univariant index.</code></pre>
+</div>
+<div id="hidden-markov-random-field" class="section level1">
+<h1>Hidden Markov random field</h1>
+<p>In statistics, a hidden Markov random field is a generalization of a hidden Markov model. Instead of having an underlying Markov chain, hidden Markov random fields have an underlying Markov random field.</p>
+<p>Suppose that we observe a random field (variable) <span class="math inline">\(Y_i, i\in S\)</span>. HMRFs assume that the probabilistic nature of <span class="math inline">\(Y_i\)</span> is determined by the unobservable Markov random field <span class="math inline">\(X_i,i \in S\)</span>. That is, given the neighbors <span class="math inline">\(N_i\)</span> of <span class="math inline">\(X_i\)</span>, <span class="math inline">\(X_i\)</span> is independent of all other <span class="math inline">\(X_j\)</span>(Markov property). The main difference with a HMM is that neighborhood is not defined in 1 dimension but within a network, i.e. <span class="math inline">\(X_i\)</span> is allowed to have more than the two neighbors but a Markov chiain has no more than two. HMRF model is formulated in such a way that given <span class="math inline">\(X_i, Y_i\)</span> are independent, i.e. 
+<span class="math display">\[P(Y|X)=\Pi_{i=1}^nP(Y_i|X_i).\]</span></p>
+</div>
+<div id="dataset-web-address" class="section level1">
+<h1>Dataset web address</h1>
+<p>The first softeware is Space Ranger, which is available at <a href="https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger" class="uri">https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger</a>.</p>
+</div>
+<div id="recent-method" class="section level1">
+<h1>Recent Method</h1>
+<p>The recent method is called as BayesSpace available at <a href="https://edward130603.github.io/BayesSpace/articles/BayesSpace.html" class="uri">https://edward130603.github.io/BayesSpace/articles/BayesSpace.html</a>.</p>
+</div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>

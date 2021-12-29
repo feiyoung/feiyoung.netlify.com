@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cn_notes on Wei Liu</title>
+    <link>http://feiyoung.netlify.com/cn_note/</link>
+    <description>Recent content in Cn_notes on Wei Liu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 09 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://feiyoung.netlify.com/cn_note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Matlab相关问题</title>
+      <link>http://feiyoung.netlify.com/cn_note/linux_program/</link>
+      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/linux_program/</guid>
+      <description>C与C++编译 1如何设置Matlab的C和C++编译器的路径，并对C和C++ 文件进行编译： % set the directory of compilors % setenv(&amp;#39;MW_MINGW64_LOC&amp;#39;,&amp;#39;C:\rtools40\mingw64&amp;#39;) % compile all c files mex -setup clear; clc; mex partXY.c; mex setSval.cpp; mex updateSparse.c;</description>
+    </item>
+    
+    <item>
+      <title>R语言有效进行并行计算</title>
+      <link>http://feiyoung.netlify.com/cn_note/rparallelcomputinglearn/</link>
+      <pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/rparallelcomputinglearn/</guid>
+      <description>内容目录 parallel包并行 doSNOW包并行 两者结合 R中创建S4对象 要创建S4对象，我们可以使用setClass函数，在该函数中我们将传</description>
+    </item>
+    
+    <item>
+      <title>R绘制漂亮的图</title>
+      <link>http://feiyoung.netlify.com/cn_note/rplotlearn/</link>
+      <pubDate>Mon, 12 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/rplotlearn/</guid>
+      <description>Table of Content 普通plot绘图 ggplot绘图 Work on scale of axis Work on layout Work on colors Auto save many figures Work on theme 普通plot绘图 绘制折线图 绘制折线图，并设置合适的坐标字体 par(mar=c(4.8,4.8,2,2)) plot(1:(n_egv-1), egrat, type=&amp;#39;o&amp;#39;,</description>
+    </item>
+    
+    <item>
+      <title>变分贝叶斯</title>
+      <link>http://feiyoung.netlify.com/cn_note/vb_bayes/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/vb_bayes/</guid>
+      <description>共轭分布 共轭分布是一种极大简化贝叶斯分析的方法。其作用是，在贝叶斯公式包含多种概率分布的情况下，使这些分布的未知参数在试验前被赋予的物理意义</description>
+    </item>
+    
+    <item>
+      <title>Linux操作手册</title>
+      <link>http://feiyoung.netlify.com/cn_note/linuxlearn/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/linuxlearn/</guid>
+      <description>Last update: 2021-06-09 内容目录 NSCC linux Linux相关操作 linux服务器提交计算任务 Module环境变量管理工具 vi/vim编辑器的使用 NSCC linux常见问题及操</description>
+    </item>
+    
+    <item>
+      <title>Spaceranger操作手册</title>
+      <link>http://feiyoung.netlify.com/cn_note/spacerangerlearn/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/spacerangerlearn/</guid>
+      <description>spaceranger 对于10X空间转录组数据而言，可以使用官方软件space ranger对原始数据进行处理。 主要的三个功能： spaceranger mkfastq ##将bcl数据转换成fast</description>
+    </item>
+    
+    <item>
+      <title>R与Armadillo混合编程</title>
+      <link>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Earmadillo%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Earmadillo%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</guid>
+      <description>Last update: 2021-06-09 内容目录 armadillo官网 强大的引用传递 头文件的意义 编程Trick armadillo官网 http://arma.sourceforge.net/ 可以使用ctrl+F在该网站上搜索需要查</description>
+    </item>
+    
+    <item>
+      <title>R与Cpp混合编程</title>
+      <link>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Ecpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/r%E4%B8%8Ecpp%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</guid>
+      <description>Last update: 2021-06-09 内容目录 Rcpp基本简介 强大的引用传递 头文件的意义 编程Trick Rcpp基本简介 http://arma.sourceforge.net/ R配置 要正确编译cpp文件，R的安装路径不能有空格，</description>
+    </item>
+    
+    <item>
+      <title>A ggplot2 Tutorial for Beautiful Plotting in R</title>
+      <link>http://feiyoung.netlify.com/cn_note/rplot/</link>
+      <pubDate>Mon, 05 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://feiyoung.netlify.com/cn_note/rplot/</guid>
+      <description>Last update: 2021-02-09
+See https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/#panels.
+Table of ContentPreparationThe DatasetDefault ggplotPipeline operatorPreparationThe Datasetchic &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/Z3tt/R-Tutorials/master/ggplot2/chicago-nmmaps.csv&amp;quot;)tibble::glimpse(chic)## Rows: 1,461## Columns: 10## $ city &amp;lt;chr&amp;gt; &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;chic&amp;quot;, &amp;quot;~## $ date &amp;lt;date&amp;gt; 1997-01-01, 1997-01-02, 1997-01-03, 1997-01-04, 1997-01-05, 1997-01-06, 1997-01-07, 1997-01-08, 1997-01-09, 1997-01-10, 1997-01-11, 1997-01-12, 1997-01-13, 1997-01-14, 1997-01-15, 1997-01-16, 1997-01-17, 1997-01-18, 1997-01-19, 1997-01-20, 1997-01-21, 1997-01-22, 1997-01-23, 1997-01-24, 1997-01-25, 1997-01-26, 1997-01-27, 1997-01-28, 1997-01-29, 1997-01-30, 1997-01-31, 1997-02-01, 1997-02-02, 1997-02-03, 1997-02-04, 1997-02-05, 1997-02-06, 1997-02-07, 1997-02-08, 1997-02-09, 1997-02-10, 1997-02-11, 1997-02-12, 1997-02-13, 1997-02-14, 1997-02-15, 1997-02-16, 1997-02-17, 1997-02-18, 1997-02-19, 1997-02-20, 1997-02-21, 1997-02-22, 1997-02-23, 1997-02-24, 1997-02-25, 1997-02-~## $ death &amp;lt;dbl&amp;gt; 137, 123, 127, 146, 102, 127, 116, 118, 148, 121, 110, 127, 129, 151, 128, 132, 116, 142, 124, 124, 127, 121, 134, 120, 109, 109, 115, 105, 114, 120, 117, 126, 97, 96, 119, 125, 116, 118, 121, 114, 111, 107, 127, 98, 104, 122, 124, 120, 106, 103, 139, 133, 109, 121, 111, 105, 107, 123, 124, 125, 108, 114, 104, 120, 134, 101, 102, 125, 119, 115, 121, 112, 127, 99, 125, 115, 113, 105, 113, 120, 105, 119, 147, 123, 108, 117, 110, 106, 96, 119, 119, 99, 120, 130, 97, 105, 102, 104, 137, 111, 108, 96, 100, 105, 128, 120, 98, 118, 94, 117, 121, 110, 110, 108, 121, 114, 116, 109, 123, 115, 101, 118, 100, 126, 126, 121, 114, 112, 111, 111, 107, 124, 104, 107, 109, 133, 108, 109, 9~## $ temp &amp;lt;dbl&amp;gt; 36.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -5,10 +5,6 @@
     <link>http://feiyoung.netlify.com/250/</link>
     <description>Recent content in 250 on Wei Liu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="http://feiyoung.netlify.com/250/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="http://feiyoung.netlify.com/250/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

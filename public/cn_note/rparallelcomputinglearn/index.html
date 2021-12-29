@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>R语言有效进行并行计算 | Wei Liu</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+		
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">Wei Liu</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/">
+					
+					<span class="main-nav__text">主页</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn/">
+					
+					<span class="main-nav__text">日志</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/research/">
+					
+					<span class="main-nav__text">研究</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/poem/">
+					
+					<span class="main-nav__text">诗词</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/cn_note/">
+					
+					<span class="main-nav__text">笔记</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en/">
+					
+					<span class="main-nav__text">EBlog</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/en_note/">
+					
+					<span class="main-nav__text">Note</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">R语言有效进行并行计算</h1>
+				<div class="entry__content">
+
+
+<div id="toc" class="section level2">
+<h2>内容目录</h2>
+<ul>
+<li><a href="#parallel">parallel包并行</a></li>
+<li><a href="#doSnow">doSNOW包并行</a></li>
+<li><a href="#both">两者结合</a></li>
+</ul>
+<div id="r中创建s4对象" class="section level3">
+<h3>R中创建S4对象</h3>
+<p>要创建S4对象，我们可以使用setClass函数，在该函数中我们将传递对象名称，列名称以及将存储在列中的数据类型。例如，如果我们要创建一个具有名称数据和两个由x和y调用的数字列的S4，则可以使用setClass（“ data”，representation（x1 =“ numeric”，x2 =“ numeric”））。</p>
+<pre class="rmd"><code>setClass(&quot;data1&quot;,representation(x1=&quot;numeric&quot;,x2=&quot;numeric&quot;))
+data1&lt;-new(&quot;data1&quot;,x1=rnorm(20),x2=rexp(20,1.12))
+data1</code></pre>
+</div>
+</div>
+<div id="parallel" class="section level2">
+<h2>parallel包并行</h2>
+<pre class="rmd"><code>single_parallel &lt;- function(func,num_core,iterable,varlist=NULL,...){
+  &quot;
+  :param func: function to be parallel computing
+  :param iteralbe:a dynamic parameter(vector銆乴ist) of func.
+  :param ...: all static paramters of func.
+  :return list whose length is equivalent to that of iterable.
+  &quot;
+  #1.load package
+  library(parallel)
+  #2.count the number of cores
+  # cores &lt;- detectCores(logical = FALSE)
+  #3.open parallel computing nodes
+  cl &lt;- makeCluster(num_core)
+  #4.pass objects for each node.
+  funcname &lt;- deparse(substitute(func))
+  varlist &lt;- c(funcname,varlist)
+  clusterExport(cl, varlist = varlist, envir = environment())
+  # Put the reqiured functions in GFM package into all nodes.
+  clusterCall(cl, function() library(MixPPCA))
+  #5.start to parallel computing
+  result &lt;- parSapply(cl=cl,X=iterable,FUN=func,...)
+  #6.close parallel computing
+  stopCluster(cl)
+  return(result)
+}
+
+parSingle_IC &lt;- function(K, x1, Adj_sp1, q1, cov1, ...){
+  reslist &lt;- simulDRcluster(x1,Adj_sp = Adj_sp1, q=q1, K=K, cov=cov1, ...)
+  return(c(reslist$bic, reslist$aic))
+}
+
+selectClustNumber &lt;- function(X,Adj_sp, q, K_set= 3:10, cov=&#39;heter&#39;, num_core = 1, verbose=F){
+  
+  if (num_core &gt; 1) {
+    if (num_core &gt; detectCores()) {
+      warning(&quot;selectClustNumber:: the number of cores you&#39;re setting is larger than detected cores!&quot;)
+      num_core = detectCores()
+    }
+  }
+  nK &lt;- length(K_set)
+  
+  
+  icMat &lt;- single_parallel(parSingle_IC, num_core=num_core,
+                           iterable=K_set, x1=X, Adj_sp1=Adj_sp, q1=q, cov1=cov)
+  icMat &lt;- t(icMat)
+  colnames(icMat) &lt;- c(&#39;bic&#39;, &#39;aic&#39;)
+  return(icMat)
+}</code></pre>
+</div>
+<div id="doSnow" class="section level2">
+<h2>doSNOW包并行</h2>
+<p>doSNOW的一个优势是它可以显示进度条</p>
+<pre class="rmd"><code>require(doSNOW) # 加载并行包
+cores &lt;- parallel::detectCores() # 探测有多少核
+cl &lt;- makeSOCKcluster(cores) # 设定并行核
+registerDoSNOW(cl) # 注册该核
+mydata &lt;- matrix(rnorm(8000*500), ncol=500) 
+pb &lt;- txtProgressBar(min=1, max=8000, style=3) # 设置并行进度条
+progress &lt;- function(n) setTxtProgressBar(pb, n) # 进度条函数
+opts &lt;- list(progress=progress) # 并性函数的参数
+result &lt;- 
+  foreach(i=1:8000, .packages=NULL, .options.snow=opts, # 注意这里的.package参数非常重要
+          .combine=&#39;rbind&#39;) %dopar% { # dopar%后面的内容若有需要使用到某些包的函数，这些包的名字都需要添加到.pakcage参数中
+            abc &lt;- list(tau=i^2, sl = i)
+            data.frame(tau=abc$tau, sl=abc$sl) #设定该并行内容的返回值。
+          }
+close(pb) # 关闭进度窗
+stopCluster(cl) # 关闭并行核</code></pre>
+<p>我自己定义的函数：</p>
+<pre class="rmd"><code>K_set &lt;- 2:4
+nK &lt;- length(K_set)
+pb &lt;- txtProgressBar(min=1, max=nK, style=3)
+progress &lt;- function(n) setTxtProgressBar(pb, n)
+opts &lt;- list(progress=progress)
+k &lt;- 1
+res_vc &lt;- foreach(k = 1:nK,.packages=&quot;MixPPCA&quot; ,.options.snow=opts,
+                  .combine=&#39;rbind&#39;) %dopar% {
+    reslist &lt;- simulDRcluster(X,Adj_sp = Adj_sp, q=q, K=K_set[k], cov=&quot;heter&quot;) 
+  
+    c(reslist$bic, reslist$aic)
+}
+</code></pre>
+</div>
+<div id="both" class="section level2">
+<h2>两种并行版本的结合体</h2>
+<pre class="rmd"><code>function(X,Adj_sp, q, K_set= 3:10, cov=&#39;heter&#39;, parallel=&quot;parallel&quot;, num_core = 1,...){
+  
+  
+  nK &lt;- length(K_set)
+  if(!is.null(parallel)){
+    if (num_core &gt; 1) {
+      if (num_core &gt; detectCores()) {
+        warning(&quot;selectClustNumber:: the number of cores you&#39;re setting is larger than detected cores!&quot;)
+        num_core = detectCores()
+      }
+    }
+    if(parallel==&#39;doSNOW&#39;){
+      require(doSNOW)
+      cl &lt;- makeSOCKcluster(num_core)
+      registerDoSNOW(cl)
+      
+      ## set Prgogress Bar
+      pb &lt;- txtProgressBar(min=1, max=nK, style=3)
+      progress &lt;- function(n) setTxtProgressBar(pb, n)
+      opts &lt;- list(progress=progress)
+      k &lt;- 1
+      icMat &lt;- foreach(k = 1:nK,.packages=&quot;MixPPCA&quot; ,.options.snow=opts,
+                       .combine=&#39;rbind&#39;) %dopar% {
+                         reslist &lt;- simulDRcluster(X,Adj_sp = Adj_sp, q=q, K=K_set[k],  ...) 
+                         
+                         c(reslist$bic, reslist$aic)
+                       }
+      close(pb)
+      stopCluster(cl)
+    }else if(parallel==&#39;parallel&#39;){
+      library(parallel)
+      
+      cl &lt;- makeCluster(num_core)
+      clusterExport(cl, list(&quot;EMmPCpp&quot;, 
+                             &quot;EMmPCpp_heter&quot;, &quot;icmem_heterCpp&quot;, &quot;simulDRcluster&quot;))
+      cat(&quot;Starting parallel computing...&quot;)
+      # clusterCall(cl, function() library(MixPPCA))
+      # Run
+      icMat &lt;- parSapply(cl, X=K_set, parafun1, XX=X, Adj_sp=Adj_sp, q=q, ...)
+      stopCluster(cl)
+      icMat &lt;- t(icMat)
+    }
+      
+  }else{
+    icMat &lt;- matrix(NA, nK, 2)
+    pb &lt;- txtProgressBar()
+    for(k in 1:nK){
+      reslist &lt;- simulDRcluster(X,Adj_sp = Adj_sp, q=q, K=K_set[k],  ...) 
+      setTxtProgressBar(pb, k)
+      icMat[k, ] &lt;- c(reslist$bic, reslist$aic)
+    }
+    close(pb)
+  }
+  
+  
+  
+  
+  icMat &lt;- cbind(K_set, icMat)
+  colnames(icMat) &lt;- c(&quot;K&quot;, &#39;bic&#39;, &#39;aic&#39;)
+  row.names(icMat) &lt;- as.character(K_set)
+  return(icMat)
+}</code></pre>
+</div>
+<div id="内部变量赋值保存" class="section level2">
+<h2>内部变量赋值保存</h2>
+<p>用一个外部矩阵或数组变量将并行的每次返回结果都保存下来，以防某次并行报错后，无结果返回。</p>
+<pre class="rmd"><code>pfun &lt;- function(i){
+  abc &lt;- list(tau=i^2, sl = i)
+  mydata[i,1] &lt;&lt;- abc$tau##change global variables
+  mydata[i,2] &lt;&lt;- abc$sl
+  cat(&quot;i=&quot;,i,&quot;\n&quot;)
+  return(data.frame(tau=abc$tau, sl=abc$sl))
+}
+# pfun(1)
+library(doSNOW)
+paral.size &lt;- 1000
+mydata &lt;- matrix(NA,paral.size,2)
+cores &lt;- parallel::detectCores()##number of cores of system
+cor.num &lt;- makeSOCKcluster(cores)##set the number of parallel cores
+registerDoSNOW(cor.num)##register cores
+library(tcltk)
+pb &lt;- tkProgressBar(title=&quot;进度&quot;,label=&quot;已完成 %&quot;, min=0, max=100, initial = 0, width = 300)  
+res1 &lt;- foreach(i=1:paral.size,.combine=&#39;rbind&#39;) %do% {
+  info&lt;- sprintf(&quot;已完成 %d%%&quot;, round(i*100/paral.size))  
+  setTkProgressBar(pb, value = i*100/paral.size, title = sprintf(&quot;进度 (%s)&quot;,info),label = info)  
+  pfun(i)
+}
+close(pb)  
+stopCluster(cor.num)##close cores
+
+head(res1)
+head(mydata)
+## 来自李贵珍师妹的版本</code></pre>
+<p>为一般循环添加进度条</p>
+<pre class="rmd"><code>testit &lt;- function(x = sort(runif(20)), ...)
+{
+    pb &lt;- txtProgressBar(...)
+    for(i in c(0, x, 1)) {Sys.sleep(0.5); setTxtProgressBar(pb, i)}
+    Sys.sleep(1)
+    close(pb)
+}
+testit(style=3)
+testit(runif(10), style=2)
+testit(style = 4)</code></pre>
+</div>
+</div>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	<div class="footer__copyright">© 2021 Wei Liu. <a href="https://feiyoung.github.io/">HomePage </a>. <a href="https://github.com/feiyoung">Github </a></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>
