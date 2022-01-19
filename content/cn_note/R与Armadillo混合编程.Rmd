@@ -1,5 +1,5 @@
 ---
-title: "R与Armadillo混合编程"
+title: "R与Cpp混合编程二"
 author: "刘伟"
 date: '2021-01-29'
 layout: post

@@ -1,5 +1,5 @@
 ---
-title: "A ggplot2 Tutorial for Beautiful Plotting in R"
+title: "R ggplot2 绘图二"
 author: "Cédric"
 date: 2019-08-05
 layout: post
@@ -30,23 +30,23 @@ See https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-pl
 ## Preparation {#prep}
 
 ## The Dataset {#data}
-```{r}
+```{Rmd}
 chic <- readr::read_csv("https://raw.githubusercontent.com/Z3tt/R-Tutorials/master/ggplot2/chicago-nmmaps.csv")
 ```
-```{r}
+```{Rmd}
 tibble::glimpse(chic)
 ```
 load ggplot2 package
 
 ## Default ggplot {#ggplot}
-```{r}
+```{Rmd}
 library(tidyverse)
 ggplot(chic, aes(x = date, y = temp)) +
   geom_point(color = "firebrick") +
   labs(x = "Year", y = expression(paste("Temperature (", degree ~ F, ")"^"(Hey, why should we use metric units?!)")))
 ```
 
-```{r}
+```{Rmd}
 library(tidyverse)
 
 chic_high <- dplyr::filter(chic, temp > 25, o3 > 20)
@@ -59,12 +59,12 @@ ggplot(chic_high, aes(x = temp, y = o3)) +
 ```
 
 ## Pipeline operator %>% {#pipe}
-```{r}
+```{Rmd}
 1 %>% sin
 ```
 
 ## Revise title of legend
-```{r}
+```{Rmd}
 ggplot(chic, aes(x = date, y = temp, color = season)) +
   geom_point() +
   labs(x = "Year", y = "Temperature (°F)",

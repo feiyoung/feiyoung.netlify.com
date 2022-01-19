@@ -1,0 +1,44 @@
+---
+title: "R语言零碎笔记"
+author: "刘伟"
+date: '2021-04-12'
+output: pdf_document
+---
+  
+  ## Table of Content {#toc}
+  
+  * [普通plot绘图](#ordiPlot)
+  * [ggplot绘图](#ggplot)
+  * [Work on scale of  axis](#yscale)
+  * [Work on layout](#layout)
+          
+## R向xlsx中输出多个sheets
+直接稍微修改下面的code即可，方便快捷。注意输入sheet前数据务必先转化为data frame格式。
+```{Rmd}
+for(i in 1:9){
+  geneName <- row.names(FClist[[i]])
+  dat <- cbind(PvalList[[i]][geneName,], FClist[[i]][,1])
+  dat <- dat[order(dat[,2]),]
+  dat <- as.data.frame(dat)
+  colnames(dat) <- paste0(cellnames[i], c('t value',' Pr(>|t|)',' FDR',' avg_log2FC') )
+  xlsx::write.xlsx(dat, file='CITE-Seq//DEGs.xlsx', sheetName = paste0('sheet', i), append = T)
+}
+```
+
+## 快速选择前n个差异表达基因的信息
+
+```{Rmd}
+ ## DEG analysis based on the annotated labels
+  seu <- CreateSeuratObject(counts=datList$counts)
+  # standard log-normalization
+  seu <- NormalizeData(seu)
+  seu <- ScaleData(seu)
+  Idents(seu) <- factor(y)
+  dat <- FindAllMarkers(seu)
+  library(dplyr)
+  # Efna5,Otx2 ,Wnt2b,Wnt3a,Hes3
+  dat %>%
+    group_by(cluster) %>%
+    top_n(n = 10, wt = avg_log2FC) -> top10
+  markerList_true[[i]] <- top10
+```

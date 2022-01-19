@@ -1,0 +1,44 @@
+---
+title: "R语言零碎笔记"
+author: "刘伟"
+date: '2021-04-12'
+output: pdf_document
+---
+
+
+
+<p>## Table of Content {#toc}</p>
+<ul>
+<li><a href="#ordiPlot">普通plot绘图</a></li>
+<li><a href="#ggplot">ggplot绘图</a></li>
+<li><a href="#yscale">Work on scale of axis</a></li>
+<li><a href="#layout">Work on layout</a></li>
+</ul>
+<div id="r向xlsx中输出多个sheets" class="section level2">
+<h2>R向xlsx中输出多个sheets</h2>
+<p>直接稍微修改下面的code即可，方便快捷。注意输入sheet前数据务必先转化为data frame格式。</p>
+<pre class="rmd"><code>for(i in 1:9){
+  geneName &lt;- row.names(FClist[[i]])
+  dat &lt;- cbind(PvalList[[i]][geneName,], FClist[[i]][,1])
+  dat &lt;- dat[order(dat[,2]),]
+  dat &lt;- as.data.frame(dat)
+  colnames(dat) &lt;- paste0(cellnames[i], c(&#39;t value&#39;,&#39; Pr(&gt;|t|)&#39;,&#39; FDR&#39;,&#39; avg_log2FC&#39;) )
+  xlsx::write.xlsx(dat, file=&#39;CITE-Seq//DEGs.xlsx&#39;, sheetName = paste0(&#39;sheet&#39;, i), append = T)
+}</code></pre>
+</div>
+<div id="快速选择前n个差异表达基因的信息" class="section level2">
+<h2>快速选择前n个差异表达基因的信息</h2>
+<pre class="rmd"><code> ## DEG analysis based on the annotated labels
+  seu &lt;- CreateSeuratObject(counts=datList$counts)
+  # standard log-normalization
+  seu &lt;- NormalizeData(seu)
+  seu &lt;- ScaleData(seu)
+  Idents(seu) &lt;- factor(y)
+  dat &lt;- FindAllMarkers(seu)
+  library(dplyr)
+  # Efna5,Otx2 ,Wnt2b,Wnt3a,Hes3
+  dat %&gt;%
+    group_by(cluster) %&gt;%
+    top_n(n = 10, wt = avg_log2FC) -&gt; top10
+  markerList_true[[i]] &lt;- top10</code></pre>
+</div>

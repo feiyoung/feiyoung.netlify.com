@@ -1,5 +1,5 @@
 ---
-title: "R绘制漂亮的图"
+title: "R绘制漂亮的图一"
 author: "刘伟"
 date: '2021-04-12'
 output: pdf_document

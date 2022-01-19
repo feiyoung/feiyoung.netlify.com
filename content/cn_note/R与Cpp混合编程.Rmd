@@ -1,7 +1,7 @@
 ---
-title: "R与Cpp混合编程"
+title: "R与Cpp混合编程一"
 author: "刘伟"
-date: '2021-01-29'
+date: '2022-01-19'
 layout: post
 showtoc: true
 tags: ["R", "Rcpp", "Armadillo", "BH"]
