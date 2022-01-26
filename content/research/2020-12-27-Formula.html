@@ -33,7 +33,13 @@ for more details.</p>
 <li><p>The complexity of computing <span class="math inline">\(A^{-1}\)</span> is <span class="math inline">\(O(n^3)\)</span> if <span class="math inline">\(A \in R^{n\times n}\)</span>.</p></li>
 <li><p>The complexity of <span class="math inline">\(AB\)</span> is <span class="math inline">\(O(nmp)\)</span> if <span class="math inline">\(A \in R^{n\times m}, B \in R^{m \times p}\)</span>.</p></li>
 <li><p>The complexity of Singular value decomposition of <span class="math inline">\(A\)</span> is <span class="math inline">\(O(mn^2)\)</span> if <span class="math inline">\(A \in R^{m\times n}\)</span>, where <span class="math inline">\(n\geq m\)</span>.</p></li>
-<li><p>The complexity of QR decomposition of <span class="math inline">\(A\)</span> is <span class="math inline">\(O(\min(mn^2,nm^2))\)</span> if <span class="math inline">\(A \in R^{m\times n}\)</span>.</p></li>
+<li><p>The complexity of QR decomposition of <span class="math inline">\(A\)</span> is <span class="math inline">\(O(\min(mn^2,nm^2))\)</span> if <span class="math inline">\(A \in R^{m\times n}\)</span>.
+## 计算矩阵占用多少运行内存的公式</p></li>
+</ol>
+<ol style="list-style-type: decimal">
+<li><p>在64位计算机中，一个double-precision scaler占用64-bit，也就是8个Bytes. 但是，在C++中the size of long double is 128-bit，这个long double类型的大小是普通double类型的2倍。</p></li>
+<li><p>bit与byte的区别 一字节等于8位,即1B=8b。 在书写单位时一定要注意B字母的大小写和含义。MByte含义是“兆字节”,Mbit的含义是“兆比特”。1KByte=1024Byte, 1MB=1024KB</p></li>
+<li><p>For back-of-the envelope computations I use the simpler formula: an r x c matrix double-precision matrix requires r<em>c</em>8/10^9 gigabytes(GB) of RAM.</p></li>
 </ol>
 </div>
 <div id="stirlings-formula" class="section level2">
