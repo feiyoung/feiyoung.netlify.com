@@ -4,6 +4,48 @@ author: "刘伟"
 date: '2021-12-29'
 ---
 
+### scRNA-Seq和SRT的常用数据库
+#### 1. Single Cell常用的数据库或者图谱
+(1)  Human Cell Atlas (HCA) data portal：包括人体各种组织的scRNA-Seq数据
+     网址： https://data.humancellatlas.org/
+(2) Single-cell Portal database: 包括各种物种各种组织的scRNA-Seq数据，也有部分SRT data
+     网址：https://singlecell.broadinstitute.org/single_cell
+(3) 10X genomics Single Cell平台：
+    网址：https://www.10xgenomics.com/resources/datasets?menu%5Bproducts.name%5D=Spatial%20Gene%20Expression&query=&page=1&configure%5Bfacets%5D%5B0%5D=chemistryVersionAndThroughput&configure%5Bfacets%5D%5B1%5D=pipeline.version&configure%5BhitsPerPage%5D=500
+(4) PangLaoDB database: 包括人类和老鼠各种组织的各种平台的scRNA-Seq数据
+   网址：https://panglaodb.se/samples.html?species=human&protocol=all%20protocols&sort=mostrecent
+(5) Zenodo: Single-cell-omics datasets containing a trajectory，用于轨道分析的数据
+   网址：https://zenodo.org/record/1443566#.YfJmrepBwmn
+
+#### 2. Spatial resolved transcriptomics(SRT) data网站:
+(1) Seq-Scope平台的数据：Seq-Scope processed datasets for liver and colon results (RDS) and H&E images
+    网址：https://deepblue.lib.umich.edu/data/concern/data_sets/9c67wn05f
+(2) Slide-SeqV2平台的数据: Highly sensitive spatial transcriptomics at near-cellular resolution with Slide-seqV2
+    网址：https://singlecell.broadinstitute.org/single_cell/study/SCP815
+(3) 10X genomics Visium平台：
+    网址：https://www.10xgenomics.com/resources/datasets?menu%5Bproducts.name%5D=Spatial%20Gene%20Expression&query=&page=1&configure%5Bfacets%5D%5B0%5D=chemistryVersionAndThroughput&configure%5Bfacets%5D%5B1%5D=pipeline.version&configure%5BhitsPerPage%5D=500
+(4) SeqFISH平台的数据：包含3个mouse胚胎的数据 Highly multiplexed spatially resolved gene expression profiling of mouse organogenesis
+    网址：https://crukci.shinyapps.io/SpatialMouseAtlas/
+  	https://content.cruk.cam.ac.uk/jmlab/SpatialMouseAtlas2020/
+(5)HDST平台的数据：包含3个mouse Olfactory Bulb数据和3个老鼠primary breast cancer的数据
+   网址：https://singlecell.broadinstitute.org/single_cell/study/SCP420/hdst
+
+
+#### 3 基因集富集分析数据库  Gene Set Enrichment Analysis，第二个网址的数据看起来更清晰
+(1)pathway数据库：   
+   网址：https://www.gsea-msigdb.org/gsea/index.jsp
+              https://bioinf.wehi.edu.au/software/MSigDB/
+(2) GO Enrichment Analysis在线分析网站：
+   网址：http://geneontology.org/
+
+#### 4 人类和老鼠的参照基因数据库：
+   网址：https://www.gencodegenes.org/
+#### 5. 生物界转录因子数据库
+     网址： http://bioinfo.life.hust.edu.cn/AnimalTFDB/#!/download
+
+
+
+
 ### 基因ID的转化
 这里介绍如何将gene symbol ID转化为ENSEMBL ID。这里的geneset属于人类基因，所以选择*org.Hs.eg.db*数据库包，如果是其他物种，需要选择其他数据库包。keytype指当前gene ID，column是指需要转化成的基因ID。
 ```{Rmd}

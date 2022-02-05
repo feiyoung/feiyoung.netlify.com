@@ -181,6 +181,7 @@ scp   bam2count.sh gmsyan@nus.nscc.sg:/home/projects/11000368/Work/YangYi/Jichen
 ```
 
 ### Linux编程语言
+
 ```{linux}
 # 批量转化:Linux语法比较特别：等号之间不能有空格，Linux的下标也是从0开始计算
 sample=(AVEN_2 AVEN_3 AVEN_4 DIS3L_2 DIS3L_3 DIS3L_4 FOCAD_2 FOCAD_3 FOCAD_4 NT_2 NT_3 NT_4 SKIV2L_2 SKIV2L_3 SKIV2L_4 TTC37_2 TTC37_3 TTC37_4);
@@ -196,6 +197,14 @@ do
 htseq-count -f bam -r pos -s no -a 10 -t exon -i gene_id -m union ./STAR_out/HSTAR_out/${sample[intt]}_Aligned.sortedByCoord.out.bam ./fastqData/humanRefData/gencode.v30.chr_patch_hapl_scaff.basic.annotation2.gtf > ./coutFiles/${sample[intt]}_counts_out.txt
 done
 ```
+#### 在linux上利用for循环下载很多文件
+```{linux}
+for ((intt=3;intt<8;intt++));
+do
+wget  "https://www.ebi.ac.uk/arrayexpress/files/E-MTAB-9357/E-MTAB-9357.processed.${intt}.zip" 
+done
+```
+
 ### 以管理员权限运行命令
 账户若具有管理员权限，则可以利用sudo命令来以管理员权限运行命令。
 ```{linux}

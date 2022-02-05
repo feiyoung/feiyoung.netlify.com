@@ -1,1 +1,0 @@
-pandoc -s --toc --toc-depth=4 2020-12-24-张量基础.Rmd -o 2020-12-24-张量基础.Rmd

@@ -170,6 +170,13 @@ for ((intt=0;intt&lt;18;intt++));
 do
 htseq-count -f bam -r pos -s no -a 10 -t exon -i gene_id -m union ./STAR_out/HSTAR_out/${sample[intt]}_Aligned.sortedByCoord.out.bam ./fastqData/humanRefData/gencode.v30.chr_patch_hapl_scaff.basic.annotation2.gtf &gt; ./coutFiles/${sample[intt]}_counts_out.txt
 done</code></pre>
+<div id="在linux上利用for循环下载很多文件" class="section level4">
+<h4>在linux上利用for循环下载很多文件</h4>
+<pre class="linux"><code>for ((intt=3;intt&lt;8;intt++));
+do
+wget  &quot;https://www.ebi.ac.uk/arrayexpress/files/E-MTAB-9357/E-MTAB-9357.processed.${intt}.zip&quot; 
+done</code></pre>
+</div>
 </div>
 <div id="以管理员权限运行命令" class="section level3">
 <h3>以管理员权限运行命令</h3>

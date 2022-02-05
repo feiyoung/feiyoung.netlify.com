@@ -24,6 +24,8 @@ editor_options:
 <div id="Rcpp" class="section level2">
 <h2>Rcpp基本简介</h2>
 <p><a href="http://arma.sourceforge.net/" class="uri">http://arma.sourceforge.net/</a></p>
+<p>Armadillo supports matrices with the following element types: float, double, std::complex<float>, std::complex<double>, short, int, long, and unsigned versions of short, int, long. Support for other types is beyond the scope of Armadillo.
+(Note: there is an unofficial version of Armadillo which has fixed-point support)</p>
 <div id="r配置" class="section level3">
 <h3>R配置</h3>
 <p>要正确编译cpp文件，R的安装路径不能有空格，否则会报错如下：</p>
@@ -36,6 +38,27 @@ editor_options:
 <p>h文件和hpp文件常在cpp的脚本开头出现，它是实现调用现有的C++库函数库函数的方法。我们在写R包时常常把多个Cpp文件用到的公共C++函数定义放到单独的一个文件中，然后再用一个hpp头文件去申明这些函数，最后需要调用它们的Cpp脚本中inlude进去便可以使用。</p>
 <p>R与Cpp混合编程有许多trick需要格外注意，初学者常常会遭遇许多的坑。在此，我将我遇到的坑都总结下来，希望减少后来者走弯路的可能性。</p>
 </div>
+<div id="switch语句" class="section level3">
+<h3>switch语句</h3>
+<p>C++中switch的使用需要注意的几点：
+只能针对基本数据类型中的整型类型使用switch，这些类型包括int、char等。对于其他类型，则必须使用if语句。
+switch()的参数类型不能为实型 。
+case标签必须是常量表达式(constantExpression)，如42或者’4’。
+case标签必须是惟一性的表达式；也就是说，不允许两个case具有相同的值。</p>
+</div>
+</div>
+<div id="rcpp加速计算" class="section level2">
+<h2>Rcpp加速计算</h2>
+<ol style="list-style-type: decimal">
+<li>Armadillo中：
+it is faster to use inv_sympd() instead than inv or .i().
+log_det_sympd is faster than log_det.</li>
+<li>有返回值的中间函数，改成void，无返回值，计算更快</li>
+<li>将一个矩阵乘以一个对角矩阵转化为逐元相乘，降低计算复杂度。
+比如一个n<em>p的矩阵乘以一个p</em>p的对角矩阵，计算复杂度为O(np^2)，而用逐元相乘则降低为O(np);当p非常高的时候，能大大降低计算复杂度。</li>
+<li>提前缓存好不需要更新迭代的变量。</li>
+<li>将double换成float类型。</li>
+</ol>
 </div>
 <div id="cite" class="section level2">
 <h2>强大的引用传递</h2>

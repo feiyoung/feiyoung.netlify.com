@@ -16,6 +16,19 @@ output: pdf_document
 <li><a href="#layout">Work on layout</a></li>
 </ul>
 </div>
+<div id="检查r包的下载次数" class="section level2">
+<h2>检查R包的下载次数：</h2>
+<p>For the DR.SC package:</p>
+<p>Downloads each month (<a href="https://cranlogs.r-pkg.org/badges/DR.SC" class="uri">https://cranlogs.r-pkg.org/badges/DR.SC</a>)</p>
+<p>Downloads in last day (<a href="https://cranlogs.r-pkg.org/badges/last-day/DR.SC" class="uri">https://cranlogs.r-pkg.org/badges/last-day/DR.SC</a>)</p>
+<p>Grand total (<a href="https://cranlogs.r-pkg.org/badges/grand-total/DR.SC" class="uri">https://cranlogs.r-pkg.org/badges/grand-total/DR.SC</a>)</p>
+</div>
+<div id="将r中的blas替换成openblas加快计算速度" class="section level2">
+<h2>将R中的BLAS替换成OpenBLAS加快计算速度：</h2>
+<p>在64位windows下安装OpenBLAS的步骤如下：
+从压缩文件OpenBLAS-v0.2.8-x86_64-Win.zip中解压libopenblas.dll到R目录下64目录中。将此目录中Rblas.dll文件名改成Rblas.dll.back作为备份。将libopenblas.dll文件名改成Rblas.dll。
+下载网址：<a href="https://github.com/xianyi/OpenBLAS/releases" class="uri">https://github.com/xianyi/OpenBLAS/releases</a></p>
+</div>
 <div id="ordiPlot" class="section level2">
 <h2>R向xlsx中输出多个sheets</h2>
 <p>直接稍微修改下面的code即可，方便快捷。注意输入sheet前数据务必先转化为data frame格式。</p>

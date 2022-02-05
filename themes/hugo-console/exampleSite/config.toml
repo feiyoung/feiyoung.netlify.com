@@ -16,5 +16,5 @@ languageCode = "en-us"
   url = "/cn/"
   
   [[params.navlinks]]
-  name = "photos/"
-  url = "photos/"
+  name = "诗词"
+  url = "poem/"

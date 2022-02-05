@@ -78,19 +78,6 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
   pocket = true
   pinterest = true
 
-# Web App Manifest settings
-# https://www.w3.org/TR/appmanifest/
-# https://developers.google.com/web/fundamentals/web-app-manifest/
-[Params.Manifest]
-  name = "Binario"
-  shortName = "Binario"
-  display = "browser"
-  startUrl = "/"
-  backgroundColor = "#ffffff"
-  themeColor = "#0000ff"
-  description = "Responsive card-based & code-light Hugo theme"
-  orientation = "portrait"
-  scope = "/"
 
 [outputFormats]
   [outputFormats.MANIFEST]

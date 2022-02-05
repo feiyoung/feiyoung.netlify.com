@@ -30,6 +30,19 @@ editor_options:
 <p><a href="http://arma.sourceforge.net/" class="uri">http://arma.sourceforge.net/</a></p>
 <p>可以使用ctrl+F在该网站上搜索需要查阅的函数，方便快捷。</p>
 </div>
+<div id="rcpp中自动支持缺失值" class="section level2">
+<h2>Rcpp中自动支持缺失值</h2>
+<p>find_nonfinite可以查找NA，NaN, infinite.</p>
+<pre class="rmd"><code>arma::field&lt;uvec&gt; obsindex(arma::mat Xmis){
+  
+  int p = Xmis.n_cols, j;
+  field&lt;uvec&gt; indexfield(p);
+  for(j= 0; j&lt; p; ++j){
+    indexfield(j) = find_nonfinite(Xmis.col(j));
+  }
+  return(indexfield);
+}</code></pre>
+</div>
 <div id="listre" class="section level2">
 <h2>List返回值的类型的重复申明</h2>
 <ol style="list-style-type: decimal">

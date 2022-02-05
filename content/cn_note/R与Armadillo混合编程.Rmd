@@ -27,6 +27,20 @@ http://arma.sourceforge.net/
 可以使用ctrl+F在该网站上搜索需要查阅的函数，方便快捷。
 
 
+## Rcpp中自动支持缺失值
+find_nonfinite可以查找NA，NaN, infinite.
+```{Rmd}
+arma::field<uvec> obsindex(arma::mat Xmis){
+  
+  int p = Xmis.n_cols, j;
+  field<uvec> indexfield(p);
+  for(j= 0; j< p; ++j){
+    indexfield(j) = find_nonfinite(Xmis.col(j));
+  }
+  return(indexfield);
+}
+```
+
 ## List返回值的类型的重复申明{#listre}
 
 1) 为什么cpp中定义的函数返回List后，List的成分为矩阵时，无法做index_max()计算和返回该矩阵到另一个List的成分中？？

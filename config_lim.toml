@@ -1,0 +1,68 @@
+baseurl = "/"
+languageCode = "en-us"
+title = "Yingjie"
+theme = "hugo-lithium"
+googleAnalytics = ""
+disqusShortname="Yingjie"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+hasCJKLanguage= true
+math = true
+enableEmoji=true
+footnotereturnlinkcontents= "↩"
+rssLimit=100
+[permalinks]
+    en = "/:year/:month/:day/:slug/"
+    cn = "/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "主页"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "日志"
+    url = "/cn/"
+    weight = 2      
+  
+[[menu.main]]
+    name = "研究"
+    url = "/research/"
+    weight = 3  
+[[menu.main]]
+    name ="诗词"
+    url = "/poem/"
+    weight = 4
+[[menu.main]]
+    name = "笔记"
+    url = "/cn_note/"
+    weight = 5
+    
+[[menu.main]]
+    name = "EBlog"
+    identifier = "en"
+    url = "/en/"
+    weight = 6
+[[menu.main]]
+    name = "Note"
+    url = "/en_note/"
+    weight = 7  
+  
+  
+    
+[params]
+    description = ""
+    footer="&copy; [Yingjie Xue](/)2020| [Github](https://github.com/yingjiexue)"
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.11.0"
+    highlightjsCDN = "//yingjie.org"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
+
+    MathJaxCDN = "//yingjie.org"
+    MathJaxVersion = "2.7.1"
+
+    [params.logo]
+    url = "/images/logo.png"
+    width = 50
+    height = 50
+    alt = "Public"
+

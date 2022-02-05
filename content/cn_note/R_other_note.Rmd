@@ -11,6 +11,21 @@ output: pdf_document
   * [差异表达基因画HeatMap](#ggplot)
   * [基因symbols和ENSEMBL等ID转化](#yscale)
   * [Work on layout](#layout)
+
+## 检查R包的下载次数：
+For the DR.SC package:
+
+Downloads each month (https://cranlogs.r-pkg.org/badges/DR.SC)
+
+Downloads in last day (https://cranlogs.r-pkg.org/badges/last-day/DR.SC)
+
+Grand total (https://cranlogs.r-pkg.org/badges/grand-total/DR.SC)
+
+## 将R中的BLAS替换成OpenBLAS加快计算速度：
+在64位windows下安装OpenBLAS的步骤如下：
+从压缩文件OpenBLAS-v0.2.8-x86_64-Win.zip中解压libopenblas.dll到R目录下\bin\x64目录中。将此目录中Rblas.dll文件名改成Rblas.dll.back作为备份。将libopenblas.dll文件名改成Rblas.dll。
+下载网址：https://github.com/xianyi/OpenBLAS/releases
+
           
 ## R向xlsx中输出多个sheets{#ordiPlot}
 直接稍微修改下面的code即可，方便快捷。注意输入sheet前数据务必先转化为data frame格式。
